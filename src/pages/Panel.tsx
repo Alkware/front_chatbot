@@ -16,7 +16,7 @@ function Panel() {
 
             const tokenIsValid = await authenticateClient(token)
 
-            if (tokenIsValid && tokenIsValid.status === 200) {
+            if (tokenIsValid && tokenIsValid.status === 200 && tokenIsValid.data) {
                 const { client } = tokenIsValid.data
                 setClient(client)
             } else navigate("/login")

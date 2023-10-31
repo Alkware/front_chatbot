@@ -7,10 +7,8 @@ function MyProjects() {
     const { client } = useContext(ClientContext)
     const [projects, setProjects] = useState(client?.project)
 
-    console.log(projects)
-
     return (
-        (projects && client) &&
+        (projects?.length && client) &&
         <div className="w-full flex justify-center p-4">
 
             <div className="w-4/5 flex flex-col gap-8">
@@ -51,7 +49,7 @@ function MyProjects() {
                                         <h2>Conversão: {Number(3 * 100 / 18).toFixed(1)}%</h2>
                                         <h2 className="text-center">Vendas: 3</h2>
                                         <a
-                                            href={`https://chat.wipzee.com/${project.slug}`}
+                                            href={`https://chat.wipzee.com/${client.user}/${project.slug}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="underline flex gap-1 items-center"

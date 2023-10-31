@@ -47,7 +47,7 @@ function CreateNewProject({ client_id, setNewProject }: NewProjectTypes) {
 
     return (
         <>
-            <Button onClick={() => setContainerNewProject(true)}>Novo projeto</Button>
+            <Button onClick={() => setContainerNewProject(true)}>Novo chat</Button>
 
             {
                 containerNewProject &&

@@ -20,7 +20,7 @@ function ContainerMenuNavigate({ setTabNavigationIndex, menuIsOpen }: containerM
         },
         {
             index: 1,
-            name: "Meus projetos",
+            name: "Meus chats",
             access: "user",
             icon: <ProjectorScreenChart className="group-hover:fill-blue_dark transition-colors duration-100" size={32} />
         },

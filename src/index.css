@@ -25,3 +25,7 @@
 p,span,h1,h2,h3,h4,div {
   color: rgb(250, 250, 250)
 }
+
+input, textarea {
+  color: #242424;
+}

@@ -3,6 +3,7 @@ export interface clientTypes {
     logo: string, 
     fullname: string,
     isAdmin: boolean,
+    user: string,
     project: Array<{
         slug: string, 
         project_name: string,
