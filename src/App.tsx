@@ -3,13 +3,14 @@ import Login from "./pages/Login"
 import Panel from "./pages/Panel"
 import Register from "./pages/Register"
 import ClientProvider from "./context/ClientContext"
+import Index from "./pages/Index"
 
 function App() {
   return (
     <ClientProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<h1>Site em construção.</h1>} />
+          <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/panel" element={<Panel />} />
