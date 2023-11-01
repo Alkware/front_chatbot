@@ -14,6 +14,9 @@ export default {
         yellow_oposite: "#EFAC30",
         green_main: "#008069",
         green_light: "#00a884"
+      },
+      animation:{
+        "smooth_display_left": "smooth-display-left 500ms ease-in-out"
       }
     },
   },

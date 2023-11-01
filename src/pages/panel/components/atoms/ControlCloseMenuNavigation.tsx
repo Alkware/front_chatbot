@@ -2,8 +2,6 @@ import { CaretCircleDoubleLeft, CaretCircleDoubleRight } from "@phosphor-icons/r
 
 const ControlCloseMenuNavigation = ({ menuIsOpen, setMenuIsOpen }: any) => {
 
-    console.log(menuIsOpen)
-
     return (
         <div className={`flex ${menuIsOpen ? "justify-end": "justify-center"} bg-blue_main2`}>
             {

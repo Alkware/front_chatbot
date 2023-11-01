@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { clientTypes } from "../types/clientTypes";
+import { clientTypes } from "../@types/clientTypes";
 
 interface ClientContextTypes {
     client: clientTypes | undefined,

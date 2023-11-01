@@ -1,6 +1,6 @@
 import axios from "axios"
 import { API_URL } from "./url-api"
-import { clientLoginTypes, clientRegisterTypes } from "../types/clientTypes"
+import { clientLoginTypes, clientRegisterTypes } from "../@types/clientTypes"
 
 export async function getClient(store_name: string) {
     const client = await axios.get(`${API_URL}/client/${store_name}`).catch(err => console.log(err))

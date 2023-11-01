@@ -1,4 +1,4 @@
-import { buttonTypes } from "../../types/buttonTypes";
+import { buttonTypes } from "../../@types/buttonTypes";
 
 function Button({ children, icon, onClick }: buttonTypes) {
 

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginClient } from "../api/client";
+import { loginClient } from "../../api/client";
 
 
 const createClientFormSchema = z.object({
@@ -30,8 +30,6 @@ function Login() {
         }
 
     }
-
-
 
     return (
         <div className="w-screen h-screen flex justify-center items-center bg-dark">

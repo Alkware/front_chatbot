@@ -11,21 +11,49 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+
   -webkit-text-size-adjust: 100%;
 }
 
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
 
-p,span,h1,h2,h3,h4,div {
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+div {
   color: rgb(250, 250, 250)
 }
 
-input, textarea {
+input,
+textarea {
   color: #242424;
+}
+
+
+/* animation */
+@keyframes smooth-display-left {
+  from {
+    transform: translateX(100%);
+  }
+  to{
+    transform: translateX(0%);
+  }
+
+}
+
+@keyframes smooth-display-right {
+  from {
+    transform: translateX(-100%);
+  }
+  to{
+    transform: translateX(0%);
+  }
 }

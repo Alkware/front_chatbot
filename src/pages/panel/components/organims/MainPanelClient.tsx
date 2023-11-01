@@ -1,8 +1,7 @@
 import { useState } from "react";
-import UserPlanInfoProfile from "../compositeComponets/UserPlanInfoProfile";
-import ContainerMenuNavigate from "./ContainerMenuNavigate";
-import ComponentsSectionPanel from "./ControllerSectionComponents";
-import ControlCloseMenuNavigation from "../compositeComponets/ControlCloseMenuNavigation";
+import UserPlanInfoProfile from "../molecules/UserPlanInfoProfile";
+import ComponentsSectionPanel from "../atoms/ControllerSectionComponents";
+import MenuNavigate from "../molecules/MenuNavigate";
 
 function MainPanelClient() {
     const [menuIsOpen, setMenuIsOpen] = useState(true);
@@ -15,24 +14,17 @@ function MainPanelClient() {
             <nav
                 className={`h-full  bg-blue_main2 rounded-md ${menuIsOpen ? "w-1/5 min-w-[300px]" : "w-[70px] min-w-0"}`}
             >
-                <UserPlanInfoProfile menuIsOpen={menuIsOpen}  />
+                <UserPlanInfoProfile menuIsOpen={menuIsOpen} />
 
-                <ContainerMenuNavigate
+                <MenuNavigate
                     menuIsOpen={menuIsOpen}
                     setTabNavigationIndex={setTabNavigationIndex}
-                />
-
-                <ControlCloseMenuNavigation
-                    menuIsOpen={menuIsOpen}
                     setMenuIsOpen={setMenuIsOpen}
                 />
-
             </nav>
 
             <section className="w-4/5">
-                <div className="w-full">
-                    <ComponentsSectionPanel navMenu={tabNavigationIndex} />
-                </div>
+                <ComponentsSectionPanel navMenu={tabNavigationIndex} />
             </section>
         </main>
     )
