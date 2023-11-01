@@ -4,10 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createNewProject } from "../../../../api/project";
-import { Form } from "../../../../components/form/Form";
 import { Background } from "../../../../components/background/Background";
-import { Input } from "../../../../components/input/Input";
-import { Textarea } from "../../../../components/textarea/Textarea";
 
 const createProjectSchema = z.object({
     project_name: z.string().min(1, "O nome do projeto não pode ser vazio"),
@@ -58,20 +55,23 @@ function CreateNewProject({ client_id, setNewProject }: NewProjectTypes) {
                 containerNewProject &&
                 <Background>
                     <div className="w-3/4">
-                        <Form onSubmit={handleSubmit(handleCreateProject)}>
-                            <Input
+                        <form
+                            onSubmit={handleSubmit(handleCreateProject)}
+                            className="w-full h-full px-12 bg-black flex flex-col items-center justify-center gap-4 animate-smooth_display_left"
+                        >
+                            <input
                                 type="text"
                                 placeholder="Nome do projeto"
                                 {...register("project_name")}
                             />
                             {errors.project_name?.message}
-                            <Input
+                            <input
                                 type="text"
                                 placeholder="crie um slug"
                                 {...register("slug")}
                             />
                             {errors.slug?.message}
-                            <Input
+                            <input
                                 type="text"
                                 placeholder="Imagem do seu projeto"
                                 {...register("logo")}
@@ -82,7 +82,7 @@ function CreateNewProject({ client_id, setNewProject }: NewProjectTypes) {
                                 <option value="support">support</option>
                                 <option value="form">form</option>
                             </select> */}
-                            <Textarea
+                            <textarea
                                 placeholder="Crie seu prompt aqui"
                                 {...register("prompt")}
                             />
@@ -92,7 +92,7 @@ function CreateNewProject({ client_id, setNewProject }: NewProjectTypes) {
                                 className="underline cursor-pointer"
                                 onClick={() => setContainerNewProject(false)}
                             >Descartar</span>
-                        </Form>
+                        </form>
                     </div>
                 </Background>
             }
