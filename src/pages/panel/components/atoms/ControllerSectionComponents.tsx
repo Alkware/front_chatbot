@@ -1,5 +1,6 @@
 import Dashboard from "../organims/Dashboard";
 import MyProjects from "../organims/MyProjects";
+import { System } from "../organims/System";
 
 interface ComponetsTypes {
     navMenu: number
@@ -27,7 +28,7 @@ function ControllerSectionComponents({ navMenu }: ComponetsTypes) {
                                     navMenu === 5 ?
                                         <h2>configuração</h2>
                                         :
-                                        <h2>System</h2>
+                                        <System />
             }
         </div>
 

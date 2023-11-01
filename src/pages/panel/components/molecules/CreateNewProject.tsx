@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import Button from "../../../../components/button/Button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -15,7 +15,6 @@ const createProjectSchema = z.object({
     prompt: z.string().min(1, "Logo não pode estar vazio"),
 })
 
-
 type createProjectType = z.infer<typeof createProjectSchema>
 
 interface NewProjectTypes {
@@ -26,7 +25,8 @@ interface NewProjectTypes {
 
 function CreateNewProject({ client_id, setNewProject }: NewProjectTypes) {
     const [containerNewProject, setContainerNewProject] = useState(false)
-    const { handleSubmit, register, formState: { errors } } = useForm<createProjectType>({
+    const formRef: RefObject<HTMLFormElement> = useRef(null);
+    const { handleSubmit, register, reset,formState: { errors } } = useForm<createProjectType>({
         resolver: zodResolver(createProjectSchema)
     })
 
@@ -36,8 +36,9 @@ function CreateNewProject({ client_id, setNewProject }: NewProjectTypes) {
 
             const project = await createNewProject({ project_name, slug, logo, prompt, client_id });
             if (project && project.status === 201) {
-                alert("projeto criado com sucesso!")
+                reset();
                 setNewProject((v: any) => [...v, project.data])
+                alert("projeto criado com sucesso!")
                 setContainerNewProject(false)
             }
         } catch (error) {
@@ -56,6 +57,7 @@ function CreateNewProject({ client_id, setNewProject }: NewProjectTypes) {
                 <Background>
                     <div className="w-3/4">
                         <form
+                            ref={formRef}
                             onSubmit={handleSubmit(handleCreateProject)}
                             className="w-full h-full px-12 bg-black flex flex-col items-center justify-center gap-4 animate-smooth_display_left"
                         >

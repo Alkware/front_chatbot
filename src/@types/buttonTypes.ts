@@ -4,5 +4,6 @@ export interface buttonTypes {
     children: string
     text?: string,
     icon?: ReactNode
-    onClick?: MouseEventHandler<HTMLButtonElement>
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+    customClass?: string
 }

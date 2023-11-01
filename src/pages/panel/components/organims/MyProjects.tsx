@@ -3,6 +3,7 @@ import { ClientContext } from "../../../../context/ClientContext";
 import { LinkSimple } from "@phosphor-icons/react";
 import CreateNewProject from "../molecules/CreateNewProject";
 
+
 function MyProjects() {
     const { client } = useContext(ClientContext)
     const [projects, setProjects] = useState(client?.project || [])
@@ -21,7 +22,7 @@ function MyProjects() {
                 </div>
 
                 {
-                    client.project.length ? (
+                    projects.length ? (
                         <div className="w-full">
 
                             <h2>VENDAS:</h2>
