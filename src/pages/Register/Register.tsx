@@ -17,7 +17,7 @@ const createClientFormSchema = z.object({
                 .concat(word.substring(1))
             ).join(" ")
     ),
-})
+});
 
 type CreateUserFormData = z.infer<typeof createClientFormSchema>;
 
