@@ -58,6 +58,8 @@ function MenuNavigate({ setTabNavigationIndex, menuIsOpen, setMenuIsOpen }: cont
         },
     ]
 
+
+
     return (
         <div
             className={`w-full h-[80%] flex flex-col justify-between rounded-xl`}
@@ -75,23 +77,21 @@ function MenuNavigate({ setTabNavigationIndex, menuIsOpen, setMenuIsOpen }: cont
                                 <p className={`group-hover:text-blue_dark transition-colors duration-100 ${menuIsOpen ? "block" : "hidden"}`}>{menu.name}</p>
                             </li>
                             :
-                            client?.isAdmin ?
-                                <li
-                                    key={menu.name}
-                                    className="w-4/5 p-2 text-center cursor-pointer hover:border-r-4 hover:border-r-blue_dark transition-all mt-2 text-white flex gap-2 justify-start items-center group"
-                                    onClick={() => setTabNavigationIndex(menu.index)}
-                                >
-                                    {menu.icon}
-                                    <p className={`group-hover:text-blue_dark transition-colors duration-100 ${menuIsOpen ? "block" : "hidden"}`}>{menu.name}</p>
-                                </li>
-                                : null
+                            <li
+                                key={menu.name}
+                                className="w-4/5 p-2 text-center cursor-pointer hover:border-r-4 hover:border-r-blue_dark transition-all mt-2 text-white flex gap-2 justify-start items-center group"
+                                onClick={() => setTabNavigationIndex(menu.index)}
+                            >
+                                {menu.icon}
+                                <p className={`group-hover:text-blue_dark transition-colors duration-100 ${menuIsOpen ? "block" : "hidden"}`}>{menu.name}</p>
+                            </li>
                     )
                 }
             </ul>
             <ControlCloseMenuNavigation
-                    menuIsOpen={menuIsOpen}
-                    setMenuIsOpen={setMenuIsOpen}
-                />
+                menuIsOpen={menuIsOpen}
+                setMenuIsOpen={setMenuIsOpen}
+            />
         </div>
     )
 }
