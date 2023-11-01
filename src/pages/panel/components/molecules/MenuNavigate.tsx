@@ -1,6 +1,5 @@
-import { Dispatch, SetStateAction, useContext } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Briefcase, ChartLineUp, ChartPieSlice, CreditCard, Gear, Headset, ProjectorScreenChart } from "@phosphor-icons/react";
-import { ClientContext } from "../../../../context/ClientContext";
 import ControlCloseMenuNavigation from "../atoms/ControlCloseMenuNavigation";
 
 
@@ -11,7 +10,6 @@ interface containerMenuTypes {
 }
 
 function MenuNavigate({ setTabNavigationIndex, menuIsOpen, setMenuIsOpen }: containerMenuTypes) {
-    const { client } = useContext(ClientContext)
 
     const navMenu = [
         {
