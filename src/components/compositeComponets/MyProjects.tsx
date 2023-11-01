@@ -5,10 +5,10 @@ import CreateNewProject from "./CreateNewProject";
 
 function MyProjects() {
     const { client } = useContext(ClientContext)
-    const [projects, setProjects] = useState(client?.project)
+    const [projects, setProjects] = useState(client?.project || [])
 
     return (
-        (projects?.length && client) &&
+        (client) &&
         <div className="w-full flex justify-center p-4">
 
             <div className="w-4/5 flex flex-col gap-8">
