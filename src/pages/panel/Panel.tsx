@@ -14,7 +14,6 @@ function Panel() {
         (async ()=>{
             const token = localStorage.getItem("token");
             const clientIsLogged = token && await authenticateClient(token);
-            console.log(clientIsLogged)
             if(clientIsLogged) {
                 setClient(clientIsLogged.data.client)
                 setAccess(true)

@@ -38,9 +38,8 @@ function Register() {
             localStorage.setItem("token", token)
 
             navigate("/panel")
-        }else{
-            alert("E-mail inserido já existe")
-        }
+        }else alert("E-mail inserido já existe")
+        
 
     }
 
