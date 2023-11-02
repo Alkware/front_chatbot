@@ -18,10 +18,7 @@ export default defineConfig({
 
     // Habilita o uso de Content Delivery Networks (CDNs) para dependências comuns
     rollupOptions: {
-      // Exemplo de uso de CDN para uma biblioteca
-      external: [
-        '@phosphor-icons'
-    ],
+      external: ['node_modules/**'],
     },
   },
 })
