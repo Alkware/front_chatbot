@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginClient } from "../../api/client";
+import { authenticateClient, loginClient } from "../../api/client";
+import { useEffect, useState } from "react";
 
 
 const createClientFormSchema = z.object({
@@ -14,13 +15,24 @@ type createClientFormTypes = z.infer<typeof createClientFormSchema>
 
 function Login() {
     const navigate = useNavigate();
+    const [access, setAccess] = useState<boolean>();
     const { register, handleSubmit, formState: { errors } } = useForm<createClientFormTypes>({
         resolver: zodResolver(createClientFormSchema)
     })
 
-    const handleLogin = async (data: any) => {
-        const client = await loginClient(data)
+    useEffect(()=>{
+        (async ()=>{
+            const token = localStorage.getItem("token");
+            const clientIsLogged = token && await authenticateClient(token)
+            if(clientIsLogged) navigate("/panel")
+            else setAccess(true)
+        })();
+    },[])
 
+    const handleLogin = async (data: any) => {
+        console.log("button clicked")
+        const client = await loginClient(data)
+        
         if(client){
             const { token } = client.data
             localStorage.setItem("token", token);
@@ -32,6 +44,7 @@ function Login() {
     }
 
     return (
+        access &&
         <div className="w-screen h-screen flex justify-center items-center bg-dark">
             <div className="w-full max-w-[480px] rounded-xl shadow-sm shadow-blue-500 flex bg-blue_main2">
                 <div className="w-full h-full flex flex-col items-center relative p-4 gap-2">

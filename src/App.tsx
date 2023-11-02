@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Register from "./pages/Register/Register"
 import ClientProvider from "./context/ClientContext"
 import Index from "./pages/Index/Index"
-import PrivateLoginPanel from "./private-routes/privatePanel"
+import Login from "./pages/Login/Login"
+import Panel from "./pages/panel/Panel"
 
 function App() {
   return (
@@ -10,9 +11,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/login" element={<PrivateLoginPanel />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/panel" element={<PrivateLoginPanel />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/panel" element={<Panel />} />
           <Route path="/*" element={<h1>Page not found</h1>} />
         </Routes>
       </BrowserRouter>
