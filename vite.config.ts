@@ -13,12 +13,9 @@ export default defineConfig({
     // Gere arquivos sourcemap (opcional)
     sourcemap: false, // Defina como true para gerar sourcemaps
 
-    // Ative a minificação do código
-    minify: 'terser', // Pode ser 'esbuild' ou 'terser'
-
     // Habilita o uso de Content Delivery Networks (CDNs) para dependências comuns
     rollupOptions: {
-      external: ['node_modules/**'],
+      external: ['node_modules/@phosphor-icons/**'],
     },
   },
 })

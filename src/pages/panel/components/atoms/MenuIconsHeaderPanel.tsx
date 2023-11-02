@@ -12,8 +12,6 @@ export function MenuIconsHeaderPanel() {
         navigate("/login")
     }
 
-
-
     return (
 
         <div className="flex gap-3">
