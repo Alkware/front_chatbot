@@ -1,4 +1,4 @@
-import { Bell, MoonStars, Power, Question, SunDim } from "@phosphor-icons/react";
+import { FaBell, FaMoon, FaPowerOff, FaQuestionCircle, FaSun } from "react-icons/fa"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,31 +15,26 @@ export function MenuIconsHeaderPanel() {
     return (
 
         <div className="flex gap-3">
-            <Question
-                size={28}
+            <FaQuestionCircle
                 className="fill-zinc-100 cursor-pointer"
             />
 
-            <Bell
-                size={28}
+            <FaBell
                 className="fill-zinc-100 cursor-pointer"
             />
             {
                 isThemeDark ?
-                    <SunDim
-                        size={28}
+                    <FaSun
                         className="fill-zinc-100 cursor-pointer"
                         onClick={() => setThemeDark(v => !v)}
                     />
                     :
-                    <MoonStars
-                        size={28}
+                    <FaMoon
                         className="fill-zinc-100 cursor-pointer"
                         onClick={() => setThemeDark(v => !v)}
                     />
             }
-            <Power
-                size={28}
+            <FaPowerOff
                 className="fill-zinc-100 cursor-pointer hover:fill-red-500 transition-colors duration-500"
                 onClick={handleExitThePanel}
             />

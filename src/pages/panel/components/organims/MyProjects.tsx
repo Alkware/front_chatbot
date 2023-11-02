@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { ClientContext } from "../../../../context/ClientContext";
-import { LinkSimple } from "@phosphor-icons/react";
 import CreateNewProject from "../molecules/CreateNewProject";
+import { FaLink } from "react-icons/fa";
 
 
 function MyProjects() {
@@ -56,7 +56,7 @@ function MyProjects() {
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="underline flex gap-1 items-center"
-                                                ><LinkSimple size={16} />Acessar chat </a>
+                                                ><FaLink size={16} />Acessar chat </a>
                                             </div>
                                         </div>
                                     )
@@ -95,7 +95,7 @@ function MyProjects() {
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         className="underline flex gap-1 items-center"
-                                                    ><LinkSimple size={16} />Acessar chat </a>
+                                                    ><FaLink size={16} />Acessar chat </a>
                                                 </div>
                                             </div>
                                         )

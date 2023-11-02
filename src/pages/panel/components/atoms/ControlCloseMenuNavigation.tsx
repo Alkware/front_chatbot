@@ -1,4 +1,4 @@
-import { CaretCircleDoubleLeft, CaretCircleDoubleRight } from "@phosphor-icons/react";
+import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 
 const ControlCloseMenuNavigation = ({ menuIsOpen, setMenuIsOpen }: any) => {
 
@@ -6,14 +6,14 @@ const ControlCloseMenuNavigation = ({ menuIsOpen, setMenuIsOpen }: any) => {
         <div className={`flex ${menuIsOpen ? "justify-end": "justify-center"} bg-blue_main2`}>
             {
                 menuIsOpen ?
-                    <CaretCircleDoubleLeft
+                    <FaCaretLeft
                         size={32}
                         className="fill-zinc-100 cursor-pointer"
                         data-control-arrow="left"
                         onClick={() => setMenuIsOpen(false)}
                     />
                     :
-                    <CaretCircleDoubleRight
+                    <FaCaretRight
                         size={32}
                         className="fill-zinc-100 cursor-pointer"
                         data-control-arrow="right"

@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import { Briefcase, ChartLineUp, ChartPieSlice, CreditCard, Gear, Headset, ProjectorScreenChart } from "@phosphor-icons/react";
 import ControlCloseMenuNavigation from "../atoms/ControlCloseMenuNavigation";
+import { FaGear, FaMessage } from "react-icons/fa6";
+import { IoIosChatbubbles, IoIosStats, IoMdAmericanFootball, IoMdHeadset, IoMdLock } from "react-icons/io";
 
 
 interface containerMenuTypes {
@@ -16,43 +17,43 @@ function MenuNavigate({ setTabNavigationIndex, menuIsOpen, setMenuIsOpen }: cont
             index: 0,
             name: "Dashboard",
             access: "user",
-            icon: <ChartPieSlice className="group-hover:fill-blue_dark transition-colors duration-100" size={32} />
+            icon: <FaMessage className="group-hover:fill-blue_dark transition-colors duration-100" />
         },
         {
             index: 1,
             name: "Meus chats",
             access: "user",
-            icon: <ProjectorScreenChart className="group-hover:fill-blue_dark transition-colors duration-100" size={32} />
+            icon: <IoIosChatbubbles className="group-hover:fill-blue_dark transition-colors duration-100" />
         },
         {
             index: 2,
             name: "Métricas",
             access: "user",
-            icon: <ChartLineUp className="group-hover:fill-blue_dark transition-colors duration-100" size={32} />
+            icon: <IoIosStats className="group-hover:fill-blue_dark transition-colors duration-100" />
         },
         {
             index: 3,
             name: "Suporte",
             access: "user",
-            icon: <Headset className="group-hover:fill-blue_dark transition-colors duration-100" size={32} />
+            icon: <IoMdHeadset className="group-hover:fill-blue_dark transition-colors duration-100" />
         },
         {
             index: 4,
             name: "Pagamentos",
             access: "user",
-            icon: <CreditCard className="group-hover:fill-blue_dark transition-colors duration-100" size={32} />
+            icon: <FaGear className="group-hover:fill-blue_dark transition-colors duration-100" />
         },
         {
             index: 5,
             name: "Configuração",
             access: "user",
-            icon: <Gear className="group-hover:fill-blue_dark transition-colors duration-100" size={32} />
+            icon: <FaGear className="group-hover:fill-blue_dark transition-colors duration-100" />
         },
         {
             index: 6,
             name: "System",
             access: "admin",
-            icon: <Briefcase className="group-hover:fill-blue_dark transition-colors duration-100" size={32} />
+            icon: <IoMdLock className="group-hover:fill-blue_dark transition-colors duration-100" />
         },
     ]
 
