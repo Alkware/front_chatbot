@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import ControlCloseMenuNavigation from "../atoms/ControlCloseMenuNavigation";
 import { FaGear, FaMessage } from "react-icons/fa6";
-import { IoIosChatbubbles, IoIosStats, IoMdAmericanFootball, IoMdHeadset, IoMdLock } from "react-icons/io";
+import { IoIosChatbubbles, IoIosStats, IoMdHeadset, IoMdLock } from "react-icons/io";
 
 
 interface containerMenuTypes {
