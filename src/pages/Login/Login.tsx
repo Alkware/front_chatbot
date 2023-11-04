@@ -30,7 +30,6 @@ function Login() {
     },[])
 
     const handleLogin = async (data: any) => {
-        console.log("button clicked")
         const client = await loginClient(data)
         
         if(client){
