@@ -4,5 +4,5 @@ interface ProjectTypes {
     logo: string,
     prompt: string,
     client_id: string,
-    bio: string
+    bio?: string
 }
