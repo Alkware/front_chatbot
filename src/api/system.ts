@@ -11,3 +11,10 @@ export async function updatePromptsSystem({seller, support}: UpdatePromptSystem)
 
     return response
 }
+
+
+export async function getPromptSystem(){
+    const response = await axios.get(`${API_URL}/system`).catch(err => console.log(err));
+
+    return response
+}
