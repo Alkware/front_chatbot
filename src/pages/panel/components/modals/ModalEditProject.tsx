@@ -3,6 +3,22 @@ import { useForm } from "react-hook-form"
 import Button from "../../../../components/button/Button";
 import { ModalContext } from "../../../../context/ModalContext";
 import { deleteProject, updateProject } from "../../../../api/project";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const ModalEditProjectSchema = z.object({
+    project_name: z.string().min(1, "O nome do projeto não pode ser vazio").refine(value => /^[a-zA-Z0-9\s]*$/.test(value), {
+        message: 'Não são permitidos caracteres especiais.',
+    }),
+    slug: z.string().min(1, "The slug não pode estar vazia").refine(value => /^[a-zA-Z0-9\s]*$/.test(value), {
+        message: 'Não são permitidos caracteres especiais.',
+    }),
+    bio: z.string().min(1, "Bio não pode estar vazia"),
+    logo: z.string().min(1, "Logo não pode estar vazio"),
+    prompt: z.string().min(1, "Logo não pode estar vazio"),
+})
+
+type ModalEditProjectType = z.infer<typeof ModalEditProjectSchema>
 
 interface ModalEditProjectTypes {
     project: ProjectTypes,
@@ -12,19 +28,20 @@ interface ModalEditProjectTypes {
 export function ModalEditProject({ project, setNewProject }: ModalEditProjectTypes) {
     const { setModalContent } = useContext(ModalContext)
     const spanSlugRef: RefObject<HTMLSpanElement> = useRef(null);
-    const { handleSubmit, register, formState: { errors }, getValues } = useForm({
+    const { handleSubmit, register, formState: { errors }, getValues } = useForm<ModalEditProjectType>({
+        resolver: zodResolver(ModalEditProjectSchema),
         defaultValues: {
             project_name: project?.project_name,
             slug: project?.slug?.split("-")[1],
             logo: project?.logo,
             bio: project?.bio,
             prompt: project?.prompt
-        }
+        },
     })
 
 
     const handleUpdateProject = async (data: any) => {
-        if (project.slug) {
+        if (data && project.slug) {
             const projectUpdate = await updateProject(data, project.slug)
             if (projectUpdate && projectUpdate.status === 200) {
                 setNewProject((projects: any) => [...projects.filter((v: any) => v.id !== project.id), projectUpdate.data])
@@ -81,7 +98,7 @@ export function ModalEditProject({ project, setNewProject }: ModalEditProjectTyp
                     </div>
                     <div className="flex flex-col">
                         <p>sua slug ficará assim: </p>
-                    <p className="text-zinc-300/80">https://chat.wipzee.com/{project?.slug?.split("-")[0]}- <span ref={spanSlugRef}>{getValues("slug")}</span> </p>
+                        <p className="text-zinc-300/80">https://chat.wipzee.com/{project?.slug?.split("-")[0]}- <span ref={spanSlugRef}>{getValues("slug")}</span> </p>
                     </div>
                 </div>
 
