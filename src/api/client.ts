@@ -24,7 +24,6 @@ export async function registerClient({ email, password, fullname }: clientRegist
 
 
 export async function authenticateClient(token: string) {
-
     const client = await axios.get(`${API_URL}/authenticate`, {
         headers: {
             Authorization: "Bearer "+token

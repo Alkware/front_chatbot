@@ -1,21 +1,10 @@
-import { RefObject, useRef, useState } from "react";
+import { useContext } from "react";
 import Button from "../../../../components/button/Button";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createNewProject } from "../../../../api/project";
-import { Background } from "../../../../components/background/Background";
 
-const createProjectSchema = z.object({
-    project_name: z.string().min(1, "O nome do projeto não pode ser vazio"),
-    slug: z.string().min(1, "slug não pode estar vazio").refine(data => /^[a-zA-Z0-9-]*$/.test(data), {
-        message: `O slug só pode conter letras, números e o caracter " - ". Ex: minha-loja`
-    }),
-    logo: z.string().min(1, "Logo não pode estar vazio"),
-    prompt: z.string().min(1, "Logo não pode estar vazio"),
-})
+import { ModalContext } from "../../../../context/ModalContext";
+import { ModalCreateProject } from "../modals/ModalCreateProject";
 
-type createProjectType = z.infer<typeof createProjectSchema>
+
 
 interface NewProjectTypes {
     client_id: string,
@@ -24,82 +13,18 @@ interface NewProjectTypes {
 
 
 function CreateNewProject({ client_id, setNewProject }: NewProjectTypes) {
-    const [containerNewProject, setContainerNewProject] = useState(false)
-    const formRef: RefObject<HTMLFormElement> = useRef(null);
-    const { handleSubmit, register, reset,formState: { errors } } = useForm<createProjectType>({
-        resolver: zodResolver(createProjectSchema)
-    })
+    const { setModalContent } = useContext(ModalContext)
 
-    const handleCreateProject = async (data: any) => {
-        try {
-            const { project_name, slug, logo, prompt }: ProjectTypes = data;
-
-            const project = await createNewProject({ project_name, slug, logo, prompt, client_id });
-            if (project && project.status === 201) {
-                reset();
-                setNewProject((v: any) => [...v, project.data])
-                alert("projeto criado com sucesso!")
-                setContainerNewProject(false)
-            }
-        } catch (error) {
-            console.log(error)
-            throw new Error("Erro ao tentar criar o projeto")
-        }
-
+    const handleClickNewProject = () => {
+        setModalContent({
+            isOpenModal: true,
+            components: <ModalCreateProject client_id={client_id} setNewProject={setNewProject} />
+        })
     }
 
-    return (
-        <>
-            <Button onClick={() => setContainerNewProject(true)}>Novo chat</Button>
-
-            {
-                containerNewProject &&
-                <Background>
-                    <div className="w-3/4">
-                        <form
-                            ref={formRef}
-                            onSubmit={handleSubmit(handleCreateProject)}
-                            className="w-full h-full px-12 bg-black flex flex-col items-center justify-center gap-4 animate-smooth_display_left"
-                        >
-                            <input
-                                type="text"
-                                placeholder="Nome do projeto"
-                                {...register("project_name")}
-                            />
-                            {errors.project_name?.message}
-                            <input
-                                type="text"
-                                placeholder="crie um slug"
-                                {...register("slug")}
-                            />
-                            {errors.slug?.message}
-                            <input
-                                type="text"
-                                placeholder="Imagem do seu projeto"
-                                {...register("logo")}
-                            />
-                            {errors.logo?.message}
-                            {/* <select name="" id="">
-                                <option value="seller">seller</option>
-                                <option value="support">support</option>
-                                <option value="form">form</option>
-                            </select> */}
-                            <textarea
-                                placeholder="Crie seu prompt aqui"
-                                {...register("prompt")}
-                            />
-                            {errors.prompt?.message}
-                            <Button>Criar projeto</Button>
-                            <span
-                                className="underline cursor-pointer"
-                                onClick={() => setContainerNewProject(false)}
-                            >Descartar</span>
-                        </form>
-                    </div>
-                </Background>
-            }
-        </>
-    )
+    return <Button onClick={handleClickNewProject}>Novo chat</Button>
+    
 }
 
 export default CreateNewProject;
+

@@ -5,12 +5,14 @@ export interface clientTypes {
     isAdmin: boolean,
     user: string,
     project: Array<{
+        id: string
         slug: string, 
         project_name: string,
         logo: string,
         prompt: string,
         chat_type: string,
-        is_online: boolean
+        is_online: boolean,
+        bio: string
     }>
 }
 
