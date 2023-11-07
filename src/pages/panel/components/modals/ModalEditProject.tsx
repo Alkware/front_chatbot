@@ -64,9 +64,9 @@ export function ModalEditProject({ project, setNewProject }: ModalEditProjectTyp
     }
 
     const handleUpdateSlugValue = (e: any) => {
-        e.preventDefault();
+        if(e.code === "Enter") e.preventDefault();
         if (spanSlugRef.current) {
-            const value = getValues("slug")
+            const value = e.target.value
             value && (spanSlugRef.current.textContent = value)
         }
     }
@@ -91,7 +91,7 @@ export function ModalEditProject({ project, setNewProject }: ModalEditProjectTyp
                             type="text"
                             placeholder="crie um slug"
                             data-type="slug"
-                            onKeyDown={(e) => e.code === "Enter" && handleUpdateSlugValue(e)}
+                            onKeyDown={handleUpdateSlugValue}
                             {...register("slug")}
                         />
                         {errors.slug?.message}
