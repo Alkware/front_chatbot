@@ -36,7 +36,7 @@ export function ModalEditProject({ project, setNewProject }: ModalEditProjectTyp
 
     const handleDeleteProject = async () => {
         const confirmDelete = confirm("Você tem certeza que deseja excluir esse chat?")
-        if (confirmDelete && project) {
+        if (confirmDelete && project && project.id) {
             const deleted = await deleteProject(project.id);
             if (deleted && deleted.status === 200) {
                 setNewProject((projects: any) => projects.filter((v: any) => v.id !== project.id))

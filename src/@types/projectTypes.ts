@@ -1,10 +1,10 @@
 interface ProjectTypes {
-    id: string,
+    id?: string,
     project_name: string,
     logo: string,
     prompt: string,
     client_id: string,
     bio: string,
     slug?: string
-    chat_type: string
+    chat_type?: string
 }
