@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useContext } from "react";
 import { FcSettings } from "react-icons/fc";
 import { ModalContext } from "../../../../context/ModalContext";
-import { ModalEditProject } from "../modals/ModalEditProject";
+import { ModalEditProject } from "../../modals/ModalEditProject";
 
 interface EditProjectTypes {
     project: ProjectTypes;

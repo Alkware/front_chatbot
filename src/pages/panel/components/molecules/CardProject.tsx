@@ -5,7 +5,7 @@ export function CardProject({ project, setNewProject }: any) {
     return (
         <div
             key={project.slug}
-            className="w-1/4 bg-blue_main relative flex flex-col items-center gap-2 py-4 cursor-pointer rounded-xl"
+            className="w-1/4 min-w-[200px] bg-blue_main relative flex flex-col items-center gap-2 py-4 cursor-pointer rounded-xl"
         >
             <div className="absolute top-0 right-0 p-1 group bg-white/20 rounded-tr-xl rounded-bl-xl">
                 <EditProject 

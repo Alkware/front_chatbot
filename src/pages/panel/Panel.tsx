@@ -25,7 +25,7 @@ function Panel() {
 
     return (
         access &&
-        <div className="w-screen h-screen flex flex-col bg-dark ">
+        <div className="w-screen h-screen flex flex-col bg-dark overflow-hidden">
 
             <PanelHeader />
 

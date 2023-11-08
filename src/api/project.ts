@@ -9,11 +9,11 @@ export async function createNewProject({ project_name, logo, prompt, client_id, 
     return project
 }
 
-export async function updateProject({ project_name, slug, logo, prompt, client_id, bio }: ProjectTypes, project_slug: string) {
+export async function updateProject({ project_name, slug, logo, prompt, client_id, bio, describe_client, cta }: ProjectTypes, project_slug: string) {
     const newSlug = project_slug.split("-")[0]+"-"+slug
 
     const project = await axios.put(`${API_URL}/project/${project_slug}/update`, {
-        project_name, slug: newSlug, logo, prompt, client_id, bio
+        project_name, slug: newSlug, logo, prompt, client_id, bio, describe_client, cta
     }).catch(err => console.log(err))
 
     return project

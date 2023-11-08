@@ -1,8 +1,8 @@
 import { Dispatch, RefObject, SetStateAction, useContext, useRef } from "react"
 import { useForm } from "react-hook-form"
-import Button from "../../../../components/button/Button";
-import { ModalContext } from "../../../../context/ModalContext";
-import { deleteProject, updateProject } from "../../../../api/project";
+import Button from "../../../components/button/Button";
+import { ModalContext } from "../../../context/ModalContext";
+import { deleteProject, updateProject } from "../../../api/project";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -16,6 +16,8 @@ const ModalEditProjectSchema = z.object({
     bio: z.string().min(1, "Bio não pode estar vazia"),
     logo: z.string().min(1, "Logo não pode estar vazio"),
     prompt: z.string().min(1, "Logo não pode estar vazio"),
+    describe_client: z.string().min(1, "A descrição do cliente não pode estar vazia"),
+    cta: z.string().min(1, "A CTA não pode estar vazio").refine(value => value.includes("http") ? true : false, "Sua CTA precisa ser um link.")
 })
 
 type ModalEditProjectType = z.infer<typeof ModalEditProjectSchema>
@@ -35,7 +37,9 @@ export function ModalEditProject({ project, setNewProject }: ModalEditProjectTyp
             slug: project?.slug?.split("-")[1],
             logo: project?.logo,
             bio: project?.bio,
-            prompt: project?.prompt
+            cta: project?.cta,
+            prompt: project?.prompt,
+            describe_client: project.describe_client
         },
     })
 
@@ -118,6 +122,16 @@ export function ModalEditProject({ project, setNewProject }: ModalEditProjectTyp
                 />
                 {errors.bio?.message}
 
+                <input
+                    type="text"
+                    placeholder="Digite o link do seu CTA"
+                    data-type="cta"
+                    {...register("cta")}
+                />
+                {errors.cta?.message}
+
+                
+
                 {/* <select name="" id="">
                                 <option value="seller">seller</option>
                                 <option value="support">support</option>
@@ -125,10 +139,19 @@ export function ModalEditProject({ project, setNewProject }: ModalEditProjectTyp
                             </select> */}
                 <textarea
                     placeholder="Crie seu prompt aqui"
+                    className="min-h-[300px]"
                     data-type="prompt"
                     {...register("prompt")}
                 />
                 {errors.prompt?.message}
+
+                <textarea
+                    placeholder="Descrição do cliente"
+                    data-type="describe_client"
+                    {...register("describe_client")}
+                />
+                {errors.describe_client?.message}
+
 
                 <Button>Salvar</Button>
                 <span

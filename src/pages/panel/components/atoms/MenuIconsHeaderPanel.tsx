@@ -14,7 +14,7 @@ export function MenuIconsHeaderPanel() {
 
     return (
 
-        <div className="flex gap-3">
+        <div className="flex gap-3 px-8">
             <FaQuestionCircle
                 className="fill-zinc-100 cursor-pointer"
             />

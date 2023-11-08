@@ -9,7 +9,7 @@ function MainPanelClient() {
 
     return (
         <main
-            className="w-full h-full flex"
+            className="w-full h-[90%] flex"
         >
             <nav
                 className={`h-full  bg-blue_main2 rounded-md ${menuIsOpen ? "w-1/5 min-w-[300px]" : "w-[70px] min-w-0"}`}

@@ -7,4 +7,6 @@ interface ProjectTypes {
     bio: string,
     slug?: string
     chat_type?: string
+    describe_client: string;
+    cta: string,
 }
