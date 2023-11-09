@@ -1,26 +1,17 @@
-import { Dispatch, RefObject, SetStateAction, useContext, useRef } from "react"
+import { Dispatch, SetStateAction, useContext, useRef } from "react"
 import { useForm } from "react-hook-form"
 import Button from "../../../components/button/Button";
 import { ModalContext } from "../../../context/ModalContext";
 import { deleteProject, updateProject } from "../../../api/project";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ListMenuModalChat } from "../components/Lists/ListMenuModalChat";
+import { GeneralInformation } from "../components/TabContentForm/GeneralInformation";
+import { ProductDescribe } from "../components/TabContentForm/ProductDescribe";
+import { ChatSettings } from "../components/TabContentForm/ChatSettings";
+import { Tracking } from "../components/TabContentForm/Tracking";
+import { ProjectSchema, z } from "../../../@types/projectZodSchema";
 
-const ModalEditProjectSchema = z.object({
-    project_name: z.string().min(1, "O nome do projeto não pode ser vazio").refine(value => /^[a-zA-Z0-9\s]*$/.test(value), {
-        message: 'Não são permitidos caracteres especiais.',
-    }),
-    slug: z.string().min(1, "The slug não pode estar vazia").refine(value => /^[a-zA-Z0-9\s]*$/.test(value), {
-        message: 'Não são permitidos caracteres especiais.',
-    }),
-    bio: z.string().min(1, "Bio não pode estar vazia"),
-    logo: z.string().min(1, "Logo não pode estar vazio"),
-    prompt: z.string().min(1, "Logo não pode estar vazio"),
-    describe_client: z.string().min(1, "A descrição do cliente não pode estar vazia"),
-    cta: z.string().min(1, "A CTA não pode estar vazio").refine(value => value.includes("http") ? true : false, "Sua CTA precisa ser um link.")
-})
-
-type ModalEditProjectType = z.infer<typeof ModalEditProjectSchema>
+type ModalEditProjectType = z.infer<typeof ProjectSchema>
 
 interface ModalEditProjectTypes {
     project: ProjectTypes,
@@ -29,17 +20,22 @@ interface ModalEditProjectTypes {
 
 export function ModalEditProject({ project, setNewProject }: ModalEditProjectTypes) {
     const { setModalContent } = useContext(ModalContext)
-    const spanSlugRef: RefObject<HTMLSpanElement> = useRef(null);
+    const formRef = useRef(null);
+
     const { handleSubmit, register, formState: { errors }, getValues } = useForm<ModalEditProjectType>({
-        resolver: zodResolver(ModalEditProjectSchema),
+        resolver: zodResolver(ProjectSchema),
         defaultValues: {
             project_name: project?.project_name,
             slug: project?.slug?.split("-")[1],
             logo: project?.logo,
             bio: project?.bio,
-            cta: project?.cta,
+            call_to_action: {
+                button_name: project.call_to_action[0].button_name,
+                link: project.call_to_action[0].link
+            },
             prompt: project?.prompt,
-            describe_client: project.describe_client
+            describe_client: project.describe_client,
+            pixel_facebook: project.pixel_facebook
         },
     })
 
@@ -67,102 +63,60 @@ export function ModalEditProject({ project, setNewProject }: ModalEditProjectTyp
         }
     }
 
-    const handleUpdateSlugValue = (e: any) => {
-        if(e.code === "Enter") e.preventDefault();
-        if (spanSlugRef.current) {
-            const value = e.target.value
-            value && (spanSlugRef.current.textContent = value)
-        }
-    }
-
     return (
-        <div className="w-3/4 px-12 bg-black animate-smooth_display_left flex flex-col justify-center gap-8">
-            <h2 className="text-center text-2xl">Edite e salve suas novas alterações</h2>
-            <form
-                onSubmit={handleSubmit(handleUpdateProject)}
-                className="w-full flex flex-col items-center justify-center gap-4 "
-            >
-                <input
-                    type="text"
-                    placeholder="Nome do projeto"
-                    data-type="project_name"
-                    {...register("project_name")}
-                />
-                {errors.project_name?.message}
-                <div className="w-full flex gap-4">
-                    <div className="flex flex-col">
-                        <input
-                            type="text"
-                            placeholder="crie um slug"
-                            data-type="slug"
-                            onKeyDown={handleUpdateSlugValue}
-                            {...register("slug")}
-                        />
-                        {errors.slug?.message}
+        <div className="w-3/4 bg-zinc-800 animate-smooth_display_left flex">
+
+
+            <div className="w-1/4 max-w-[250px] min-w-[150px] h-full border-r-[1px] border-r-zinc-500 flex flex-col justify-between">
+                <ListMenuModalChat ref={formRef} />
+
+            </div>
+
+
+            <div className="w-full flex flex-col">
+
+                <form
+                    ref={formRef}
+                    onSubmit={handleSubmit(handleUpdateProject)}
+                    className="w-full h-full flex flex-col items-center px-8 relative"
+                >
+
+                    <GeneralInformation
+                        register={register}
+                        errors={errors}
+                    />
+
+                    <ProductDescribe
+                        register={register}
+                        errors={errors}
+                    />
+
+                    <Tracking
+                        register={register}
+                        errors={errors}
+                    />
+
+                    <ChatSettings
+                        register={register}
+                        errors={errors}
+                        getValues={getValues}
+                        project={project}
+                    />
+
+                    <div className="w-full bg-zinc-500 pb-8 mt-12 flex flex-col justify-around absolute bottom-0">
+                        <Button customClass="rounded-none">Salvar</Button>
+                        <span
+                            className="underline cursor-pointer w-full text-center hover:bg-zinc-400 py-2"
+                            onClick={() => setModalContent({ isOpenModal: false })}
+                        >Descartar</span>
+                        <span
+                            className="cursor-pointer text-red-600/50 hover:bg-red-100 py-2 transition-colors duration-200 w-full text-center"
+                            onClick={handleDeleteProject}
+                        >Excluir chat</span>
                     </div>
-                    <div className="flex flex-col">
-                        <p>sua slug ficará assim: </p>
-                        <p className="text-zinc-300/80">https://chat.wipzee.com/{project?.slug?.split("-")[0]}- <span ref={spanSlugRef}>{getValues("slug")}</span> </p>
-                    </div>
-                </div>
-
-                <input
-                    type="text"
-                    placeholder="Imagem do seu projeto"
-                    data-type="logo"
-                    {...register("logo")}
-                />
-                {errors.logo?.message}
-
-                <input
-                    type="text"
-                    placeholder="Digite a bío do seu negocio"
-                    data-type="bio"
-                    {...register("bio")}
-                />
-                {errors.bio?.message}
-
-                <input
-                    type="text"
-                    placeholder="Digite o link do seu CTA"
-                    data-type="cta"
-                    {...register("cta")}
-                />
-                {errors.cta?.message}
-
-                
-
-                {/* <select name="" id="">
-                                <option value="seller">seller</option>
-                                <option value="support">support</option>
-                                <option value="form">form</option>
-                            </select> */}
-                <textarea
-                    placeholder="Crie seu prompt aqui"
-                    className="min-h-[300px]"
-                    data-type="prompt"
-                    {...register("prompt")}
-                />
-                {errors.prompt?.message}
-
-                <textarea
-                    placeholder="Descrição do cliente"
-                    data-type="describe_client"
-                    {...register("describe_client")}
-                />
-                {errors.describe_client?.message}
-
-
-                <Button>Salvar</Button>
-                <span
-                    className="underline cursor-pointer"
-                    onClick={() => setModalContent({ isOpenModal: false })}
-                >Descartar</span>
-                <span
-                    className="cursor-pointer text-red-600/50 hover:text-red-600 transition-colors duration-200"
-                    onClick={handleDeleteProject}
-                >Excluir chat</span>
-            </form>
+                </form>
+            </div>
         </div>
     )
 };
+
