@@ -24,12 +24,12 @@ export function AddInputForm({ register, control }: AddInputFormTypes) {
 
                 <FcPlus
                     className="text-3xl cursor-pointer"
-                    onClick={()=> append(" ")}
+                    onClick={() => append(" ")}
                 />
             </div>
             {
                 fields.map((field, index) =>
-                    <div 
+                    <div
                         className="w-full flex flex-col"
                         key={field.id}
                     >
@@ -41,13 +41,10 @@ export function AddInputForm({ register, control }: AddInputFormTypes) {
                                 className="my-2"
                                 {...register(`chat_input_message.${index}`)}
                             ></textarea>
-                            {
-                                index !== 0 &&
-                                <FcFullTrash
-                                    className="text-3xl cursor-pointer"
-                                    onClick={() => remove(index)}
-                                />
-                            }
+                            <FcFullTrash
+                                className="text-3xl cursor-pointer"
+                                onClick={() => remove(index)}
+                            />
                         </div>
                     </div>
                 )
