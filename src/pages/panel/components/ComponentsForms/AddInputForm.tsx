@@ -1,6 +1,5 @@
 import { FcFullTrash, FcPlus } from "react-icons/fc";
 import { useFieldArray } from "react-hook-form";
-import { useEffect } from "react";
 
 interface AddInputFormTypes {
     register: any,
@@ -13,10 +12,6 @@ export function AddInputForm({ register, control }: AddInputFormTypes) {
         control,
         name: "chat_input_message"
     })
-
-    useEffect(() => {
-        append("")
-    }, [])
 
     return (
         <div className="w-full flex flex-col">
