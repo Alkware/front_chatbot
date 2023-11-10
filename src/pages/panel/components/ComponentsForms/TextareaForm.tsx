@@ -20,7 +20,7 @@ export function TextareaForm({ register, field_name, placeholder, title, height 
                 placeholder={placeholder}
                 data-type={field_name}
                 name={field_name}
-                {...register("chat_input_form.0.")}
+                {...register(field_name)}
             ></textarea>
         </div>
     )
