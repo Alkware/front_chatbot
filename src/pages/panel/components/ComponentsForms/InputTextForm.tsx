@@ -1,6 +1,5 @@
 interface InputProjectNameTypes {
     register: any;
-    errors: any;
     field_name: string,
     placeholder: string;
     title: string,
@@ -8,7 +7,7 @@ interface InputProjectNameTypes {
 }
 
 
-export function InputTextForm({ register, errors, field_name, placeholder, title, onKeyDown }: InputProjectNameTypes) {
+export function InputTextForm({ register, field_name, placeholder, title, onKeyDown }: InputProjectNameTypes) {
     return (
         <div className="w-full flex flex-col gap-2 my-4">
             <label
@@ -23,7 +22,6 @@ export function InputTextForm({ register, errors, field_name, placeholder, title
                 onKeyDown={onKeyDown}
                 {...register(field_name)}
             />
-            <p>{errors[field_name]?.message}</p>
         </div>
     )
 };

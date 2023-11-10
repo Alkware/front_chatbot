@@ -1,5 +1,5 @@
 import { RefObject, useEffect, useRef, useState } from "react";
-import Button from "../../../../components/button/Button";
+import Button from "../../../../components/button/ButtonBlue";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";

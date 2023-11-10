@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import Button from "../../../../components/button/Button";
+import Button from "../../../../components/button/ButtonBlue";
 
 import { ModalContext } from "../../../../context/ModalContext";
 import { ModalCreateProject } from "../../modals/ModalCreateProject";

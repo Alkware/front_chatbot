@@ -3,13 +3,12 @@ import { InputTextForm } from "../ComponentsForms/InputTextForm";
 
 interface ProductDescribe {
     register: any,
-    errors: any,
     getValues?: any
     project?: any
 }
 
 
-export function ChatSettings({ register, errors, getValues, project }: ProductDescribe) {
+export function ChatSettings({ register, getValues, project }: ProductDescribe) {
     const spanSlugRef: RefObject<HTMLSpanElement> = useRef(null);
 
     const handleUpdateSlugValue = (e: any) => {
@@ -38,10 +37,8 @@ export function ChatSettings({ register, errors, getValues, project }: ProductDe
                                 placeholder="ex: vendas"
                                 title="Digite a slug que ficará visivél na url:"
                                 register={register}
-                                errors={errors}
                                 onKeyDown={handleUpdateSlugValue}
                             />
-                            {errors.slug?.message}
                         </div>
                         <div className="flex flex-col">
                             <p>sua slug ficará assim: </p>

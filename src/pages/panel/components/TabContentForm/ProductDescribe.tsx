@@ -3,13 +3,12 @@ import { TextareaForm } from "../ComponentsForms/TextareaForm"
 
 interface ProductDescribe {
     register: any,
-    errors: any
 }
 
-export function ProductDescribe({ register, errors }: ProductDescribe) {
+export function ProductDescribe({ register }: ProductDescribe) {
     return (
         <div
-            className="w-full flex-col hidden"
+            className="w-full h-full flex-col hidden overflow-y-auto"
             id="container"
             data-index="product_describe"
         >
@@ -21,16 +20,14 @@ export function ProductDescribe({ register, errors }: ProductDescribe) {
                 placeholder="Crie seu prompt aqui"
                 height={300}
                 register={register}
-                errors={errors}
             />
 
             <TextareaForm
                 field_name="describe_client"
                 title="Escreva a persona do seu cliente aqui:"
                 placeholder="Descrição do cliente"
-                height={200}
+                height={120}
                 register={register}
-                errors={errors}
             />
 
 
@@ -40,7 +37,6 @@ export function ProductDescribe({ register, errors }: ProductDescribe) {
                     title="Digite o nome do botão da cta"
                     placeholder="ex: Comprar agora"
                     register={register}
-                    errors={errors}
                 />
 
                 <InputTextForm
@@ -48,7 +44,6 @@ export function ProductDescribe({ register, errors }: ProductDescribe) {
                     title="Digite o link do seu CTA"
                     placeholder="ex: https://meusite.com/vendas"
                     register={register}
-                    errors={errors}
                 />
             </div>
 

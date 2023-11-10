@@ -1,5 +1,6 @@
 import { forwardRef, useRef } from "react";
 import { Li } from "../../../../components/Li/Li";
+import { FcInfo, FcMindMap, FcNews, FcSettings } from "react-icons/fc";
 
 export const ListMenuModalChat = forwardRef(({ }, ref: any) => {
     const activeIndex = useRef()
@@ -7,19 +8,23 @@ export const ListMenuModalChat = forwardRef(({ }, ref: any) => {
     const listName = [
         {
             text: "Informações gerais",
-            id: "general_information"
+            id: "general_information",
+            icon: <FcInfo />
         },
         {
             text: "Descrição do produto",
-            id: "product_describe"
+            id: "product_describe",
+            icon: <FcNews />
         },
         {
             text: "Rastreamento/Eventos",
-            id: "tracking"
+            id: "tracking",
+            icon: <FcMindMap />
         },
         {
             text: "Configurações do chat",
-            id: "chat_settings"
+            id: "chat_settings",
+            icon: <FcSettings />
         },
     ]
 
@@ -57,18 +62,21 @@ export const ListMenuModalChat = forwardRef(({ }, ref: any) => {
 
 
     return (
-        <ul className="w-full flex flex-col">
-            {
-                listName.map(list =>
-                    <Li
-                        key={list.id}
-                        text={list.text}
-                        index={list.id}
-                        activeIndex={activeIndex.current}
-                        onClick={handleActiveLi}
-                    />
-                )
-            }
-        </ul>
+        <div className="w-1/4 max-w-[300px] min-w-[200px] h-full border-r-[1px] border-r-zinc-500 flex flex-col justify-between">
+
+            <ul className="w-full flex flex-col">
+                {
+                    listName.map(list =>
+                        <Li
+                            key={list.id}
+                            text={list.text}
+                            icon={list.icon}
+                            index={list.id}
+                            onClick={handleActiveLi}
+                        />
+                    )
+                }
+            </ul>
+        </div>
     )
 });

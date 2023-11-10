@@ -1,6 +1,6 @@
 import { buttonTypes } from "../../@types/buttonTypes";
 
-function Button({ children, icon, onClick, customClass }: buttonTypes) {
+function ButtonMain({ children, icon, onClick, customClass }: buttonTypes) {
 
 
 
@@ -15,4 +15,4 @@ function Button({ children, icon, onClick, customClass }: buttonTypes) {
     )
 }
 
-export default Button;
+export default ButtonMain;

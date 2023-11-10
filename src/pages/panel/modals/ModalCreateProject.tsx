@@ -3,13 +3,15 @@ import { RefObject, useContext, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { createNewProject } from "../../../api/project";
 import { ModalContext } from "../../../context/ModalContext";
-import Button from "../../../components/button/Button";
 import { ListMenuModalChat } from "../components/Lists/ListMenuModalChat";
 import { GeneralInformation } from "../components/TabContentForm/GeneralInformation";
 import { ProductDescribe } from "../components/TabContentForm/ProductDescribe";
 import { Tracking } from "../components/TabContentForm/Tracking";
 import { ChatSettings } from "../components/TabContentForm/ChatSettings";
 import { ProjectSchema, z } from "../../../@types/projectZodSchema";
+import { ButtonsModal } from "../components/TabContentForm/ButtonsModal";
+import { PopUp } from "../../../components/modal/templates/PopUp";
+import { ErrorModal } from "./ErrorModal";
 
 type createProjectType = z.infer<typeof ProjectSchema>
 
@@ -22,14 +24,13 @@ interface NewProjectTypes {
 export function ModalCreateProject({ client_id, setNewProject }: NewProjectTypes) {
     const { setModalContent } = useContext(ModalContext)
     const formRef: RefObject<HTMLFormElement> = useRef(null);
-    const { handleSubmit, register, reset, formState: { errors } } = useForm<createProjectType>({
+    const { handleSubmit, register, reset, control, formState: { errors } } = useForm<createProjectType>({
         resolver: zodResolver(ProjectSchema)
-    })
+    });
 
     const handleCreateProject = async (data: any) => {
-        console.log(data)
         try {
-            const { project_name, logo, prompt, bio, describe_client, call_to_action, pixel_facebook }: ProjectTypes = data;
+            const { project_name, logo, prompt, bio, describe_client, call_to_action, pixel_facebook, chat_input_message }: ProjectTypes = data;
 
             const project = await createNewProject({
                 project_name,
@@ -39,14 +40,15 @@ export function ModalCreateProject({ client_id, setNewProject }: NewProjectTypes
                 bio,
                 describe_client,
                 call_to_action,
-                pixel_facebook
+                pixel_facebook,
+                chat_input_message
             });
             if (project && project.status === 201) {
                 reset();
                 setNewProject((v: any) => [...v, project.data])
-                alert("projeto criado com sucesso!")
                 setModalContent({
-                    isOpenModal: false,
+                    isOpenModal: true,
+                    components: <PopUp message="Chat criado com sucesso" />
                 })
             }
         } catch (error) {
@@ -58,45 +60,36 @@ export function ModalCreateProject({ client_id, setNewProject }: NewProjectTypes
     return (
         <div className="w-3/4 bg-zinc-800 flex  animate-smooth_display_left">
 
-            <div className="w-1/4 max-w-[250px] min-w-[150px] h-full border-r-[1px] border-r-zinc-500 flex flex-col justify-between">
-                <ListMenuModalChat ref={formRef} />
-
-            </div>
-
+            <ListMenuModalChat ref={formRef} />
 
             <form
                 ref={formRef}
                 onSubmit={handleSubmit(handleCreateProject)}
                 className="w-full h-full flex flex-col items-center relative px-8"
             >
+                <ButtonsModal
+                    isModalCreate={true}
+                />
+
+                <ErrorModal errors={errors} />
 
                 <GeneralInformation
                     register={register}
-                    errors={errors}
+                    control={control}
                 />
 
                 <ProductDescribe
                     register={register}
-                    errors={errors}
                 />
 
                 <Tracking
                     register={register}
-                    errors={errors}
                 />
 
                 <ChatSettings
                     register={register}
-                    errors={errors}
                 />
 
-                <div className="w-full bg-zinc-500 flex flex-col justify-around absolute bottom-0">
-                    <Button customClass="rounded-none">Criar chat</Button>
-                    <span
-                        className="underline cursor-pointer w-full text-center hover:bg-zinc-400 py-2"
-                        onClick={() => setModalContent({ isOpenModal: false })}
-                    >Descartar</span>
-                </div>
             </form>
         </div>
     )

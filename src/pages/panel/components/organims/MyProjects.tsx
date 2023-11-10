@@ -16,7 +16,6 @@ function MyProjects() {
                 const response = await findAllProjectsById(client?.id);
                 if (response) {
                     const projects: ProjectTypes = response.data
-                    console.log(projects)
                     setProjects(projects)
                 }
             }

@@ -5,7 +5,8 @@ interface ProjectTypes {
     client_id: string,
     bio: string,
     describe_client: string;
-    
+    chat_input_message: string[],
+
     id?: string,
     slug?: string
     chat_type?: string
