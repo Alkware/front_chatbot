@@ -16,8 +16,10 @@ export const ProjectSchema = z.object({
         button_name: z.string().min(1, "O nome do botão não pode estar vazio").max(18, "O nome do botão não pode ter mais que 18 caracteres"),
         link: z.string().min(1, "O link não pode estar vazio"),
     }),
-    pixel_facebook: z.string(),
-    chat_input_message: z.array(z.string()).min(1, "Você precisa adicionar pelo menos uma mensagem").max(3, "Você pode adicionar até 3 mensagens")
+    pixel_facebook: z.string().optional(),
+    chat_input_message: z.array(
+        z.string().min(1, "Você precisa criar a primeira mensagem").max(500, "Sua mensagem é muito longa")
+    ).min(1, "Você precisa adicionar pelo menos uma mensagem").max(3, "Você pode adicionar até 3 mensagens")
 })
 
 
