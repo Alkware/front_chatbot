@@ -12,6 +12,7 @@ import { ProjectSchema, z } from "../../../@types/projectZodSchema";
 import { ButtonsModal } from "../components/TabContentForm/ButtonsModal";
 import { PopUp } from "../../../components/modal/templates/PopUp";
 import { ErrorModal } from "./ErrorModal";
+import { ProjectTypes } from "../../../@types/projectTypes";
 
 type createProjectType = z.infer<typeof ProjectSchema>
 

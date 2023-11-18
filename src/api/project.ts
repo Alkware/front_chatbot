@@ -1,5 +1,6 @@
 import axios from "axios"
 import { API_URL } from "./url-api"
+import { ProjectTypes } from "../@types/projectTypes"
 
 export async function createNewProject({ project_name, logo, prompt, client_id, bio, call_to_action, describe_client, pixel_facebook, chat_input_message }: ProjectTypes) {
     const project = await axios.post(`${API_URL}/create/project`, {
