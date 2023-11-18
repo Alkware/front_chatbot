@@ -23,8 +23,8 @@ const UserPlanInfoProfile = ({ menuIsOpen } : UserPlanTypes) => {
 
             >
                 <h2 className="text-white text-center">{client?.fullname}</h2>
-                <h3 className="text-yellow-400 font-bold text-xs ">Premium plan</h3>
-                <h3 className="text-white text-xs ">R$ 87,34 crédits</h3>
+                <h3 className="text-yellow-400 font-bold text-xs ">26 tokens restantes</h3>
+                <h3 className="text-white text-xs ">0 tokens adicionais</h3>
             </div>
         </div>
     )

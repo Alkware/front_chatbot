@@ -1,6 +1,7 @@
+import { SetStateProject } from "../../../../@types/projectTypes";
 import { EditProject } from "./EditProject";
 
-export function CardProject({ project, setNewProject }: any) {
+export function CardProject({ project, setNewProject }: SetStateProject) {
 
     return (
         <div

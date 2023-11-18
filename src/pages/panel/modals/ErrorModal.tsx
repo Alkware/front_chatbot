@@ -1,7 +1,5 @@
 export function ErrorModal({ errors }: { errors: any }) {
 
-    console.log(errors)
-
     return (
         <>
             <p className="w-full mt-2 bg-red-100 text-red-800 text-center">{errors.project_name?.message}</p>

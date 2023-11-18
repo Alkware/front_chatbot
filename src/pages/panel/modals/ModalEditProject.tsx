@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useContext, useRef } from "react"
+import { useContext, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { ModalContext } from "../../../context/ModalContext";
 import { updateProject } from "../../../api/project";
@@ -12,15 +12,11 @@ import { ProjectSchema, z } from "../../../@types/projectZodSchema";
 import { ButtonsModal } from "../components/TabContentForm/ButtonsModal";
 import { PopUp } from "../../../components/modal/templates/PopUp";
 import { ErrorModal } from "./ErrorModal";
+import { SetStateProject } from "../../../@types/projectTypes";
 
 type ModalEditProjectType = z.infer<typeof ProjectSchema>
 
-interface ModalEditProjectTypes {
-    project: ProjectTypes,
-    setNewProject: Dispatch<SetStateAction<any>>
-}
-
-export function ModalEditProject({ project, setNewProject }: ModalEditProjectTypes) {
+export function ModalEditProject({ project, setNewProject }: SetStateProject) {
     const { setModalContent } = useContext(ModalContext)
     const formRef = useRef(null);
 

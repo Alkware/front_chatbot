@@ -3,6 +3,7 @@ import { ClientContext } from "../../../../context/ClientContext";
 import CreateNewProject from "../molecules/CreateNewProject";
 import { CardProject } from "../molecules/CardProject";
 import { findAllProjectsById } from "../../../../api/project";
+import { ProjectTypes } from "../../../../@types/projectTypes";
 
 
 
@@ -62,7 +63,7 @@ function MyProjects() {
                                     {
                                         projects.map((project: ProjectTypes) =>
                                             project.chat_type === "support" &&
-                                            <CardProject project={project} />
+                                            <CardProject key={project.id} project={project} setNewProject={setProjects} />
                                         )
                                     }
                                 </div>

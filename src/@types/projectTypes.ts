@@ -1,4 +1,6 @@
-interface ProjectTypes {
+import { Dispatch, SetStateAction } from "react";
+
+export interface ProjectTypes {
     project_name: string,
     logo: string,
     prompt: string,
@@ -11,10 +13,16 @@ interface ProjectTypes {
     slug?: string
     chat_type?: string
     pixel_facebook?: string,
+    is_online?: boolean,
 
     call_to_action: Array<{
         button_name: string,
         link: string
     }>,
+}
 
+
+export interface SetStateProject {
+    project: ProjectTypes;
+    setNewProject: Dispatch<SetStateAction<any>>
 }
