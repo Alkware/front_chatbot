@@ -16,7 +16,7 @@ export interface ProjectTypes {
     is_online?: boolean,
 
     call_to_action: Array<{
-        button_name: string,
+        button_text: string,
         link: string
     }>,
 }

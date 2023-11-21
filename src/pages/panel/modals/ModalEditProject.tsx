@@ -28,7 +28,7 @@ export function ModalEditProject({ project, setNewProject }: SetStateProject) {
             logo: project?.logo,
             bio: project?.bio,
             call_to_action: {
-                button_name: project.call_to_action[0].button_name,
+                button_text: project.call_to_action[0].button_text,
                 link: project.call_to_action[0].link
             },
             prompt: project?.prompt,
@@ -37,7 +37,6 @@ export function ModalEditProject({ project, setNewProject }: SetStateProject) {
             chat_input_message: project.chat_input_message
         },
     })
-
 
     const handleUpdateProject = async (data: any) => {
         if (data && project.slug) {
