@@ -1,5 +1,5 @@
 import { forwardRef, useRef } from "react";
-import { Li } from "../../../../components/Li/Li";
+import { Li } from "../../../../components/li/Li";
 import { FcInfo, FcMindMap, FcNews, FcSettings } from "react-icons/fc";
 
 export const ListMenuModalChat = forwardRef(({ }, ref: any) => {

@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 
 export interface Metric {
     chat_event: Array<{
+        guest_id: string,
         answer_time: Array<number>,
         whats_first_message: Array<string>,
         created_at: string,
@@ -26,6 +27,7 @@ export interface ProjectTypes {
     logo: string,
     prompt: string,
     client_id: string,
+    guest_id: string,
     bio: string,
     describe_client: string;
     chat_input_message: string[],

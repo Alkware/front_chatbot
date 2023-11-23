@@ -1,3 +1,4 @@
+import { Metric } from "../metric/Metric";
 import Dashboard from "../organims/Dashboard";
 import MyProjects from "../organims/MyProjects";
 import { System } from "../organims/System";
@@ -17,7 +18,7 @@ function ControllerSectionComponents({ navMenu }: ComponetsTypes) {
                         <MyProjects />
                         :
                         navMenu === 2 ?
-                            <h2>Metricas</h2>
+                            <Metric />
                             :
                             navMenu === 3 ?
                                 <h2>Suporte</h2>

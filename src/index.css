@@ -67,3 +67,13 @@ textarea {
     transform: translateX(0%);
   }
 }
+
+
+@keyframes loading {
+  from {
+    transform: rotate(45deg) scale(.5, 1.25) rotate(360deg)
+  }
+  to{
+    transform: rotate(45deg) scale(.5, 1.25) rotate(0deg)
+  }
+}
