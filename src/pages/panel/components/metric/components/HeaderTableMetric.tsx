@@ -11,7 +11,7 @@ export function HeaderTableMetric({ setColumns, columns }: ModalColumnOrganizati
     useEffect(() => {
         const columnsHeaderMetric = JSON.parse(localStorage.getItem("metricColumnActive") || "[]");
 
-        if (!!columnsHeaderMetric.length) setColumns(columnsHeaderMetric)
+        if (columnsHeaderMetric.length > 0) setColumns(columnsHeaderMetric)
         else {
             const defaultColumns: Columns[] = [
                 { key: "IS_ONLINE", columnName: "status", status: true },
