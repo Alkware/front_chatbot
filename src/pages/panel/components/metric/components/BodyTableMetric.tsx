@@ -48,9 +48,11 @@ export function BodyTableMetric({ columns }: { columns: Columns[] }) {
                 return formatLongNumber(output + input)
             }
             case "USED_REAL": {
-                const usedDollarToken = (0.00003 * input) + (0.00006 * output);
-                var valueInReal = usedDollarToken;
-                return dollar ? "R$" + (dollar * valueInReal).toFixed(2).replace(".", ",") : 0
+                const usedDollarToken = (input * 0.03 / 1000) + (output * 0.06 / 1000);
+                console.log(usedDollarToken)
+                const dollarToReal = dollar ? "R$" + (dollar * usedDollarToken).toFixed(2).replace(".", ",") : 0
+                console.log(dollarToReal)
+                return dollarToReal
             }
             default:
                 return 0
