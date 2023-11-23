@@ -1,27 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { ClientContext } from "../../../../context/ClientContext";
 import CreateNewProject from "../molecules/CreateNewProject";
 import { CardProject } from "../molecules/CardProject";
-import { findAllProjectsById } from "../../../../api/project";
 import { ProjectTypes } from "../../../../@types/projectTypes";
-
 
 
 function MyProjects() {
     const { client } = useContext(ClientContext)
-    const [projects, setProjects] = useState<any>([])
-
-    useEffect(() => {
-        (async () => {
-            if (client) {
-                const response = await findAllProjectsById(client?.id);
-                if (response) {
-                    const projects: ProjectTypes = response.data
-                    setProjects(projects)
-                }
-            }
-        })();
-    }, [])
+    const [projects, setProjects] = useState<any>(client?.project)
 
     return (
         (projects && client) &&

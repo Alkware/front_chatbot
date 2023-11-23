@@ -55,7 +55,6 @@ export function ModalCreateProject({ client_id, setNewProject }: NewProjectTypes
         } catch (error) {
             throw new Error("Erro ao tentar criar o projeto")
         }
-
     }
 
     return (

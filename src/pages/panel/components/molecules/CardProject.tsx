@@ -1,4 +1,5 @@
 import { SetStateProject } from "../../../../@types/projectTypes";
+import { CardMetricMyProjects } from "../cards/CardMetricMyProjects";
 import { EditProject } from "./EditProject";
 
 export function CardProject({ project, setNewProject }: SetStateProject) {
@@ -27,15 +28,13 @@ export function CardProject({ project, setNewProject }: SetStateProject) {
                 />
             </div>
             <h2 className="text-center font-bold text-lg">{project.project_name}</h2>
-            <div className="w-3/4 flex flex-col items-start">
-                <h2 className="text-center">Chats abertos: 18</h2>
-                <h2>Conversão: {Number(3 * 100 / 18).toFixed(1)}%</h2>
-                <h2 className="text-center">Vendas: 3</h2>
+            <div className="w-full flex flex-col items-start px-2">
+                <CardMetricMyProjects metric={project.metric} />
                 <a
                     href={`https://chat.wipzee.com/${project.slug}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline flex gap-1 items-center"
+                    className="underline w-full flex gap-1 items-center justify-center mt-4"
                 >Acessar chat </a>
             </div>
 

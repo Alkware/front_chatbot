@@ -1,5 +1,26 @@
 import { Dispatch, SetStateAction } from "react";
 
+export interface Metric {
+    chat_event: Array<{
+        answer_time: Array<number>,
+        whats_first_message: Array<string>,
+        created_at: string,
+        updated_at: string,
+        chat_time: Array<{
+            closed_at: string,
+            created_at: string,
+        }>,
+        open_chat: Array<{
+            created_at: string,
+        }>,
+        used_tokens: Array<{
+            input: number, output: number,
+            created_at: string,
+        }>,
+    }>
+}
+
+
 export interface ProjectTypes {
     project_name: string,
     logo: string,
@@ -8,7 +29,7 @@ export interface ProjectTypes {
     bio: string,
     describe_client: string;
     chat_input_message: string[],
-
+    metric: Metric,
     id?: string,
     slug?: string
     chat_type?: string

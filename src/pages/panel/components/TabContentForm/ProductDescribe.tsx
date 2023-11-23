@@ -33,7 +33,7 @@ export function ProductDescribe({ register }: ProductDescribe) {
 
             <div className="w-full flex gap-8 justify-evenly">
                 <InputTextForm
-                    field_name="call_to_action.button_name"
+                    field_name="call_to_action.button_text"
                     title="Digite o nome do botão da cta"
                     placeholder="ex: Comprar agora"
                     register={register}
