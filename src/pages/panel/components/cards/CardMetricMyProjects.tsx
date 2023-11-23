@@ -9,34 +9,35 @@ interface EventsMetric {
     usedTotalReal: string
 }
 
-export function CardMetricMyProjects({ metric }: { metric: Metric }) {
+export function CardMetricMyProjects({ metric }: { metric: Metric | undefined }) {
 
     const [events, setEvents] = useState<EventsMetric>();
 
     useEffect(() => {
-
         (async () => {
-            const openChats = metric.chat_event.reduce((total, chats) =>  total += chats.open_chat.length, 0)
-            const input_tokens = metric.chat_event.reduce(
-                (total, chats) => total + chats.used_tokens.reduce(
-                    (total, tokens) => total + tokens.input, 0
-                ), 0
-            )
-            const output_tokens = metric.chat_event.reduce(
-                (total, chats) => total + chats.used_tokens.reduce(
-                    (total, tokens) => total + tokens.output, 0
-                ), 0
-            )
-
-            const usedDollarToken = (input_tokens * 0.03) + (output_tokens * 0.06);
-
-            const usedTotalReal = await convertDollarToReal((usedDollarToken * 0.000045))
-
-            setEvents({
-                openChatSize: openChats || 0,
-                totalToken: formatLongNumber(input_tokens + output_tokens) || "0",
-                usedTotalReal: usedTotalReal || "0"
-            })
+            if(metric){
+                const openChats = metric.chat_event.reduce((total, chats) =>  total += chats.open_chat.length, 0)
+                const input_tokens = metric.chat_event.reduce(
+                    (total, chats) => total + chats.used_tokens.reduce(
+                        (total, tokens) => total + tokens.input, 0
+                    ), 0
+                )
+                const output_tokens = metric.chat_event.reduce(
+                    (total, chats) => total + chats.used_tokens.reduce(
+                        (total, tokens) => total + tokens.output, 0
+                    ), 0
+                )
+    
+                const usedDollarToken = (input_tokens * 0.03) + (output_tokens * 0.06);
+    
+                const usedTotalReal = await convertDollarToReal((usedDollarToken * 0.000045))
+    
+                setEvents({
+                    openChatSize: openChats || 0,
+                    totalToken: formatLongNumber(input_tokens + output_tokens) || "0",
+                    usedTotalReal: usedTotalReal || "0"
+                })
+            }
         })()
     }, [])
 

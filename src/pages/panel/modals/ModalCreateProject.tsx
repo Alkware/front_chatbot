@@ -44,6 +44,7 @@ export function ModalCreateProject({ client_id, setNewProject }: NewProjectTypes
                 pixel_facebook,
                 chat_input_message
             });
+
             if (project && project.status === 201) {
                 reset();
                 setNewProject((v: any) => [...v, project.data])

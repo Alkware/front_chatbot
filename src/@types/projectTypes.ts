@@ -29,7 +29,7 @@ export interface ProjectTypes {
     bio: string,
     describe_client: string;
     chat_input_message: string[],
-    metric: Metric,
+    metric?: Metric,
     id?: string,
     slug?: string
     chat_type?: string
