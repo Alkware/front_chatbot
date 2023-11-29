@@ -45,7 +45,7 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                 {
                     freeTrial() > 0 &&
                     <h3 className="flex flex-col">
-                        <span className="text-red-800/80 text-xs text-center ">(Periodo gratuito)</span>
+                        <span className="text-red-800/80 text-xs text-center ">(Reembolso garantido:)</span>
                         <span className="text-red-800/70 text-xs text-center "> {(+ freeTrial() + " dias restantes")}</span>
 
                     </h3>

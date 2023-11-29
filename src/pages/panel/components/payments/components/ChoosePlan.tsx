@@ -3,9 +3,12 @@ import { getPlans } from "../../../../../api/plan";
 import ButtonGreen from "../../../../../components/button/ButtonGreen";
 import { FaCheck, FaWindowClose } from "react-icons/fa";
 import { ModalContext } from "../../../../../context/ModalContext";
+import { PopOver } from "../../../../../components/modal/templates/PopOver";
+import { clientTypes } from "../../../../../@types/clientTypes";
 
 
 interface Plans {
+    id: string,
     plan_name: string,
     price: number,
     max_projects: number,
@@ -14,7 +17,7 @@ interface Plans {
     link: string
 }
 
-export function ChoosePlan() {
+export function ChoosePlan({ client }: { client: clientTypes }) {
     const [plans, setPlans] = useState<Plans[]>();
     const { setModalContent } = useContext(ModalContext)
 
@@ -31,8 +34,15 @@ export function ChoosePlan() {
         })
     }
 
-    const handleChoosePlan = (link: string) => {
-        window.location.href = link
+    const handleChoosePlan = (plan: Plans) => {
+        console.log(client.id , plan.id)
+        if (client) window.location.href = `${plan.link}?cid=${client.id}&pid=${plan.id}`
+        else {
+            setModalContent({
+                isOpenModal: true,
+                components: <PopOver message="Erro ao abrir o checkout" />
+            })
+        }
     }
 
     return (
@@ -64,7 +74,7 @@ export function ChoosePlan() {
                                 </div>
                                 <span className="">R$ {Number(plan.price).toFixed(2).replace(".", ",")}</span>
                                 <ButtonGreen
-                                    onClick={() => handleChoosePlan(plan.link)}
+                                    onClick={() => handleChoosePlan(plan)}
                                     customClass="mt-8"
                                 >Quero esse</ButtonGreen>
                             </div>

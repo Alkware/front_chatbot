@@ -11,10 +11,12 @@ export function Payments() {
     const [access, setAccess] = useState(false)
 
     const handleChangePlan = () => {
-        setModalContent({
-            isOpenModal: true,
-            components: <PopUp><ChoosePlan /></PopUp>
-        })
+        if(client){
+            setModalContent({
+                isOpenModal: true,
+                components: <PopUp><ChoosePlan client={client} /></PopUp>
+            })
+        }
     }
 
     const handleAccess = () => {
@@ -23,8 +25,6 @@ export function Payments() {
             setAccess(true)
         }
     }
-
-
 
     return (
         access ?
