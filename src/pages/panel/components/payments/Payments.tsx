@@ -18,12 +18,9 @@ export function Payments() {
         }
     }
 
-
     return (
             <div className="w-full">
-
                 <div className="w-full p-4 flex justify-center">
-
                     <div className="w-1/2 min-w-[150px] max-w-[400px] border border-zinc-600 p-2 rounded-md">
                         <h2 className="w-full text-center pb-4">Plano atual:</h2>
                         <div className="w-full flex items-center justify-between">
