@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import ButtonMain from "../../../../components/button/ButtonBlue";
 import { ClientContext } from "../../../../context/ClientContext";
 import { ModalContext } from "../../../../context/ModalContext";
@@ -8,7 +8,6 @@ import { ChoosePlan } from "./components/ChoosePlan";
 export function Payments() {
     const { client } = useContext(ClientContext);
     const { setModalContent } = useContext(ModalContext)
-    const [access, setAccess] = useState(false)
 
     const handleChangePlan = () => {
         if(client){
@@ -19,15 +18,8 @@ export function Payments() {
         }
     }
 
-    const handleAccess = () => {
-        const password = prompt("Senha de acesso")
-        if (password === "gui35") {
-            setAccess(true)
-        }
-    }
 
     return (
-        access ?
             <div className="w-full">
 
                 <div className="w-full p-4 flex justify-center">
@@ -53,7 +45,5 @@ export function Payments() {
                 </div>
 
             </div>
-            :
-            <h2>payment<span onClick={handleAccess}>s</span></h2>
     )
 };
