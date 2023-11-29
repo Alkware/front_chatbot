@@ -1,7 +1,7 @@
 import { useState } from "react";
-import UserPlanInfoProfile from "../molecules/UserPlanInfoProfile";
-import ComponentsSectionPanel from "../atoms/ControllerSectionComponents";
-import MenuNavigate from "../molecules/MenuNavigate";
+import UserPlanInfoProfile from "../UserPlanInfoProfile";
+import ComponentsSectionPanel from "../ControllerSectionComponents";
+import MenuNavigate from "../MenuNavigate";
 
 function MainPanelClient() {
     const [menuIsOpen, setMenuIsOpen] = useState(true);

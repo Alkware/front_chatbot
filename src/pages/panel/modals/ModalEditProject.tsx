@@ -10,7 +10,7 @@ import { ChatSettings } from "../components/TabContentForm/ChatSettings";
 import { Tracking } from "../components/TabContentForm/Tracking";
 import { ProjectSchema, z } from "../../../@types/projectZodSchema";
 import { ButtonsModal } from "../components/TabContentForm/ButtonsModal";
-import { PopUp } from "../../../components/modal/templates/PopUp";
+import { PopOver } from "../../../components/modal/templates/PopOver";
 import { ErrorModal } from "./ErrorModal";
 import { SetStateProject } from "../../../@types/projectTypes";
 
@@ -45,7 +45,7 @@ export function ModalEditProject({ project, setNewProject }: SetStateProject) {
                 setNewProject((projects: any) => [...projects.filter((v: any) => v.id !== project.id), projectUpdate.data])
                 setModalContent({
                     isOpenModal: true,
-                    components: <PopUp message="Chat atualizado com sucesso" />
+                    components: <PopOver message="Chat atualizado com sucesso" />
                 })
             }
         }

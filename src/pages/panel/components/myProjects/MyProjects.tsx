@@ -1,16 +1,16 @@
 import { useContext, useState } from "react";
 import { ClientContext } from "../../../../context/ClientContext";
-import CreateNewProject from "../molecules/CreateNewProject";
-import { CardProject } from "../molecules/CardProject";
+import CreateNewProject from "./CreateNewProject";
+import { CardProject } from "../cards/CardProject";
 import { ProjectTypes } from "../../../../@types/projectTypes";
 
 
 function MyProjects() {
     const { client } = useContext(ClientContext)
-    const [projects, setProjects] = useState<any>(client?.project)
+    const [projects, setProjects] = useState<any>(client?.plan_management?.project || [])
 
     return (
-        (projects && client) &&
+        client &&
         <div className="w-full flex justify-center p-4">
 
             <div className="w-4/5 flex flex-col gap-8">
@@ -57,7 +57,11 @@ function MyProjects() {
                             </div>
 
                         </div>
-                    ) : <h1 className="py-8 font-bold">Você ainda não possui nenhum chat, clique em "Novo chat" para começar seu primeiro projeto.</h1>
+                    )
+                        :
+                        <h2 className="py-8 font-bold">
+                            Você ainda não possui nenhum chat, clique em "Novo chat" para começar seu primeiro projeto.
+                        </h2>
                 }
 
             </div>

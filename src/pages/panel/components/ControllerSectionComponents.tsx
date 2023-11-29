@@ -1,7 +1,8 @@
-import { Metric } from "../metric/Metric";
-import Dashboard from "../organims/Dashboard";
-import MyProjects from "../organims/MyProjects";
-import { System } from "../organims/System";
+import { Metric } from "./metric/Metric";
+import Dashboard from "./dashboard/Dashboard";
+import MyProjects from "./myProjects/MyProjects";
+import { System } from "./system/System";
+import { Payments } from "./payments/Payments";
 
 interface ComponetsTypes {
     navMenu: number
@@ -24,7 +25,7 @@ function ControllerSectionComponents({ navMenu }: ComponetsTypes) {
                                 <h2>Suporte</h2>
                                 :
                                 navMenu === 4 ?
-                                    <h2>Pagamentos</h2>
+                                    <Payments />
                                     :
                                     navMenu === 5 ?
                                         <h2>configuração</h2>

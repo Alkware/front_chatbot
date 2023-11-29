@@ -45,13 +45,15 @@ function Register() {
 
     return (
         <div className="w-screen h-screen flex justify-center items-center bg-dark">
-            <div className="w-full max-w-[480px] rounded-xl shadow-sm shadow-blue-500 flex bg-blue_main2">
-                <div className="w-full h-full flex flex-col items-center relative p-4">
-                    <h1>Registre em nossa plataforma</h1>
+            <div className="w-full max-w-[480px] rounded-xl flex bg-gradient-to-tr from-transparent to-blue_main2">
+                <div className="w-full h-full flex gap-4 flex-col items-center relative p-4">
+                    <h1 className="text-2xl">Registre em nossa plataforma</h1>
+
                     <form
                         onSubmit={handleSubmit(createUser)}
                         className="flex flex-col gap-2 justify-center items-center"
                     >
+
                         <input
                             type="text"
                             className="rounded-md p-2 w-full bg-dark"
@@ -89,7 +91,7 @@ function Register() {
                         <input
                             type="submit"
                             value="Registre-se"
-                            className="w-full bg-blue_main p-3"
+                            className="w-full bg-blue_main p-3 cursor-pointer hover:brightness-110 transition-all"
                         />
 
                     </form>

@@ -7,7 +7,7 @@ import { getDollar } from "../../../../../functions/convertDollarToReal"
 
 export function BodyTableMetric({ columns }: { columns: Columns[] }) {
     const { client } = useContext(ClientContext)
-    const projects = client?.project as ProjectTypes[]
+    const projects = (client?.plan_management?.project as unknown) as ProjectTypes[]
     const [dollar, setDollar] = useState();
 
     useEffect(() => {
@@ -41,17 +41,14 @@ export function BodyTableMetric({ columns }: { columns: Columns[] }) {
                 return formatLongNumber(input)
             }
             case "TOKEN_OUTPUT": {
-
                 return formatLongNumber(output)
             }
             case "TOKEN_TOTAL": {
                 return formatLongNumber(output + input)
             }
             case "USED_REAL": {
-                const usedDollarToken = (input * 0.03 / 1000) + (output * 0.06 / 1000);
-                console.log(usedDollarToken)
+                const usedDollarToken = (input *  0.0010 / 1000) + (output * 0.0020 / 1000);
                 const dollarToReal = dollar ? "R$" + (dollar * usedDollarToken).toFixed(2).replace(".", ",") : 0
-                console.log(dollarToReal)
                 return dollarToReal
             }
             default:
@@ -61,9 +58,9 @@ export function BodyTableMetric({ columns }: { columns: Columns[] }) {
 
 
     return (
-        projects &&
         <div className="overflow-auto border-4 border-zinc-800">
             {
+                projects ?
                 projects.map((project: any) =>
                     <div key={project.id} className="w-full border-[1px] border-transparent border-b-zinc-800 flex hover:bg-zinc-900 transition-colors duration-100">
                         {
@@ -86,6 +83,8 @@ export function BodyTableMetric({ columns }: { columns: Columns[] }) {
                         }
                     </div>
                 )
+                :
+                <h2 className="text-center p-4">Você ainda não criou nenhum chat, clique em "Meus chats" , depois criar "Novo chat".</h2>
             }
         </div>
     )

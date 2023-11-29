@@ -10,7 +10,7 @@ import { Tracking } from "../components/TabContentForm/Tracking";
 import { ChatSettings } from "../components/TabContentForm/ChatSettings";
 import { ProjectSchema, z } from "../../../@types/projectZodSchema";
 import { ButtonsModal } from "../components/TabContentForm/ButtonsModal";
-import { PopUp } from "../../../components/modal/templates/PopUp";
+import { PopOver } from "../../../components/modal/templates/PopOver";
 import { ErrorModal } from "./ErrorModal";
 import { ProjectTypes } from "../../../@types/projectTypes";
 
@@ -50,7 +50,7 @@ export function ModalCreateProject({ client_id, setNewProject }: NewProjectTypes
                 setNewProject((v: any) => [...v, project.data])
                 setModalContent({
                     isOpenModal: true,
-                    components: <PopUp message="Chat criado com sucesso" />
+                    components: <PopOver message="Chat criado com sucesso" />
                 })
             }
         } catch (error) {

@@ -1,5 +1,5 @@
-import { CompanyLogo } from "../../../../components/companyLogo";
-import { MenuIconsHeaderPanel } from "../atoms/MenuIconsHeaderPanel";
+import { CompanyLogo } from "../../../components/companyLogo";
+import { MenuIconsHeaderPanel } from "./MenuIconsHeaderPanel";
 
 function PanelHeader() {
 

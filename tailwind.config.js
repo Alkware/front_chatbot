@@ -18,6 +18,7 @@ export default {
       animation:{
         "smooth_display_left": "smooth-display-left 500ms ease-in-out",
         "loading": "loading 500ms linear infinite",
+        "jump-screen": "jump-screen 1s ease-out "
       }
     },
   },

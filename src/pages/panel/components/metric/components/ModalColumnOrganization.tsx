@@ -18,8 +18,6 @@ export function ModalColumnOrganization({ setColumns, columns }: ModalColumnOrga
         const status = e.currentTarget.dataset.status == "true" ? true : false;
         const name = e.currentTarget.dataset.name;
 
-        console.log(status)
-
         setColumnsData(() => [
             ...columns.filter((column: any, index: number) => {
                 if (index > 1) {

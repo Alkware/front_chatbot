@@ -77,3 +77,15 @@ textarea {
     transform: rotate(45deg) scale(.5, 1.25) rotate(0deg)
   }
 }
+
+@keyframes jump-screen {
+  0%{
+    transform: translate(100%);
+  }
+  50% {
+    transform: translate(-50px);
+  }
+  100%{
+    transform: translate(0);
+  }
+}

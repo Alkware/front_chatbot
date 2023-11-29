@@ -1,6 +1,6 @@
 import { SetStateProject } from "../../../../@types/projectTypes";
-import { CardMetricMyProjects } from "../cards/CardMetricMyProjects";
-import { EditProject } from "./EditProject";
+import { CardMetricMyProjects } from "./CardMetricMyProjects";
+import { EditProject } from "../myProjects/EditProject";
 
 export function CardProject({ project, setNewProject }: SetStateProject) {
 

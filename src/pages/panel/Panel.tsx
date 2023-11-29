@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import PanelHeader from "./components/molecules/PanelHeader";
-import MainPanelClient from "./components/organims/MainPanelClient";
+import PanelHeader from "./components/PanelHeader";
+import MainPanelClient from "./components/myProjects/MainPanelClient";
 import { authenticateClient } from "../../api/client";
 import { useNavigate } from "react-router-dom";
 import { ClientContext } from "../../context/ClientContext";

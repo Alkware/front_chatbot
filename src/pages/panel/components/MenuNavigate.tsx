@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import ControlCloseMenuNavigation from "../atoms/ControlCloseMenuNavigation";
+import ControlCloseMenuNavigation from "./ControlCloseMenuNavigation";
 import { FaGear, FaMessage } from "react-icons/fa6";
-import { IoIosChatbubbles, IoIosStats, IoMdHeadset, IoMdLock } from "react-icons/io";
+import { IoIosChatbubbles, IoIosStats, IoMdHeadset, IoMdLock, IoMdCash } from "react-icons/io";
 
 
 interface containerMenuTypes {
@@ -41,7 +41,7 @@ function MenuNavigate({ setTabNavigationIndex, menuIsOpen, setMenuIsOpen }: cont
             index: 4,
             name: "Pagamentos",
             access: "user",
-            icon: <FaGear className="group-hover:fill-blue_dark transition-colors duration-100" />
+            icon: <IoMdCash  className="group-hover:fill-blue_dark transition-colors duration-100" />
         },
         {
             index: 5,
