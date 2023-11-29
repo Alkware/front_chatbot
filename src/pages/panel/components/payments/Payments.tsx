@@ -8,7 +8,7 @@ import { ChoosePlan } from "./components/ChoosePlan";
 export function Payments() {
     const { client } = useContext(ClientContext);
     const { setModalContent } = useContext(ModalContext)
-    const [access, setAcess] = useState(false)
+    const [access, setAccess] = useState(false)
 
     const handleChangePlan = () => {
         setModalContent({
@@ -17,10 +17,14 @@ export function Payments() {
         })
     }
 
-    const handleAccess = ()=>{
-        const password = prompt("Senha de acesso:")
-        if(password === "gui35") setAcess(true)
+    const handleAccess = () => {
+        const password = prompt("Senha de acesso")
+        if (password === "gui35") {
+            setAccess(true)
+        }
     }
+
+
 
     return (
         access ?
@@ -50,6 +54,6 @@ export function Payments() {
 
             </div>
             :
-            <h2>Payments em contruçã<span onClick={handleAccess}>o</span></h2>
+            <h2>payment<span onClick={handleAccess}>s</span></h2>
     )
 };
