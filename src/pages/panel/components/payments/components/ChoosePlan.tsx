@@ -32,7 +32,7 @@ export function ChoosePlan() {
     }
 
     const handleChoosePlan = (link: string) => {
-        window.open(link)
+        window.location.href = link
     }
 
     return (
