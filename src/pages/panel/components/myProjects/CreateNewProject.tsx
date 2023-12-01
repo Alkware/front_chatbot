@@ -23,17 +23,25 @@ function CreateNewProject({ client_id, setNewProject }: NewProjectTypes) {
             const maxPlans = client.plan_management.plan.max_projects;
             const currentNumberOfProjects = client.plan_management.project.length
 
-            if (maxPlans > currentNumberOfProjects) {
-                setModalContent({
-                    isOpenModal: true,
-                    components: <ModalCreateProject client_id={client_id} setNewProject={setNewProject} />
-                })
+            if (client.plan_management.status !== "DISABLED") {
+                if (maxPlans > currentNumberOfProjects) {
+                    setModalContent({
+                        isOpenModal: true,
+                        components: <ModalCreateProject client_id={client_id} setNewProject={setNewProject} />
+                    })
+                } else {
+                    setModalContent({
+                        isOpenModal: true,
+                        components: <PopOver message="Você atingiu o número maximo por plano."></PopOver>
+                    })
+                }
             } else {
                 setModalContent({
                     isOpenModal: true,
-                    components: <PopOver message="Você atingiu o número maximo por plano."></PopOver>
+                    components: <PopOver message="O plano da sua conta está desabilitado."></PopOver>
                 })
             }
+
         } else {
             setModalContent({
                 isOpenModal: true,

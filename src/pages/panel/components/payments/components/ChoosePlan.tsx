@@ -5,6 +5,7 @@ import { FaCheck, FaWindowClose } from "react-icons/fa";
 import { ModalContext } from "../../../../../context/ModalContext";
 import { PopOver } from "../../../../../components/modal/templates/PopOver";
 import { clientTypes } from "../../../../../@types/clientTypes";
+import ButtonMain from "../../../../../components/button/ButtonBlue";
 
 
 interface Plans {
@@ -35,7 +36,7 @@ export function ChoosePlan({ client }: { client: clientTypes }) {
     }
 
     const handleChoosePlan = (plan: Plans) => {
-        console.log(client.id , plan.id)
+        console.log(client.id, plan.id)
         if (client) window.location.href = `${plan.link}?cid=${client.id}&pid=${plan.id}`
         else {
             setModalContent({
@@ -73,10 +74,20 @@ export function ChoosePlan({ client }: { client: clientTypes }) {
                                     </div>
                                 </div>
                                 <span className="">R$ {Number(plan.price).toFixed(2).replace(".", ",")}</span>
-                                <ButtonGreen
-                                    onClick={() => handleChoosePlan(plan)}
-                                    customClass="mt-8"
-                                >Quero esse</ButtonGreen>
+                                {
+                                    client.plan_management && client.plan_management.plan.plan_name === plan.plan_name ?
+                                        <ButtonMain
+                                            onClick={() => handleChoosePlan(plan)}
+                                            customClass="mt-8"
+                                        >
+                                            Reativar plano
+                                        </ButtonMain>
+                                        :
+                                        <ButtonGreen
+                                            onClick={() => handleChoosePlan(plan)}
+                                            customClass="mt-8"
+                                        >Quero esse</ButtonGreen>
+                                }
                             </div>
                         )
                         :

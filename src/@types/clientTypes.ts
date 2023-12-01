@@ -6,6 +6,18 @@ export interface clientTypes {
     user: string,
     plan_management: {
         free_trial: Date,
+        last_pyament: string,
+        next_payment: string,
+        status: "DISABLED" | "ACTIVED",
+        used_wips: number,
+        created_at: string,
+        trasaction: Array<{
+            payment_method: string,
+            amount_paid: number,
+            created_at: string,
+            updated_at: string,
+            status: "APPROVED" | "REJECT"
+        }>,
         project: Array<{
             id: string
             slug: string,
@@ -18,8 +30,8 @@ export interface clientTypes {
             metric: {
                 chat_event: Array<{
                     used_tokens: Array<{
-                        input: number, 
-                        output: number, 
+                        input: number,
+                        output: number,
                     }>
                 }>,
                 button_event: Array<{}>,
@@ -31,8 +43,13 @@ export interface clientTypes {
             max_wips: number,
         }
 
-    }
+    },
+    refund_requested: Array<{
+        created_at: string,
+        status: "PENDING" | "APPROVED" | "CANCEL",
+    }>,
 }
+
 
 export interface clientRegisterTypes {
     email: string,

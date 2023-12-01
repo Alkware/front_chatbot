@@ -33,7 +33,7 @@ export function PopOver({ message }: { message: string }) {
             className="w-screen h-screen flex justify-end items-start mt-12 animate-jump-screen"
             ref={contentRef}
         >
-            <div className="bg-blue_main2 rounded-lg shadow-sm shadow-white/20">
+            <div className="max-w-[400px] bg-blue_main2 rounded-lg shadow-sm shadow-white/20">
                 <div className="p-4 w-full">
                     <h2>{message}</h2>
                 </div>
