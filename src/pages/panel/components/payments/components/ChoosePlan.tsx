@@ -36,7 +36,7 @@ export function ChoosePlan({ client }: { client: clientTypes }) {
     }
 
     const handleChoosePlan = (plan: Plans) => {
-        if (client.plan_management.status === "ACTIVE" && client.plan_management.plan.plan_name === plan.plan_name) return
+        if (client.plan_management && client.plan_management.status === "ACTIVE" && client.plan_management.plan.plan_name === plan.plan_name) return
 
         if (client) window.location.href = `${plan.link}?cid=${client.id}&pid=${plan.id}`
         else {
