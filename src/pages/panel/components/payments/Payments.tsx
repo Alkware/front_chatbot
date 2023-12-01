@@ -81,7 +81,10 @@ export function Payments() {
         if (!!client?.refund_requested.length) {
             if (client?.plan_management && freeTrial() > 0 && client.refund_requested[0].status === "CANCEL") return true
             else return false
-        } else return true
+        } else {
+            if(client?.plan_management)return true
+            else return false
+        }
     }
 
     const realeaseAddPlanButton = () => {

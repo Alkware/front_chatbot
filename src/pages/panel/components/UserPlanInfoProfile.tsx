@@ -31,7 +31,7 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                 <h2 className="text-white text-center">{client?.fullname}</h2>
 
                 {
-                    client.plan_management.status !== 'DISABLED' ?
+                    (client.plan_management && client.plan_management.status !== 'DISABLED') ?
                         <h3 className="text-xs uppercase flex justify-center items-center gap-1">
                             <TbBusinessplan className="text-lg text-yellow-400 font-bold" />
                             <p className="text-yellow-400 font-bold ">
@@ -42,7 +42,7 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                         <p className="text-sm text-zinc-300">convidado</p>
                 }
                 {
-                    client.plan_management.status !== "DISABLED" && (freeTrial() > 0 ?
+                   (client.plan_management && client.plan_management.status !== 'DISABLED')  && (freeTrial() > 0 ?
                         <h3 className="flex flex-col">
                             <span className="text-red-800/80 text-xs text-center ">Reembolso garantido em:</span>
                             <span className="text-red-800/70 text-xs text-center "> {(+ freeTrial() + " dias restantes")}</span>
