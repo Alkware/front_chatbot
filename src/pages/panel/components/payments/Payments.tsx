@@ -79,17 +79,19 @@ export function Payments() {
 
     const realeaseRefundButton = () => {
         if (!!client?.refund_requested.length) {
-            if (client?.plan_management && freeTrial() > 0 && client.refund_requested[0].status === "CANCEL") return true
+            if ( client.refund_requested[0].status === "CANCEL" ) return true
             else return false
-        } else {
-            if(client?.plan_management)return true
+        } else if(client?.plan_management){
+            if(client?.plan_management && freeTrial() > 0 && client.plan_management.status !== "DISABLED")return true
+        }else {
+            if(!!client?.plan_management)return true
             else return false
         }
     }
 
     const realeaseAddPlanButton = () => {
-        if (!client?.plan_management) return true
-        if (client.refund_requested[0].status !== "PENDING") return true
+        if (!!client?.plan_management) return true
+        if (!!client?.refund_requested.length  && client.refund_requested[0].status !== "PENDING") return true
         return false
     }
 
