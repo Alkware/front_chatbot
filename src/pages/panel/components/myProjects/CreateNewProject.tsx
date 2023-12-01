@@ -14,7 +14,7 @@ interface NewProjectTypes {
 }
 
 
-function CreateNewProject({ client_id, setNewProject }: NewProjectTypes) {
+function CreateNewProject({ setNewProject }: NewProjectTypes) {
     const { client } = useContext(ClientContext)
     const { setModalContent } = useContext(ModalContext)
 
@@ -23,11 +23,13 @@ function CreateNewProject({ client_id, setNewProject }: NewProjectTypes) {
             const maxPlans = client.plan_management.plan.max_projects;
             const currentNumberOfProjects = client.plan_management.project.length
 
+            console.log("CreateNewProject", client)
+
             if (client.plan_management.status !== "DISABLED") {
                 if (maxPlans > currentNumberOfProjects) {
                     setModalContent({
                         isOpenModal: true,
-                        components: <ModalCreateProject client_id={client_id} setNewProject={setNewProject} />
+                        components: <ModalCreateProject plan_management_id={client.plan_management.id} setNewProject={setNewProject} />
                     })
                 } else {
                     setModalContent({

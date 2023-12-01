@@ -78,20 +78,20 @@ export function Payments() {
     }
 
     const realeaseRefundButton = () => {
-        if (!!client?.refund_requested.length) {
-            if ( client.refund_requested[0].status === "CANCEL" ) return true
-            else return false
-        } else if(client?.plan_management){
-            if(client?.plan_management && freeTrial() > 0 && client.plan_management.status !== "DISABLED")return true
-        }else {
-            if(!!client?.plan_management)return true
-            else return false
-        }
+        if(!!client?.plan_management){
+            if (!!client?.refund_requested.length && client.plan_management.status === "ACTIVE") {
+                if (client.refund_requested[0].status !== "PENDING") return true
+                else return false
+            } else {
+                if (freeTrial() > 0 && client.plan_management.status !== "DISABLED") return true
+                else return false
+            }
+        }else false
     }
 
     const realeaseAddPlanButton = () => {
         if (!!client?.plan_management) return true
-        if (!!client?.refund_requested.length  && client.refund_requested[0].status !== "PENDING") return true
+        if (!!client?.refund_requested.length && client.refund_requested[0].status !== "PENDING") return true
         return false
     }
 
@@ -115,7 +115,7 @@ export function Payments() {
                             <span>Projetos criados: {client?.plan_management.project.length} / {client?.plan_management.plan.max_projects}</span>
                             <span>Limite de wips: {client?.plan_management.used_wips} / {client?.plan_management.plan.max_wips}</span>
                             <span>Reembolso garantido: {freeTrial() > 0 ? freeTrial() + " dias restantes" : "expirado"}</span>
-                            <span>Status do plano: {client?.plan_management.status === "ACTIVED" ? "desativado" : "Ativo"}</span>
+                            <span>Status do plano: {client?.plan_management.status === "ACTIVE" ? "desativado" : "Ativo"}</span>
                         </div>
 
                     }
@@ -170,12 +170,12 @@ export function Payments() {
                             {
 
                                 client.refund_requested[0].status === "PENDING" &&
-                                    <ButtonGreen
-                                        onClick={handleRefundReactived}
+                                <ButtonGreen
+                                    onClick={handleRefundReactived}
 
-                                    >
-                                        Cancelar reembolso
-                                    </ButtonGreen>
+                                >
+                                    Cancelar reembolso
+                                </ButtonGreen>
 
                             }
                         </div>

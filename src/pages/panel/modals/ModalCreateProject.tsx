@@ -17,17 +17,19 @@ import { ProjectTypes } from "../../../@types/projectTypes";
 type createProjectType = z.infer<typeof ProjectSchema>
 
 interface NewProjectTypes {
-    client_id: string,
+    plan_management_id: string,
     setNewProject: any
 }
 
 
-export function ModalCreateProject({ client_id, setNewProject }: NewProjectTypes) {
+export function ModalCreateProject({ plan_management_id, setNewProject }: NewProjectTypes) {
     const { setModalContent } = useContext(ModalContext)
     const formRef: RefObject<HTMLFormElement> = useRef(null);
     const { handleSubmit, register, reset, control, formState: { errors } } = useForm<createProjectType>({
         resolver: zodResolver(ProjectSchema)
     });
+
+    console.log("ModalCreateProject", plan_management_id)
 
     const handleCreateProject = async (data: any) => {
         try {
@@ -37,7 +39,7 @@ export function ModalCreateProject({ client_id, setNewProject }: NewProjectTypes
                 project_name,
                 logo,
                 prompt,
-                client_id,
+                plan_management_id,
                 bio,
                 describe_client,
                 call_to_action,

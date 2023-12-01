@@ -26,7 +26,7 @@ export interface ProjectTypes {
     project_name: string,
     logo: string,
     prompt: string,
-    client_id: string,
+    plan_management_id: string,
     bio: string,
     describe_client: string;
     chat_input_message: string[],

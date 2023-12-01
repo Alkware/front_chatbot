@@ -36,7 +36,8 @@ export function ChoosePlan({ client }: { client: clientTypes }) {
     }
 
     const handleChoosePlan = (plan: Plans) => {
-        console.log(client.id, plan.id)
+        if (client.plan_management.status === "ACTIVE" && client.plan_management.plan.plan_name === plan.plan_name) return
+
         if (client) window.location.href = `${plan.link}?cid=${client.id}&pid=${plan.id}`
         else {
             setModalContent({
@@ -44,6 +45,14 @@ export function ChoosePlan({ client }: { client: clientTypes }) {
                 components: <PopOver message="Erro ao abrir o checkout" />
             })
         }
+
+    }
+
+    const controlWhatButtonDisplay = (plan: Plans) => {
+        if (!!client.plan_management) {
+            if (client.plan_management.plan.plan_name === plan.plan_name) return true
+            else false
+        } else return false
     }
 
     return (
@@ -75,12 +84,17 @@ export function ChoosePlan({ client }: { client: clientTypes }) {
                                 </div>
                                 <span className="">R$ {Number(plan.price).toFixed(2).replace(".", ",")}</span>
                                 {
-                                    client.plan_management && client.plan_management.plan.plan_name === plan.plan_name ?
+                                    controlWhatButtonDisplay(plan) ?
                                         <ButtonMain
                                             onClick={() => handleChoosePlan(plan)}
-                                            customClass="mt-8"
+                                            customClass={`mt-8 ${client.plan_management.status === "ACTIVE" ? "opacity-60 cursor-not-allowed" : "opacity-100"}`}
                                         >
-                                            Reativar plano
+                                            {
+                                                client.plan_management.status !== "ACTIVE" ?
+                                                    "Reativar plano"
+                                                    :
+                                                    "Plano atual"
+                                            }
                                         </ButtonMain>
                                         :
                                         <ButtonGreen

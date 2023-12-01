@@ -5,10 +5,11 @@ export interface clientTypes {
     isAdmin: boolean,
     user: string,
     plan_management: {
+        id: string,
         free_trial: Date,
         last_pyament: string,
         next_payment: string,
-        status: "DISABLED" | "ACTIVED",
+        status: "DISABLED" | "ACTIVE",
         used_wips: number,
         created_at: string,
         trasaction: Array<{
