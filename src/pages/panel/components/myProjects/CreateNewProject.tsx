@@ -23,8 +23,6 @@ function CreateNewProject({ setNewProject }: NewProjectTypes) {
             const maxPlans = client.plan_management.plan.max_projects;
             const currentNumberOfProjects = client.plan_management.project.length
 
-            console.log("CreateNewProject", client)
-
             if (client.plan_management.status !== "DISABLED") {
                 if (maxPlans > currentNumberOfProjects) {
                     setModalContent({

@@ -29,8 +29,6 @@ export function ModalCreateProject({ plan_management_id, setNewProject }: NewPro
         resolver: zodResolver(ProjectSchema)
     });
 
-    console.log("ModalCreateProject", plan_management_id)
-
     const handleCreateProject = async (data: any) => {
         try {
             const { project_name, logo, prompt, bio, describe_client, call_to_action, pixel_facebook, chat_input_message }: ProjectTypes = data;
