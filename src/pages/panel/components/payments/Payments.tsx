@@ -90,9 +90,8 @@ export function Payments() {
     }
 
     const realeaseAddPlanButton = () => {
-        if (!!client?.plan_management) return true
         if (!!client?.refund_requested.length && client.refund_requested[0].status !== "PENDING") return true
-        return false
+        return true
     }
 
     return (
