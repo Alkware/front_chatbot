@@ -3,6 +3,7 @@ import { API_URL } from "./url-api"
 import { ProjectTypes } from "../@types/projectTypes"
 
 export async function createNewProject({ project_name, logo, prompt, plan_management_id, bio, call_to_action, describe_client, pixel_facebook, chat_input_message }: ProjectTypes) {
+    console.log(plan_management_id)
     const project = await axios.post(`${API_URL}/create/project`, {
         project_name, logo, prompt, plan_management_id, bio, call_to_action, describe_client, pixel_facebook, chat_input_message
     }).catch(err => console.log(err))
