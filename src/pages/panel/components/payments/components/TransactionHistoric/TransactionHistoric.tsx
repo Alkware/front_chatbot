@@ -21,7 +21,7 @@ export function TransactionHistoric({ plan_management }: { plan_management?: Pla
                                 plan_management.trasaction.map((payment, index) =>
                                     <div key={index} className="w-full flex px-4 justify-between border border-zinc-500/20">
                                         <span className="w-1/3 text-center">{plan_management.plan.plan_name}</span>
-                                        <span className="w-1/3 text-center">{payment.transaction_describe === "PAYMENT" ? "Pagamento" : payment.transaction_describe === "REFUND_REQUEST" ? "Reembolso solicitado": "Reembolso cancelado"}</span>
+                                        <span className="w-1/3 text-center">{payment.transaction_describe === "PAYMENT" ? "Pagamento" : payment.transaction_describe === "REFUND_REQUEST" ? "Reembolso solicitado": payment.transaction_describe === "SUBSCRIPTION_CANCELLATION" ? "Plano cancelado": "Reembolso cancelado"}</span>
                                         <span className="w-1/3 text-center">{payment.created_at.replace("T", " - ").replace("Z", "").substring(0, 18)}</span>
                                         <span className="w-1/3 text-center">R${Number(payment.amount_paid).toFixed(2).replace(".", ",")}</span>
                                         <span className="w-1/3 text-center">{payment.payment_method}</span>

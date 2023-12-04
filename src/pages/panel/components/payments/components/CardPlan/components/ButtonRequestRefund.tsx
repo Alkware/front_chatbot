@@ -93,7 +93,7 @@ export function ButtonRequestRefund({ client }: { client?: clientTypes }) {
             :
             realeaseCancelSubscriptionButton() &&
             <div className="w-full flex justify-center">
-                <a onClick={handleCancelSubscription} className="text-center underline cursor-pointer">Cancelar assinatura</a>
+                <a onClick={handleCancelSubscription} className="text-center underline cursor-pointer">Gerenciar assinatura</a>
             </div>
     )
 };
