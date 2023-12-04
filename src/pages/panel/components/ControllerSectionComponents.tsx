@@ -1,7 +1,5 @@
 import { Metric } from "./metric/Metric";
-import Dashboard from "./dashboard/Dashboard";
 import MyProjects from "./myProjects/MyProjects";
-import { System } from "./system/System";
 import { Payments } from "./payments/Payments";
 
 interface ComponetsTypes {
@@ -13,24 +11,16 @@ function ControllerSectionComponents({ navMenu }: ComponetsTypes) {
         <div className="w-full">
             {
                 navMenu === 0 ?
-                    <Dashboard />
+                    <MyProjects />
                     :
                     navMenu === 1 ?
-                        <MyProjects />
+                        <Metric />
                         :
                         navMenu === 2 ?
-                            <Metric />
+                            <Payments />
                             :
-                            navMenu === 3 ?
-                                <h2>Suporte</h2>
-                                :
-                                navMenu === 4 ?
-                                    <Payments />
-                                    :
-                                    navMenu === 5 ?
-                                        <h2>configuração</h2>
-                                        :
-                                        <System />
+                            <h2>configuração</h2>
+
             }
         </div>
 

@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react"
-import { getPlans } from "../../../../../api/plan";
-import ButtonGreen from "../../../../../components/button/ButtonGreen";
+import { getPlans } from "../../../../../../api/plan";
+import ButtonGreen from "../../../../../../components/button/ButtonGreen";
 import { FaCheck, FaWindowClose } from "react-icons/fa";
-import { ModalContext } from "../../../../../context/ModalContext";
-import { PopOver } from "../../../../../components/modal/templates/PopOver";
-import { clientTypes } from "../../../../../@types/clientTypes";
-import ButtonMain from "../../../../../components/button/ButtonBlue";
+import { ModalContext } from "../../../../../../context/ModalContext";
+import { PopOver } from "../../../../../../components/modal/templates/PopOver";
+import { clientTypes } from "../../../../../../@types/clientTypes";
+import ButtonMain from "../../../../../../components/button/ButtonBlue";
 
 
 interface Plans {
