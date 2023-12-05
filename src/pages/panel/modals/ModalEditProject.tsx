@@ -46,7 +46,6 @@ export function ModalEditProject({ project, setNewProject }: ModalEditProject) {
     const handleUpdateProject = async (data: any) => {
         if (data && project.slug) {
             const projectUpdate = await updateProject(data, project.slug)
-            console.log(projectUpdate)
             if (projectUpdate && projectUpdate.status === 200) {
                 setNewProject((projects: any) => [...projects.filter((v: any) => v.id !== project.id), projectUpdate.data])
                 setModalContent({

@@ -47,15 +47,15 @@ export function eventManager(project: ProjectTypes) {
     }
 
     function getInputWips() {
-        return Number(input / 1000).toFixed(2).replace(".", ",")
+        return Number(input / 1000).toFixed(1)
     }
 
     function getOutputWips() {
-        return Number(input / 1000).toFixed(2).replace(".", ",")
+        return Number(output / 1000).toFixed(1)
     }
 
     function getTotalWips() {
-        return Number((input + output) / 1000).toFixed(2).replace(".", ",")
+        return Number((input + output) / 1000).toFixed(1)
     }
 
     function getAmountSpentInReal() {

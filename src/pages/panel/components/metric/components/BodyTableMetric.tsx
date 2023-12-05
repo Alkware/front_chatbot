@@ -17,7 +17,7 @@ export function BodyTableMetric({ columns, setColumns }: { columns: Columns[], s
             case "TOKEN_INPUT": return eventManager(project).getInputTokens;
             case "TOKEN_OUTPUT":return eventManager(project).getOutputTokens;
             case "TOKEN_TOTAL": return eventManager(project).getTotalTokens
-            case "WIPS_INPUT": return eventManager(project).getInputTokens;
+            case "WIPS_INPUT": return eventManager(project).getInputWips;
             case "WIPS_OUTPUT": return eventManager(project).getOutputWips;
             case "WIPS_TOTAL": return eventManager(project).getTotalWips;
             case "USED_REAL": return eventManager(project).getAmountSpentInReal;

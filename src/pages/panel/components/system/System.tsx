@@ -44,7 +44,6 @@ export function System() {
 
     const handleCreatePrompt = async (data: any) => {
         const response = await updatePromptsSystem(data);
-        console.log()
         if (response) {
 
         }
