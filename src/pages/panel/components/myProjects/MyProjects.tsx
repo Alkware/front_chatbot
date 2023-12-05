@@ -7,7 +7,7 @@ import { ProjectTypes } from "../../../../@types/projectTypes";
 
 function MyProjects() {
     const { client } = useContext(ClientContext)
-    const [projects, setProjects] = useState<any>(client?.plan_management?.project || [])
+    const [projects, setProjects] = useState<ProjectTypes[]>(client?.plan_management?.project || [])
 
     return (
         client &&

@@ -1,17 +1,21 @@
-import { useContext } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import { FcSettings } from "react-icons/fc";
 import { ModalContext } from "../../../../context/ModalContext";
 import { ModalEditProject } from "../../modals/ModalEditProject";
-import { SetStateProject } from "../../../../@types/projectTypes";
+import { ProjectTypes } from "../../../../@types/projectTypes";
 
+interface EditProject {
+    project: ProjectTypes,
+    setNewProject: Dispatch<SetStateAction<ProjectTypes>>
+}
 
-export function EditProject({ project, setNewProject }: SetStateProject) {
+export function EditProject({ project, setNewProject }: EditProject) {
     const { setModalContent } = useContext(ModalContext);
 
     const handleEditProject = () => {
         setModalContent({
             isOpenModal: true,
-            components: <ModalEditProject setNewProject={setNewProject} project={project}/>
+            components: <ModalEditProject setNewProject={setNewProject} project={project} />
         })
     }
 

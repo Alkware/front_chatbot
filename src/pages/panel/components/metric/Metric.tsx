@@ -1,6 +1,5 @@
 import { useContext, useState } from "react"
 import ButtonMain from "../../../../components/button/ButtonBlue"
-import { HeaderTableMetric } from "./components/HeaderTableMetric"
 import { ModalContext } from "../../../../context/ModalContext"
 import { ModalColumnOrganization } from "./components/ModalColumnOrganization"
 import { BodyTableMetric } from "./components/BodyTableMetric"
@@ -25,10 +24,7 @@ export function Metric() {
                 <ButtonMain onClick={handleColumnOrganization}>Organize as colunas</ButtonMain>
             </div>
 
-            <div className="w-full overflow-auto p-4">
-                <HeaderTableMetric setColumns={setColumns} columns={columns} />
-                <BodyTableMetric columns={columns} />
-            </div>
+            <BodyTableMetric columns={columns} setColumns={setColumns} />
         </div>
     )
 };

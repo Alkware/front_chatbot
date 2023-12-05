@@ -1,4 +1,5 @@
 import { PlanManagement } from "../../../../../../../@types/planManagement";
+import { calculateWips } from "../../../../../../../functions/calculateWipsRemaining";
 import { calculatesRemainingFreeTrialDays } from "../../../../../../../functions/calculatesRemainingFreeTrialDays";
 
 export function PlanInformation({ plan_management }: { plan_management?: PlanManagement }) {
@@ -12,9 +13,9 @@ export function PlanInformation({ plan_management }: { plan_management?: PlanMan
         (plan_management && plan_management.status !== "DISABLED") &&
         <div className="w-full flex flex-col">
             <span>Projetos criados: {plan_management.project.length} / {plan_management.plan.max_projects}</span>
-            <span>Limite de wips: {plan_management.used_wips} / {plan_management.plan.max_wips}</span>
+            <span>Limite de wips: {calculateWips(plan_management).usedWips} / {plan_management.plan.max_wips}</span>
             <span>Reembolso garantido: {freeTrial() > 0 ? freeTrial() + " dias restantes" : "expirado"}</span>
-            <span>Status do plano: {plan_management.status === "ACTIVE" ? "desativado" : "Ativo"}</span>
+            <span>Status do plano: {plan_management.status === "ACTIVE" ? "Ativo" : "Desativado"}</span>
         </div>
     )
 };

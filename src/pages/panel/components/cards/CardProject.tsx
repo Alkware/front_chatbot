@@ -1,10 +1,17 @@
-import { SetStateProject } from "../../../../@types/projectTypes";
+import { ProjectTypes } from "../../../../@types/projectTypes";
 import { CardMetricMyProjects } from "./CardMetricMyProjects";
 import { EditProject } from "../myProjects/EditProject";
+import { Dispatch, SetStateAction } from "react";
 
-export function CardProject({ project, setNewProject }: SetStateProject) {
+interface CardProject {
+    project: ProjectTypes,
+    setNewProject: Dispatch<SetStateAction<any>>
+}
+
+export function CardProject({ project, setNewProject }: CardProject) {
 
     return (
+        project &&
         <div
             key={project.slug}
             className="w-1/4 min-w-[200px] bg-blue_main relative flex flex-col items-center gap-2 py-4 cursor-pointer rounded-xl"
@@ -29,7 +36,7 @@ export function CardProject({ project, setNewProject }: SetStateProject) {
             </div>
             <h2 className="text-center font-bold text-lg">{project.project_name}</h2>
             <div className="w-full flex flex-col items-start px-2">
-                <CardMetricMyProjects metric={project.metric} />
+                <CardMetricMyProjects project={project}/>
                 <a
                     href={`https://chat.wipzee.com/${project.slug}`}
                     target="_blank"

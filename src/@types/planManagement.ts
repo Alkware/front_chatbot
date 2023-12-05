@@ -1,3 +1,6 @@
+import { ChatEvent } from "./chatEvents"
+import { ProjectTypes } from "./projectTypes"
+
 export interface PlanManagement {
     id: string,
     free_trial: Date,
@@ -14,25 +17,7 @@ export interface PlanManagement {
         status: "APPROVED" | "REJECT" | "PENDING"
         transaction_describe : | "PAYMENT" | "REFUND_REQUEST" | "REFUND_CANCELLATION" | "SUBSCRIPTION_CANCELLATION" | "UNKNOWN"
     }>,
-    project: Array<{
-        id: string
-        slug: string,
-        project_name: string,
-        logo: string,
-        prompt: string,
-        chat_type: string,
-        is_online: boolean,
-        bio: string,
-        metric: {
-            chat_event: Array<{
-                used_tokens: Array<{
-                    input: number,
-                    output: number,
-                }>
-            }>,
-            button_event: Array<{}>,
-        }
-    }>,
+    project: ProjectTypes[],
     plan: {
         max_projects: number,
         plan_name: string,

@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react"
+import { Dispatch, SetStateAction, useContext, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { ModalContext } from "../../../context/ModalContext";
 import { updateProject } from "../../../api/project";
@@ -12,11 +12,16 @@ import { ProjectSchema, z } from "../../../@types/projectZodSchema";
 import { ButtonsModal } from "../components/TabContentForm/ButtonsModal";
 import { PopOver } from "../../../components/modal/templates/PopOver";
 import { ErrorModal } from "./ErrorModal";
-import { SetStateProject } from "../../../@types/projectTypes";
+import { ProjectTypes } from "../../../@types/projectTypes";
 
 type ModalEditProjectType = z.infer<typeof ProjectSchema>
 
-export function ModalEditProject({ project, setNewProject }: SetStateProject) {
+interface ModalEditProject {
+    project: ProjectTypes,
+    setNewProject: Dispatch<SetStateAction<any>>
+}
+
+export function ModalEditProject({ project, setNewProject }: ModalEditProject) {
     const { setModalContent } = useContext(ModalContext)
     const formRef = useRef(null);
 
@@ -41,6 +46,7 @@ export function ModalEditProject({ project, setNewProject }: SetStateProject) {
     const handleUpdateProject = async (data: any) => {
         if (data && project.slug) {
             const projectUpdate = await updateProject(data, project.slug)
+            console.log(projectUpdate)
             if (projectUpdate && projectUpdate.status === 200) {
                 setNewProject((projects: any) => [...projects.filter((v: any) => v.id !== project.id), projectUpdate.data])
                 setModalContent({
