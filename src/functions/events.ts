@@ -1,8 +1,11 @@
 import { ProjectTypes } from "../@types/projectTypes";
 import { getDollar } from "./convertDollarToReal";
 import { formatLongNumber } from "./formatLongNumber";
+var dollar: any;
 
-var dollar = await getDollar();
+(async ()=>{
+    dollar = await getDollar();
+})()
 
 export function eventManager(project: ProjectTypes) {
 

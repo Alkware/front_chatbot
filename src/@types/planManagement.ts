@@ -1,4 +1,3 @@
-import { ChatEvent } from "./chatEvents"
 import { ProjectTypes } from "./projectTypes"
 
 export interface PlanManagement {

@@ -12,7 +12,7 @@ import { ProjectSchema, z } from "../../../@types/projectZodSchema";
 import { ButtonsModal } from "../components/TabContentForm/ButtonsModal";
 import { PopOver } from "../../../components/modal/templates/PopOver";
 import { ErrorModal } from "./ErrorModal";
-import { ProjectTypes } from "../../../@types/projectTypes";
+import { ProjectCreateTypes } from "../../../@types/projectTypes";
 
 type createProjectType = z.infer<typeof ProjectSchema>
 
@@ -31,7 +31,7 @@ export function ModalCreateProject({ plan_management_id, setNewProject }: NewPro
 
     const handleCreateProject = async (data: any) => {
         try {
-            const { project_name, logo, prompt, bio, describe_client, call_to_action, pixel_facebook, chat_input_message }: ProjectTypes = data;
+            const { project_name, logo, prompt, bio, describe_client, call_to_action, pixel_facebook, chat_input_message }: ProjectCreateTypes = data;
 
             const project = await createNewProject({
                 project_name,
@@ -42,7 +42,7 @@ export function ModalCreateProject({ plan_management_id, setNewProject }: NewPro
                 describe_client,
                 call_to_action,
                 pixel_facebook,
-                chat_input_message
+                chat_input_message,
             });
 
             if (project && project.status === 201) {
