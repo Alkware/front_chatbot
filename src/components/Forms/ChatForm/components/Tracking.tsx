@@ -1,6 +1,8 @@
 import { InputTextForm } from "../../Components/InputTextForm";
 
 export function Tracking() {
+    const chat = JSON.parse(localStorage.getItem("chat") || "{}")
+
     return (
         <div
             className="w-full hidden flex-col justify-center items-center animate-display-screen"
@@ -12,6 +14,7 @@ export function Tracking() {
             <InputTextForm
                 field_name="pixel_facebook"
                 title="Pixel do facebook"
+                defaultValue={chat["pixel_facebook"]}
             />
         </div>
     )

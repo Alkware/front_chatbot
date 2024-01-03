@@ -1,11 +1,11 @@
 import { ButtonHTMLAttributes } from "react"
-import { twMerge } from "tailwind-merge"
+import { twMerge } from 'tailwind-merge'
 
-interface ButtonMain extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface Button extends ButtonHTMLAttributes<HTMLButtonElement> {
     customClass?: string
 }
 
-export function Button({ children, customClass, ...restProps }: ButtonMain) {
+export function Button({ children, customClass, ...restProps }: Button) {
     return (
         <button
             {...restProps}

@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Register from "./pages/Register/Register"
-import Index from "./pages/home/Index"
+import Index from "./pages/Home/Index"
 import Login from "./pages/Login/Login"
-import Panel from "./pages/panel/Panel"
-import Thanks from "./pages/thanks/Thanks"
-import { CreateChat } from "./pages/create_chat/CreateChat"
-import { CreateDatabase } from "./pages/create_database/CreateDatabase"
+import Panel from "./pages/Panel"
+import Thanks from "./pages/Thanks/Thanks"
+import { CreateChat } from "./pages/CreateChat/CreateChat"
+import { CreateDatabase } from "./pages/CreateDatabase/CreateDatabase"
 import { Modal } from "./components/modal/Modal"
 
 function App() {

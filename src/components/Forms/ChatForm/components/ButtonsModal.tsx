@@ -15,20 +15,24 @@ export function ButtonsModal({ project, setNewProject }: ButtonsModalTypes) {
 
     const handleDeleteProject = async () => {
         const confirmDelete = confirm("Você tem certeza que deseja excluir esse chat?")
-        if (confirmDelete && project && project.id) {
+        if (confirmDelete && project.id) {
             const deleted = await deleteProject(project.id);
             if (setNewProject && deleted && deleted.status === 200) {
                 setNewProject((projects: any) => projects.filter((v: any) => v.id !== project.id))
+                localStorage.removeItem("chat")
                 alert("Chat deletado com sucesso")
                 setModalContent({ isOpenModal: false })
             }
         }
     }
 
-    const handleUpdateProject = async (data: any) => {
+    const handleUpdateProject = async () => {
+        const data = JSON.parse(localStorage.getItem("chat") || "{}")
+
         if (data && project.slug) {
             const projectUpdate = await updateProject(data, project.slug)
             if (projectUpdate && projectUpdate.status === 200) {
+                localStorage.removeItem("chat")
                 setNewProject((projects: any) => [...projects.filter((v: any) => v.id !== project.id), projectUpdate.data])
                 setModalContent({
                     isOpenModal: true,
@@ -36,6 +40,13 @@ export function ButtonsModal({ project, setNewProject }: ButtonsModalTypes) {
                 })
             }
         }
+    }
+
+    const handleDiscardProject = ()=>{
+        localStorage.removeItem("chat")
+        setModalContent({
+            isOpenModal: false,
+        })
     }
 
     return (
@@ -50,7 +61,7 @@ export function ButtonsModal({ project, setNewProject }: ButtonsModalTypes) {
             <div className="p-2 bg-dark border border-light rounded-full">
                 <FcFile
                     className="text-3xl cursor-pointer"
-                    onClick={() => setModalContent({ isOpenModal: false })}
+                    onClick={handleDiscardProject}
                 />
             </div>
 

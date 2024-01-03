@@ -6,6 +6,7 @@ import { SelectForm } from "../../Components/SelectForm";
 
 export function ProductDescribe() {
     const [prompt, setPrompt] = useState([]);
+    const chat = JSON.parse(localStorage.getItem("chat") || "{}")
 
     useEffect(() => {
 
@@ -29,10 +30,13 @@ export function ProductDescribe() {
                     <SelectForm
                         options={prompt}
                         field_name="prompt_id"
+                        defaultValue={chat["prompt_id"]}
                     />
                 </div>
 
-                <AddInputForm />
+                <AddInputForm
+                    defaultValue={chat?.chat_input_message && chat?.chat_input_message[0]}
+                />
 
                 <div className="w-full flex flex-col">
                     <h2 className="text-xl font-bold">Crie o botão que será usado para direcionar os seus clientes:</h2>
@@ -40,11 +44,13 @@ export function ProductDescribe() {
                         <InputTextForm
                             field_name="button_text"
                             title="Digite o nome do botão da cta"
+                            defaultValue={chat["call_to_action"] && chat["call_to_action"][0]["button_text"]}
                         />
 
                         <InputTextForm
                             field_name="button_link"
                             title="Digite o link do seu CTA"
+                            defaultValue={chat["call_to_action"] && chat["call_to_action"][0]["button_link"]}
                         />
                     </div>
                 </div>

@@ -4,15 +4,15 @@ import { RegisterDataLocalStorage } from "../../../functions/RegisterDataLocalSt
 
 interface InputProjectNameTypes {
     field_name: string,
+    defaultValue?: string,
     title: string,
-    onKeyDown?: (e: any) => void
+    onChange?: (e: any) => void
 }
 
 
-export function InputTextForm({ field_name, title, onKeyDown }: InputProjectNameTypes) {
+export function InputTextForm({ field_name, defaultValue, title, onChange }: InputProjectNameTypes) {
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const [searchParams, setSearchParams] = useSearchParams();
-    const chat = JSON.parse(localStorage.getItem("createchat") || localStorage.getItem("createchat") || "{}")
 
 
     useEffect(() => {
@@ -63,9 +63,11 @@ export function InputTextForm({ field_name, title, onKeyDown }: InputProjectName
                 type="text"
                 data-field_name={field_name}
                 name={field_name}
-                onKeyDown={onKeyDown}
-                onChange={({ target })=> RegisterDataLocalStorage(searchParams, setSearchParams , target)}
-                defaultValue={chat[field_name] || ""}
+                onChange={(e) => {
+                    RegisterDataLocalStorage(searchParams, setSearchParams, e.target)
+                    onChange && onChange(e)
+                }}
+                defaultValue={defaultValue || ""}
             />
 
         </div>

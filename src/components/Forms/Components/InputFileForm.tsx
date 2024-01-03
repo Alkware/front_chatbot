@@ -4,17 +4,16 @@ import { uploadImage } from "../../../api/uploadImages";
 import { RegisterDataLocalStorage } from "../../../functions/RegisterDataLocalStorage";
 
 interface InputFileForm {
-    field_name: string,
+    defaultValue?: string
 }
 
-export function InputFileForm({ field_name }: InputFileForm) {
+export function InputFileForm({ defaultValue }: InputFileForm) {
     const refPreviewImage: RefObject<HTMLDivElement> = useRef(null);
     const [searchParams, setSearchParams] = useSearchParams();
-    const chat = JSON.parse(localStorage.getItem("createchat") || "{}")
 
 
     useEffect(() => {
-        if (chat[field_name]) {
+        if (defaultValue) {
             refPreviewImage.current?.classList.add(`flex`)
             refPreviewImage.current?.classList.remove(`hidden`)
             refPreviewImage.current?.querySelector("div#loading")?.classList.remove("flex")
@@ -72,7 +71,7 @@ export function InputFileForm({ field_name }: InputFileForm) {
                     ref={refPreviewImage}
                     className="hidden w-[35px] h-[35px] rounded-full overflow-hidden bg-zinc-500 relative"
                 >
-                    <img src={chat[field_name]} alt="" className="w-full h-full object-cover" />
+                    <img src={defaultValue || ""} alt="" className="w-full h-full object-cover" />
                     <div
                         id="loading"
                         className="w-full h-full bg-zinc-800/50 absolute flex justify-center items-center"

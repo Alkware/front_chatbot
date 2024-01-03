@@ -4,15 +4,16 @@ import { RegisterDataLocalStorage } from "../../../functions/RegisterDataLocalSt
 
 interface InputProjectNameTypes {
     field_name: string,
+    defaultValue?: string,
     title: string
     height: number
 }
 
 
-export function TextareaForm({ field_name, title, height }: InputProjectNameTypes) {
+export function TextareaForm({ field_name, title, height, defaultValue }: InputProjectNameTypes) {
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const [searchParams, setSearchParams] = useSearchParams();
-    const chat = JSON.parse(localStorage.getItem("createchat") || "{}")
+
 
     useEffect(() => {
         if (containerRef.current) {
@@ -61,7 +62,7 @@ export function TextareaForm({ field_name, title, height }: InputProjectNameType
                 style={{ height }}
                 data-field_name={field_name}
                 name={field_name}
-                defaultValue={chat[field_name] || ""}
+                defaultValue={defaultValue || ""}
                 onChange={({ target })=> RegisterDataLocalStorage(searchParams, setSearchParams , target)}
             ></textarea>
         </div>

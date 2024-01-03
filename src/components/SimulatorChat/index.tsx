@@ -8,10 +8,10 @@ const chatModel = {
     bio: "Bio da empresa",
     logo: "https://via.placeholder.com/100",
     chat_input_message: ["Sua primeira mensagem"],
-    call_to_action: {
+    call_to_action: [{
         button_text: "",
         button_link: ""
-    }
+    }]
 }
 
 export function SimulatorChat() {
@@ -20,7 +20,7 @@ export function SimulatorChat() {
     const [searchParams] = useSearchParams()
 
     useEffect(() => {
-        const chat = JSON.parse(localStorage.getItem("createchat") || JSON.stringify(chatModel));
+        const chat = JSON.parse(localStorage.getItem("chat") || JSON.stringify(chatModel));
         if (chat) setChat(chat)
     }, [searchParams])
 
@@ -93,15 +93,15 @@ export function SimulatorChat() {
                             >
                                 {index === 0 ? chat.chat_input_message[0] : ""}
                                 {
-                                    (index === (self.length - 1) && chat.call_to_action.button_text) &&
+                                    (index === (self.length - 1) && chat.call_to_action[0].button_text) &&
                                     <div className="w-full h-full flex flex-col justify-center items-center">
                                         <p className="w-full border-b border-zinc-400 p-1 px-2"> Agora basta clicar no botão abaixo:</p>
                                         <a
                                             className="flex gap-2 items-center p-2 text-light cursor-pointer text-sm"
-                                            href={chat.call_to_action.button_link}
+                                            href={chat.call_to_action[0].button_link}
                                             target="_blank"
                                         >
-                                            <FaExternalLinkAlt /> { chat.call_to_action.button_text }
+                                            <FaExternalLinkAlt /> { chat.call_to_action[0].button_text }
                                         </a>
                                     </div>
                                 }
