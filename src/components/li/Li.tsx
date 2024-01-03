@@ -12,7 +12,7 @@ export function Li({ text, index, icon, onClick }: LiTypes) {
     return (
         <li
             className={
-                `w-full flex gap-2 justify-center items-center text-center cursor-pointer py-4 border-b-[1px] border-zinc-500/50 hover:bg-zinc-500 
+                `w-full flex gap-2 justify-center items-center text-center cursor-pointer py-3 rounded-2xl hover:bg-primary-200
                 transition-colors`
             }
             data-index={index}

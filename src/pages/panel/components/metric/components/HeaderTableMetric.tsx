@@ -7,25 +7,31 @@ interface ModalColumnOrganizationTypes {
 }
 
 const defaultColumns: Columns[] = [
-    { key: "IS_ONLINE", columnName: "status", status: true },
-    { key: "NAME", columnName: "Nome do chat", status: true },
-    { key: "CAT", columnName: "Chats abertos (total)", status: true },
-    { key: "CAU", columnName: "Chats abertos (unico)", status: true },
-    { key: "TOKEN_INPUT", columnName: "Tokens de entrada", status: false },
-    { key: "TOKEN_OUTPUT", columnName: "Tokens de saída", status: false },
-    { key: "TOKEN_TOTAL", columnName: "Tokens Total", status: false },
-    { key: "WIPS_INPUT", columnName: "Wips de entrada", status: true },
-    { key: "WIPS_OUTPUT", columnName: "Wips de saída", status: true },
-    { key: "WIPS_TOTAL", columnName: "Wips Total", status: true },
-    { key: "USED_REAL", columnName: "Valor gasto", status: true },
+    { key: "IS_ONLINE", columnName: "status", status: true, dataType: "boolean" },
+    { key: "NAME", columnName: "Nome do chat", status: true, dataType: "string" },
+    { key: "CAT", columnName: "Chats abertos (total)", status: true, dataType: "number" },
+    { key: "CAU", columnName: "Chats abertos (unico)", status: false, dataType: "number" },
+    { key: "MESSAGE_INPUT", columnName: "Mensagens de entrada", status: false, dataType: "number" },
+    { key: "MESSAGE_OUTPUT", columnName: "Mensagens de saída", status: false, dataType: "number" },
+    { key: "MESSAGES_TOTAL", columnName: "Mensagens total", status: true, dataType: "number" },
+    { key: "MEDIA_MESSAGES_CHAT", columnName: "Mensagens por chat", status: false, dataType: "number" },
+    { key: "USAGE_TIME", columnName: "Tempo de uso", status: false, dataType: "string" },
+    { key: "MEDIA_USAGE_TIME", columnName: "Tempo de uso por chat", status: true, dataType: "string" },
+    { key: "LINK_CLICKS", columnName: "Cliques no link", status: true, dataType: "number" },
+    { key: "LEADS_COLLECTED", columnName: "Leads coletados", status: true, dataType: "number" },
+    { key: "SERVICE_NOTE", columnName: "Nota de atendimento", status: true, dataType: "number" },
+    { key: "RESOLUTION_RATE", columnName: "Taxa de resolução", status: true, dataType: "number" },
+    { key: "CREATED_AT", columnName: "Criado em", status: true, dataType: "string" },
 ]
+
+
 export function HeaderTableMetric({ setColumns, columns }: ModalColumnOrganizationTypes) {
 
     useEffect(() => {
         const columnsHeaderMetric = JSON.parse(localStorage.getItem("metricColumnActive") || "[]");
 
         if (columnsHeaderMetric.length > 0) {
-            if (columnsHeaderMetric.length < defaultColumns.length) localStorage.setItem("metricColumnActive", JSON.stringify(defaultColumns))
+            if (columnsHeaderMetric.length !== defaultColumns.length) localStorage.setItem("metricColumnActive", JSON.stringify(defaultColumns))
             else setColumns(columnsHeaderMetric)
         } else {
             localStorage.setItem("metricColumnActive", JSON.stringify(defaultColumns))
@@ -34,16 +40,18 @@ export function HeaderTableMetric({ setColumns, columns }: ModalColumnOrganizati
 
     return (
         columns &&
-        <div className="w-full flex items-center rounded-t-xl">
+        <div 
+            className="w-1/2 flex"
+        >
             {
                 columns.map((column: Columns) =>
                     column.status &&
-                    <h2
+                    <span
                         key={column.columnName}
-                        className="w-full min-w-[200px] text-center bg-zinc-800 border border-transparent border-r-black/20 p-2"
+                        className="w-48 flex-none p-3 text-center bg-primary-300 border-r border-r-primary-100"
                     >
                         {column.columnName}
-                    </h2>
+                    </span>
                 )
             }
         </div>

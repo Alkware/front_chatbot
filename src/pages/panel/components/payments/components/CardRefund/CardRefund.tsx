@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { clientTypes } from "../../../../../../@types/clientTypes";
+import { Client } from "../../../../../../@types/Client";
 import { ModalContext } from "../../../../../../context/ModalContext";
 import { reactivatePlan } from "../../../../../../api/refundRequested";
 import { PopOver } from "../../../../../../components/modal/templates/PopOver";
-import ButtonGreen from "../../../../../../components/button/ButtonGreen";
+import { Button } from "../../../../../../components/button/Button";
 
-export function CardRefund({ client }: { client?: clientTypes }) {
+export function CardRefund({ client }: { client?: Client }) {
     const { setModalContent } = useContext(ModalContext)
 
 
@@ -55,12 +55,12 @@ export function CardRefund({ client }: { client?: clientTypes }) {
                 {
 
                     client.refund_requested[0].status === "PENDING" &&
-                    <ButtonGreen
+                    <Button
                         onClick={handleRefundReactived}
 
                     >
                         Cancelar reembolso
-                    </ButtonGreen>
+                    </Button>
 
                 }
             </div>

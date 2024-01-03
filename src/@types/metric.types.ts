@@ -13,7 +13,19 @@ export interface Metric {
             created_at: string,
         }>,
         used_tokens: Array<{
-            input: number, output: number,
+            input: number, 
+            output: number,
+            created_at: string,
+        }>
+    }>,
+    button_event: Array<{
+        guest_id: string,
+        created_at: string,
+        updated_at: string,
+        clicked_button: Array<{
+            created_at: string,
+        }>,
+        show_button: Array<{
             created_at: string,
         }>,
     }>

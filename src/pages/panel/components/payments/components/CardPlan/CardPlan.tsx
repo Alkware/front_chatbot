@@ -1,4 +1,4 @@
-import { clientTypes } from "../../../../../../@types/clientTypes"
+import { clientTypes } from "../../../../../../@types/Client"
 import { PlanName } from "./components/PlanName"
 import { PlanInformation } from "./components/PlanInformation"
 import { ButtonChangeAndAddPlan } from "./components/ButtonChangeAndAddPlan"

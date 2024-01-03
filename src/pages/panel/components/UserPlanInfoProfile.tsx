@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { ClientContext } from "../../../context/ClientContext";
 import { TbBusinessplan } from "react-icons/tb";
 import { calculatesRemainingFreeTrialDays } from "../../../functions/calculatesRemainingFreeTrialDays";
-import { calculateWips } from "../../../functions/calculateWipsRemaining";
 
 interface UserPlanTypes {
     menuIsOpen: boolean
@@ -43,7 +42,7 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                         <p className="text-sm text-zinc-300">convidado</p>
                 }
                 {
-                    (client.plan_management && client.plan_management.status !== 'DISABLED') && (freeTrial() > 0 ?
+                   (client.plan_management && client.plan_management.status !== 'DISABLED')  && (freeTrial() > 0 ?
                         <h3 className="flex flex-col">
                             <span className="text-red-800/80 text-xs text-center ">Reembolso garantido em:</span>
                             <span className="text-red-800/70 text-xs text-center "> {(+ freeTrial() + " dias restantes")}</span>
@@ -51,10 +50,8 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                         </h3>
                         :
                         <h3 className="flex justify-center items-center gap-2">
-                            <span className="text-zinc-200 text-sm text-center ">Wips restantes:</span>
-                            <span className="text-sm text-center ">
-                                {calculateWips(client.plan_management).wipsRemaning}
-                            </span>
+                            <span className="text-zinc-200 text-sm text-center ">Wips usados:</span>
+                            <span className="text-md text-center ">{client.plan_management.status}</span>
                         </h3>
                     )
                 }

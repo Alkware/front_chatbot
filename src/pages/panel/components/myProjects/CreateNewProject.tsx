@@ -1,22 +1,16 @@
 import { useContext } from "react";
-import Button from "../../../../components/button/ButtonBlue";
 
 import { ModalContext } from "../../../../context/ModalContext";
-import { ModalCreateProject } from "../../modals/ModalCreateProject";
 import { ClientContext } from "../../../../context/ClientContext";
 import { PopOver } from "../../../../components/modal/templates/PopOver";
+import { useNavigate } from "react-router-dom";
+import { IoAddOutline } from "react-icons/io5";
+import { TipContainer } from "../../../../components/TipContainer/TipContainer";
 
-
-
-interface NewProjectTypes {
-    client_id: string,
-    setNewProject: any
-}
-
-
-function CreateNewProject({ setNewProject }: NewProjectTypes) {
+function CreateNewProject({ plan_management_id }: { plan_management_id: string }) {
     const { client } = useContext(ClientContext)
     const { setModalContent } = useContext(ModalContext)
+    const navigate = useNavigate();
 
     const handleClickNewProject = () => {
         if (client?.plan_management) {
@@ -25,10 +19,7 @@ function CreateNewProject({ setNewProject }: NewProjectTypes) {
 
             if (client.plan_management.status !== "DISABLED") {
                 if (maxPlans > currentNumberOfProjects) {
-                    setModalContent({
-                        isOpenModal: true,
-                        components: <ModalCreateProject plan_management_id={client.plan_management.id} setNewProject={setNewProject} />
-                    })
+                    navigate(`/create-chat/${plan_management_id}`)
                 } else {
                     setModalContent({
                         isOpenModal: true,
@@ -50,7 +41,16 @@ function CreateNewProject({ setNewProject }: NewProjectTypes) {
         }
     }
 
-    return <Button onClick={handleClickNewProject}>Novo chat</Button>
+    return (
+        <TipContainer tip="Crie um novo chat">
+            <div
+                onClick={handleClickNewProject}
+                className="border border-primary-100 rounded-full cursor-pointer"
+            >
+                <IoAddOutline className="text-4xl text-primary-100" />
+            </div>
+        </TipContainer>
+    )
 
 }
 

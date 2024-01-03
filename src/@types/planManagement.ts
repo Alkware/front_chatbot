@@ -1,4 +1,5 @@
-import { ProjectTypes } from "./projectTypes"
+import { Project } from "./Project"
+import { Prompt } from "./prompt.types"
 
 export interface PlanManagement {
     id: string,
@@ -6,7 +7,6 @@ export interface PlanManagement {
     last_pyament: string,
     next_payment: string,
     status: "DISABLED" | "ACTIVE",
-    used_wips: number,
     created_at: string,
     trasaction: Array<{
         payment_method: string,
@@ -16,10 +16,17 @@ export interface PlanManagement {
         status: "APPROVED" | "REJECT" | "PENDING"
         transaction_describe : | "PAYMENT" | "REFUND_REQUEST" | "REFUND_CANCELLATION" | "SUBSCRIPTION_CANCELLATION" | "UNKNOWN"
     }>,
-    project: ProjectTypes[],
+    project: Project[],
     plan: {
-        max_projects: number,
         plan_name: string,
-        max_wips: number,
-    }
+        max_projects: number,
+        max_messages: number,
+        max_databases: number,
+    },
+    prompt: Prompt[]
+    plan_message_manager: Array<{
+        input: number,
+        output: number, 
+        last_messages_send: any
+    }>
 }

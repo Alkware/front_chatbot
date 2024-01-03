@@ -2,10 +2,10 @@ import { useContext } from "react"
 import { ModalContext } from "../../../../../../../context/ModalContext"
 import { PopUp } from "../../../../../../../components/modal/templates/PopUp"
 import { ChoosePlan } from "../../Modals/ChoosePlan"
-import ButtonMain from "../../../../../../../components/button/ButtonBlue"
-import { clientTypes } from "../../../../../../../@types/clientTypes"
+import { Client } from "../../../../../../../@types/Client"
+import { Button } from "../../../../../../../components/button/Button"
 
-export function ButtonChangeAndAddPlan({ client }: { client?: clientTypes }) {
+export function ButtonChangeAndAddPlan({ client }: { client?: Client }) {
     const { setModalContent } = useContext(ModalContext)
 
     const handleChangePlan = () => {
@@ -25,14 +25,14 @@ export function ButtonChangeAndAddPlan({ client }: { client?: clientTypes }) {
     return (
         realeaseAddPlanButton() &&
         <div className="w-full flex flex-col gap-4 my-4">
-            <ButtonMain onClick={handleChangePlan}>
+            <Button onClick={handleChangePlan}>
                 {
                     client?.plan_management && client.plan_management.status !== "DISABLED" ?
                         "Mudar de plano"
                         :
                         "Adicionar plano"
                 }
-            </ButtonMain>
+            </Button>
         </div>
     )
 };

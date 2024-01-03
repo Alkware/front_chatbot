@@ -2,13 +2,11 @@ import { RefObject, useRef } from "react";
 import { InputTextForm } from "../ComponentsForms/InputTextForm";
 
 interface ProductDescribe {
-    register: any,
-    getValues?: any
     project?: any
 }
 
 
-export function ChatSettings({ register, getValues, project }: ProductDescribe) {
+export function ChatSettings({ project }: ProductDescribe) {
     const spanSlugRef: RefObject<HTMLSpanElement> = useRef(null);
 
     const handleUpdateSlugValue = (e: any) => {
@@ -34,9 +32,7 @@ export function ChatSettings({ register, getValues, project }: ProductDescribe) 
                         <div className="flex flex-col">
                             <InputTextForm
                                 field_name="slug"
-                                placeholder="ex: vendas"
                                 title="Digite a slug que ficará visivél na url:"
-                                register={register}
                                 onKeyDown={handleUpdateSlugValue}
                             />
                         </div>
@@ -44,7 +40,7 @@ export function ChatSettings({ register, getValues, project }: ProductDescribe) 
                             <p>sua slug ficará assim: </p>
                             <p className="text-zinc-300/80">
                                 https://chat.wipzee.com/{project?.slug?.split("-")[0]}-
-                                <span ref={spanSlugRef}>{getValues("slug")}</span>
+                                <span ref={spanSlugRef}></span>
                             </p>
                         </div>
                     </>

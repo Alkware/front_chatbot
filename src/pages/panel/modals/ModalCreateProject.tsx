@@ -4,15 +4,9 @@ import { useForm } from "react-hook-form";
 import { createNewProject } from "../../../api/project";
 import { ModalContext } from "../../../context/ModalContext";
 import { ListMenuModalChat } from "../components/Lists/ListMenuModalChat";
-import { GeneralInformation } from "../components/TabContentForm/GeneralInformation";
-import { ProductDescribe } from "../components/TabContentForm/ProductDescribe";
-import { Tracking } from "../components/TabContentForm/Tracking";
-import { ChatSettings } from "../components/TabContentForm/ChatSettings";
 import { ProjectSchema, z } from "../../../@types/projectZodSchema";
-import { ButtonsModal } from "../components/TabContentForm/ButtonsModal";
 import { PopOver } from "../../../components/modal/templates/PopOver";
-import { ErrorModal } from "./ErrorModal";
-import { ProjectCreateTypes } from "../../../@types/projectTypes";
+import { ProjectCreateTypes } from "../../../@types/Project";
 
 type createProjectType = z.infer<typeof ProjectSchema>
 
@@ -25,21 +19,20 @@ interface NewProjectTypes {
 export function ModalCreateProject({ plan_management_id, setNewProject }: NewProjectTypes) {
     const { setModalContent } = useContext(ModalContext)
     const formRef: RefObject<HTMLFormElement> = useRef(null);
-    const { handleSubmit, register, reset, control, formState: { errors } } = useForm<createProjectType>({
+    const { handleSubmit, register, reset, control, formState: { errors }, getValues } = useForm<createProjectType>({
         resolver: zodResolver(ProjectSchema)
     });
 
     const handleCreateProject = async (data: any) => {
         try {
-            const { project_name, logo, prompt, bio, describe_client, call_to_action, pixel_facebook, chat_input_message }: ProjectCreateTypes = data;
+            const { project_name, logo, prompt_id, bio, call_to_action, pixel_facebook, chat_input_message }: ProjectCreateTypes = data;
 
             const project = await createNewProject({
                 project_name,
                 logo,
-                prompt,
+                prompt_id,
                 plan_management_id,
                 bio,
-                describe_client,
                 call_to_action,
                 pixel_facebook,
                 chat_input_message,
@@ -76,11 +69,12 @@ export function ModalCreateProject({ plan_management_id, setNewProject }: NewPro
 
                 <GeneralInformation
                     register={register}
-                    control={control}
+                    getValues={getValues}
                 />
 
                 <ProductDescribe
                     register={register}
+                    control={control}
                 />
 
                 <Tracking

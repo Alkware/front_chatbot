@@ -1,34 +1,64 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ClientContext } from "../../../../../context/ClientContext"
 import { Columns } from "../../../../../@types/Column.types"
 import { ProjectTypes } from "../../../../../@types/projectTypes"
-import { HeaderTableMetric } from "./HeaderTableMetric"
-import { eventManager } from "../../../../../functions/events"
+import { formatLongNumber } from "../../../../../functions/formatLongNumber"
+import { getDollar } from "../../../../../functions/convertDollarToReal"
 
-export function BodyTableMetric({ columns, setColumns }: { columns: Columns[], setColumns: any}) {
+export function BodyTableMetric({ columns }: { columns: Columns[] }) {
     const { client } = useContext(ClientContext)
     const projects = (client?.plan_management?.project as unknown) as ProjectTypes[]
+    const [dollar, setDollar] = useState();
 
-    
+    useEffect(() => {
+        (async () => {
+            let dollar = await getDollar();
+            setDollar(dollar)
+        })()
+    }, [])
+
     const getValueColumn = (project: ProjectTypes, column: Columns) => {
+
+        const output = project.metric?.chat_event.
+            reduce((total, chat) => total + chat.used_tokens.
+                reduce((total, tokens) => total + tokens.output, 0), 0) || 0;
+
+        const input = project.metric?.chat_event.
+            reduce((total, chat) => total + chat.used_tokens.
+                reduce((total, tokens) => total + tokens.input, 0), 0) || 0;
+
         switch (column.key) {
-            case "CAT":  return eventManager(project).getNumberChat;
-            case "CAU": return eventManager(project).getNumberUniqueChat;
-            case "TOKEN_INPUT": return eventManager(project).getInputTokens;
-            case "TOKEN_OUTPUT":return eventManager(project).getOutputTokens;
-            case "TOKEN_TOTAL": return eventManager(project).getTotalTokens
-            case "WIPS_INPUT": return eventManager(project).getInputWips;
-            case "WIPS_OUTPUT": return eventManager(project).getOutputWips;
-            case "WIPS_TOTAL": return eventManager(project).getTotalWips;
-            case "USED_REAL": return eventManager(project).getAmountSpentInReal;
-            default: return 0
+            case "CAT": {
+                return project.metric?.chat_event.reduce((total, chats) => total + chats.open_chat.length, 0)
+            }
+            case "CAU": {
+                const removeDuplicateGuest = project.metric?.chat_event.filter((obj, index, self) =>
+                    index === self.findIndex((el) => el["guest_id"] === obj['guest_id'])
+                ) || [];
+                return removeDuplicateGuest.length
+            }
+            case "TOKEN_INPUT": {
+                return formatLongNumber(input)
+            }
+            case "TOKEN_OUTPUT": {
+                return formatLongNumber(output)
+            }
+            case "TOKEN_TOTAL": {
+                return formatLongNumber(output + input)
+            }
+            case "USED_REAL": {
+                const usedDollarToken = (input *  0.0010 / 1000) + (output * 0.0020 / 1000);
+                const dollarToReal = dollar ? "R$" + (dollar * usedDollarToken).toFixed(2).replace(".", ",") : 0
+                return dollarToReal
+            }
+            default:
+                return 0
         }
     }
 
 
     return (
-        <div className="overflow-auto border-4 border-zinc-800 rounded-t-2xl mt-8">
-            <HeaderTableMetric setColumns={setColumns} columns={columns}/>
+        <div className="overflow-auto border-4 border-zinc-800">
             {
                 projects ?
                 projects.map((project: any) =>
@@ -36,7 +66,7 @@ export function BodyTableMetric({ columns, setColumns }: { columns: Columns[], s
                         {
                             columns.map((column: Columns, index: number) =>
                                 column.status &&
-                                <h2 key={column.columnName} className="w-full min-w-[200px] flex gap-2 justify-center items-center text-center border-[1px] border-transparent border-r-black/20 p-2">
+                                <h2 key={column.columnName} className="w-[200px] flex gap-2 justify-center items-center text-center border-[1px] border-transparent border-r-black/20 p-2">
                                     {
                                         index === 0 ?
                                             <>

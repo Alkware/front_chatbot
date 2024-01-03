@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useContext, useState } from "react";
-import ButtonGreen from "../../../../../components/button/ButtonGreen"
 import { FaLock } from "react-icons/fa";
 import { ModalContext } from "../../../../../context/ModalContext";
 import { Columns } from "../../../../../@types/Column.types";
+import { Button } from "../../../../../components/button/Button";
 
 
 interface ModalColumnOrganizationTypes {
@@ -38,7 +38,7 @@ export function ModalColumnOrganization({ setColumns, columns }: ModalColumnOrga
     }
 
     return (
-        <div className="w-1/2 max-w-[400px] bg-zinc-800">
+        <div className="w-1/2 max-w-[400px] bg-zinc-800 text-light">
             <h2 className="w-full text-center text-xl p-4">Organize suas columns</h2>
 
             <div className="w-full flex gap-2 flex-col">
@@ -48,7 +48,7 @@ export function ModalColumnOrganization({ setColumns, columns }: ModalColumnOrga
                             <p>{column.columnName}</p>
 
                             <div
-                                className={`w-[30px] h-[20px] bg-zinc-100 flex  overflow-hidden rounded-full cursor-pointer`}
+                                className={`w-[30px] h-[20px] bg-zinc-100 flex overflow-hidden rounded-full cursor-pointer`}
                                 style={{ justifyContent: `${column.status ? "end" : "start"}` }}
                                 onClick={handleChangeStatus}
                                 data-status={column.status}
@@ -70,7 +70,7 @@ export function ModalColumnOrganization({ setColumns, columns }: ModalColumnOrga
                 }
             </div>
             <div className="w-full flex mt-12 justify-center">
-                <ButtonGreen onClick={handleSaveColumnOrganization}>Salvar</ButtonGreen>
+                <Button onClick={handleSaveColumnOrganization}>Salvar</Button>
             </div>
         </div>
     )

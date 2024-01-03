@@ -13,6 +13,7 @@ export interface clientTypes {
         created_at: string,
         status: "PENDING" | "APPROVED" | "CANCEL",
     }>,
+    
 }
 
 

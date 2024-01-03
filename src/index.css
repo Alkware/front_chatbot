@@ -13,7 +13,15 @@
   -moz-osx-font-smoothing: grayscale;
 
   -webkit-text-size-adjust: 100%;
+
+  --primary: #7672F2;
+  --primary-200: #363473;
+  --primary-300: #222140;
+  --dark: #0C0C0D;
+  --light: #fff;
 }
+
+
 
 * {
   padding: 0;
@@ -21,23 +29,11 @@
   box-sizing: border-box;
 }
 
-
-p,
-span,
-h1,
-h2,
-h3,
-h4,
-div {
-  color: rgb(250, 250, 250)
-}
-
 input,
 textarea {
+  background-color: #353535;
   padding: .5rem;
-  color: #f1f1f1;
   outline: none;
-  background-color: #474747;
   border-radius: 5px;
   width: 100%;
 }
@@ -47,23 +43,35 @@ textarea {
   resize: none;
 }
 
+/* classes prontas */
+
+.element-3d {
+  transform: rotate3d(1, 0, 0, 70deg);
+}
+
+.element-3d:hover {
+  transform: rotate3d(1, 0, 0, 70deg) scale(1.03);
+}
+
+/* BACKGROUNDS  */
+
+.background-dark {
+  background: linear-gradient(325deg, var(--dark) 83% , var(--primary) 100%);
+}
+.background-light {
+  background: linear-gradient(325deg, var(--light) 83% , var(--primary) 100%);
+}
+
+
 
 /* animation */
+
 @keyframes smooth-display-left {
   from {
     transform: translateX(100%);
   }
-  to{
-    transform: translateX(0%);
-  }
 
-}
-
-@keyframes smooth-display-right {
-  from {
-    transform: translateX(-100%);
-  }
-  to{
+  to {
     transform: translateX(0%);
   }
 }
@@ -73,19 +81,34 @@ textarea {
   from {
     transform: rotate(45deg) scale(.5, 1.25) rotate(360deg)
   }
-  to{
+
+  to {
     transform: rotate(45deg) scale(.5, 1.25) rotate(0deg)
   }
 }
 
 @keyframes jump-screen {
-  0%{
+  0% {
     transform: translate(100%);
   }
+
   50% {
     transform: translate(-50px);
   }
-  100%{
+
+  100% {
     transform: translate(0);
+  }
+}
+
+@keyframes display-screen {
+  0% {
+    transform: scale(.25);
+    opacity: 0%;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 100%;
   }
 }

@@ -1,43 +1,50 @@
-import { FaBell, FaMoon, FaPowerOff, FaQuestionCircle, FaSun } from "react-icons/fa"
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { FaBell, FaMoon, FaSun } from "react-icons/fa"
+import { TipContainer } from "../../../components/TipContainer/TipContainer";
 
 export function MenuIconsHeaderPanel() {
-    const [isThemeDark, setThemeDark] = useState(true);
-    const navigate = useNavigate();
+
+    useEffect(() => {
+        // busca a theme no local storage
+        const isDarkTheme = localStorage.theme === "dark" ? true : false;
+        // define no html se o theme dark é true
+        document.documentElement.classList.toggle("dark", isDarkTheme)
+    }, [])
 
 
-    const handleExitThePanel = () => {
-        localStorage.removeItem("token")
-        navigate("/login")
+    const handleThemeColor = () => {
+        // busca a theme no local storage
+        const isDarkTheme = localStorage.theme === "dark" ? true : false;
+        // define no html se o theme dark é true
+        document.documentElement.classList.toggle("dark", !isDarkTheme)
+        const toggletheme = isDarkTheme ? "light" : "dark"
+        localStorage.theme = toggletheme
     }
 
     return (
 
         <div className="flex gap-3 px-8">
-            <FaQuestionCircle
-                className="fill-zinc-100 cursor-pointer"
-            />
-
-            <FaBell
-                className="fill-zinc-100 cursor-pointer"
-            />
-            {
-                isThemeDark ?
+            <TipContainer tip="Notificações" position="BOTTOM">
+                <div className="bg-primary-100 rounded-full p-1">
+                    <FaBell
+                        className="text-2xl fill-light cursor-pointer"
+                    />
+                </div>
+            </TipContainer>
+            <TipContainer tip="Escolha entre thema light ou dark" position="BOTTOM">
+                <div
+                    className="bg-primary-100 rounded-full p-1"
+                    onClick={handleThemeColor}
+                >
                     <FaSun
-                        className="fill-zinc-100 cursor-pointer"
-                        onClick={() => setThemeDark(v => !v)}
+                        className="text-2xl fill-light cursor-pointer hidden dark:block"
                     />
-                    :
                     <FaMoon
-                        className="fill-zinc-100 cursor-pointer"
-                        onClick={() => setThemeDark(v => !v)}
+                        className="text-2xl fill-light cursor-pointer block dark:hidden"
                     />
-            }
-            <FaPowerOff
-                className="fill-zinc-100 cursor-pointer hover:fill-red-500 transition-colors duration-500"
-                onClick={handleExitThePanel}
-            />
+                </div>
+            </TipContainer>
+
         </div>
     )
 };

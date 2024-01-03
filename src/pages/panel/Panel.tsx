@@ -1,36 +1,36 @@
 import { useContext, useEffect, useState } from "react";
-import PanelHeader from "./components/PanelHeader";
-import MainPanelClient from "./components/myProjects/MainPanelClient";
 import { authenticateClient } from "../../api/client";
 import { useNavigate } from "react-router-dom";
 import { ClientContext } from "../../context/ClientContext";
+import { MainPanelClient } from "./components/MainPanelClient/MainPanelClient";
+import NavigatePanelClient from "./components/NavigatePanelClient";
+
+
 
 function Panel() {
     const { setClient } = useContext(ClientContext)
     const [access, setAccess] = useState<Boolean>();
     const navigate = useNavigate();
 
-    useEffect(()=>{
-        (async ()=>{
+    useEffect(() => {
+        (async () => {
             const token = localStorage.getItem("token");
             const clientIsLogged = token && await authenticateClient(token);
-            if(clientIsLogged) {
+            if (clientIsLogged) {
                 setClient(clientIsLogged.data.client)
                 setAccess(true)
             }
             else navigate("/login")
         })();
-    },[])
-
+    }, [])
 
     return (
         access &&
-        <div className="w-screen h-screen flex flex-col bg-dark overflow-hidden">
-
-            <PanelHeader />
-
+        <div
+            className="w-screen h-screen overflow-hidden flex justify-start items-start  text-dark dark:text-light"
+        >
+            <NavigatePanelClient  />
             <MainPanelClient />
-
         </div>
     )
 }

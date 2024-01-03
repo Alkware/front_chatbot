@@ -1,25 +1,34 @@
+import { useSearchParams } from "react-router-dom";
+import { ConversationHistoric } from "./ConversationHistoric/ConversationHistoric";
 import { Metric } from "./metric/Metric";
+import { MyDatabases } from "./myData/MyDatabases";
 import MyProjects from "./myProjects/MyProjects";
 import { Payments } from "./payments/Payments";
 
-interface ComponetsTypes {
-    navMenu: number
-}
+export function ControllerSectionComponents() {
+    const [searchParams] = useSearchParams();
+    const tab = Number(searchParams.get("tab") || 0);
+    
 
-function ControllerSectionComponents({ navMenu }: ComponetsTypes) {
     return (
-        <div className="w-full">
+        <div className="w-full p-8 overflow-hidden">
             {
-                navMenu === 0 ?
+                tab === 0 ?
                     <MyProjects />
                     :
-                    navMenu === 1 ?
+                    tab === 1 ?
                         <Metric />
                         :
-                        navMenu === 2 ?
-                            <Payments />
+                        tab === 2 ?
+                            <MyDatabases />
                             :
-                            <h2>configuração</h2>
+                            tab === 3 ?
+                                <ConversationHistoric />
+                                :
+                                tab === 4 ?
+                                    <Payments />
+                                    :
+                                    <h2>Configurações</h2>
 
             }
         </div>
@@ -27,5 +36,3 @@ function ControllerSectionComponents({ navMenu }: ComponetsTypes) {
 
     )
 }
-
-export default ControllerSectionComponents;

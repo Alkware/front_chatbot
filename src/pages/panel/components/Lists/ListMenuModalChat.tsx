@@ -1,8 +1,15 @@
-import { forwardRef, useRef } from "react";
+import { Dispatch, SetStateAction, forwardRef, useRef } from "react";
 import { Li } from "../../../../components/li/Li";
 import { FcInfo, FcMindMap, FcNews, FcSettings } from "react-icons/fc";
+import { Project } from "../../../../@types/Project";
+import { ButtonsModal } from "../../../../components/Forms/ChatForm/components/ButtonsModal";
 
-export const ListMenuModalChat = forwardRef(({ }, ref: any) => {
+interface ListMenuModalChat{
+    project: Project
+    setNewProject: Dispatch<SetStateAction<Project>>
+}
+
+export const ListMenuModalChat = forwardRef(({ project, setNewProject }: ListMenuModalChat, ref: any) => {
     const activeIndex = useRef()
 
     const listName = [
@@ -62,9 +69,9 @@ export const ListMenuModalChat = forwardRef(({ }, ref: any) => {
 
 
     return (
-        <div className="w-1/4 max-w-[300px] min-w-[200px] h-full border-r-[1px] border-r-zinc-500 flex flex-col justify-between">
+        <div className="w-1/4 h-full max-w-[300px] min-w-[250px] flex flex-col justify-between items-center  ">
 
-            <ul className="w-full flex flex-col">
+            <ul className="w-full flex flex-col uppercase">
                 {
                     listName.map(list =>
                         <Li
@@ -77,6 +84,12 @@ export const ListMenuModalChat = forwardRef(({ }, ref: any) => {
                     )
                 }
             </ul>
+
+            <ButtonsModal
+                project={project}
+                setNewProject={setNewProject}
+            />
+
         </div>
     )
 });

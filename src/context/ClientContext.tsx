@@ -1,9 +1,9 @@
 import { createContext, useState } from "react";
-import { clientTypes } from "../@types/clientTypes";
+import { Client } from "../@types/Client";
 
 interface ClientContextTypes {
-    client: clientTypes | undefined,
-    setClient: React.Dispatch<React.SetStateAction<clientTypes | undefined>>
+    client: Client | undefined,
+    setClient: React.Dispatch<React.SetStateAction<Client | undefined>>
 }
 
 export const ClientContext = createContext<ClientContextTypes>({
@@ -12,7 +12,7 @@ export const ClientContext = createContext<ClientContextTypes>({
 });
 
 function ClientProvider({ children }: any) {
-    const [client, setClient] = useState<clientTypes>();
+    const [client, setClient] = useState<Client>();
 
     return (
         <ClientContext.Provider value={{ client, setClient }}>

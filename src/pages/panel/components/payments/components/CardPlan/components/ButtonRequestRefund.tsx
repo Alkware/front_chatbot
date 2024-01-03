@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { clientTypes } from "../../../../../../../@types/clientTypes"
+import { clientTypes } from "../../../../../../../@types/Client"
 import { ModalContext } from "../../../../../../../context/ModalContext"
 import { calculatesRemainingFreeTrialDays } from "../../../../../../../functions/calculatesRemainingFreeTrialDays"
 import { PopOver } from "../../../../../../../components/modal/templates/PopOver"

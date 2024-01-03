@@ -1,4 +1,4 @@
-import ButtonMain from "../../components/button/ButtonBlue";
+import { Button } from "../../components/button/Button";
 
 export default function Thanks() {
 
@@ -6,7 +6,7 @@ export default function Thanks() {
         <div className="w-screen h-screen bg-zinc-700 grid place-items-center">
             <div className="">
                 <h2>Obrigado por assinar nossa plataforma</h2>
-                <ButtonMain onClick={()=> window.open("https://wipzee.com/panel")}>Acessar plataforma</ButtonMain>
+                <Button onClick={()=> window.open("https://wipzee.com/panel")}>Acessar plataforma</Button>
             </div>
         </div>
     )

@@ -1,14 +1,9 @@
 import { InputTextForm } from "../ComponentsForms/InputTextForm";
 
-interface ProductDescribe {
-    register: any,
-}
-
-
-export function Tracking({ register }: ProductDescribe) {
+export function Tracking() {
     return (
         <div
-            className="w-full hidden flex-col justify-center items-center"
+            className="w-full hidden flex-col justify-center items-center animate-display-screen"
             data-index="tracking"
             id="container"
         >
@@ -17,8 +12,6 @@ export function Tracking({ register }: ProductDescribe) {
             <InputTextForm
                 field_name="pixel_facebook"
                 title="Pixel do facebook"
-                placeholder="ex.: 111111111111111111"
-                register={register}
             />
         </div>
     )

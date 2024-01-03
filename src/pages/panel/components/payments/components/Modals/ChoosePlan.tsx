@@ -1,11 +1,10 @@
 import { useContext, useEffect, useState } from "react"
 import { getPlans } from "../../../../../../api/plan";
-import ButtonGreen from "../../../../../../components/button/ButtonGreen";
 import { FaCheck, FaWindowClose } from "react-icons/fa";
 import { ModalContext } from "../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../components/modal/templates/PopOver";
-import { clientTypes } from "../../../../../../@types/clientTypes";
-import ButtonMain from "../../../../../../components/button/ButtonBlue";
+import { Client } from "../../../../../../@types/Client";
+import { Button } from "../../../../../../components/button/Button";
 
 
 interface Plans {
@@ -18,7 +17,7 @@ interface Plans {
     link: string
 }
 
-export function ChoosePlan({ client }: { client: clientTypes }) {
+export function ChoosePlan({ client }: { client: Client }) {
     const [plans, setPlans] = useState<Plans[]>();
     const { setModalContent } = useContext(ModalContext)
 
@@ -85,9 +84,9 @@ export function ChoosePlan({ client }: { client: clientTypes }) {
                                 <span className="">R$ {Number(plan.price).toFixed(2).replace(".", ",")}</span>
                                 {
                                     controlWhatButtonDisplay(plan) ?
-                                        <ButtonMain
+                                        <Button
                                             onClick={() => handleChoosePlan(plan)}
-                                            customClass={`mt-8 ${client.plan_management.status === "ACTIVE" ? "opacity-60 cursor-not-allowed" : "opacity-100"}`}
+                                            className={`mt-8 ${client.plan_management.status === "ACTIVE" ? "opacity-60 cursor-not-allowed" : "opacity-100"}`}
                                         >
                                             {
                                                 client.plan_management.status !== "ACTIVE" ?
@@ -95,12 +94,12 @@ export function ChoosePlan({ client }: { client: clientTypes }) {
                                                     :
                                                     "Plano atual"
                                             }
-                                        </ButtonMain>
+                                        </Button>
                                         :
-                                        <ButtonGreen
+                                        <Button
                                             onClick={() => handleChoosePlan(plan)}
-                                            customClass="mt-8"
-                                        >Quero esse</ButtonGreen>
+                                            className="mt-8"
+                                        >Quero esse</Button>
                                 }
                             </div>
                         )

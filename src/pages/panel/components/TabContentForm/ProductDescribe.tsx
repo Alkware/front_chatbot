@@ -1,52 +1,54 @@
+import { useEffect, useState } from "react"
+import { AddInputForm } from "../ComponentsForms/AddInputForm"
 import { InputTextForm } from "../ComponentsForms/InputTextForm"
-import { TextareaForm } from "../ComponentsForms/TextareaForm"
+import { SelectForm } from "../ComponentsForms/SelectForm"
+import { authenticateClient } from "../../../../api/client"
 
-interface ProductDescribe {
-    register: any,
-}
+export function ProductDescribe() {
+    const [prompt, setPrompt] = useState([]);
 
-export function ProductDescribe({ register }: ProductDescribe) {
+    useEffect(() => {
+
+        (async () => {
+            const token = localStorage.getItem("token");
+            const clientIsLogged = token && await authenticateClient(token);
+            const prompt = clientIsLogged ? clientIsLogged.data.client.plan_management.prompt : []
+            if (clientIsLogged && prompt.length > 0) setPrompt(prompt)
+        })();
+
+    }, [])
+
     return (
         <div
-            className="w-full h-full flex-col hidden overflow-y-auto"
+            className="w-full h-full flex-col gap-8 hidden overflow-y-auto animate-display-screen"
             id="container"
             data-index="product_describe"
         >
-            <h2 className="text-2xl w-full text-center p-4">Descrição do produto:</h2>
+            <div className="flex flex-col gap-16 items-center">
+                <div className="w-2/3">
+                    <SelectForm
+                        options={prompt}
+                        field_name="prompt_id"
+                    />
+                </div>
 
-            <TextareaForm
-                field_name="prompt"
-                title="Escreva seu prompt aqui:"
-                placeholder="Crie seu prompt aqui"
-                height={300}
-                register={register}
-            />
+                <AddInputForm />
 
-            <TextareaForm
-                field_name="describe_client"
-                title="Escreva a persona do seu cliente aqui:"
-                placeholder="Descrição do cliente"
-                height={120}
-                register={register}
-            />
+                <div className="w-full flex flex-col">
+                    <h2 className="text-xl font-bold">Crie o botão que será usado para direcionar os seus clientes:</h2>
+                    <div className="w-full flex gap-8 justify-evenly">
+                        <InputTextForm
+                            field_name="button_text"
+                            title="Digite o nome do botão da cta"
+                        />
 
-
-            <div className="w-full flex gap-8 justify-evenly">
-                <InputTextForm
-                    field_name="call_to_action.button_text"
-                    title="Digite o nome do botão da cta"
-                    placeholder="ex: Comprar agora"
-                    register={register}
-                />
-
-                <InputTextForm
-                    field_name="call_to_action.link"
-                    title="Digite o link do seu CTA"
-                    placeholder="ex: https://meusite.com/vendas"
-                    register={register}
-                />
+                        <InputTextForm
+                            field_name="button_link"
+                            title="Digite o link do seu CTA"
+                        />
+                    </div>
+                </div>
             </div>
-
 
         </div>
     )

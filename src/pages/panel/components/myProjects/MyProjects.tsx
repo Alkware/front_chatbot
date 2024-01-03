@@ -3,6 +3,7 @@ import { ClientContext } from "../../../../context/ClientContext";
 import CreateNewProject from "./CreateNewProject";
 import { CardProject } from "../cards/CardProject";
 import { ProjectTypes } from "../../../../@types/projectTypes";
+import { Container } from "../../../../components/Container/Container";
 
 
 function MyProjects() {
@@ -11,14 +12,12 @@ function MyProjects() {
 
     return (
         client &&
-        <div className="w-full flex justify-center p-4">
+        <Container title="Meus chats">
 
             <div className="w-4/5 flex flex-col gap-8">
-                <div className="w-full flex justify-between items-center">
-                    <h2 className="text-xl">Meus chats:</h2>
+                <div className="w-full flex justify-end items-center">
                     <CreateNewProject
-                        setNewProject={setProjects}
-                        client_id={client.id}
+                        plan_management_id={client?.plan_management?.id}
                     />
                 </div>
 
@@ -26,34 +25,16 @@ function MyProjects() {
                     projects.length ? (
                         <div className="w-full flex flex-col gap-4">
 
-                            <h2>VENDAS:</h2>
                             <div className="w-full flex items-center gap-4">
-
                                 {
                                     projects.map((project: ProjectTypes) =>
-                                        project.chat_type === "seller" &&
-                                        <CardProject
-                                            setNewProject={setProjects}
-                                            key={project.slug}
+                                        <CardProject 
+                                            key={project.id}
                                             project={project}
+                                            setNewProject={setProjects}
                                         />
                                     )
                                 }
-                            </div>
-
-
-                            <div className="w-full">
-
-                                <h2>SUPORTE:</h2>
-                                <div className="w-full flex items-center gap-4">
-                                    {
-                                        projects.map((project: ProjectTypes) =>
-                                            project.chat_type === "support" &&
-                                            <CardProject key={project.id} project={project} setNewProject={setProjects} />
-                                        )
-                                    }
-                                </div>
-
                             </div>
 
                         </div>
@@ -65,8 +46,7 @@ function MyProjects() {
                 }
 
             </div>
-
-        </div>
+        </Container>
     )
 }
 

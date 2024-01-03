@@ -7,7 +7,7 @@ export function Modal() {
     return (
         modalContent?.isOpenModal &&
         <div
-            className="w-screen h-screen backdrop-blur-sm absolute top-0 right-0 flex justify-end overflow-hidden"
+            className="w-screen h-screen backdrop-blur-sm absolute top-0 right-0 flex justify-end overflow-hidden z-[999]"
         >
             {modalContent?.components}
         </div>

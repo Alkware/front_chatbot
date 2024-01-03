@@ -1,0 +1,118 @@
+import { RefObject, useContext, useRef } from "react";
+import { FaCopy, FaLink } from "react-icons/fa6";
+import { ModalContext } from "../../../../context/ModalContext";
+import { PopOver } from "../../../modal/templates/PopOver";
+
+interface ShareProject {
+    slug: string
+}
+
+export function ShareProject({ slug }: ShareProject) {
+    const { setModalContent } = useContext(ModalContext)
+    const linkRef: RefObject<HTMLInputElement> = useRef(null)    
+    const widgetRef: RefObject<HTMLInputElement> = useRef(null)
+    
+    const handleFollowLink = () => {
+        window.open(`https://chat.wipzee.com/${slug}`)
+    }
+
+    const handleCopyLink = () => {
+        try {
+            const input = linkRef.current
+
+            if (input) {
+                input.classList.toggle("disabled")
+                input.disabled = false;
+
+                input.select();
+
+                var successful = document.execCommand('copy');
+                console.log(successful)
+
+                if (successful)
+                    setModalContent({
+                        isOpenModal: true,
+                        components: <PopOver message="Link Copiado!" type="INFORMATION" />
+                    })
+
+                input.classList.toggle("disabled")
+                input.disabled = true;
+            }
+        } catch (err) {
+            setModalContent({
+                isOpenModal: true,
+                components: <PopOver message="Falaha ao copiar o link!" type="ERROR" />
+            })
+        }
+    }
+
+    const handleCopyWidget = () => {
+        try {
+            const input = widgetRef.current
+
+            if (input) {
+                input.classList.toggle("disabled")
+                input.disabled = false;
+
+                input.select();
+
+                var successful = document.execCommand('copy');
+
+                if (successful)
+                    setModalContent({
+                        isOpenModal: true,
+                        components: <PopOver message="Widget Copiado!" type="INFORMATION" />
+                    })
+
+                input.classList.toggle("disabled")
+                input.disabled = true;
+            }
+        } catch (err) {
+            setModalContent({
+                isOpenModal: true,
+                components: <PopOver message="Falaha ao copiar o link!" type="ERROR" />
+            })
+        }
+    }
+
+    return (
+        <div className="w-full flex flex-col gap-8">
+            <div className="w-full flex flex-col gap-2">
+                <h2 className="w-4/5 text-center uppercase">Link do seu chat</h2>
+
+                <div className="w-full flex justify-between">
+                    <input
+                        ref={linkRef}
+                        className="w-4/5 border border-light/20 p-2 rounded-xl disabled"
+                        disabled={true}
+                        defaultValue={`https://chat.wipzee.com/${slug}`}
+                    />
+                    <div className="flex justify-center items-center gap-4">
+                        <FaCopy onClick={handleCopyLink} className=" text-2xl cursor-pointer" />
+                        <FaLink onClick={handleFollowLink} className=" text-2xl cursor-pointer" />
+                    </div>
+                </div>
+                <span className="w-4/5 text-center opacity-60">Esse será o link que você enviará aos usuários que irão acessar seu chat.</span>
+            </div>
+
+            <div className="w-full flex flex-col gap-2">
+                <h2 className="w-4/5 text-center uppercase">Código do Widget</h2>
+
+                <div className="w-full flex justify-between">
+                    <input
+                        ref={widgetRef} 
+                        className="w-4/5 border border-light/20 p-2 rounded-xl disabled"
+                        disabled={true}
+                        defaultValue={`<script src="https://widget.wipzee.com/${slug}" defer></script>`}
+                    />
+                    <div className="w-1/5 flex justify-center items-center gap-4">
+                        <FaCopy onClick={handleCopyWidget} className=" text-2xl cursor-pointer" />
+                    </div>
+                </div>
+                <span className="w-4/5 text-center opacity-60">
+                    Copie e cole esse código no head do html do seu site.
+                </span>
+            </div>
+        </div>
+    )
+};

@@ -1,75 +1,64 @@
-import { Dispatch, SetStateAction } from "react";
-import ControlCloseMenuNavigation from "./ControlCloseMenuNavigation";
-import { FaGear } from "react-icons/fa6";
-import { IoIosChatbubbles, IoIosStats, IoMdCash } from "react-icons/io";
-
+import { ElementType } from "react";
+import { IoIosChatbubbles, IoIosCloud, IoIosStats, IoLogoBuffer, IoMdCash } from "react-icons/io";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 interface containerMenuTypes {
     menuIsOpen: boolean,
-    setTabNavigationIndex: Dispatch<SetStateAction<number>>
-    setMenuIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
-function MenuNavigate({ setTabNavigationIndex, menuIsOpen, setMenuIsOpen }: containerMenuTypes) {
-
-    const navMenu = [
-        {
-            name: "Meus chats",
-            access: "user",
-            icon: <IoIosChatbubbles className="group-hover:fill-blue_dark transition-colors duration-100" />
-        },
-        {
-            name: "Métricas",
-            access: "user",
-            icon: <IoIosStats className="group-hover:fill-blue_dark transition-colors duration-100" />
-        },
-        {
-            name: "Pagamentos",
-            access: "user",
-            icon: <IoMdCash className="group-hover:fill-blue_dark transition-colors duration-100" />
-        },
-        {
-            name: "Configuração",
-            access: "user",
-            icon: <FaGear className="group-hover:fill-blue_dark transition-colors duration-100" />
-        },
-    ]
+const navMenu = [
+    {
+        name: "Meus chats",
+        Icon: IoLogoBuffer as ElementType
+    },
+    {
+        name: "Métricas",
+        Icon: IoIosStats as ElementType
+    },
+    {
+        name: "Fonte de dados",
+        Icon: IoIosCloud as ElementType
+    },
+    {
+        name: "Registros",
+        Icon: IoIosChatbubbles as ElementType
+    },
+    {
+        name: "Assinatura",
+        Icon: IoMdCash as ElementType
+    },
+]
 
 
+function MenuNavigate({ menuIsOpen }: containerMenuTypes) {
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+
+    const handleSelectedTabNavigation = (index: number) => {
+        navigate(`/panel?tab=${index}`)
+    }
 
     return (
-        <div
-            className={`w-full h-[80%] flex flex-col justify-between rounded-xl`}
-        >
-            <ul className="w-full h-4/5 flex flex-col items-end">
-                {
-                    navMenu.map((menu, index) =>
-                        menu.access === "user" ?
-                            <li
-                                key={menu.name}
-                                className="w-4/5 p-2 text-center cursor-pointer hover:border-r-4 hover:border-r-blue_dark transition-all mt-2 text-white flex gap-2 justify-start items-center group"
-                                onClick={() => setTabNavigationIndex(index)}
-                            >
-                                {menu.icon}
-                                <p className={`group-hover:text-blue_dark transition-colors duration-100 ${menuIsOpen ? "block" : "hidden"}`}>{menu.name}</p>
-                            </li>
-                            :
-                            <li
-                                key={menu.name}
-                                className="w-4/5 p-2 text-center cursor-pointer hover:border-r-4 hover:border-r-blue_dark transition-all mt-2 text-white flex gap-2 justify-start items-center group"
-                                onClick={() => setTabNavigationIndex(index)}
-                            >
-                                {menu.icon}
-                                <p className={`group-hover:text-blue_dark transition-colors duration-100 ${menuIsOpen ? "block" : "hidden"}`}>{menu.name}</p>
-                            </li>
-                    )
-                }
-            </ul>
-            <ControlCloseMenuNavigation
-                menuIsOpen={menuIsOpen}
-                setMenuIsOpen={setMenuIsOpen}
-            />
-        </div>
+        <ul className="w-full flex flex-col items-end">
+            {
+                navMenu.map((menu, index) =>
+                    <li
+                        key={menu.name}
+                        data-tab={Number(searchParams.get("tab")) == index ? true : false}
+                        className="w-full py-3 flex gap-2 justify-center items-center text-center cursor-pointer font-bold text-xl hover:text-primary-300 hover:dark:text-light hover:bg-primary-100 hover:dark:bg-dark data-[tab=true]:dark:bg-dark transition-colors duration-300 group"
+                        onClick={() => handleSelectedTabNavigation(index)}
+                    >
+                        <div
+                            data-menuisopen={menuIsOpen}
+                            className="w-full data-[menuisopen=true]:w-4/5 flex justify-center data-[menuisopen=true]:justify-start items-center gap-2"
+                        >
+                            <menu.Icon className="group-hover:fill-green_color text-xl transition-colors duration-100" />
+                            <p className={`group-hover:text-green_color transition-colors duration-100 whitespace-nowrap text-ellipsis ${menuIsOpen ? "block" : "hidden"}`}>{menu.name}</p>
+                        </div>
+                    </li>
+                )
+            }
+        </ul>
     )
 }
 

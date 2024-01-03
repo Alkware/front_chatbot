@@ -44,8 +44,8 @@ function Register() {
     }
 
     return (
-        <div className="w-screen h-screen flex justify-center items-center bg-dark">
-            <div className="w-full max-w-[480px] rounded-xl flex bg-gradient-to-tr from-transparent to-blue_main2">
+        <div className="w-screen h-screen flex justify-center items-center bg-dark-primary">
+            <div className="w-full max-w-[480px] rounded-xl flex bg-gradient-to-tr from-blue-500 to-dark-color_main">
                 <div className="w-full h-full flex gap-4 flex-col items-center relative p-4">
                     <h1 className="text-2xl">Registre em nossa plataforma</h1>
 
