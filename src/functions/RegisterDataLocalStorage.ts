@@ -9,6 +9,7 @@ const chatModel = {
 
 export function RegisterDataLocalStorage(searchParams: any, setSearchParams: any, target: any) {
     const chat = JSON.parse(localStorage.getItem("chat") || JSON.stringify(chatModel))
+    
 
     if (target) {
         const fieldName = target.dataset.field_name
@@ -24,6 +25,7 @@ export function RegisterDataLocalStorage(searchParams: any, setSearchParams: any
 
     const actions = searchParams.get("actions") || "0"
     const increaseCharacter = Number(actions) + 1
-    setSearchParams({ "actions": increaseCharacter.toString() })
+    searchParams.set("actions", increaseCharacter)
+    setSearchParams(searchParams)
     localStorage.setItem("chat", JSON.stringify(chat))
 }

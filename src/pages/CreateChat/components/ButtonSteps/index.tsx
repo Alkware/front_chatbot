@@ -1,70 +1,60 @@
 import { IoIosRedo, IoIosUndo } from "react-icons/io";
 import { Button } from "../../../../components/button/Button";
 import { useSearchParams } from "react-router-dom";
+import { useContext } from "react";
+import { ModalContext } from "../../../../context/ModalContext";
+import { PopOver } from "../../../../components/modal/templates/PopOver";
+import { ButtonAction } from "./components/ButtonAction";
 
 interface ButtonSteps {
     stepSize: number;
+    plan_management_id: string | undefined
 }
 
-export function ButtonSteps({ stepSize }: ButtonSteps) {
+export const STEP_NAME_URL: string = "form-step"
+
+export function ButtonSteps({ stepSize, plan_management_id }: ButtonSteps) {
     const [params, setParams] = useSearchParams();
+    const { setModalContent } = useContext(ModalContext)
 
-    // const handleNextStep = (isNext: boolean = true) => {
+    const handleNextStep = () => {
+        const currentStep = Number(params.get(STEP_NAME_URL)) + 1;
+        if (currentStep < stepSize && checkInputEmpty()) {
+            params.set(STEP_NAME_URL, currentStep.toString())
+            setParams(params)
+        }
+    }
 
-    //     if (isNext) checkInputEmpty()
-
-    //     const form = containerForm.current
-    //     const index = isNext ?
-    //         (currentIndex < (tabIndex.length - 1) ? (currentIndex + 1) : (tabIndex.length - 1))
-    //         :
-    //         (currentIndex > 0 ? (currentIndex - 1) : 0);
-
-    //     const currentContainerIndex = tabIndex[index]
-
-    //     function addHiddenOnContent() {
-    //         if (form) {
-    //             const divs = [...form.querySelectorAll("div#container")];
-    //             if (divs) {
-    //                 divs.forEach(div => {
-    //                     div.classList.add("hidden")
-    //                 })
-    //             }
-    //         }
-    //     }
-
-    //     function addFlexCurrentContent() {
-    //         if (form) {
-    //             addHiddenOnContent();
-    //             const divActive = form.querySelector(`div[data-index='${currentContainerIndex}']`);
-    //             if (divActive) {
-    //                 divActive.classList.add("flex")
-    //                 divActive.classList.remove("hidden")
-    //             }
-    //         }
-    //     }
-
-    //     addFlexCurrentContent();
-    //     setCurrentIndex(index)
-    // }
-
-    const handleNextStep = ()=>{
-        const currentStep = Number(params.get("step")) + 1;
-        if(currentStep < stepSize){
-            params.set("step", currentStep.toString())
-            setParams({...params, step: currentStep.toString()})
+    const handlePreviousStep = () => {
+        const currentStep = Number(params.get(STEP_NAME_URL)) - 1;
+        if (currentStep >= 0) {
+            params.set(STEP_NAME_URL, currentStep.toString())
+            setParams(params)
         }
     }
 
 
-    const handlePreviousStep= ()=>{
-        const currentStep = Number(params.get("step")) - 1;
-        if(currentStep >= 0){
-            params.set("step", currentStep.toString())
-            setParams({...params, step: currentStep.toString()})
-        }
+
+    const checkInputEmpty = () => {
+        const chat = JSON.parse(localStorage.getItem("chat") || "{}")
+        const errorInputs = { message: "" };
+        const currentStep = params.get(STEP_NAME_URL)
+
+        if (currentStep === "0" && !chat.project_name) errorInputs.message = "Você precisa definir o nome do seu chat."
+        else if (currentStep === "0" && !chat.logo) errorInputs.message = "Você precisa enviar uma logo para seu chat."
+        else if (currentStep === "1" && !chat.prompt_id) errorInputs.message = "Você precisa selecionar uma fonte de dados."
+        else if (currentStep === "1" && !chat.chat_input_message) errorInputs.message = "Você precisa definir uma primeira mensagem em seu chat."
+        else if (currentStep === "1" && !chat.call_to_action[0].button_text) errorInputs.message = "Você precisa definir um texto para o seu botão de CTA."
+        else if (currentStep === "1" && !chat.call_to_action[0].button_link) errorInputs.message = "Você precisa definir um link para seu botão CTA."
+
+        if (errorInputs.message.length > 0) {
+            setModalContent({ isOpenModal: true, components: <PopOver message={errorInputs.message} type="WARNING" /> })
+            return false
+        } else return chat
     }
 
     return (
+        plan_management_id &&
         <div className="w-full flex gap-20 justify-center items-center">
 
             <Button
@@ -73,10 +63,16 @@ export function ButtonSteps({ stepSize }: ButtonSteps) {
             > <IoIosUndo /> Voltar</Button>
 
             <Button
-                data-islaststep={Number(params.get("step")) >= (stepSize - 1)}
-                customClass="flex justify-center px-4 data-[islaststep='true']:hidden"
+                data-islaststep={Number(params.get(STEP_NAME_URL)) < (stepSize - 1)}
+                customClass="flex justify-center px-4 data-[islaststep='false']:hidden"
                 onClick={handleNextStep}
             >Proximo <IoIosRedo /></Button>
+
+            <ButtonAction
+                display={Number(params.get(STEP_NAME_URL)) === (stepSize - 1)}
+                checkInputEmpty={checkInputEmpty}
+                plan_management_id={plan_management_id}
+            />
         </div>
     )
 };

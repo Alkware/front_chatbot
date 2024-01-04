@@ -3,29 +3,34 @@ import { authenticateClient } from "../../../../api/client"
 import { InputTextForm } from "../../Components/InputTextForm";
 import { AddInputForm } from "../../Components/AddInputForm";
 import { SelectForm } from "../../Components/SelectForm";
+import { useSearchParams } from "react-router-dom";
+import { STEP_NAME_URL } from "../../../../pages/CreateChat/components/ButtonSteps";
+
 
 export function ProductDescribe() {
     const [prompt, setPrompt] = useState([]);
     const chat = JSON.parse(localStorage.getItem("chat") || "{}")
+    const [params] = useSearchParams();
+
 
     useEffect(() => {
-
         (async () => {
             const token = localStorage.getItem("token");
             const clientIsLogged = token && await authenticateClient(token);
             const prompt = clientIsLogged ? clientIsLogged.data.client.plan_management.prompt : []
             if (clientIsLogged && prompt.length > 0) setPrompt(prompt)
         })();
+    }, []);
 
-    }, [])
 
     return (
         <div
-            className="w-full h-full flex-col gap-8 hidden overflow-y-auto animate-display-screen"
-            id="container"
-            data-index="product_describe"
+            data-show={params.get(STEP_NAME_URL) === "1"}
+            className="w-full h-full flex-col overflow-y-auto animate-display-screen hidden data-[show='true']:block"
         >
             <div className="flex flex-col gap-16 items-center">
+
+
                 <div className="w-2/3">
                     <SelectForm
                         options={prompt}

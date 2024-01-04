@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom"
 const chatModel = {
     project_name: "Nome da empresa",
     bio: "Bio da empresa",
-    logo: "https://via.placeholder.com/100",
+    logo: "",
     chat_input_message: ["Sua primeira mensagem"],
     call_to_action: [{
         button_text: "",
@@ -44,10 +44,15 @@ export function SimulatorChat() {
 
                 <div className="w-1/5 h-full flex justify-center items-center">
                     <img
+                        data-islogo={!!chat.logo}
                         src={chat.logo}
                         alt=""
-                        className="w-[40px] h-[40px] object-cover rounded-full"
+                        className="w-[40px] h-[40px] object-cover rounded-full data-[islogo='true']:block hidden"
                     />
+                    <div
+                        data-islogo={!!chat.logo}
+                        className="w-[40px] h-[40px] object-cover rounded-full data-[islogo='true']:hidden flex flex-col justify-center items-center text-green-900 overflow-hidden text-[8px] bg-white"
+                    ><span>sem</span><span>imagem</span></div>
                 </div>
 
                 <div className="w-4/5 h-full flex items-center">
@@ -101,7 +106,7 @@ export function SimulatorChat() {
                                             href={chat.call_to_action[0].button_link}
                                             target="_blank"
                                         >
-                                            <FaExternalLinkAlt /> { chat.call_to_action[0].button_text }
+                                            <FaExternalLinkAlt /> {chat.call_to_action[0].button_text}
                                         </a>
                                     </div>
                                 }

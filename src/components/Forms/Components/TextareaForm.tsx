@@ -64,6 +64,7 @@ export function TextareaForm({ field_name, title, height, defaultValue }: InputP
                 name={field_name}
                 defaultValue={defaultValue || ""}
                 onChange={({ target })=> RegisterDataLocalStorage(searchParams, setSearchParams , target)}
+                className="border border-primary-100"
             ></textarea>
         </div>
     )

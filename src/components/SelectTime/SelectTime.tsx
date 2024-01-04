@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { formatDate } from "../../functions/formatDate";
 import { Select } from "../Select/Select";
 import { IoCalendar } from "react-icons/io5";

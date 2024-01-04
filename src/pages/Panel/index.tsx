@@ -5,8 +5,6 @@ import { ClientContext } from "../../context/ClientContext";
 import { MainPanelClient } from "./components/MainPanelClient";
 import NavigatePanelClient from "./components/NavigatePanelClient";
 
-
-
 function Panel() {
     const { setClient } = useContext(ClientContext)
     const [access, setAccess] = useState<Boolean>();

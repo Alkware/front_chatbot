@@ -11,8 +11,8 @@ interface InputProjectNameTypes {
 
 
 export function InputTextForm({ field_name, defaultValue, title, onChange }: InputProjectNameTypes) {
-    const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const [searchParams, setSearchParams] = useSearchParams();
+    const containerRef: RefObject<HTMLDivElement> = useRef(null);
 
 
     useEffect(() => {
@@ -49,7 +49,7 @@ export function InputTextForm({ field_name, defaultValue, title, onChange }: Inp
 
     return (
         <div
-            className="w-full flex flex-col gap-2 my-8 relative"
+            className="w-full flex flex-col gap-2 my-8 relative "
             ref={containerRef}
             onClick={handleClickedInput}
             onBlur={handleExitInput}
@@ -68,6 +68,7 @@ export function InputTextForm({ field_name, defaultValue, title, onChange }: Inp
                     onChange && onChange(e)
                 }}
                 defaultValue={defaultValue || ""}
+                className="border border-primary-100"
             />
 
         </div>

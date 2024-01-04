@@ -8,7 +8,7 @@ import { Payments } from "./components/Payments/Payments";
 
 export function ControlComponentsSelectedMenu() {
     const [searchParams] = useSearchParams();
-    const tab = Number(searchParams.get("tab") || 0);
+    const tab = Number(searchParams.get("tab")) || 0;
 
     return (
         <div className="w-full p-8 overflow-hidden">

@@ -58,7 +58,7 @@ export function InputFileForm({ defaultValue }: InputFileForm) {
     return (
         <div className="w-full flex justify-evenly items-center mt-4">
             <label
-                className="border border-dashed border-light-primary bg-zinc-600/40 rounded-md p-4 cursor-pointer flex gap-4 items-center"
+                className="border border-dashed border-primary-100 bg-zinc-600/40 rounded-md p-4 cursor-pointer flex gap-4 items-center"
                 onChange={handleUploadImage}
             >
                 Faça o upload da sua logo
