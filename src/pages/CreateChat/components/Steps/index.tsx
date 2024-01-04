@@ -1,9 +1,14 @@
-export function Steps({ tabIndex, currentIndex }: { tabIndex: Array<string>, currentIndex: number }) {
+interface Steps {
+    numberSteps: number, 
+    currentIndex: number
+}
+
+export function Steps({ numberSteps, currentIndex }: Steps) {
     return (
         <div className="w-full max-w-[500px] flex justify-between my-6">
             {
-                tabIndex.map((step, index) =>
-                    <div key={step} className={`w-full h-[1px] bg-transparent border border-dashed border-transparent border-t-white/30 flex justify-center items-center`}>
+                Array(numberSteps).fill(0).map((_, index) =>
+                    <div key={index} className={`w-full h-[1px] bg-transparent border border-dashed border-transparent border-t-white/30 flex justify-center items-center`}>
                         <div
                             className={
                                 `w-[20px] h-[20px] 

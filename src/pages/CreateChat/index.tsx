@@ -8,15 +8,16 @@ import { BackHome } from "./components/BackHome";
 import { getPlanManagementById } from "../../api/planManagement";
 import { Button } from "../../components/button/Button";
 import { Steps } from "./components/Steps";
-import { IoIosCreate, IoIosRedo, IoIosUndo } from "react-icons/io";
+import { IoIosCreate} from "react-icons/io";
 import { SimulatorChat } from "../../components/SimulatorChat";
 import { GeneralInformation } from "../../components/Forms/ChatForm/components/GeneralInformation";
 import { ProductDescribe } from "../../components/Forms/ChatForm/components/ProductDescribe";
+import { ButtonSteps } from "./components/ButtonSteps";
 
 export function CreateChat() {
     const { setModalContent } = useContext(ModalContext);
     const { plan_management_id } = useParams();
-    const [currentIndex, setCurrentIndex] = useState(0)
+    const [currentIndex ] = useState(0)
     const navigate = useNavigate();
     const containerForm: RefObject<HTMLDivElement> = useRef(null);
     const tabIndex = ["general_information", "product_describe"]
@@ -85,43 +86,6 @@ export function CreateChat() {
         }else return chat
     }
 
-    const handleNextStep = (isNext: boolean = true) => {
-
-        if (isNext) checkInputEmpty()
-
-        const form = containerForm.current
-        const index = isNext ?
-            (currentIndex < (tabIndex.length - 1) ? (currentIndex + 1) : (tabIndex.length - 1))
-            :
-            (currentIndex > 0 ? (currentIndex - 1) : 0);
-
-        const currentContainerIndex = tabIndex[index]
-
-        function addHiddenOnContent() {
-            if (form) {
-                const divs = [...form.querySelectorAll("div#container")];
-                if (divs) {
-                    divs.forEach(div => {
-                        div.classList.add("hidden")
-                    })
-                }
-            }
-        }
-
-        function addFlexCurrentContent() {
-            if (form) {
-                addHiddenOnContent();
-                const divActive = form.querySelector(`div[data-index='${currentContainerIndex}']`);
-                if (divActive) {
-                    divActive.classList.add("flex")
-                    divActive.classList.remove("hidden")
-                }
-            }
-        }
-
-        addFlexCurrentContent();
-        setCurrentIndex(index)
-    }
 
 
     return (
@@ -131,7 +95,7 @@ export function CreateChat() {
                 <BackHome />
 
                 <Steps
-                    tabIndex={tabIndex}
+                    numberSteps={tabIndex.length}
                     currentIndex={currentIndex}
                 />
 
@@ -159,19 +123,9 @@ export function CreateChat() {
                             </Button>
                         }
 
-                        <div className="w-full flex gap-20 justify-center items-center">
-
-                            <Button
-                                customClass="px-4 cursor-pointer"
-                                onClick={() => handleNextStep(false)}
-                            > <IoIosUndo /> Voltar</Button>
-
-                            <Button
-                                data-islaststep={currentIndex >= (tabIndex.length - 1)}
-                                customClass="flex justify-center px-4 data-[islaststep='true']:hidden"
-                                onClick={() => handleNextStep(true)}
-                            >Proximo <IoIosRedo /></Button>
-                        </div>
+                        <ButtonSteps 
+                            stepSize={tabIndex.length}
+                        />
                     </div>
 
                     <SimulatorChat />
