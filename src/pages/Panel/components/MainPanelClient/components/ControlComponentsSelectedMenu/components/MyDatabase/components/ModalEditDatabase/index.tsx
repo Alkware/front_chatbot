@@ -6,8 +6,9 @@ import { Prompt } from "../../../../../../../../../../@types/prompt.types";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { updateDatabase } from "../../../../../../../../../../api/Prompt";
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
-import { InputTextForm } from "../../../../../../../../../../components/Forms/Components/InputTextForm";
-import { TextareaForm } from "../../../../../../../../../../components/Forms/Components/TextareaForm";
+import { InputTextForm } from "../../../../../../../../../../components/Forms/components/FormInputs/components/InputTextForm";
+import { TextareaForm } from "../../../../../../../../../../components/Forms/components/FormInputs/components/TextareaForm";
+
 
 
 

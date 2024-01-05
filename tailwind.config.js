@@ -15,6 +15,7 @@ export default {
         },
         dark: "#0C0C0D",
         gray: "#191919",
+        gray_light: "#353535",
         light: "#fff"
       },
       textColor:{

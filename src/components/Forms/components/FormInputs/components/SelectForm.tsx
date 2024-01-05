@@ -1,7 +1,8 @@
 import { useParams, useSearchParams } from "react-router-dom"
-import { RegisterDataLocalStorage } from "../../../functions/RegisterDataLocalStorage";
-import { Select } from "../../Select/Select";
-import { Button } from "../../button/Button";
+import { RegisterDataLocalStorage } from "../../../../../functions/RegisterDataLocalStorage";
+import { Select } from "../../../../Select/Select";
+import { Button } from "../../../../button/Button";
+
 
 interface SelectForm {
     defaultValue?: string,
@@ -29,6 +30,8 @@ export function SelectForm({ options, defaultValue, field_name }: SelectForm) {
     }
 
     const formatOptions = () => {
+        if(!options) throw new Error("The option cant to be empty.")
+
         return options.map((opt: any) => {
             if (opt.prompt_name) {
                 opt.name = opt["prompt_name"];

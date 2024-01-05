@@ -1,7 +1,7 @@
 const chatModel = {
     project_name: "",
     bio: "",
-    logo: "https://via.placeholder.com/100",
+    logo: "",
     prompt_id: "",
     chat_input_message: ["Sua primeira mensagem"],
     call_to_action: [{ button_text: "", button_link: "" }]
@@ -10,10 +10,8 @@ const chatModel = {
 export function RegisterDataLocalStorage(searchParams: any, setSearchParams: any, target: any) {
     const chat = JSON.parse(localStorage.getItem("chat") || JSON.stringify(chatModel))
     
-
     if (target) {
         const fieldName = target.dataset.field_name
-
         if (fieldName === "project_name") chat.project_name = target.value
         if (fieldName === "bio") chat.bio = target.value
         if (fieldName === "logo") chat.logo = target.value

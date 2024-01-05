@@ -1,8 +1,8 @@
-import { deleteProject, updateProject } from "../../../../api/project";
+import { deleteProject, updateProject } from "../../../../../../../../../../../../../../api/project";
 import { useContext } from "react";
-import { ModalContext } from "../../../../context/ModalContext";
+import { ModalContext } from "../../../../../../../../../../../../../../context/ModalContext";
 import { FcFile, FcFullTrash, FcUpload } from "react-icons/fc";
-import { PopOver } from "../../../modal/templates/PopOver";
+import { PopOver } from "../../../../../../../../../../../../../../components/modal/templates/PopOver";
 
 interface ButtonsModalTypes {
     project?: any,

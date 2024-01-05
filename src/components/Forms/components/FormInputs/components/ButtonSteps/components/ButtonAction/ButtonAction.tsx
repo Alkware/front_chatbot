@@ -1,10 +1,10 @@
 import { IoIosCreate } from "react-icons/io";
-import { Button } from "../../../../../../components/button/Button";
-import { ProjectCreateTypes } from "../../../../../../@types/Project";
-import { createNewProject } from "../../../../../../api/project";
-import { PopOver } from "../../../../../../components/modal/templates/PopOver";
+import { Button } from "../../../../../../../button/Button";
+import { ProjectCreateTypes } from "../../../../../../../../@types/Project";
+import { createNewProject } from "../../../../../../../../api/project";
+import { PopOver } from "../../../../../../../modal/templates/PopOver";
 import { useContext } from "react";
-import { ModalContext } from "../../../../../../context/ModalContext";
+import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { useNavigate } from "react-router-dom";
 
 interface ButtonAction {

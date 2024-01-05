@@ -1,6 +1,6 @@
 import { RefObject, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import { RegisterDataLocalStorage } from "../../../functions/RegisterDataLocalStorage";
+import { RegisterDataLocalStorage } from "../../../../../functions/RegisterDataLocalStorage";
 
 interface InputProjectNameTypes {
     field_name: string,
@@ -20,8 +20,8 @@ export function TextareaForm({ field_name, title, height, defaultValue }: InputP
             const label = containerRef.current.querySelector("label");
             const textarea = containerRef.current.querySelector("textarea");
             if (label && textarea && textarea.value.length > 0) {
-                label.classList.remove("top-1/2", "-translate-y-1/2", "opacity-50", "cursor-text")
-                label.classList.add("top-0", "-translate-y-full")
+                label.classList.remove("top-0", "opacity-50", "cursor-text", "py-2")
+                label.classList.add("top-0", "-translate-y-3/4", "bg-primary-100", "shadow")
             }
         }
     }, [])
@@ -30,8 +30,8 @@ export function TextareaForm({ field_name, title, height, defaultValue }: InputP
         const label: HTMLLabelElement = currentTarget.querySelector("label");
         const textarea: HTMLTextAreaElement = currentTarget.querySelector("textarea");
 
-        label.classList.remove("top-1/2", "-translate-y-1/2", "opacity-50", "cursor-text")
-        label.classList.add("top-0", "-translate-y-full")
+        label.classList.remove("top-0", "opacity-50", "cursor-text", "py-2")
+        label.classList.add("top-0", "-translate-y-3/4", "bg-primary-100", "shadow")
 
         textarea.focus();
     }
@@ -41,8 +41,9 @@ export function TextareaForm({ field_name, title, height, defaultValue }: InputP
         const textarea: HTMLTextAreaElement = currentTarget.querySelector("textarea");
 
         if (textarea && textarea.value.length <= 0) {
-            label.classList.add("top-0", "opacity-50", "cursor-text")
-            label.classList.remove("top-0", "-translate-y-full")
+            label.classList.add("top-0", "opacity-50", "cursor-text", "py-2")
+            label.classList.remove("top-0", "-translate-y-3/4", "bg-primary-100",  "shadow")
+
         }
     }
 
@@ -55,7 +56,7 @@ export function TextareaForm({ field_name, title, height, defaultValue }: InputP
         >
             <label
                 htmlFor={field_name}
-                className={`px-2 ${title ? "block" : "hidden"} py-2 absolute top-0 transition-all duration-300 opacity-50 cursor-text`}
+                className={`${title ? "block" : "hidden"} px-2 py-2 absolute top-0 transition-transform opacity-50 cursor-text rounded-xl`}
             >{title}</label>
             
             <textarea

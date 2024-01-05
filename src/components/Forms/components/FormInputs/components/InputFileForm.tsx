@@ -1,7 +1,7 @@
 import { RefObject, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import { uploadImage } from "../../../api/uploadImages";
-import { RegisterDataLocalStorage } from "../../../functions/RegisterDataLocalStorage";
+import { RegisterDataLocalStorage } from "../../../../../functions/RegisterDataLocalStorage";
+import { uploadImage } from "../../../../../api/uploadImages";
 
 interface InputFileForm {
     defaultValue?: string
@@ -71,7 +71,12 @@ export function InputFileForm({ defaultValue }: InputFileForm) {
                     ref={refPreviewImage}
                     className="hidden w-[35px] h-[35px] rounded-full overflow-hidden bg-zinc-500 relative"
                 >
-                    <img src={defaultValue || ""} alt="" className="w-full h-full object-cover" />
+                    <img
+                        data-isdefaultvalue={defaultValue}
+                        src={defaultValue}
+                        alt=""
+                        className="w-full h-full object-cover data-[isdefaultvalue]:block hidden"
+                    />
                     <div
                         id="loading"
                         className="w-full h-full bg-zinc-800/50 absolute flex justify-center items-center"

@@ -1,5 +1,5 @@
 import PanelHeader from "./components/PanelHeader/PanelHeader";
-import { ControlComponentsSelectedMenu } from "./components/ControlComponentsSelectedMenu";
+import { ControlComponentsSelectedMenu } from "./components/ControlComponentsSelectedMenu/ControlComponentsSelectedMenu";
 
 export function MainPanelClient() {
 

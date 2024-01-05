@@ -1,6 +1,6 @@
 import { RefObject, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import { RegisterDataLocalStorage } from "../../../functions/RegisterDataLocalStorage";
+import { RegisterDataLocalStorage } from "../../../../../functions/RegisterDataLocalStorage";
 
 interface InputProjectNameTypes {
     field_name: string,
@@ -17,12 +17,12 @@ export function InputTextForm({ field_name, defaultValue, title, onChange }: Inp
 
     useEffect(() => {
         if (containerRef.current) {
-            const labelElement = containerRef.current.querySelector("label");
+            const label = containerRef.current.querySelector("label");
             const inputElement = containerRef.current.querySelector("input");
 
-            if (inputElement && labelElement && inputElement.value.length > 0) {
-                labelElement.classList.remove("top-1/2", "-translate-y-1/2", "opacity-50", "cursor-text")
-                labelElement.classList.add("top-0", "-translate-y-full")
+            if (inputElement && label && inputElement.value.length > 0) {
+                label.classList.remove("top-0", "opacity-50", "cursor-text", "py-2")
+                label.classList.add("top-0", "-translate-y-3/4", "bg-primary-100", "shadow")
             }
         }
     }, []);
@@ -31,8 +31,8 @@ export function InputTextForm({ field_name, defaultValue, title, onChange }: Inp
         const label: HTMLLabelElement = currentTarget.querySelector("label");
         const input: HTMLInputElement = currentTarget.querySelector("input");
 
-        label.classList.remove("top-1/2", "-translate-y-1/2", "opacity-50", "cursor-text")
-        label.classList.add("top-0", "-translate-y-full")
+        label.classList.remove("top-0", "opacity-50", "cursor-text", "py-2")
+        label.classList.add("top-0", "-translate-y-3/4", "bg-primary-100", "shadow")
 
         input.focus();
     }
@@ -42,8 +42,8 @@ export function InputTextForm({ field_name, defaultValue, title, onChange }: Inp
         const input: HTMLInputElement = currentTarget.querySelector("input");
 
         if (input.value.length <= 0) {
-            label.classList.add("top-1/2", "-translate-y-1/2", "opacity-50", "cursor-text")
-            label.classList.remove("top-0", "-translate-y-full")
+            label.classList.add("top-0", "opacity-50", "cursor-text", "py-2")
+            label.classList.remove("top-0", "-translate-y-3/4", "bg-primary-100",  "shadow")
         }
     }
 
@@ -56,7 +56,7 @@ export function InputTextForm({ field_name, defaultValue, title, onChange }: Inp
         >
             <label
                 htmlFor={field_name}
-                className="px-2 py-2 absolute top-1/2 -translate-y-1/2 transition-all duration-300 opacity-50 cursor-text"
+                className="px-2 py-2 absolute top-0 transition-transform opacity-50 cursor-text rounded-xl"
             >{title}</label>
 
             <input

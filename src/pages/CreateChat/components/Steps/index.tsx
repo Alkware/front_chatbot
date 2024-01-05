@@ -1,9 +1,14 @@
+import { useSearchParams } from "react-router-dom"
+import { STEP_NAME_URL } from "../../../../components/Forms/components/FormInputs/components/ButtonSteps/ButtonSteps";
+
 interface Steps {
-    numberSteps: number, 
-    currentIndex: number
+    numberSteps: number,
 }
 
-export function Steps({ numberSteps, currentIndex }: Steps) {
+export function Steps({ numberSteps }: Steps) {
+    const [params] = useSearchParams();
+    const currentIndex = Number(params.get(STEP_NAME_URL)) || 0
+
     return (
         <div className="w-full max-w-[500px] flex justify-between my-6">
             {

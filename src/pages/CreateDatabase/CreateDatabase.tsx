@@ -12,8 +12,8 @@ import { Prompt } from "../../@types/prompt.types";
 import { BackHome } from "../CreateChat/components/BackHome";
 import { Button } from "../../components/button/Button";
 import { Steps } from "../CreateChat/components/Steps";
-import { InputTextForm } from "../../components/Forms/Components/InputTextForm";
-import { TextareaForm } from "../../components/Forms/Components/TextareaForm";
+import { InputTextForm } from "../../components/Forms/components/FormInputs/components/InputTextForm";
+import { TextareaForm } from "../../components/Forms/components/FormInputs/components/TextareaForm";
 
 type ModalCreateDatabaseType = z.infer<typeof DatabaseSchema>
 
@@ -125,7 +125,7 @@ export function CreateDatabase() {
                 <BackHome />
 
                 <Steps
-                    tabIndex={tabIndex}
+                    numberSteps={2}
                     currentIndex={currentIndex}
                 />
 

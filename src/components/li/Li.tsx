@@ -2,7 +2,7 @@ import { ReactNode } from "react"
 
 interface LiTypes {
     text: string,
-    index: string,
+    index: number,
     icon: ReactNode,
     onClick: ({ target }: any) => void,
 }

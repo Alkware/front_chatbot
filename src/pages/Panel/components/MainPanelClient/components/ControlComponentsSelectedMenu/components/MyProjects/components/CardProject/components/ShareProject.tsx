@@ -1,7 +1,7 @@
 import { RefObject, useContext, useRef } from "react";
 import { FaCopy, FaLink } from "react-icons/fa6";
-import { ModalContext } from "../../../../context/ModalContext";
-import { PopOver } from "../../../modal/templates/PopOver";
+import { ModalContext } from "../../../../../../../../../../../context/ModalContext";
+import { PopOver } from "../../../../../../../../../../../components/modal/templates/PopOver";
 
 interface ShareProject {
     slug: string

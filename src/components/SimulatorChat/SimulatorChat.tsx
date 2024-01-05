@@ -14,7 +14,11 @@ const chatModel = {
     }]
 }
 
-export function SimulatorChat() {
+interface SimulatorChat {
+    active: boolean
+}
+
+export function SimulatorChat({ active }: SimulatorChat) {
     const [chat, setChat] = useState(chatModel)
     const refContentBio: RefObject<HTMLDivElement> = useRef(null);
     const [searchParams] = useSearchParams()
@@ -35,6 +39,7 @@ export function SimulatorChat() {
     }
 
     return (
+        active &&
         <div className="w-1/4 min-w-[300px] max-h-[500px] bg-light rounded-xl overflow-hidden relative">
 
             <div

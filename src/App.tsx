@@ -4,8 +4,8 @@ import Index from "./pages/Home/Index"
 import Login from "./pages/Login/Login"
 import Panel from "./pages/Panel"
 import Thanks from "./pages/Thanks/Thanks"
-import { CreateChat } from "./pages/CreateChat"
-import { CreateDatabase } from "./pages/CreateDatabase"
+import { CreateChat } from "./pages/CreateChat/CreateChat"
+import { CreateDatabase } from "./pages/CreateDatabase/CreateDatabase"
 import { Modal } from "./components/modal/Modal"
 
 function App() {

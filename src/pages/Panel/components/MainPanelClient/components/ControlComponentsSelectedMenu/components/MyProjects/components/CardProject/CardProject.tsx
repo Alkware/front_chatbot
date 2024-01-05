@@ -8,22 +8,32 @@ import { updateIsOnlineProject } from "../../../../../../../../../../api/project
 import { PopUp } from "../../../../../../../../../../components/modal/templates/PopUp";
 import { TipContainer } from "../../../../../../../../../../components/TipContainer/TipContainer";
 import { useNavigate } from "react-router-dom";
-import { ShareProject } from "../../../../../../../../../../components/Forms/ChatForm/components/ShareProject";
-import { ModalEditProject } from "../EditProject/components/ModalEditProject";
+import { ShareProject } from "./components/ShareProject";
+import { ModalEditProject } from "../EditProject/components/ModalEditProject/ModalEditProject";
+import { Prompt } from "../../../../../../../../../../@types/prompt.types";
 
 interface CardProject {
     project: Project,
     setNewProject: Dispatch<SetStateAction<any>>
+    prompts: Prompt[]
+
 }
 
-export function CardProject({ project, setNewProject }: CardProject) {
+export function CardProject({ project, setNewProject, prompts }: CardProject) {
     const { setModalContent } = useContext(ModalContext);
     const navigate = useNavigate();
 
     const handleEditProject = () => {
         setModalContent({
             isOpenModal: true,
-            components: <PopUp><ModalEditProject setNewProject={setNewProject} project={project} /></PopUp>
+            components:
+                <PopUp>
+                    <ModalEditProject
+                        setNewProject={setNewProject}
+                        project={project}
+                        prompts={prompts}
+                    />
+                </PopUp>
         })
     }
 
@@ -105,7 +115,7 @@ export function CardProject({ project, setNewProject }: CardProject) {
                 </div>
             </div>
 
-            <div 
+            <div
                 className="w-[150px] h-[110px] rounded-xl overflow-hidden"
                 data-metric
             >

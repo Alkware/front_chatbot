@@ -1,7 +1,7 @@
 import { useState } from "react";
 import UserPlanInfoProfile from "../../../../../../../NavigatePanelClient/components/UserPlanInfoProfile";
 import MenuNavigate from "../../../../../../../NavigatePanelClient/components/MenuNavigate/MenuNavigate";
-import { ControlComponentsSelectedMenu } from "../../../..";
+import { ControlComponentsSelectedMenu } from "../../../../ControlComponentsSelectedMenu";
 
 function MainPanelClient() {
     const [menuIsOpen] = useState(true);
