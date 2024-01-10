@@ -1,18 +1,17 @@
 import { InputTextForm } from "./components/InputTextForm"
 
 interface FormInput {
-    field_name: string
-    title: string
+    fieldName: string
+    title: string,
+    register?: any
 }
 
-export function FormInput({ field_name, title }: FormInput) {
-    const chat = JSON.parse(localStorage.getItem("chat") || "{}")
-
+export function FormInput({ fieldName, title, register }: FormInput) {
     return (
         <InputTextForm
-            field_name={field_name}
+            fieldName={fieldName}
             title={title}
-            defaultValue={chat[field_name]}
+            register={register}
         />
     )
 };

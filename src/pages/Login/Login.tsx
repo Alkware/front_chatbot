@@ -4,6 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authenticateClient, loginClient } from "../../api/client";
 import { useEffect, useState } from "react";
+import { Header } from "../Home/components/Header/Header";
 
 
 const createClientFormSchema = z.object({
@@ -20,23 +21,28 @@ function Login() {
         resolver: zodResolver(createClientFormSchema)
     })
 
-    useEffect(()=>{
-        (async ()=>{
+    useEffect(() => {
+        (async () => {
+            // define o thema da página de login
+            const isDark = localStorage.theme === "dark"
+            document.documentElement.classList.toggle("dark", !!isDark)
+
+            //verifica se o usuário já está authenticado, se estiver ele já vai direto para o painel
             const token = localStorage.getItem("token");
             const clientIsLogged = token && await authenticateClient(token)
-            if(clientIsLogged) navigate("/panel")
+            if (clientIsLogged) navigate("/panel")
             else setAccess(true)
         })();
-    },[])
+    }, [])
 
     const handleLogin = async (data: any) => {
         const client = await loginClient(data)
-        
-        if(client){
+
+        if (client) {
             const { token } = client.data
             localStorage.setItem("token", token);
             navigate("/panel")
-        }else {
+        } else {
             alert("email ou senha estão incorretos")
         }
 
@@ -44,11 +50,16 @@ function Login() {
 
     return (
         access &&
-        <div className="w-screen h-screen flex justify-center items-center bg-dark">
-            <div className="w-full max-w-[480px] rounded-xl shadow-sm shadow-blue-500 flex bg-blue_main2">
-                <div className="w-full h-full flex flex-col items-center relative p-4 gap-2">
+        <div className="w-screen h-screen flex flex-col dark:bg-dark bg-light dark:text-light text-gray">
+
+            <Header />
+
+            <div className="w-full h-full flex items-center justify-center">
+
+                <div className="w-full max-w-[480px] border border-primary-100 rounded-2xl flex flex-col items-center relative p-4 gap-2">
                     <h1>Faça seu login</h1>
-                    <form 
+
+                    <form
                         onSubmit={handleSubmit(handleLogin)}
                         className="flex flex-col gap-2"
                     >

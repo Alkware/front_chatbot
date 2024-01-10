@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { authenticateClient } from "../../api/client";
 import { useNavigate } from "react-router-dom";
 import { ClientContext } from "../../context/ClientContext";
-import { MainPanelClient } from "./components/MainPanelClient";
-import NavigatePanelClient from "./components/NavigatePanelClient";
+import { MainPanelClient } from "./components/MainPanelClient/MainPanelClient";
+import NavigatePanelClient from "./components/NavigatePanelClient/NavigatePanelClient";
 
 function Panel() {
     const { setClient } = useContext(ClientContext)

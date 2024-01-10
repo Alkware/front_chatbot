@@ -7,7 +7,7 @@ const chatModel = {
     call_to_action: [{ button_text: "", button_link: "" }]
 }
 
-export function RegisterDataLocalStorage(searchParams: any, setSearchParams: any, target: any) {
+export function RegisterDataLocalStorage(target: any) {
     const chat = JSON.parse(localStorage.getItem("chat") || JSON.stringify(chatModel))
     
     if (target) {
@@ -21,9 +21,5 @@ export function RegisterDataLocalStorage(searchParams: any, setSearchParams: any
         if (fieldName === "button_link") chat.call_to_action[0].button_link = target.value
     }
 
-    const actions = searchParams.get("actions") || "0"
-    const increaseCharacter = Number(actions) + 1
-    searchParams.set("actions", increaseCharacter)
-    setSearchParams(searchParams)
     localStorage.setItem("chat", JSON.stringify(chat))
 }

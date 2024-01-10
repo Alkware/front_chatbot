@@ -2,11 +2,11 @@ import { useContext } from "react"
 import CreateNewDatabases from "./components/CreateNewDatabase"
 import { ClientContext } from "../../../../../../../../context/ClientContext"
 import { ModalContext } from "../../../../../../../../context/ModalContext"
-import { Prompt } from "../../../../../../../../@types/prompt.types"
 import { PopUp } from "../../../../../../../../components/modal/templates/PopUp"
-import { ModalEditDatabase } from "./components/ModalEditDatabase"
+import { ModalEditDatabase } from "./components/ModalEditDatabase/ModalEditDatabase"
 import { Container } from "../../../../../../../../components/Container/Container"
 import { FaDatabase, FaLock } from "react-icons/fa"
+import { PlanManagement } from "../../../../../../../../@types/planManagement"
 
 export function MyDatabases() {
     const { client } = useContext(ClientContext)
@@ -14,10 +14,18 @@ export function MyDatabases() {
     const limitPromps = Array(9).fill(0)
 
 
-    const handleEditDatabase = (prompt: Prompt) => {
+    const handleEditDatabase = (plan_management: PlanManagement, index: number) => {
+        const { prompt, project } = plan_management
+
         setModalContent({
             isOpenModal: true,
-            components: <PopUp><ModalEditDatabase prompt={prompt} /></PopUp>
+            components:
+                <PopUp>
+                    <ModalEditDatabase
+                        prompt={prompt[index]}
+                        project={project[index]}
+                    />
+                </PopUp>
         })
     }
 
@@ -37,7 +45,7 @@ export function MyDatabases() {
                                     client.plan_management.prompt[index]?.prompt_name ?
                                         <h2
                                             className="w-[300px] py-4 flex justify-center items-center gap-2"
-                                            onClick={() => handleEditDatabase(client.plan_management.prompt[index])}
+                                            onClick={() => handleEditDatabase(client.plan_management, index)}
                                         ><FaDatabase />  {client.plan_management.prompt[index]?.prompt_name}</h2>
                                         :
                                         <CreateNewDatabases plan_management_id={client.plan_management.id} />

@@ -1,84 +1,123 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Project } from "../../../../../../../../../../../../@types/Project";
 import { Form } from "../../../../../../../../../../../../components/Forms/Form";
 import { Prompt } from "../../../../../../../../../../../../@types/prompt.types";
-import { ListMenuModalChat } from "../ListMenuModalChat/ListMenuModalChat";
+import { updateProject } from "../../../../../../../../../../../../api/project";
+import { PopOver } from "../../../../../../../../../../../../components/modal/templates/PopOver";
+import { ModalContext } from "../../../../../../../../../../../../context/ModalContext";
+import { FcInfo, FcMindMap, FcNews, FcSettings } from "react-icons/fc";
 
 
 interface ModalEditProject {
     project: Project,
     prompts: Prompt[],
-    setNewProject: Dispatch<SetStateAction<any>>
 }
 
-export function ModalEditProject({ project, setNewProject, prompts }: ModalEditProject) {
-    const [access, setAccess] = useState<boolean>();
+const listName = [
+    {
+        text: "Informações gerais",
+        icon: <FcInfo />,
+        index:0,
+    },
+    {
+        text: "Descrição do produto",
+        index:1,
+        icon: <FcNews />
+    },
+    {
+        text: "Rastreamento/Eventos",
+        index:2,
+        icon: <FcMindMap />
+    },
+    {
+        text: "Configurações do chat",
+        index:3,
+        icon: <FcSettings />
+    },
+]
+
+export function ModalEditProject({ project, prompts }: ModalEditProject) {
+    const [defaultValues, setDefaultValues] = useState<{}>();
+    const { setModalContent } = useContext(ModalContext)
+
+   
+
 
     useEffect(() => {
-        const chat = {
+        setDefaultValues({
             project_name: project.project_name,
             bio: project.bio,
             logo: project.logo,
             prompt_id: project.prompt.id,
             chat_input_message: project.chat_input_message,
-            call_to_action: project.call_to_action,
-            pixel_facebook: project.pixel_facebook,
-            slug: project.slug
-        }
-
-        localStorage.setItem("chat", JSON.stringify(chat))
-        setAccess(true)
+            call_to_action: [{
+                button_text: project.call_to_action[0].button_text,
+                button_link: project.call_to_action[0].link,
+            }],
+            pixel_facebook: project.pixel_facebook
+        })
     }, [])
 
+
+    const handleUpdateProject = async (data: any) => {
+        if (data && project.slug) {
+            const projectUpdate = await updateProject(data, project.slug)
+            if (projectUpdate && projectUpdate.status === 200) {
+                localStorage.removeItem("chat")
+                setModalContent({
+                    isOpenModal: true,
+                    components: <PopOver message="Chat atualizado com sucesso" />
+                })
+            }
+        }
+    }
+
     return (
-        access &&
+        defaultValues &&
         <div className="w-[90vw] h-[70vh] min-h-[450px] min-w-[700px] flex">
 
-            <ListMenuModalChat
-                project={project}
-                setNewProject={setNewProject}
-            />
-
-            <Form.Container
+            <Form.ContainerEdit
                 activeSimulator={true}
-                plan_management_id={project.plan_management_id}
+                eventSubmit={handleUpdateProject}
+                defaultValues={defaultValues}
+                project={project}
+                listName={listName}
             >
-
                 <Form.Step index={0}>
                     <Form.Input
-                        field_name="project_name"
+                        fieldName="project_name"
                         title="Escreva o nome do seu chat"
                     />
                     <Form.TextArea
-                        field_name="bio"
+                        fieldName="bio"
                         title="Escreva uma descrição para seu chat"
                         height={100}
                     />
                     <Form.File
-                        field_name="logo"
+                        fieldName="logo"
                     />
                 </Form.Step>
 
                 <Form.Step index={1}>
                     <Form.Select
-                        field_name="prompt_id"
+                        fieldName="prompt_id"
                         options={prompts}
 
                     />
 
                     <Form.TextArea
-                        field_name="chat_input_message"
+                        fieldName="chat_input_message.0"
                         title="Digite a primeira mensagem do seu chat"
                         height={100}
                     />
 
                     <Form.Multiple optional={{ active: true, text: "Deseja adicionar uma CTA?" }}>
                         <Form.Input
-                            field_name="button_text"
+                            fieldName="call_to_action.0.button_text"
                             title="Digite o texto do botão da sua CTA"
                         />
                         <Form.Input
-                            field_name="button_link"
+                            fieldName="call_to_action.0.button_link"
                             title="Digite o texto do botão da sua CTA"
                         />
                     </Form.Multiple>
@@ -86,12 +125,12 @@ export function ModalEditProject({ project, setNewProject, prompts }: ModalEditP
 
                 <Form.Step index={2}>
                     <Form.Input
-                        field_name="pixel_facebook"
+                        fieldName="pixel_facebook"
                         title="Adicione o pixel do seu facebook"
 
                     />
                 </Form.Step>
-            </Form.Container>
+            </Form.ContainerEdit>
         </div>
     )
 };

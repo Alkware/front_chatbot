@@ -1,11 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Register from "./pages/Register/Register"
-import Index from "./pages/Home/Index"
+import Index from "./pages/Home/Home"
 import Login from "./pages/Login/Login"
-import Panel from "./pages/Panel"
+import Panel from "./pages/Panel/Panel"
 import Thanks from "./pages/Thanks/Thanks"
 import { CreateChat } from "./pages/CreateChat/CreateChat"
-import { CreateDatabase } from "./pages/CreateDatabase/CreateDatabase"
 import { Modal } from "./components/modal/Modal"
 
 function App() {
@@ -18,7 +17,7 @@ function App() {
         <Route path="/panel" element={<Panel />} />
         <Route path="/thanks" element={<Thanks />} />
         <Route path="/create-chat/:plan_management_id" element={<CreateChat />} />
-        <Route path="/create-database/:plan_management_id" element={<CreateDatabase />} />
+        {/* <Route path="/create-database/:plan_management_id" element={<CreateDatabase />} /> */}
         <Route path="/*" element={<h1>Page not found</h1>} />
       </Routes>
       <Modal />

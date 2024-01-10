@@ -3,8 +3,8 @@ import UserPlanInfoProfile from "./components/UserPlanInfoProfile";
 
 
 import MenuNavigate from "./components/MenuNavigate/MenuNavigate";
-import { CompanyLogo } from "./components/CompanyLogo";
 import ControlCloseMenuNavigation from "./components/ControlCloseMenuNavigation/ControlCloseMenuNavigation";
+import { CompanyLogo } from "../../../../components/CompanyLogo/CompanyLogo";
 
 function NavigatePanelClient() {
     const [menuIsOpen, setMenuIsOpen] = useState(true);

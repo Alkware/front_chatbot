@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
-import { FcInfo, FcMindMap, FcNews, FcSettings } from "react-icons/fc";
+import { ReactElement } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Project } from "../../../../../../../../../../../../@types/Project";
 import { STEP_NAME_URL } from "../../../../../../../../../../../../components/Forms/components/FormInputs/components/ButtonSteps/ButtonSteps";
@@ -8,34 +7,16 @@ import { Li } from "../../../../../../../../../../../../components/li/Li";
 
 interface ListMenuModalChat {
     project: Project
-    setNewProject: Dispatch<SetStateAction<Project>>
+    listName: Array<{
+        text: string, 
+        icon: ReactElement,
+        index: number,
+    }>
 }
 
-export const ListMenuModalChat = ({ project, setNewProject }: ListMenuModalChat) => {
+export const ListMenuModalChat = ({ project, listName }: ListMenuModalChat) => {
     const [params, setParams] = useSearchParams()
 
-    const listName = [
-        {
-            text: "Informações gerais",
-            icon: <FcInfo />,
-            index:0,
-        },
-        {
-            text: "Descrição do produto",
-            index:1,
-            icon: <FcNews />
-        },
-        {
-            text: "Rastreamento/Eventos",
-            index:2,
-            icon: <FcMindMap />
-        },
-        {
-            text: "Configurações do chat",
-            index:3,
-            icon: <FcSettings />
-        },
-    ]
 
     const handleActiveLi = ({ target }: any) => {
         const { index } = target.dataset;
@@ -45,7 +26,7 @@ export const ListMenuModalChat = ({ project, setNewProject }: ListMenuModalChat)
 
 
     return (
-        <div className="w-1/4 h-full max-w-[300px] min-w-[250px] flex flex-col justify-between items-center border-r border-primary-100">
+        <div className="w-auto h-full max-w-[300px] min-w-[250px] flex flex-col justify-between items-center px-2 border-r border-primary-100">
 
             <ul className="w-full flex flex-col uppercase">
                 {
@@ -63,7 +44,6 @@ export const ListMenuModalChat = ({ project, setNewProject }: ListMenuModalChat)
 
             <ButtonsModal
                 project={project}
-                setNewProject={setNewProject}
             />
 
         </div>

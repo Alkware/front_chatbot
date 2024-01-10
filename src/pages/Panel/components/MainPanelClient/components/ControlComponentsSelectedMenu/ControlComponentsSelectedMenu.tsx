@@ -1,8 +1,8 @@
 import { useSearchParams } from "react-router-dom";
 import MyProjects from "./components/MyProjects/MyProject";
 import { Metric } from "./components/Metric";
-import { MyDatabases } from "./components/MyDatabase";
-import { ConversationHistoric } from "./components/ConversationHistoric";
+import { MyDatabases } from "./components/MyDatabase/MyDatabase";
+import { ConversationHistoric } from "./components/ConversationHistoric/ConversationHistoric";
 import { Payments } from "./components/Payments/Payments";
 
 

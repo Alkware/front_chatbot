@@ -5,16 +5,15 @@ import { Button } from "../../../../button/Button";
 
 
 interface SelectForm {
-    defaultValue?: string,
     options: Array<{
         prompt_name: string,
         prompt: string,
         id: string,
     }>
-    field_name: string,
+    fieldName: string,
 }
 
-export function SelectForm({ options, defaultValue, field_name }: SelectForm) {
+export function SelectForm({ options, fieldName }: SelectForm) {
     const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -26,7 +25,7 @@ export function SelectForm({ options, defaultValue, field_name }: SelectForm) {
     const handleSelectOptionDatabase = ({ target }: any) => {
         const select = target;
         const id = target.options[select.selectedIndex].value;
-        RegisterDataLocalStorage(searchParams, setSearchParams, { dataset: { field_name }, value: id })
+        // RegisterDataLocalStorage(searchParams, setSearchParams, { dataset: { fieldName }, value: id })
     }
 
     const formatOptions = () => {
@@ -49,7 +48,6 @@ export function SelectForm({ options, defaultValue, field_name }: SelectForm) {
                     alternativeTitle="Nenhuma base de dados foi criada"
                     onChange={handleSelectOptionDatabase}
                     options={formatOptions()}
-                    defaultValue={defaultValue}
                 />
             </div>
             {

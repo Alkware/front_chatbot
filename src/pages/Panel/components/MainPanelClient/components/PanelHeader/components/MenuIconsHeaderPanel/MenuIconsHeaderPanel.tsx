@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { FaBell, FaMoon, FaSun } from "react-icons/fa"
-import { TipContainer } from "../../../components/TipContainer/TipContainer";
+import { TipContainer } from "../../../../../../../../components/TipContainer/TipContainer";
 
 export function MenuIconsHeaderPanel() {
 

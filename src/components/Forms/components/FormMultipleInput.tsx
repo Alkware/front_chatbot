@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react"
+import React, { ReactElement, useState } from "react"
 import { ToggleComponent } from "../../Toggle/Toggle"
 
 interface FormMultipleInput {
@@ -7,19 +7,20 @@ interface FormMultipleInput {
         active: boolean,
         text: string
     }
+    register?: any,
+    setValue?: any
 }
 
-export function FormMultipleInput({ children, optional }: FormMultipleInput) {
-    const [display, setDisplay] = useState(optional ? false : true);
-    const chat = JSON.parse(localStorage.getItem("chat") || "{}")
+export function FormMultipleInput({ children, optional, register, setValue }: FormMultipleInput) {
+    const [display, setDisplay] = useState(optional?.active ? true : false);
+    const childrenToArray = React.Children.toArray(children)
 
     const handleActiveCTA = (prop: any) => {
         return new Promise((resolve) => {
             if (prop === false) {
-                children.forEach((child)=>{
-                    if(children.find(child => child.props.field_name === "button_text")){
-                        chat["call_to_action"].forEach((action: any) => action[child.props.field_name] = "")
-                        localStorage.setItem("chat", JSON.stringify(chat))
+                children.forEach((child) => {
+                    if (children.find(child => child.props.fieldName.includes("button_text"))) {
+                        setValue(child.props.fieldName, "")
                     }
                 })
                 setDisplay(false)
@@ -33,12 +34,12 @@ export function FormMultipleInput({ children, optional }: FormMultipleInput) {
         <div className="flex flex-col gap-4">
 
             <h2
-                data-status={optional?.active}
-                className="data-[status='true']:flex hidden gap-4"
+                className="flex gap-4"
             >
                 {optional?.text}
                 <ToggleComponent
                     cb={handleActiveCTA}
+                    isActive={optional?.active}
                 />
             </h2>
 
@@ -46,7 +47,7 @@ export function FormMultipleInput({ children, optional }: FormMultipleInput) {
                 data-display={display}
                 className="data-[display='false']:hidden flex justify-between items-center gap-8"
             >
-                {children}
+                {childrenToArray.map((child: any, index: number) => React.cloneElement(child, { key: index, register }))}
             </div>
         </div>
     )

@@ -35,6 +35,7 @@ export function ConversationHistoric() {
                 } else {
                     projectsFiltered = client.plan_management.project;
                 }
+
                 const chats = projectsFiltered.map((project: Project) => {
                     const chat = project.chat.filter(chat => Number(time) ? convertDateInHour(chat.created_at) <= Number(time) : true)
                     return chat

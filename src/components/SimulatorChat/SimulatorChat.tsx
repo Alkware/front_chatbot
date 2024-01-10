@@ -15,7 +15,7 @@ const chatModel = {
 }
 
 interface SimulatorChat {
-    active: boolean
+    active: boolean | undefined,
 }
 
 export function SimulatorChat({ active }: SimulatorChat) {

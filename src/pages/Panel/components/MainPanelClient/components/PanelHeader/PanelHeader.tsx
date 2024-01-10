@@ -1,4 +1,4 @@
-import { MenuIconsHeaderPanel } from "../../../MenuIconsHeaderPanel";
+import { MenuIconsHeaderPanel } from "./components/MenuIconsHeaderPanel/MenuIconsHeaderPanel";
 
 function PanelHeader() {
     return (

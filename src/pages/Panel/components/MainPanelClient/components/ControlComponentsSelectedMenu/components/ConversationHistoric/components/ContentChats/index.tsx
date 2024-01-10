@@ -16,20 +16,20 @@ export function ContentChats({ chats, index }: ContentChats) {
 
     return (
         chats.length ?
-        <div className="w-2/3 h-[600px] overflow-auto flex flex-col">
+        <div className="w-2/3 h-[500px] overflow-auto flex flex-col">
             <div className="w-full flex flex-col gap-4">
                 <div className="w-full h-[60px] flex items-center px-4 bg-primary-100">
                     <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
                         <img
                             src={client?.plan_management.project.find((project: Project) => chats && project.id === chats[index].project_id)?.logo}
                             alt="logo do cliente"
-                            className="w-full h-full"
+                            className="w-full h-full object-cover"
                         />
                     </div>
                     <p className="px-4 text-xl">{client?.plan_management.project.find((project: any) => chats && project.id === chats[index].project_id)?.project_name}</p>
                 </div>
 
-                <div className="w-full p-4 flex flex-col gap-4">
+                <div className="w-full p-4 flex flex-col gap-4 overflow-y-auto">
                     {
                         chats && chats[index].messages.map((msg, index) =>
                             <div

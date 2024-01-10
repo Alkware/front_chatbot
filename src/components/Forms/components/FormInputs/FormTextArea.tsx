@@ -1,20 +1,20 @@
 import { TextareaForm } from "./components/TextareaForm";
 
 interface FormTextArea {
-    field_name: string,
+    fieldName: string,
     title: string,
-    height: number
+    height: number,
+    register?: any
 }
 
-export function FormTextArea({ field_name, title, height }: FormTextArea) {
-    const chat = JSON.parse(localStorage.getItem("chat") || "{}")
-
+export function FormTextArea({ fieldName, title, height, register }: FormTextArea) {
     return (
-        <TextareaForm 
-            field_name={field_name}
+        register &&
+        <TextareaForm
+            fieldName={fieldName}
             title={title}
             height={height}
-            defaultValue={chat[field_name]}
+            register={register}
         />
     )
 };

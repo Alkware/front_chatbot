@@ -1,17 +1,24 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { BackHome } from "./components/BackHome";
 import { getPlanManagementById } from "../../api/planManagement";
 import { Steps } from "./components/Steps";
 import { Form } from "../../components/Forms/Form";
 import { AxiosResponse } from "axios";
 import { Prompt } from "../../@types/prompt.types";
+import { ProjectCreateTypes } from "../../@types/Project";
+import { createNewProject } from "../../api/project";
+import { PopOver } from "../../components/modal/templates/PopOver";
+import { ModalContext } from "../../context/ModalContext";
+import { STEP_NAME_URL } from "../../components/Forms/components/FormInputs/components/ButtonSteps/ButtonSteps";
 
 export function CreateChat() {
-    const { plan_management_id } = useParams();
-    const [prompt, setPrompt] = useState<Prompt[]>([])
-    const navigate = useNavigate();
     const tabIndex = ["general_information", "product_describe"]
+    const [prompt, setPrompt] = useState<Prompt[]>([])
+    const { plan_management_id } = useParams();
+    const { setModalContent } = useContext(ModalContext)
+    const [params, setParams] = useSearchParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         (async () => {
@@ -21,6 +28,47 @@ export function CreateChat() {
         })()
     }, [])
 
+    const handleCreateProject = async (data: any) => {
+        try {
+            const currentStep = params.get(STEP_NAME_URL) || "0"
+
+            if (!plan_management_id) throw new Error("plan management id is missing!")
+            if (currentStep === "1" && !data.prompt_id) setModalContent({ isOpenModal: true, components: <PopOver message="Você precisa selecionar uma fonte de dados." type="WARNING" /> })
+            else if (currentStep === "1" && !data.chat_input_message)setModalContent({ isOpenModal: true, components: <PopOver message="Você precisa definir uma primeira mensagem em seu chat." type="WARNING" /> })
+            else if (currentStep === "1" && !data.call_to_action)setModalContent({ isOpenModal: true, components: <PopOver message= "Você precisa definir um link para seu botão CTA." type="WARNING" /> })
+
+           
+            const {
+                project_name, logo, prompt_id, bio, call_to_action, chat_input_message, chat_type
+            }: ProjectCreateTypes = data;
+
+            const project = await createNewProject({
+                project_name,
+                logo,
+                prompt_id,
+                plan_management_id,
+                bio,
+                call_to_action,
+                chat_input_message,
+                chat_type,
+            });
+
+            if (project && project.status === 201) {
+                setModalContent({
+                    isOpenModal: true,
+                    components: <PopOver message="Chat criado com sucesso" />
+                })
+
+                const timeout = setTimeout(() => {
+                    navigate("/panel")
+                    clearTimeout(timeout)
+                }, 2000);
+
+            }
+        } catch (error: any) {
+            throw new Error(error)
+        }
+    }
 
     return (
         plan_management_id &&
@@ -33,45 +81,48 @@ export function CreateChat() {
                     numberSteps={tabIndex.length}
                 />
 
-                <Form.Container
+                <Form.ContainerCreate
                     activeSimulator={true}
                     plan_management_id={plan_management_id}
+                    eventSubmit={handleCreateProject}
                 >
 
                     <Form.Step index={0}>
                         <Form.Input
-                            field_name="project_name"
+                            fieldName="project_name"
                             title="Escreva o nome do seu chat"
                         />
                         <Form.File
-                            field_name="logo"
+                            fieldName="logo"
                         />
                     </Form.Step>
 
                     <Form.Step index={1}>
                         <Form.Select
-                            field_name="prompt_id"
+                            fieldName="prompt_id"
                             options={prompt}
                         />
 
                         <Form.TextArea
-                            field_name="chat_input_message"
+                            fieldName="chat_input_message"
                             title="Digite a primeira mensagem do seu chat"
                             height={100}
                         />
 
                         <Form.Multiple optional={{ active: true, text: "Deseja adicionar uma CTA?" }}>
                             <Form.Input
-                                field_name="button_text"
+                                fieldName="button_text"
                                 title="Digite o texto do botão da sua CTA"
                             />
                             <Form.Input
-                                field_name="button_link"
+                                fieldName="button_link"
                                 title="Digite o texto do botão da sua CTA"
                             />
                         </Form.Multiple>
                     </Form.Step>
-                </Form.Container>
+
+                    
+                </Form.ContainerCreate>
             </div>
         </div >
     )

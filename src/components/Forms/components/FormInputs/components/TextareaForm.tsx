@@ -3,14 +3,14 @@ import { useSearchParams } from "react-router-dom";
 import { RegisterDataLocalStorage } from "../../../../../functions/RegisterDataLocalStorage";
 
 interface InputProjectNameTypes {
-    field_name: string,
-    defaultValue?: string,
+    fieldName: string,
     title: string
-    height: number
+    height: number,
+    register: any
 }
 
 
-export function TextareaForm({ field_name, title, height, defaultValue }: InputProjectNameTypes) {
+export function TextareaForm({ fieldName, title, height, register }: InputProjectNameTypes) {
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -47,6 +47,15 @@ export function TextareaForm({ field_name, title, height, defaultValue }: InputP
         }
     }
 
+    const handleOnChange = (e: any)=>{
+        const actions = searchParams.get("actions") || "0"
+        const increaseCharacter = Number(actions) + 1
+        searchParams.set("actions", increaseCharacter.toString())
+        setSearchParams(searchParams)
+        RegisterDataLocalStorage(e.target)
+    }
+
+
     return (
         <div
             className="w-full flex flex-col gap-2 my-4 relative"
@@ -55,17 +64,16 @@ export function TextareaForm({ field_name, title, height, defaultValue }: InputP
             onBlur={handleExitInput}
         >
             <label
-                htmlFor={field_name}
+                htmlFor={fieldName}
                 className={`${title ? "block" : "hidden"} px-2 py-2 absolute top-0 transition-transform opacity-50 cursor-text rounded-xl`}
             >{title}</label>
             
             <textarea
                 style={{ height }}
-                data-field_name={field_name}
-                name={field_name}
-                defaultValue={defaultValue || ""}
-                onChange={({ target })=> RegisterDataLocalStorage(searchParams, setSearchParams , target)}
+                name={fieldName}
+                onChange={handleOnChange}
                 className="border border-primary-100"
+                {...register(fieldName)}
             ></textarea>
         </div>
     )

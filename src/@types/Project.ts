@@ -1,5 +1,6 @@
 import { Chat } from "./Chat";
 import { Metric } from "./metric.types";
+import { Prompt } from "./prompt.types";
 
 export interface Project {
     id?: string,
@@ -15,9 +16,7 @@ export interface Project {
     is_online?: boolean,
     metric: Metric,
     created_at: string | Date,
-    prompt: {
-        id: string
-    },
+    prompt: Prompt,
     call_to_action: Array<{
         button_text: string,
         link: string

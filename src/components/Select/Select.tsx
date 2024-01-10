@@ -4,7 +4,6 @@ interface Select {
     title?: string,
     alternativeTitle?: string,
     Icon?: ElementType,
-    defaultValue?: string,
     options: Array<{
         id: string,
         name: string,
@@ -12,14 +11,13 @@ interface Select {
     onChange: (target: any) => void,
 }
 
-export function Select({ options, onChange, alternativeTitle, defaultValue, title, Icon }: Select) {
+export function Select({ options, onChange, alternativeTitle, title, Icon }: Select) {
     return (
         <div className="w-full px-2 h-full bg-gray border border-primary-100 font-bold rounded-lg flex gap-2 justify-center items-center">
             {Icon && <Icon className="text-2xl" />}
             <select
                 className="h-full bg-gray cursor-pointer outline-none "
                 disabled={options.length ? false : true}
-                defaultValue={defaultValue || "#"}
                 onChange={onChange}
             >
                 {
