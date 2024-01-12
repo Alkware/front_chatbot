@@ -2,30 +2,20 @@ import { RefObject, useEffect, useRef, useState } from "react"
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
 import { useSearchParams } from "react-router-dom"
-
-const chatModel = {
-    project_name: "Nome da empresa",
-    bio: "Bio da empresa",
-    logo: "",
-    chat_input_message: ["Sua primeira mensagem"],
-    call_to_action: [{
-        button_text: "",
-        button_link: ""
-    }]
-}
+import { CHAT_NAME_TO_SAVE_LOCALSTORAGE } from "../../variables/variables";
 
 interface SimulatorChat {
     active: boolean | undefined,
 }
 
 export function SimulatorChat({ active }: SimulatorChat) {
-    const [chat, setChat] = useState(chatModel)
+    const [chat, setChat] = useState()
     const refContentBio: RefObject<HTMLDivElement> = useRef(null);
     const [searchParams] = useSearchParams()
 
     useEffect(() => {
-        const chat = JSON.parse(localStorage.getItem("chat") || JSON.stringify(chatModel));
-        if (chat) setChat(chat)
+        const chatLocalStorage = JSON.parse(localStorage.getItem(CHAT_NAME_TO_SAVE_LOCALSTORAGE) || "[]");
+        if (typeof chatLocalStorage["project_name"] !== "undefined") setChat(chatLocalStorage)
     }, [searchParams])
 
 
@@ -39,10 +29,10 @@ export function SimulatorChat({ active }: SimulatorChat) {
     }
 
     return (
-        active &&
+        (active && chat) &&
         <div className="w-1/4 min-w-[300px] max-h-[500px] bg-light rounded-xl overflow-hidden relative">
 
-            <div
+            {/* <div
                 className="w-full h-[60px] bg-green-500 flex cursor-pointer"
                 onClick={handleDisplayContentBio}
             >
@@ -50,7 +40,7 @@ export function SimulatorChat({ active }: SimulatorChat) {
                 <div className="w-1/5 h-full flex justify-center items-center">
                     <img
                         data-islogo={!!chat.logo}
-                        src={chat.logo}
+                        src={chat.logo || ""}
                         alt=""
                         className="w-[40px] h-[40px] object-cover rounded-full data-[islogo='true']:block hidden"
                     />
@@ -61,7 +51,7 @@ export function SimulatorChat({ active }: SimulatorChat) {
                 </div>
 
                 <div className="w-4/5 h-full flex items-center">
-                    <h2 className="text-light font-bold">{chat.project_name}</h2>
+                    <h2 className="text-light font-bold whitespace-nowrap text-ellipsis overflow-hidden">{chat.project_name}</h2>
                 </div>
 
                 <div
@@ -77,14 +67,14 @@ export function SimulatorChat({ active }: SimulatorChat) {
 
                     <div className="w-full flex justify-center items-center">
                         <img
-                            src={chat.logo}
+                            src={chat.logo || ""}
                             alt=""
                             className="w-[80px] h-[80px] object-cover rounded-full"
                         />
                     </div>
 
                     <div className="w-full py-8 flex justify-center items-center">
-                        <p className="w-4/5 text-center text-dark">{chat.bio}</p>
+                        <p className="w-4/5 text-center text-dark">{"Descrição do chat"}</p>
                     </div>
 
                 </div>
@@ -103,12 +93,20 @@ export function SimulatorChat({ active }: SimulatorChat) {
                             >
                                 {index === 0 ? chat.chat_input_message[0] : ""}
                                 {
-                                    (index === (self.length - 1) && chat.call_to_action[0].button_text) &&
+                                    (
+                                        index === (self.length - 1)
+                                        &&
+                                        !!chat.call_to_action.length
+                                        &&
+                                        chat.call_to_action[0].button_text
+                                        &&
+                                        chat.call_to_action[0].button_text.length > 0
+                                    ) &&
                                     <div className="w-full h-full flex flex-col justify-center items-center">
                                         <p className="w-full border-b border-zinc-400 p-1 px-2"> Agora basta clicar no botão abaixo:</p>
                                         <a
                                             className="flex gap-2 items-center p-2 text-light cursor-pointer text-sm"
-                                            href={chat.call_to_action[0].button_link}
+                                            href={chat.call_to_action[0].button_link || "#"}
                                             target="_blank"
                                         >
                                             <FaExternalLinkAlt /> {chat.call_to_action[0].button_text}
@@ -123,7 +121,7 @@ export function SimulatorChat({ active }: SimulatorChat) {
                             ></div>
                     )
                 }
-            </div>
+            </div> */}
 
         </div>
     )

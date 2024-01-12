@@ -1,5 +1,5 @@
 import { useParams, useSearchParams } from "react-router-dom"
-import { RegisterDataLocalStorage } from "../../../../../functions/RegisterDataLocalStorage";
+import { RegisterDataLocalStorage } from "../../../../../functions/registerDataLocalStorage";
 import { Select } from "../../../../Select/Select";
 import { Button } from "../../../../button/Button";
 

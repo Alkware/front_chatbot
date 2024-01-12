@@ -8,17 +8,18 @@ interface Select {
         id: string,
         name: string,
     }>,
-    onChange: (target: any) => void,
+    handleSelectDatabase: ({ target }: any)=> void,
+    fieldName: string,
 }
 
-export function Select({ options, onChange, alternativeTitle, title, Icon }: Select) {
+export function Select({ options, alternativeTitle, title, Icon, fieldName, handleSelectDatabase }: Select) {
+
     return (
         <div className="w-full px-2 h-full bg-gray border border-primary-100 font-bold rounded-lg flex gap-2 justify-center items-center">
             {Icon && <Icon className="text-2xl" />}
             <select
                 className="h-full bg-gray cursor-pointer outline-none "
                 disabled={options.length ? false : true}
-                onChange={onChange}
             >
                 {
                     (title && alternativeTitle) &&

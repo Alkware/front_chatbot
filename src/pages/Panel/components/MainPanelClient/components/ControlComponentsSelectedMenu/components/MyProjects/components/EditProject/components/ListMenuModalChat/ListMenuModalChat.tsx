@@ -1,9 +1,9 @@
 import { ReactElement } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Project } from "../../../../../../../../../../../../@types/Project";
-import { STEP_NAME_URL } from "../../../../../../../../../../../../components/Forms/components/FormInputs/components/ButtonSteps/ButtonSteps";
 import { ButtonsModal } from "./components/ButtonModal/ButtonsModal";
 import { Li } from "../../../../../../../../../../../../components/li/Li";
+import { STEP_NAME_URL } from "../../../../../../../../../../../../variables/variables";
 
 interface ListMenuModalChat {
     project: Project

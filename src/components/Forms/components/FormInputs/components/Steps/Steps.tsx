@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom"
-import { STEP_NAME_URL } from "../../../../components/Forms/components/FormInputs/components/ButtonSteps/ButtonSteps";
+import { STEP_NAME_URL } from "../../../../../../variables/variables";
 
 interface Steps {
     numberSteps: number,

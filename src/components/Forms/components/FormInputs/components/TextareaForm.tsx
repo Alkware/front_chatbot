@@ -1,6 +1,6 @@
 import { RefObject, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import { RegisterDataLocalStorage } from "../../../../../functions/RegisterDataLocalStorage";
+import { registerDataLocalStorage } from "../../../../../functions/registerDataLocalStorage";
 
 interface InputProjectNameTypes {
     fieldName: string,
@@ -42,17 +42,17 @@ export function TextareaForm({ fieldName, title, height, register }: InputProjec
 
         if (textarea && textarea.value.length <= 0) {
             label.classList.add("top-0", "opacity-50", "cursor-text", "py-2")
-            label.classList.remove("top-0", "-translate-y-3/4", "bg-primary-100",  "shadow")
+            label.classList.remove("top-0", "-translate-y-3/4", "bg-primary-100", "shadow")
 
         }
     }
 
-    const handleOnChange = (e: any)=>{
+    const handleOnChange = (e: any) => {
         const actions = searchParams.get("actions") || "0"
         const increaseCharacter = Number(actions) + 1
         searchParams.set("actions", increaseCharacter.toString())
         setSearchParams(searchParams)
-        RegisterDataLocalStorage(e.target)
+        registerDataLocalStorage(e.target)
     }
 
 
@@ -67,13 +67,13 @@ export function TextareaForm({ fieldName, title, height, register }: InputProjec
                 htmlFor={fieldName}
                 className={`${title ? "block" : "hidden"} px-2 py-2 absolute top-0 transition-transform opacity-50 cursor-text rounded-xl`}
             >{title}</label>
-            
+
             <textarea
                 style={{ height }}
                 name={fieldName}
-                onChange={handleOnChange}
+                data-field_name={fieldName}
                 className="border border-primary-100"
-                {...register(fieldName)}
+                {...register(fieldName, { onChange: handleOnChange })}
             ></textarea>
         </div>
     )

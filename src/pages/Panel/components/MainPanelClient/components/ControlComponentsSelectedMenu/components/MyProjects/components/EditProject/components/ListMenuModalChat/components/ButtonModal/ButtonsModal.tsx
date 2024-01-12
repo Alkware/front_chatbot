@@ -2,6 +2,7 @@ import { deleteProject } from "../../../../../../../../../../../../../../api/pro
 import { useContext } from "react";
 import { ModalContext } from "../../../../../../../../../../../../../../context/ModalContext";
 import { FcFile, FcFullTrash, FcUpload } from "react-icons/fc";
+import { CHAT_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../../../../../../../../../variables/variables";
 
 interface ButtonsModalTypes {
     project?: any,
@@ -16,7 +17,7 @@ export function ButtonsModal({ project }: ButtonsModalTypes) {
         if (confirmDelete && project.id) {
             const deleted = await deleteProject(project.id);
             if (deleted && deleted.status === 200) {
-                localStorage.removeItem("chat")
+                localStorage.removeItem(CHAT_NAME_TO_SAVE_LOCALSTORAGE)
                 alert("Chat deletado com sucesso")
                 setModalContent({ isOpenModal: false })
             }
@@ -24,7 +25,7 @@ export function ButtonsModal({ project }: ButtonsModalTypes) {
     }
 
     const handleDiscardProject = () => {
-        localStorage.removeItem("chat")
+        localStorage.removeItem(CHAT_NAME_TO_SAVE_LOCALSTORAGE)
         setModalContent({
             isOpenModal: false,
         })

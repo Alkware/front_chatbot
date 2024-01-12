@@ -1,4 +1,4 @@
-import { URL_LOGO } from "../../variables";
+import { URL_LOGO } from "../../variables/variables";
 
 export function CompanyLogo() {
     return (

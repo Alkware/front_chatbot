@@ -43,7 +43,6 @@ export interface ProjectCreateTypes {
     logo: string,
     prompt_id: string,
     plan_management_id: string,
-    bio: string,
     chat_input_message: string[],
     chat_type?: string
     pixel_facebook?: string,

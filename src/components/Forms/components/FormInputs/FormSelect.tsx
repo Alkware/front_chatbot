@@ -1,14 +1,16 @@
-import { useParams, useSearchParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { Prompt } from "../../../../@types/prompt.types";
 import { Select } from "../../../Select/Select";
 import { Button } from "../../../button/Button";
+import { registerDataLocalStorage } from "../../../../functions/registerDataLocalStorage";
 
 interface SelectForm {
     options: Array<Prompt>
     fieldName: string,
+    register?: any
 }
 
-export function FormSelect({ options, fieldName }: SelectForm) {
+export function FormSelect({ register, options, fieldName }: SelectForm) {
     const params = useParams();
 
     const handleCreateDatabase = () => {
@@ -19,7 +21,7 @@ export function FormSelect({ options, fieldName }: SelectForm) {
     const handleSelectOptionDatabase = ({ target }: any) => {
         const select = target;
         const id = target.options[select.selectedIndex].value;
-        // RegisterDataLocalStorage(searchParams, setSearchParams, { dataset: { fieldName }, value: id })
+        registerDataLocalStorage({ dataset: { field_name: fieldName }, value: id })
     }
 
     const formatOptions = () => {
@@ -30,6 +32,7 @@ export function FormSelect({ options, fieldName }: SelectForm) {
                 opt.name = opt["prompt_name"];
                 delete opt["prompt_name"]
             }
+            
             return opt
         })
     }
@@ -40,8 +43,10 @@ export function FormSelect({ options, fieldName }: SelectForm) {
                 <Select
                     title="Selecione sua base de dados"
                     alternativeTitle="Nenhuma base de dados foi criada"
-                    onChange={handleSelectOptionDatabase}
+                    handleSelectDatabase={handleSelectOptionDatabase}
                     options={formatOptions()}
+                    register={register}
+                    fieldName={fieldName}
                 />
             </div>
             {

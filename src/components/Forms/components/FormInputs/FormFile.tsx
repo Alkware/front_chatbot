@@ -1,19 +1,20 @@
-import { RefObject, useEffect, useRef } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { uploadImage } from "../../../../api/uploadImages";
+import { registerDataLocalStorage } from "../../../../functions/registerDataLocalStorage";
+import { useSearchParams } from "react-router-dom";
 
 interface FormFile {
-    getValues?: any,
-    register?: any
     fieldName: string
+    chat?: any
 }
 
-export function FormFile({ getValues, fieldName, register }: FormFile) {
+export function FormFile({ fieldName, chat }: FormFile) {
     const refPreviewImage: RefObject<HTMLDivElement> = useRef(null);
-
-    console.log(getValues)
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [logo, setLogo] = useState(chat[fieldName]);
 
     useEffect(() => {
-        if (getValues && getValues('logo')) {
+        if (logo) {
             refPreviewImage.current?.classList.add(`flex`)
             refPreviewImage.current?.classList.remove(`hidden`)
             refPreviewImage.current?.querySelector("div#loading")?.classList.remove("flex")
@@ -43,11 +44,19 @@ export function FormFile({ getValues, fieldName, register }: FormFile) {
                 const form = new FormData();
                 form.append('image', files[0]);
                 const { data } = await uploadImage(form);
-                register(fieldName, { [fieldName]: data.url })
-                // RegisterDataLocalStorage(searchParams, setSearchParams, { dataset: { field_name: "logo" }, value: data.url })
-                if (data) {
+                if(data){
+                    //registra a imagem no localstorage
+                    registerDataLocalStorage({ dataset: { field_name: "logo" }, value: data.url })
+                    //Remove o loading assim que a imagem é carregada
                     refPreviewImage.current?.querySelector("div#loading")?.classList.remove("flex")
                     refPreviewImage.current?.querySelector("div#loading")?.classList.add("hidden")
+                    // Atualiza a logo no simulador de chat
+                    const actions = searchParams.get("actions") || "0"
+                    const increaseCharacter = Number(actions) + 1
+                    searchParams.set("actions", increaseCharacter.toString())
+                    setSearchParams(searchParams)
+                    //Atauliza a logo da imagem exemplo 
+                    setLogo(data.url)
                 }
             }
         } else alert("erro ao enviar a imagem");
@@ -56,7 +65,6 @@ export function FormFile({ getValues, fieldName, register }: FormFile) {
 
 
     return (
-        getValues &&
         <div className="w-full flex justify-evenly items-center mt-4">
             <label
                 className="border border-dashed border-primary-100 bg-zinc-600/40 rounded-md p-4 cursor-pointer flex gap-4 items-center"
@@ -73,8 +81,8 @@ export function FormFile({ getValues, fieldName, register }: FormFile) {
                     className="hidden w-[35px] h-[35px] rounded-full overflow-hidden bg-zinc-500 relative"
                 >
                     <img
-                        data-isdefaultvalue={getValues("logo")}
-                        src={getValues("logo")}
+                        data-isdefaultvalue={logo}
+                        src={logo}
                         alt=""
                         className="w-full h-full object-cover data-[isdefaultvalue]:block hidden"
                     />
@@ -82,7 +90,7 @@ export function FormFile({ getValues, fieldName, register }: FormFile) {
                         id="loading"
                         className="w-full h-full bg-zinc-800/50 absolute flex justify-center items-center"
                     >
-                        <div className="w-[40px] h-[40px] border-2 border-t-blue-600 rounded-full animate-spin">
+                        <div className="w-[20px] h-[20px] border-2 border-t-blue-600 rounded-full animate-spin">
                         </div>
                     </div>
                 </div>

@@ -4,15 +4,14 @@ import { useSearchParams } from "react-router-dom";
 export interface FormStep {
     children: ReactElement | ReactElement[],
     index: number,
-    register?: any,
-    getValues?: any
-    setValue?: any
+    chat?: any
 }
 
-export function FormStep({ children, index, register, getValues, setValue }: FormStep) {
+export function FormStep({ children, index, chat }: FormStep) {
     const [params] = useSearchParams();
     const currentStep = Number(params.get("form-step")) || 0;
     const childrenToArray = React.Children.toArray(children)
+
 
     return (
         <div
@@ -20,7 +19,7 @@ export function FormStep({ children, index, register, getValues, setValue }: For
             className="flex-col gap-12 data-[display='true']:flex hidden"
         >
             {childrenToArray.map((child: any, index: number) =>
-                React.cloneElement(child, { key: index, register, getValues, setValue })
+                React.cloneElement(child, { key: index, chat })
             )}
         </div>
     )

@@ -2,69 +2,73 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { BackHome } from "./components/BackHome";
 import { getPlanManagementById } from "../../api/planManagement";
-import { Steps } from "./components/Steps";
 import { Form } from "../../components/Forms/Form";
 import { AxiosResponse } from "axios";
 import { Prompt } from "../../@types/prompt.types";
 import { ProjectCreateTypes } from "../../@types/Project";
-import { createNewProject } from "../../api/project";
 import { PopOver } from "../../components/modal/templates/PopOver";
 import { ModalContext } from "../../context/ModalContext";
-import { STEP_NAME_URL } from "../../components/Forms/components/FormInputs/components/ButtonSteps/ButtonSteps";
+import { CHAT_NAME_TO_SAVE_LOCALSTORAGE, STEP_NAME_URL } from "../../variables/variables";
 
 export function CreateChat() {
-    const tabIndex = ["general_information", "product_describe"]
     const [prompt, setPrompt] = useState<Prompt[]>([])
     const { plan_management_id } = useParams();
     const { setModalContent } = useContext(ModalContext)
     const [params, setParams] = useSearchParams();
     const navigate = useNavigate();
 
+
     useEffect(() => {
         (async () => {
+            // define o thema da página de login
+            const isDark = localStorage.theme === "dark"
+            document.documentElement.classList.toggle("dark", !!isDark)
+
             const planManagement = await getPlanManagementById(plan_management_id) as AxiosResponse<{ status: string, prompt: Prompt[] }>
             if (!planManagement) navigate("/panel")
             setPrompt(planManagement.data.prompt)
         })()
     }, [])
 
+
     const handleCreateProject = async (data: any) => {
         try {
             const currentStep = params.get(STEP_NAME_URL) || "0"
 
             if (!plan_management_id) throw new Error("plan management id is missing!")
-            if (currentStep === "1" && !data.prompt_id) setModalContent({ isOpenModal: true, components: <PopOver message="Você precisa selecionar uma fonte de dados." type="WARNING" /> })
-            else if (currentStep === "1" && !data.chat_input_message)setModalContent({ isOpenModal: true, components: <PopOver message="Você precisa definir uma primeira mensagem em seu chat." type="WARNING" /> })
-            else if (currentStep === "1" && !data.call_to_action)setModalContent({ isOpenModal: true, components: <PopOver message= "Você precisa definir um link para seu botão CTA." type="WARNING" /> })
 
-           
+            if (currentStep === "1" && !data.prompt_id) setModalContent({ isOpenModal: true, components: <PopOver message="Você precisa selecionar uma fonte de dados." type="WARNING" /> })
+            else if (currentStep === "1" && !data.chat_input_message.length) setModalContent({ isOpenModal: true, components: <PopOver message="Você precisa definir uma primeira mensagem em seu chat." type="WARNING" /> })
+
+
             const {
-                project_name, logo, prompt_id, bio, call_to_action, chat_input_message, chat_type
+                project_name, logo, prompt_id, call_to_action, chat_input_message, chat_type
             }: ProjectCreateTypes = data;
 
-            const project = await createNewProject({
-                project_name,
-                logo,
-                prompt_id,
-                plan_management_id,
-                bio,
-                call_to_action,
-                chat_input_message,
-                chat_type,
-            });
+            console.log(call_to_action, call_to_action.length)
 
-            if (project && project.status === 201) {
-                setModalContent({
-                    isOpenModal: true,
-                    components: <PopOver message="Chat criado com sucesso" />
-                })
+            // const project = await createNewProject({
+            //     project_name,
+            //     logo,
+            //     prompt_id,
+            //     plan_management_id,
+            //     call_to_action,
+            //     chat_input_message,
+            //     chat_type,
+            // });
 
-                const timeout = setTimeout(() => {
-                    navigate("/panel")
-                    clearTimeout(timeout)
-                }, 2000);
+            // if (project && project.status === 201) {
+            //     setModalContent({
+            //         isOpenModal: true,
+            //         components: <PopOver message="Chat criado com sucesso" />
+            //     })
 
-            }
+            //     const timeout = setTimeout(() => {
+            //         navigate("/panel")
+            //         clearTimeout(timeout)
+            //     }, 2000);
+
+            // }
         } catch (error: any) {
             throw new Error(error)
         }
@@ -77,14 +81,11 @@ export function CreateChat() {
 
                 <BackHome />
 
-                <Steps
-                    numberSteps={tabIndex.length}
-                />
-
                 <Form.ContainerCreate
                     activeSimulator={true}
                     plan_management_id={plan_management_id}
                     eventSubmit={handleCreateProject}
+                    formName={CHAT_NAME_TO_SAVE_LOCALSTORAGE}
                 >
 
                     <Form.Step index={0}>
@@ -104,24 +105,26 @@ export function CreateChat() {
                         />
 
                         <Form.TextArea
-                            fieldName="chat_input_message"
+                            fieldName="chat_input_message.0"
                             title="Digite a primeira mensagem do seu chat"
                             height={100}
                         />
 
-                        <Form.Multiple optional={{ active: true, text: "Deseja adicionar uma CTA?" }}>
+                        <Form.Multiple 
+                            optional={{ active: true, text: "Deseja adicionar uma CTA?" }}
+                            fieldName="call_to_action"
+                        >
                             <Form.Input
-                                fieldName="button_text"
+                                fieldName="call_to_action.0.button_text"
                                 title="Digite o texto do botão da sua CTA"
                             />
                             <Form.Input
-                                fieldName="button_link"
+                                fieldName="call_to_action.0.button_link"
                                 title="Digite o texto do botão da sua CTA"
                             />
                         </Form.Multiple>
                     </Form.Step>
 
-                    
                 </Form.ContainerCreate>
             </div>
         </div >

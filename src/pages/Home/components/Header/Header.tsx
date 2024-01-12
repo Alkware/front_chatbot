@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { URL_LOGO } from "../../../../variables"
+import { URL_LOGO } from "../../../../variables/variables"
 import { BsFillMoonStarsFill, BsSunFill } from "react-icons/bs";
 
 export function Header() {
@@ -38,7 +38,8 @@ export function Header() {
 
     return (
         <header className="w-full h-[100px] overflow-hidden p-4 border-b border-primary-100/30 flex justify-between items-center dark:bg-dark bg-light fixed z-50">
-            <div className="w-1/4 h-[100px] p-4">
+
+            <div className="w-1/5 h-[100px] py-4">
                 <img
                     src={URL_LOGO}
                     alt="Logo do site wipzee"
@@ -47,7 +48,7 @@ export function Header() {
                 />
             </div>
 
-            <nav className="px-8">
+            <nav className="w-3/5">
                 <ul className="flex justify-center items-center gap-8 dark:text-light text-dark">
                     {
                         menuItems.map((item) =>
@@ -63,16 +64,18 @@ export function Header() {
                 </ul>
             </nav>
 
-            <div
-                className="p-2 rounded-full cursor-pointer bg-primary-100 mx-8 text-light"
-                onClick={toggleTheme}
-            >
-                {
-                    theme === "dark" || !theme ?
-                        <BsFillMoonStarsFill />
-                        :
-                        <BsSunFill />
-                }
+            <div className="w-1/5 flex justify-center">
+                <div
+                    className="p-2 rounded-full cursor-pointer bg-primary-100 mx-8 text-light"
+                    onClick={toggleTheme}
+                >
+                    {
+                        theme === "dark" || !theme ?
+                            <BsFillMoonStarsFill />
+                            :
+                            <BsSunFill />
+                    }
+                </div>
             </div>
         </header>
     )

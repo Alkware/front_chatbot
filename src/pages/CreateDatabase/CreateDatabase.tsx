@@ -8,7 +8,7 @@ import { createNewDatabase } from "../../api/Prompt";
 import { Prompt } from "../../@types/prompt.types";
 import { BackHome } from "../CreateChat/components/BackHome";
 import { Button } from "../../components/button/Button";
-import { Steps } from "../CreateChat/components/Steps";
+import { Steps } from "../../components/Forms/components/FormInputs/components/Steps/Steps";
 import { InputTextForm } from "../../components/Forms/components/FormInputs/components/InputTextForm";
 import { TextareaForm } from "../../components/Forms/components/FormInputs/components/TextareaForm";
 

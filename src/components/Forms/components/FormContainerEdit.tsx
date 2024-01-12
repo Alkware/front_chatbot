@@ -20,9 +20,7 @@ interface Container {
 
 export function FormContainerEdit({ children, activeSimulator, defaultValues, project, eventSubmit, listName }: Container) {
     const childrenToArray = React.Children.toArray(children)
-    const { handleSubmit, register, getValues, setValue } = useForm({
-        defaultValues
-    });
+    const { handleSubmit, register, getValues, setValue } = useForm({ defaultValues });
 
 
     return (
