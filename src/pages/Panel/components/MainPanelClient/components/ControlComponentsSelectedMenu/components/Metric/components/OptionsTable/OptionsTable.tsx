@@ -1,5 +1,5 @@
 import { FaArrowRotateLeft } from "react-icons/fa6";
-import { ModalColumnOrganization } from "../ModalColumnOrganization";
+import { ModalColumnOrganization } from "../ModalColumnOrganization/ModalColumnOrganization";
 import { Dispatch, SetStateAction, useContext } from "react";
 
 import { FaBorderAll } from "react-icons/fa";
@@ -38,8 +38,8 @@ export function OptionsTable({ client, handleRequestDataProject, setColumns, col
 
     const handleColumnOrganization = () => {
         setModalContent({
-            isOpenModal: true,
-            components: <ModalColumnOrganization setColumns={setColumns} columns={columns} />
+            componentName: "modal_organization_column", 
+            components: <ModalColumnOrganization modalName="modal_organization_column" setColumns={setColumns} columns={columns} />
         })
     }
 

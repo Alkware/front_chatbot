@@ -25,11 +25,11 @@ export function CardProject({ project, setNewProject, prompts }: CardProject) {
 
     const handleEditProject = () => {
         setModalContent({
-            isOpenModal: true,
+            componentName: "modal_edit_project",
             components:
                 <PopUp>
                     <ModalEditProject
-                        setNewProject={setNewProject}
+                        setProjects={setNewProject}
                         project={project}
                         prompts={prompts}
                     />
@@ -40,19 +40,37 @@ export function CardProject({ project, setNewProject, prompts }: CardProject) {
     const handleSaveStatusProject = async (prop: any, slug: string | undefined) => {
         if (!slug) {
             setModalContent({
-                isOpenModal: true,
-                components: <PopOver message="Falha ao atualizar o status do chat, reinicie a página e tente novamanete" type="WARNING" />
+                componentName: "modal_failed_updated_status_chat",
+                components:
+                    <PopOver
+                        message="Falha ao atualizar o status do chat, reinicie a página e tente novamente"
+                        componentName="modal_failed_updated_status_chat"
+                        type="WARNING"
+                    />
             })
 
             return false
         }
 
         const response = await updateIsOnlineProject(prop, slug);
-        if (response?.status === 200) return true
+        if (response?.status === 200) {
+            // Atualiza a lista de projetos
+            setNewProject((projects: any) => {
+                // busca o projeto que teve seu status alterado e altera para o novo status
+                projects.find((project: any) => project.id === response.data.id).is_online = response.data.is_online;
+                return projects
+            })
+            return true
+        }
         else {
             setModalContent({
-                isOpenModal: true,
-                components: <PopOver message="Falha ao atualizar o status do chat, reinicie a página e tente novamanete" type="WARNING" />
+                componentName: "modal_failed_updated_status_chat_02",
+                components:
+                    <PopOver
+                        message="Falha ao atualizar o status do chat, reinicie a página e tente novamente"
+                        componentName="modal_failed_updated_status_chat_02"
+                        type="WARNING"
+                    />
             })
             return false
         }
@@ -60,12 +78,15 @@ export function CardProject({ project, setNewProject, prompts }: CardProject) {
 
     const handleGetLinks = () => {
         if (!project.slug) {
-            setModalContent({ isOpenModal: true, components: <PopOver message="Falha ao exibir seus links" type="ERROR" /> })
+            setModalContent({
+                componentName: "modal_failed_display_link",
+                components: <PopOver message="Falha ao exibir seus links" type="ERROR" componentName="modal_failed_display_link" />
+            })
             return
         }
 
         setModalContent({
-            isOpenModal: true,
+            componentName: "modal_display_share_project",
             components:
                 <PopUp>
                     <ShareProject

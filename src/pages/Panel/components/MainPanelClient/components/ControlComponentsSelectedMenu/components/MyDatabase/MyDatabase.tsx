@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import CreateNewDatabases from "./components/CreateNewDatabase"
+import CreateNewDatabases from "./components/CreateNewDatabase/CreateNewDatabase"
 import { ClientContext } from "../../../../../../../../context/ClientContext"
 import { ModalContext } from "../../../../../../../../context/ModalContext"
 import { PopUp } from "../../../../../../../../components/modal/templates/PopUp"
@@ -18,7 +18,7 @@ export function MyDatabases() {
         const { prompt, project } = plan_management
 
         setModalContent({
-            isOpenModal: true,
+            componentName: "modal_create_database",
             components:
                 <PopUp>
                     <ModalEditDatabase

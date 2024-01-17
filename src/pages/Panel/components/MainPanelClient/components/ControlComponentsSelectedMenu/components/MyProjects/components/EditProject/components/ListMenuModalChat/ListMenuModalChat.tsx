@@ -1,12 +1,9 @@
 import { ReactElement } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Project } from "../../../../../../../../../../../../@types/Project";
-import { ButtonsModal } from "./components/ButtonModal/ButtonsModal";
 import { Li } from "../../../../../../../../../../../../components/li/Li";
 import { STEP_NAME_URL } from "../../../../../../../../../../../../variables/variables";
 
 interface ListMenuModalChat {
-    project: Project
     listName: Array<{
         text: string, 
         icon: ReactElement,
@@ -14,7 +11,7 @@ interface ListMenuModalChat {
     }>
 }
 
-export const ListMenuModalChat = ({ project, listName }: ListMenuModalChat) => {
+export const ListMenuModalChat = ({ listName }: ListMenuModalChat) => {
     const [params, setParams] = useSearchParams()
 
 
@@ -26,8 +23,6 @@ export const ListMenuModalChat = ({ project, listName }: ListMenuModalChat) => {
 
 
     return (
-        <div className="w-auto h-full max-w-[300px] min-w-[250px] flex flex-col justify-between items-center px-2 border-r border-primary-100">
-
             <ul className="w-full flex flex-col uppercase">
                 {
                     listName.map((list) =>
@@ -41,11 +36,5 @@ export const ListMenuModalChat = ({ project, listName }: ListMenuModalChat) => {
                     )
                 }
             </ul>
-
-            <ButtonsModal
-                project={project}
-            />
-
-        </div>
     )
 };

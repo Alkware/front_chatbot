@@ -6,13 +6,10 @@ interface PopUp {
 }
 
 export function PopUp({ children }: PopUp) {
-    const { setModalContent } = useContext(ModalContext)
+    const { clearModal } = useContext(ModalContext)
 
     const handleCloseModal = ({ target }: any) => {
-        if (target.dataset.close)
-            setModalContent({
-                isOpenModal: false,
-            })
+        if (target.dataset.close)  clearModal(null, { clearLast: true })
     }
 
     return (

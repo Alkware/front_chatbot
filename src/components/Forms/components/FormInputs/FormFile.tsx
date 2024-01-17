@@ -5,16 +5,19 @@ import { useSearchParams } from "react-router-dom";
 
 interface FormFile {
     fieldName: string
-    chat?: any
+    formName?: string
+    defaultValue?: string,
 }
 
-export function FormFile({ fieldName, chat }: FormFile) {
+export function FormFile({ fieldName, formName, defaultValue }: FormFile) {
     const refPreviewImage: RefObject<HTMLDivElement> = useRef(null);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [logo, setLogo] = useState(chat[fieldName]);
+    const [logo, setLogo] = useState(defaultValue);
 
     useEffect(() => {
-        if (logo) {
+        if(!formName) throw new Error("FormName is missing!")
+
+        if (defaultValue) {
             refPreviewImage.current?.classList.add(`flex`)
             refPreviewImage.current?.classList.remove(`hidden`)
             refPreviewImage.current?.querySelector("div#loading")?.classList.remove("flex")
@@ -46,7 +49,7 @@ export function FormFile({ fieldName, chat }: FormFile) {
                 const { data } = await uploadImage(form);
                 if(data){
                     //registra a imagem no localstorage
-                    registerDataLocalStorage({ dataset: { field_name: "logo" }, value: data.url })
+                    registerDataLocalStorage({ dataset: { field_name: "logo" }, value: data.url }, formName)
                     //Remove o loading assim que a imagem é carregada
                     refPreviewImage.current?.querySelector("div#loading")?.classList.remove("flex")
                     refPreviewImage.current?.querySelector("div#loading")?.classList.add("hidden")

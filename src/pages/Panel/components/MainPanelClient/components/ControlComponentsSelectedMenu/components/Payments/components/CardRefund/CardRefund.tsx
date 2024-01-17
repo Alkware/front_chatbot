@@ -16,16 +16,13 @@ export function CardRefund({ client }: { client?: Client }) {
             const response = await reactivatePlan(client.id)
             if (response) {
                 setModalContent({
-                    isOpenModal: true,
-                    components: <PopOver message="Plano reativado com  sucesso!" />
+                    componentName: "modal_reactive_plan",
+                    components: <PopOver message="Plano reativado com  sucesso!" componentName="modal_reactive_plan" />
                 })
                 setTimeout(() => window.location.reload(), 1500);
             }
         }
     }
-
-
-
 
     return (
         (!!client?.refund_requested.length && client.refund_requested[0].status !== "CANCEL") &&

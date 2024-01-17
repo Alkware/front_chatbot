@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import CreateNewProject from "./components/CreateNewProject";
+import CreateNewProject from "./components/CreateNewProject/CreateNewProject";
 import { ClientContext } from "../../../../../../../../context/ClientContext";
 import { Project } from "../../../../../../../../@types/Project";
 import { Container } from "../../../../../../../../components/Container/Container";

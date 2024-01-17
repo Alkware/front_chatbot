@@ -19,7 +19,7 @@ export interface Project {
     prompt: Prompt,
     call_to_action: Array<{
         button_text: string,
-        link: string
+        button_link: string
     }>,
     plan_message_manager: Array<{
         input: number,

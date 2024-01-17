@@ -6,8 +6,6 @@ import { Client } from "../../../../../../../../../../@types/Client";
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
 import { Button } from "../../../../../../../../../../components/button/Button";
 
-
-
 interface Plans {
     id: string,
     plan_name: string,
@@ -18,9 +16,9 @@ interface Plans {
     link: string
 }
 
-export function ChoosePlan({ client }: { client: Client }) {
+export function ChoosePlan({ client, modalName }: { client: Client, modalName: `modal_${string}` }) {
     const [plans, setPlans] = useState<Plans[]>();
-    const { setModalContent } = useContext(ModalContext)
+    const { clearModal, setModalContent } = useContext(ModalContext)
 
     useEffect(() => {
         (async () => {
@@ -30,9 +28,7 @@ export function ChoosePlan({ client }: { client: Client }) {
     }, [])
 
     const handleClose = () => {
-        setModalContent({
-            isOpenModal: false
-        })
+        clearModal(modalName)
     }
 
     const handleChoosePlan = (plan: Plans) => {
@@ -41,8 +37,8 @@ export function ChoosePlan({ client }: { client: Client }) {
         if (client) window.location.href = `${plan.link}?cid=${client.id}&pid=${plan.id}`
         else {
             setModalContent({
-                isOpenModal: true,
-                components: <PopOver message="Erro ao abrir o checkout" />
+                componentName: "modal_error_open_checkout",
+                components: <PopOver message="Erro ao abrir o checkout" componentName="modal_error_open_checkout" />
             })
         }
 

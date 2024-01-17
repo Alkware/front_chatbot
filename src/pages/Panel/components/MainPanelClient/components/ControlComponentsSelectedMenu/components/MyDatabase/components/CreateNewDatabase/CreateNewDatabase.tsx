@@ -21,21 +21,33 @@ export function CreateNewDatabases({ plan_management_id }: { plan_management_id:
                     navigate(`/create-database/${plan_management_id}`)
                 } else {
                     setModalContent({
-                        isOpenModal: true,
-                        components: <PopOver message="Você atingiu o número maximo de base de dados no seu plano."></PopOver>
+                        componentName: "modal_max_database",
+                        components:
+                            <PopOver
+                                message="Você atingiu o número maximo de base de dados no seu plano."
+                                componentName="modal_max_database"
+                            />
                     })
                 }
             } else {
                 setModalContent({
-                    isOpenModal: true,
-                    components: <PopOver message="O plano da sua conta está desabilitado."></PopOver>
+                    componentName: "modal_desactive_account",
+                    components:
+                        <PopOver
+                            message="O plano da sua conta está desabilitado."
+                            componentName="modal_desactive_account"
+                        />
                 })
             }
 
         } else {
             setModalContent({
-                isOpenModal: true,
-                components: <PopOver message="Nenhum plano foi vinculado a sua conta"></PopOver>
+                componentName: "modal_without_plan",
+                components:
+                    <PopOver
+                        message="Nenhum plano foi vinculado a sua conta"
+                        componentName="modal_without_plan"
+                    />
             })
         }
     }

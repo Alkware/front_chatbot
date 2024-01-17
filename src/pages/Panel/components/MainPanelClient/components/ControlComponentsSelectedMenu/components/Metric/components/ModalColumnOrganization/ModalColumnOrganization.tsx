@@ -7,11 +7,12 @@ import { Button } from "../../../../../../../../../../components/button/Button";
 
 interface ModalColumnOrganizationTypes {
     setColumns: Dispatch<SetStateAction<any>>
-    columns: any
+    columns: any,
+    modalName: `modal_${string}`
 }
 
-export function ModalColumnOrganization({ setColumns, columns }: ModalColumnOrganizationTypes) {
-    const { setModalContent } = useContext(ModalContext)
+export function ModalColumnOrganization({ setColumns, columns, modalName }: ModalColumnOrganizationTypes) {
+    const { setModalContent, clearModal } = useContext(ModalContext)
     const [columnsData, setColumnsData] = useState(columns)
 
     const handleChangeStatus = (e: any) => {
@@ -32,9 +33,7 @@ export function ModalColumnOrganization({ setColumns, columns }: ModalColumnOrga
     const handleSaveColumnOrganization = () => {
         localStorage.setItem("metricColumnActive", JSON.stringify(columns))
         setColumns(columns)
-        setModalContent({
-            isOpenModal: false
-        })
+        clearModal(modalName)
     }
 
     return (

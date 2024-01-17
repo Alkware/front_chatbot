@@ -9,9 +9,8 @@ export async function createNewProject(data: ProjectCreateTypes) {
 }
 
 export async function updateProject(data: Project, project_slug: string) {
-    const newSlug = project_slug.split("-")[0]+"-"+data.slug
-    data.slug = newSlug
-
+    const newSlug = project_slug.split("-")[0] + "-" + data.slug
+    
     const project = await axios.put(`${API_URL}/project/${project_slug}/update`, data).catch(err => console.log(err))
 
     return project

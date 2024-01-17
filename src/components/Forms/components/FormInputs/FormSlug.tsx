@@ -1,21 +1,24 @@
-import { ChangeEvent, RefObject, useEffect, useRef } from "react";
+import { ChangeEvent, RefObject, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { registerDataLocalStorage } from "../../../../functions/registerDataLocalStorage";
+import { FaArrowLeft, FaArrowRight, FaCircleNotch, FaLock } from "react-icons/fa";
 
-interface FormInput {
+
+interface FormSlug {
     fieldName: string
     title: string,
     formName?: string
     defaultValue?: string
 }
 
-export function FormInput({ fieldName, title, formName, defaultValue }: FormInput) {
+export function FormSlug({ fieldName, title, formName, defaultValue }: FormSlug) {
     const [searchParams, setSearchParams] = useSearchParams();
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
+    const [slug, setSlug] = useState(defaultValue)
 
     useEffect(() => {
         //cria um valor padrão para o input dentro do localstorage
-        if(defaultValue){
+        if (defaultValue) {
             registerDataLocalStorage({ dataset: { field_name: fieldName }, value: defaultValue }, formName)
         }
 
@@ -56,7 +59,14 @@ export function FormInput({ fieldName, title, formName, defaultValue }: FormInpu
         const increaseCharacter = Number(actions) + 1
         searchParams.set("actions", increaseCharacter.toString())
         setSearchParams(searchParams)
-        registerDataLocalStorage(e.target, formName)
+
+        if(!e.target.value.includes("-")){
+            const newSlug = defaultValue?.split("-")[0] + "-" + e.target.value
+    
+    
+            registerDataLocalStorage({ dataset: { field_name: e.target.dataset.field_name }, value: newSlug }, formName)
+            setSlug(newSlug)
+        }
     }
 
     const handleValidationInput = ({ target }: ChangeEvent<HTMLInputElement>) => {
@@ -88,13 +98,24 @@ export function FormInput({ fieldName, title, formName, defaultValue }: FormInpu
                 data-field_name={fieldName}
                 className="border border-primary-100"
                 onChange={handleOnChange}
-                defaultValue={defaultValue ? defaultValue : ""}
+                defaultValue={slug ? slug.split("-")[1] : ""}
             />
 
             <span
                 className="hidden bg-red-500/30 text-red-500 text-center rounded-md"
                 datatype="error-message"
             >Esse campo não pode estar vazio</span>
+
+            <div className="flex gap-2 items-center bg-white p-2 my-4 rounded-md">
+                <FaArrowLeft className="fill-zinc-600" />
+                <FaArrowRight className="fill-zinc-600" />
+                <FaCircleNotch className="fill-zinc-600" />
+                <div className="w-full bg-zinc-600 rounded-xl p-3 flex gap-2 items-center">
+                    <FaLock className="fill-green-600" />
+
+                    <h2 className="opacity-80">https://chat.wipzee.com/{slug}</h2>
+                </div>
+            </div>
         </div>
     )
 };

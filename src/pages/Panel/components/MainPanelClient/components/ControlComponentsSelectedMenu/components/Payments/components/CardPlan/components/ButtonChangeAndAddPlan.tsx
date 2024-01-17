@@ -12,8 +12,8 @@ export function ButtonChangeAndAddPlan({ client }: { client?: Client }) {
     const handleChangePlan = () => {
         if (client) {
             setModalContent({
-                isOpenModal: true,
-                components: <PopUp><ChoosePlan client={client} /></PopUp>
+                componentName: "modal_choose_plan", 
+                components: <PopUp><ChoosePlan client={client} modalName="modal_choose_plan" /></PopUp>
             })
         }
     }

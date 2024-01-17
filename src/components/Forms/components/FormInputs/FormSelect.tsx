@@ -7,10 +7,11 @@ import { registerDataLocalStorage } from "../../../../functions/registerDataLoca
 interface SelectForm {
     options: Array<Prompt>
     fieldName: string,
-    register?: any
+    formName?: string
+    defaultValue?: string
 }
 
-export function FormSelect({ register, options, fieldName }: SelectForm) {
+export function FormSelect({ options, fieldName, formName, defaultValue }: SelectForm) {
     const params = useParams();
 
     const handleCreateDatabase = () => {
@@ -21,7 +22,7 @@ export function FormSelect({ register, options, fieldName }: SelectForm) {
     const handleSelectOptionDatabase = ({ target }: any) => {
         const select = target;
         const id = target.options[select.selectedIndex].value;
-        registerDataLocalStorage({ dataset: { field_name: fieldName }, value: id })
+        registerDataLocalStorage({ dataset: { field_name: fieldName }, value: id }, formName)
     }
 
     const formatOptions = () => {
@@ -45,8 +46,7 @@ export function FormSelect({ register, options, fieldName }: SelectForm) {
                     alternativeTitle="Nenhuma base de dados foi criada"
                     handleSelectDatabase={handleSelectOptionDatabase}
                     options={formatOptions()}
-                    register={register}
-                    fieldName={fieldName}
+                    defaultValue={defaultValue}
                 />
             </div>
             {

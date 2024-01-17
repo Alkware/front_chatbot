@@ -7,7 +7,11 @@ import { ModalContext } from "../../../../../../../../../../context/ModalContext
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
 import { TipContainer } from "../../../../../../../../../../components/TipContainer/TipContainer";
 
-function CreateNewProject({ plan_management_id }: { plan_management_id: string }) {
+interface CreateNewProject { 
+    plan_management_id: string,
+ }
+
+function CreateNewProject({ plan_management_id }: CreateNewProject) {
     const { client } = useContext(ClientContext)
     const { setModalContent } = useContext(ModalContext)
     const navigate = useNavigate();

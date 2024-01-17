@@ -1,20 +1,19 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BackHome } from "./components/BackHome";
 import { getPlanManagementById } from "../../api/planManagement";
 import { Form } from "../../components/Forms/Form";
 import { AxiosResponse } from "axios";
 import { Prompt } from "../../@types/prompt.types";
-import { ProjectCreateTypes } from "../../@types/Project";
 import { PopOver } from "../../components/modal/templates/PopOver";
 import { ModalContext } from "../../context/ModalContext";
-import { CHAT_NAME_TO_SAVE_LOCALSTORAGE, STEP_NAME_URL } from "../../variables/variables";
+import { CHAT_NAME_TO_SAVE_LOCALSTORAGE } from "../../variables/variables";
+import { createNewProject } from "../../api/project";
 
 export function CreateChat() {
     const [prompt, setPrompt] = useState<Prompt[]>([])
     const { plan_management_id } = useParams();
     const { setModalContent } = useContext(ModalContext)
-    const [params, setParams] = useSearchParams();
     const navigate = useNavigate();
 
 
@@ -31,44 +30,66 @@ export function CreateChat() {
     }, [])
 
 
-    const handleCreateProject = async (data: any) => {
+    const handleCreateProject = async () => {
         try {
-            const currentStep = params.get(STEP_NAME_URL) || "0"
+            const chat = JSON.parse(localStorage.getItem(CHAT_NAME_TO_SAVE_LOCALSTORAGE) || "{}")
 
             if (!plan_management_id) throw new Error("plan management id is missing!")
 
-            if (currentStep === "1" && !data.prompt_id) setModalContent({ isOpenModal: true, components: <PopOver message="Você precisa selecionar uma fonte de dados." type="WARNING" /> })
-            else if (currentStep === "1" && !data.chat_input_message.length) setModalContent({ isOpenModal: true, components: <PopOver message="Você precisa definir uma primeira mensagem em seu chat." type="WARNING" /> })
+            const data: any = {}
+
+            Object.keys(chat).forEach(keyStep => {
+                Object.keys(chat[keyStep]).forEach((key) => data[key] = chat[keyStep][key])
+            })
+
+            const { chat_input_message, prompt_id, call_to_action, logo, project_name } = data
+
+            if (chat_input_message.length <= 0 || chat_input_message[0].length <= 0) {
+                setModalContent({
+                    componentName: "modal_error_first_message",
+                    components: <PopOver
+                        message="Você precisa definir uma primeira mensagem para seu cliente."
+                        type="WARNING"
+                        componentName="modal_error_first_message"
+                    />
+                })
+                return
+            } else if (!prompt_id) {
+                setModalContent({
+                    componentName: "modal_error_database",
+                    components:
+                        <PopOver
+                            message="Escolha sua fonte de dados."
+                            type="WARNING"
+                            componentName="modal_error_database"
+                        />
+                })
+                return
+            }
 
 
-            const {
-                project_name, logo, prompt_id, call_to_action, chat_input_message, chat_type
-            }: ProjectCreateTypes = data;
+            const project = await createNewProject({
+                project_name,
+                logo,
+                prompt_id,
+                plan_management_id,
+                call_to_action: (call_to_action ? call_to_action : []),
+                chat_input_message,
+            });
 
-            console.log(call_to_action, call_to_action.length)
+            if (project && project.status === 201) {
+                localStorage.removeItem(CHAT_NAME_TO_SAVE_LOCALSTORAGE)
+                setModalContent({
+                    componentName: "modal_created_chat",
+                    components: <PopOver message="Chat criado com sucesso" componentName="modal_created_chat" />
+                })
 
-            // const project = await createNewProject({
-            //     project_name,
-            //     logo,
-            //     prompt_id,
-            //     plan_management_id,
-            //     call_to_action,
-            //     chat_input_message,
-            //     chat_type,
-            // });
+                const timeout = setTimeout(() => {
+                    navigate("/panel")
+                    clearTimeout(timeout)
+                }, 2000);
 
-            // if (project && project.status === 201) {
-            //     setModalContent({
-            //         isOpenModal: true,
-            //         components: <PopOver message="Chat criado com sucesso" />
-            //     })
-
-            //     const timeout = setTimeout(() => {
-            //         navigate("/panel")
-            //         clearTimeout(timeout)
-            //     }, 2000);
-
-            // }
+            }
         } catch (error: any) {
             throw new Error(error)
         }
@@ -81,7 +102,7 @@ export function CreateChat() {
 
                 <BackHome />
 
-                <Form.ContainerCreate
+                <Form.Container
                     activeSimulator={true}
                     plan_management_id={plan_management_id}
                     eventSubmit={handleCreateProject}
@@ -110,8 +131,8 @@ export function CreateChat() {
                             height={100}
                         />
 
-                        <Form.Multiple 
-                            optional={{ active: true, text: "Deseja adicionar uma CTA?" }}
+                        <Form.Multiple
+                            optional={{ optional: true, active: false, text: "Deseja adicionar uma CTA?" }}
                             fieldName="call_to_action"
                         >
                             <Form.Input
@@ -125,7 +146,7 @@ export function CreateChat() {
                         </Form.Multiple>
                     </Form.Step>
 
-                </Form.ContainerCreate>
+                </Form.Container>
             </div>
         </div >
     )

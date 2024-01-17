@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { updateDatabase } from "../../../../../../../../../../api/Prompt";
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
@@ -7,6 +7,7 @@ import { FaWizardsOfTheCoast } from "react-icons/fa";
 import { FaClipboardQuestion } from "react-icons/fa6";
 import { Prompt } from "../../../../../../../../../../@types/prompt.types";
 import { Project } from "../../../../../../../../../../@types/Project";
+import { DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../../../../../variables/variables";
 
 const listName = [
     {
@@ -21,40 +22,42 @@ const listName = [
     }
 ]
 
-export function ModalEditDatabase({ prompt, project }: { prompt: Prompt, project: Project }) {
-    const [defaultValues, setDefaultValues] = useState<{}>();
+interface ModalEditDatabase {
+    prompt: Prompt,
+    project: Project
+}
+
+
+export function ModalEditDatabase({ prompt, project }: ModalEditDatabase) {
     const { setModalContent } = useContext(ModalContext);
 
 
-    useEffect(() => {
-        setDefaultValues({
-            prompt_name: prompt.prompt_name,
-            prompt: prompt.prompt,
-            describe_client: prompt.describe_client
-        })
-    }, [])
 
+    const handleUpdateDatabase = async () => {
+        const data = JSON.parse(localStorage.getItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE) || "{}")
 
-    const handleUpdateDatabase = async (data: any) => {
         if (data) {
             const projectUpdate = await updateDatabase(data, prompt.id)
             if (projectUpdate && projectUpdate.status === 200) {
                 setModalContent({
-                    isOpenModal: true,
-                    components: <PopOver message="Database atualizado com sucesso" />
+                    componentName: "modal_updated_database",
+                    components:
+                        <PopOver
+                            message="Database atualizado com sucesso"
+                            componentName="modal_updated_database"
+                        />
                 })
             }
         }
     }
 
     return (
-        defaultValues &&
         <div className="w-[70vw] h-[60vh] flex overflow-auto ">
-            <Form.ContainerEdit
+            <Form.Container
                 eventSubmit={handleUpdateDatabase}
+                formName={DATABASE_NAME_TO_SAVE_LOCALSTORAGE}
                 listName={listName}
                 project={project}
-                defaultValues={defaultValues}
             >
                 <Form.Step index={0}>
                     <Form.Input
@@ -78,7 +81,7 @@ export function ModalEditDatabase({ prompt, project }: { prompt: Prompt, project
                     />
                 </Form.Step>
 
-            </Form.ContainerEdit>
+            </Form.Container>
         </div>
     )
 };

@@ -27,12 +27,11 @@ export function ShareProject({ slug }: ShareProject) {
                 input.select();
 
                 var successful = document.execCommand('copy');
-                console.log(successful)
 
                 if (successful)
                     setModalContent({
-                        isOpenModal: true,
-                        components: <PopOver message="Link Copiado!" type="INFORMATION" />
+                        componentName: "modal_copy_link",
+                        components: <PopOver message="Link Copiado!" type="INFORMATION" componentName="modal_copy_link" />
                     })
 
                 input.classList.toggle("disabled")
@@ -40,8 +39,8 @@ export function ShareProject({ slug }: ShareProject) {
             }
         } catch (err) {
             setModalContent({
-                isOpenModal: true,
-                components: <PopOver message="Falaha ao copiar o link!" type="ERROR" />
+                componentName: "modal_failed_copy_link",
+                components: <PopOver message="Falha ao copiar o link!" type="ERROR" componentName="modal_failed_copy_link" />
             })
         }
     }
@@ -60,8 +59,8 @@ export function ShareProject({ slug }: ShareProject) {
 
                 if (successful)
                     setModalContent({
-                        isOpenModal: true,
-                        components: <PopOver message="Widget Copiado!" type="INFORMATION" />
+                        componentName:"modal_copy_widget",
+                        components: <PopOver message="Widget Copiado!" type="INFORMATION" componentName="modal_copy_widget" />
                     })
 
                 input.classList.toggle("disabled")
@@ -69,8 +68,8 @@ export function ShareProject({ slug }: ShareProject) {
             }
         } catch (err) {
             setModalContent({
-                isOpenModal: true,
-                components: <PopOver message="Falaha ao copiar o link!" type="ERROR" />
+                componentName: "modal_failed_copy_widget",
+                components: <PopOver message="Falha ao copiar o link!" type="ERROR" componentName="modal_failed_copy_widget" />
             })
         }
     }

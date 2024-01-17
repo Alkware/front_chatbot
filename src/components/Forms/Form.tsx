@@ -1,19 +1,20 @@
-import { FormContainerCreate } from "./components/FormContainerCreate";
-import { FormContainerEdit } from "./components/FormContainerEdit";
+import { FormContainer } from "./components/FormContainer";
 import { FormFile } from "./components/FormInputs/FormFile";
 import { FormInput } from "./components/FormInputs/FormInputs";
 import { FormSelect } from "./components/FormInputs/FormSelect";
+import { FormSlug } from "./components/FormInputs/FormSlug";
 import { FormTextArea } from "./components/FormInputs/FormTextArea";
 import { FormMultipleInput } from "./components/FormMultipleInput";
 import { FormStep } from "./components/FormStep";
 
 export const Form = {
-    ContainerCreate: FormContainerCreate,
-    ContainerEdit: FormContainerEdit,
+    Container: FormContainer,
     Step: FormStep,
     Input: FormInput,
+    Slug: FormSlug,
     TextArea: FormTextArea,
     File: FormFile,
     Select: FormSelect,
     Multiple: FormMultipleInput
+
 }

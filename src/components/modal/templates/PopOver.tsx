@@ -4,18 +4,19 @@ import { MdInfo, MdWarning, MdOutlet } from "react-icons/md";
 
 interface PopOver {
     message: string,
-    type?: "INFORMATION" | "WARNING" | "ERROR"
+    type?: "INFORMATION" | "WARNING" | "ERROR",
+    functionAfterComplete?: ()=> void,
+    componentName: `modal_${string}`
 }
 
-export function PopOver({ message, type = "INFORMATION" }: PopOver) {
-    const { setModalContent } = useContext(ModalContext)
+export function PopOver({ message, type = "INFORMATION", functionAfterComplete, componentName }: PopOver) {
+    const { clearModal } = useContext(ModalContext)
     const contentRef: RefObject<HTMLDivElement> = useRef(null);
     const background = type === "INFORMATION" ? "bg-primary-100" : type === "WARNING" ? "bg-orange-500/70" : "bg-red-800/70";
     const icon = type === "INFORMATION" ? <MdInfo className="text-3xl" /> : type === "WARNING" ? <MdWarning  className="text-3xl"/> : <MdOutlet className="text-3xl" />
     const TIME_PROGRESSING = (message.length / 2) + 10
 
     useEffect(() => {
-
         const progress: HTMLDivElement | null | undefined = contentRef.current?.querySelector("div#progress")
         let counter = 0
 
@@ -26,9 +27,9 @@ export function PopOver({ message, type = "INFORMATION" }: PopOver) {
 
             if (counter === 100) {
                 clearInterval(interval)
-                setModalContent({
-                    isOpenModal: false
-                })
+                clearModal(componentName)
+                // Função que será executada após o termino do progress da modal
+                functionAfterComplete && functionAfterComplete();
             }
 
             counter += 1;
