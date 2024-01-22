@@ -7,6 +7,8 @@ import Thanks from "./pages/Thanks/Thanks"
 import { CreateChat } from "./pages/CreateChat/CreateChat"
 import { Modal } from "./components/modal/Modal"
 import { CreateDatabase } from "./pages/CreateDatabase/CreateDatabase"
+import { Plans } from "./pages/Plans/Plans"
+import { Admin } from "./pages/Admin/Admin"
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/panel" element={<Panel />} />
         <Route path="/thanks" element={<Thanks />} />
+        <Route path="/admin/panel" element={<Admin />} />
+        <Route path="/plans" element={<Plans />} />
         <Route path="/create-chat/:plan_management_id" element={<CreateChat />} />
         <Route path="/create-database/:plan_management_id" element={<CreateDatabase />} />
         <Route path="/*" element={<h1>Page not found</h1>} />

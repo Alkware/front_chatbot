@@ -1,4 +1,5 @@
 import { FormContainer } from "./components/FormContainer";
+import { FormControllerButton } from "./components/FormControllerButton";
 import { FormFile } from "./components/FormInputs/FormFile";
 import { FormInput } from "./components/FormInputs/FormInputs";
 import { FormSelect } from "./components/FormInputs/FormSelect";
@@ -15,6 +16,7 @@ export const Form = {
     TextArea: FormTextArea,
     File: FormFile,
     Select: FormSelect,
-    Multiple: FormMultipleInput
+    Multiple: FormMultipleInput,
+    ControllerButton: FormControllerButton
 
 }

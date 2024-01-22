@@ -1,1 +1,1 @@
-export const API_URL = import.meta.env.VITE_HOST
+export const API_URL = import.meta.env.VITE_HOST;

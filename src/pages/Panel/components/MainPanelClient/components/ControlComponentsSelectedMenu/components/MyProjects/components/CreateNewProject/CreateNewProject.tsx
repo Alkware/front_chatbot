@@ -7,9 +7,9 @@ import { ModalContext } from "../../../../../../../../../../context/ModalContext
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
 import { TipContainer } from "../../../../../../../../../../components/TipContainer/TipContainer";
 
-interface CreateNewProject { 
+interface CreateNewProject {
     plan_management_id: string,
- }
+}
 
 function CreateNewProject({ plan_management_id }: CreateNewProject) {
     const { client } = useContext(ClientContext)
@@ -26,21 +26,35 @@ function CreateNewProject({ plan_management_id }: CreateNewProject) {
                     navigate(`/create-chat/${plan_management_id}`)
                 } else {
                     setModalContent({
-                        isOpenModal: true,
-                        components: <PopOver message="Você atingiu o número maximo por plano."></PopOver>
+                        componentName: "modal_reached_max_plan",
+                        components:
+                            <PopOver
+                                message="Você atingiu o número maximo por plano."
+                                componentName="modal_reached_max_plan"
+                            />
                     })
                 }
             } else {
                 setModalContent({
-                    isOpenModal: true,
-                    components: <PopOver message="O plano da sua conta está desabilitado."></PopOver>
+                    componentName: "modal_plan_is_desabled",
+                    components:
+                        <PopOver
+                            message="O plano da sua conta está desabilitado."
+                            componentName="modal_plan_is_desabled"
+                            functionAfterComplete={()=> navigate("/panel?tab=4")}
+                        />
                 })
             }
 
         } else {
             setModalContent({
-                isOpenModal: true,
-                components: <PopOver message="Nenhum plano foi vinculado a sua conta"></PopOver>
+                componentName: "modal_without_plan",
+                components:
+                    <PopOver
+                        message="Nenhum plano foi vinculado a sua conta"
+                        componentName="modal_without_plan"
+                        functionAfterComplete={()=> navigate("/panel?tab=4")}
+                    />
             })
         }
     }

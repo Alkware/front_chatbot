@@ -1,21 +1,13 @@
-import { useContext } from "react"
-import { ChoosePlan } from "../../Modals/ChoosePlan"
-import { ModalContext } from "../../../../../../../../../../../context/ModalContext"
 import { Client } from "../../../../../../../../../../../@types/Client"
-import { PopUp } from "../../../../../../../../../../../components/modal/templates/PopUp"
 import { Button } from "../../../../../../../../../../../components/button/Button"
+import { useNavigate } from "react-router-dom"
 
 
 export function ButtonChangeAndAddPlan({ client }: { client?: Client }) {
-    const { setModalContent } = useContext(ModalContext)
+    const navigate = useNavigate();
 
     const handleChangePlan = () => {
-        if (client) {
-            setModalContent({
-                componentName: "modal_choose_plan", 
-                components: <PopUp><ChoosePlan client={client} modalName="modal_choose_plan" /></PopUp>
-            })
-        }
+        navigate("/plans")
     }
 
     const realeaseAddPlanButton = () => {

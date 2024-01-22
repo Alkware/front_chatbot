@@ -6,16 +6,17 @@ import { useContext } from "react";
 import { ModalContext } from "../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../modal/templates/PopOver";
 
-interface ButtonSteps {
-    children: any;
+interface ButtonsFormCreate {
+    stepChildren?: any;
     plan_management_id: string | undefined,
     isFormEdit?: boolean
     formName: string
     eventSubmit: (data: any) => Promise<void>,
 }
 
-export function ButtonSteps({ children, plan_management_id, isFormEdit = false, formName, eventSubmit }: ButtonSteps) {
+export function ButtonsFormCreate({ stepChildren, plan_management_id, isFormEdit = false, formName, eventSubmit }: ButtonsFormCreate) {
     if (!plan_management_id) throw new Error("plan_management_id is missing!")
+    
     const [params, setParams] = useSearchParams();
     const { setModalContent } = useContext(ModalContext)
 
@@ -31,7 +32,7 @@ export function ButtonSteps({ children, plan_management_id, isFormEdit = false, 
         const secondPositionIsValueOfInput = 1
         const blocked = keys.find((key: any) => !key[secondPositionIsValueOfInput] || key[secondPositionIsValueOfInput]?.length === 0)
 
-        if (!blocked && nextStep < children.length) {
+        if (!blocked && nextStep < stepChildren.length) {
             params.set(STEP_NAME_URL, nextStep.toString())
             setParams(params)
         } else {
@@ -66,13 +67,13 @@ export function ButtonSteps({ children, plan_management_id, isFormEdit = false, 
             > <IoIosUndo /> Voltar</Button>
 
             <Button
-                data-islaststep={Number(params.get(STEP_NAME_URL)) < (children.length - 1)}
+                data-islaststep={Number(params.get(STEP_NAME_URL)) < (stepChildren.length - 1)}
                 customClass="flex justify-center px-4 data-[islaststep='false']:hidden"
                 onClick={handleNextStep}
             >Proximo <IoIosRedo /></Button>
 
             <Button
-                data-display={Number(params.get(STEP_NAME_URL)) === (children.length - 1)}
+                data-display={Number(params.get(STEP_NAME_URL)) === (stepChildren.length - 1)}
                 customClass="hidden data-[display='true']:flex"
                 onClick={eventSubmit}
             >

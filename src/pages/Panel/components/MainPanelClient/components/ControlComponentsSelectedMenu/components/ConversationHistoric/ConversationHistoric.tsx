@@ -20,7 +20,7 @@ export function ConversationHistoric() {
     const [index, setIndex] = useState<number>(0);
     const [chats, setChats] = useState<Chat[]>([]);
 
-    const projects = client?.plan_management.project.map((project: Project) => Object({ id: project.project_name.replace(" ", "_"), name: project.project_name }))
+    const projects = client?.plan_management?.project.map((project: Project) => Object({ id: project.project_name.replace(" ", "_"), name: project.project_name }))
 
     useEffect(() => {
         const time = searchParams.get("filter_time_chats")
@@ -73,7 +73,7 @@ export function ConversationHistoric() {
 
 
     return (
-        <Container title="Conversas" className="px-8">
+        <Container title="Registros" className="px-8">
 
             <div className="flex gap-8 h-[40px]">
                 <TipContainer tip="Selecione uma data como filtro">
@@ -83,7 +83,7 @@ export function ConversationHistoric() {
                     <Select
                         options={projects || []}
                         Icon={IoIosChatboxes}
-                        onChange={handleSelectProject}
+                        handleSelectDatabase={handleSelectProject}
                     />
                 </TipContainer>
                 <TipContainer tip="Atualize seus chats">

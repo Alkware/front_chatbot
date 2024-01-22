@@ -9,6 +9,7 @@ import { PopOver } from "../../components/modal/templates/PopOver";
 import { ModalContext } from "../../context/ModalContext";
 import { CHAT_NAME_TO_SAVE_LOCALSTORAGE } from "../../variables/variables";
 import { createNewProject } from "../../api/project";
+import { ButtonsFormCreate } from "../../components/Forms/components/FormInputs/components/ButtonSteps/ButtonSteps";
 
 export function CreateChat() {
     const [prompt, setPrompt] = useState<Prompt[]>([])
@@ -104,8 +105,6 @@ export function CreateChat() {
 
                 <Form.Container
                     activeSimulator={true}
-                    plan_management_id={plan_management_id}
-                    eventSubmit={handleCreateProject}
                     formName={CHAT_NAME_TO_SAVE_LOCALSTORAGE}
                 >
 
@@ -145,6 +144,16 @@ export function CreateChat() {
                             />
                         </Form.Multiple>
                     </Form.Step>
+
+                    <Form.ControllerButton>
+
+                        <ButtonsFormCreate
+                            plan_management_id={plan_management_id}
+                            formName={CHAT_NAME_TO_SAVE_LOCALSTORAGE}
+                            eventSubmit={handleCreateProject}
+                        />
+
+                    </Form.ControllerButton>
 
                 </Form.Container>
             </div>

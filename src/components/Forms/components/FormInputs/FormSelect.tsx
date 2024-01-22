@@ -16,7 +16,7 @@ export function FormSelect({ options, fieldName, formName, defaultValue }: Selec
 
     const handleCreateDatabase = () => {
         const id = params.plan_management_id;
-        window.location.href = `/create-database/${id}`
+        window.location.href = `/create-database/${id}?from=create`
     }
 
     const handleSelectOptionDatabase = ({ target }: any) => {

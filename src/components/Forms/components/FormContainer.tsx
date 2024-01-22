@@ -1,31 +1,20 @@
-import React, { Dispatch, ReactElement, SetStateAction, useEffect } from "react";
+import React, { ReactElement, useEffect } from "react";
 import { FormStep } from "./FormStep";
-import { ButtonSteps } from "./FormInputs/components/ButtonSteps/ButtonSteps";
 import { Steps } from "./FormInputs/components/Steps/Steps";
 import { SimulatorChat } from "../../SimulatorChat/SimulatorChat";
-import { Project } from "../../../@types/Project";
-import { ListMenuModalChat } from "../../../pages/Panel/components/MainPanelClient/components/ControlComponentsSelectedMenu/components/MyProjects/components/EditProject/components/ListMenuModalChat/ListMenuModalChat";
-import { ButtonsModal } from "../../../pages/Panel/components/MainPanelClient/components/ControlComponentsSelectedMenu/components/MyProjects/components/EditProject/components/ListMenuModalChat/components/ButtonModal/ButtonsModal";
+import { FormControllerButton } from "./FormControllerButton";
 
 interface Container {
-    children: ReactElement<typeof FormStep>[] | ReactElement<typeof FormStep>,
-    project?: Project,
-    plan_management_id?: string
+    children: ReactElement<typeof FormStep>[] | ReactElement<typeof FormStep> | ReactElement<typeof FormControllerButton>,
+    data?: {},
     activeSimulator?: boolean,
-    eventSubmit: () => Promise<void>,
     formName: "chat" | "database"
-    listName?: Array<{
-        text: string
-        icon: ReactElement
-        index: number,
-    }>
-    setData?: Dispatch<SetStateAction<[]>>
 }
 
-
-
-export function FormContainer({ children, activeSimulator, plan_management_id, project, formName, eventSubmit, listName, setData }: Container) {
+export function FormContainer({ children, activeSimulator, data, formName }: Container) {
+    // Transform os children em array e filtra apenas os children que contém index, ou seja, esse child é um container step.
     const childrenToArray = React.Children.toArray(children)
+    const filterStepChildren  = childrenToArray.filter((child: any) => child.props.index >= 0)
 
     var formData: any = {};
 
@@ -34,21 +23,24 @@ export function FormContainer({ children, activeSimulator, plan_management_id, p
 
         formData = JSON.parse(localStorage.getItem(formName) || "{}")
 
-        childrenToArray.forEach((child: any) => {
+        filterStepChildren.forEach((child: any) => {
             // Verifica se existe um index dentro do formData, caso não houver, será criado um array vazio.
-            if (!formData[child.props.index]) formData[child.props.index] = {};
+            if (!formData[child.props.index]){
+                formData[child.props.index] = {};
+                
+                // Looping que fará a criação dos campos no localStorage
+                React.Children.toArray(child.props.children).forEach((stepChild: any) => {
+                    //
+                    // Condição que verifica se algum filho do container step é opcional,
+                    // caso seja opcional, ele não é criado na proxíma linha de código e 
+                    // sim posteriormente, caso o usuário decida preencher o campo.
+                    //
+                    if (!stepChild.props?.optional || stepChild.props.optional.active === false) {
+                        createFieldsLocalStorage(child.props.index, stepChild, formData, data)
+                    }
+                });
+            }
 
-            // Looping que fará a criação dos campos no localStorage
-            React.Children.toArray(child.props.children).forEach((stepChild: any) => {
-                //
-                // Condição que verifica se algum filho do container step é opcional,
-                // caso seja opcional, ele não é criado na proxíma linha de código e 
-                // sim posteriormente, caso o usuário decida preencher o campo.
-                //
-                if (!stepChild.props?.optional || stepChild.props.optional.active === false) {
-                    createFieldsLocalStorage(child.props.index, stepChild, formData, project)
-                }
-            });
         })
 
         localStorage.setItem(formName, JSON.stringify(formData))
@@ -56,28 +48,14 @@ export function FormContainer({ children, activeSimulator, plan_management_id, p
 
     return (
         <div
-            data-is-modal-edit={!!listName?.length}
+            data-is-modal-edit={!!data}
             className="w-full flex data-[is-modal-edit='true']:flex-row flex-col items-center gap-8 p-4"
         >
             {
-                listName?.length ? (
-                    <div className="w-auto h-full max-w-[300px] min-w-[250px] flex flex-col justify-between items-center px-2 border-r border-primary-100">
-
-                        <ListMenuModalChat
-                            listName={listName}
-                        />
-
-                        <ButtonsModal
-                            data={project}
-                            eventSubmit={eventSubmit}
-                            setData={setData}
-                        />
-                    </div>
-                )
-                    :
-                    <Steps
-                        numberSteps={childrenToArray.length}
-                    />
+                !data &&
+                <Steps
+                    numberSteps={filterStepChildren.length}
+                />
             }
 
             <div className="w-full flex justify-evenly gap-8">
@@ -86,18 +64,8 @@ export function FormContainer({ children, activeSimulator, plan_management_id, p
                 >
                     {
                         childrenToArray.map((child: any, index: number) =>
-                            React.cloneElement(child, { key: index, formName, project })
+                            React.cloneElement(child, { key: index, formName, data, stepChildren: filterStepChildren })
                         )
-                    }
-
-                    {
-                        !listName?.length &&
-                        <ButtonSteps
-                            children={childrenToArray}
-                            plan_management_id={project?.plan_management_id || plan_management_id}
-                            formName={formName}
-                            eventSubmit={eventSubmit}
-                        />
                     }
                 </div>
 
@@ -114,16 +82,16 @@ export function FormContainer({ children, activeSimulator, plan_management_id, p
  * @param chat - chat que está armazenado no local storage
  * @returns 
  */
-export function createFieldsLocalStorage(stepIndex: number, stepChild: any, formData: any, project: Project | undefined) {
+export function createFieldsLocalStorage(stepIndex: number, stepChild: any, formData: any, data: {} | undefined) {
     const fieldName = stepChild.props.fieldName
     // cria um array apartir dos pontos existentes no fieldname e desestrutura o array em 2 posições,
     // primeira posição é o nome da chave, a segunda posição define se é um objeto ou array, 
     // caso seja uma string, será objeto, caso seja um numero será array.
     const [firstKey, secondKey, thirdKey] = fieldName.split(".");
 
-    // Essa expressão verifica se existe um project, caso existe, essa expressão vai buscar as chaves dentro de project
+    // Essa expressão verifica se existe um Data, caso existe, essa expressão vai buscar as chaves dentro de Data
     // para preencher os dados do localStorage
-    const fieldFoundedProject = project ? Object.entries(project).find(key => key[0] === firstKey) : null
+    const fieldFoundedData = data ? Object.entries(data).find(key => key[0] === firstKey) : null
 
 
     // Verifica se o nome do campo possui pontos, caso aja então a propriedade poderá ser um array ou objeto.
@@ -134,8 +102,8 @@ export function createFieldsLocalStorage(stepIndex: number, stepChild: any, form
 
         // Verifica se o float é um número, caso seja, é criado um array.
         if ((!Number.isNaN(numTest) && Number.isFinite(numTest))) {
-            if(!formData[stepIndex]) formData[stepIndex] = {}
-            if (!formData[stepIndex][firstKey]) formData[stepIndex][firstKey] = fieldFoundedProject?.length ? fieldFoundedProject[1] : []
+            if (!formData[stepIndex]) formData[stepIndex] = {}
+            if (!formData[stepIndex][firstKey]) formData[stepIndex][firstKey] = fieldFoundedData?.length ? fieldFoundedData[1] : []
             if (thirdKey) {
                 if (!formData[stepIndex][firstKey][secondKey]) formData[stepIndex][firstKey][secondKey] = {}
                 formData[stepIndex][firstKey][secondKey][thirdKey] = null
@@ -144,7 +112,7 @@ export function createFieldsLocalStorage(stepIndex: number, stepChild: any, form
         // caso não seja, será criado um objeto.
         else {
             if (!formData[stepIndex][firstKey]) formData[stepIndex][firstKey] = {}
-            formData[stepIndex][firstKey][secondKey] = fieldFoundedProject?.length ? fieldFoundedProject[1] : null
+            formData[stepIndex][firstKey][secondKey] = fieldFoundedData?.length ? fieldFoundedData[1] : null
         }
 
         // Return para não executar o proximo comando.
@@ -152,6 +120,6 @@ export function createFieldsLocalStorage(stepIndex: number, stepChild: any, form
     }
 
     // Cria propriedades com valor nulo baseado nos campos filhos do container step
-    formData[stepIndex][fieldName] = fieldFoundedProject?.length ? fieldFoundedProject[1] : null
+    formData[stepIndex][fieldName] = fieldFoundedData?.length ? fieldFoundedData[1] : null
 
 }

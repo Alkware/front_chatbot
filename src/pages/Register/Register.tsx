@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod";
 import { registerClient } from "../../api/client";
+import { useEffect } from "react";
 
 const createClientFormSchema = z.object({
     email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
@@ -28,30 +29,36 @@ function Register() {
         resolver: zodResolver(createClientFormSchema)
     });
 
+    useEffect(() => {
+        // define o thema da página de register
+        const isDark = localStorage.theme === "dark"
+        document.documentElement.classList.toggle("dark", !!isDark)
+    }, [])
+
     async function createUser(data: any) {
-        
+
         const clientCreated = await registerClient(data);
 
-        if(clientCreated && clientCreated.status === 201){
+        if (clientCreated && clientCreated.status === 201) {
             const token = clientCreated.data
 
             localStorage.setItem("token", token)
 
             navigate("/panel")
-        }else alert("E-mail inserido já existe")
-        
+        } else alert("E-mail inserido já existe")
+
 
     }
 
     return (
-        <div className="w-screen h-screen flex justify-center items-center bg-dark-primary">
+        <div className="w-screen h-screen flex justify-center items-center dark:bg-dark bg-light">
             <div className="w-full max-w-[480px] rounded-xl flex bg-gradient-to-tr from-blue-500 to-dark-color_main">
                 <div className="w-full h-full flex gap-4 flex-col items-center relative p-4">
                     <h1 className="text-2xl">Registre em nossa plataforma</h1>
 
                     <form
                         onSubmit={handleSubmit(createUser)}
-                        className="flex flex-col gap-2 justify-center items-center"
+                        className="flex flex-col gap-2 justify-center items-center text-light"
                     >
 
                         <input

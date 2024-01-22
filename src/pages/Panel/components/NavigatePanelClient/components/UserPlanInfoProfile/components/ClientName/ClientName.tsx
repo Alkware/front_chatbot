@@ -13,9 +13,10 @@ export function ClientName() {
 
     const handleEditClientName = ({ currentTarget }: any) => {
         currentTarget.dataset.overlay = false
+        currentTarget.style.display = false;
         const input = contentRef.current?.querySelector("input")
         const div = contentRef.current
-        const iconSave: any = contentRef.current?.querySelector("div[data-save]")
+        const iconSave: any = contentRef.current?.querySelector("div[data-save]");
         if (input && div && iconSave) {
             div.classList.add("border")
             input.classList.remove("disabled")
@@ -30,7 +31,10 @@ export function ClientName() {
         const overlay: any = contentRef.current?.querySelector("div[data-overlay]")
 
         if (client) {
-            if (input?.value.includes(" ")) {
+            const fullname = input?.value.split(" ");
+            const [firstName, secondName] = fullname ? fullname : []
+
+            if (firstName && secondName) {
                 await updateClient({ client_id: client?.id, fullname: input?.value })
 
                 if (input && div && iconSave) {
@@ -42,8 +46,13 @@ export function ClientName() {
                 }
             } else {
                 setModalContent({
-                    isOpenModal: true,
-                    components: <PopOver message="Digite seu nome e sobrenome" type="WARNING" />
+                    componentName: "modal_error_name",
+                    components:
+                        <PopOver
+                            message="Digite seu nome e sobrenome"
+                            type="WARNING"
+                            componentName="modal_error_name"
+                        />
                 })
             }
         }
@@ -55,12 +64,11 @@ export function ClientName() {
                 ref={contentRef}
             >
                 <div
-                    data-overlay={true}
                     className="w-full h-full absolute data-[overlay=false]:hidden"
                     onDoubleClick={handleEditClientName}
-                >
-
-                </div>
+                    data-testid="test-display"
+                    data-overlay={true}
+                ></div>
 
                 <input
                     type="text"
@@ -68,12 +76,18 @@ export function ClientName() {
                     onKeyDown={(e) => e.code === "Enter" && handleSaveClientName()}
                     defaultValue={client?.fullname}
                 />
+
                 <div
                     data-save={false}
                     onClick={handleSaveClientName}
                     className="bg-light rounded-full justify-center items-center hidden data-[save=true]:flex"
                 >
-                    <IoIosSave className="fill-green-500 text-2xl cursor-pointer" />
+                    
+                    <IoIosSave
+                        className="fill-green-500 text-2xl cursor-pointer"
+                        data-testid="button-save"
+                    />
+
                 </div>
             </div>
         </TipContainer>

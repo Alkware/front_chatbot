@@ -10,7 +10,7 @@ export function Payments() {
 
 
     return (
-        <Container title="Pagamentos" className="flex-col gap-8">
+        <Container title="Assinatura" className="flex-col gap-8">
             <div className="w-full p-4 flex gap-6 justify-center">
                 <CardPlan client={client} />
 

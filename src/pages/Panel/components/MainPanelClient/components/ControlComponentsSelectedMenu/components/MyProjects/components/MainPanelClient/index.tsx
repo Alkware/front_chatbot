@@ -1,5 +1,5 @@
 import { useState } from "react";
-import UserPlanInfoProfile from "../../../../../../../NavigatePanelClient/components/UserPlanInfoProfile";
+import UserPlanInfoProfile from "../../../../../../../NavigatePanelClient/components/UserPlanInfoProfile/UserPlanInfoProfile";
 import MenuNavigate from "../../../../../../../NavigatePanelClient/components/MenuNavigate/MenuNavigate";
 import { ControlComponentsSelectedMenu } from "../../../../ControlComponentsSelectedMenu";
 

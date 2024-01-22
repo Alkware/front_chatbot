@@ -1,5 +1,4 @@
 import { ReactElement, createContext, useState } from "react";
-import { PopOver } from "../components/modal/templates/PopOver";
 
 type ComponentName = `modal_${string}`
 

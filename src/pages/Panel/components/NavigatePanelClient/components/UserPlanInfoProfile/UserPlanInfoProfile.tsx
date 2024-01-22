@@ -5,7 +5,7 @@ import { FaGear, FaRightToBracket } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { TipContainer } from "../../../../../../components/TipContainer/TipContainer";
 import { UserLogo } from "./components/UserLogo";
-import { ClientName } from "./components/ClientName";
+import { ClientName } from "./components/ClientName/ClientName";
 
 interface UserPlanTypes {
     menuIsOpen: boolean
@@ -53,7 +53,10 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                 >
                     <ClientName />
 
-                    <h3 className="flex gap-1 justify-center items-center text-primary-200 dark:text-light font-bold">
+                    <h3 
+                        data-ismessages={messagesEventManager(client.plan_management).maxMessages}
+                        className="flex gap-1 justify-center items-center text-primary-200 dark:text-light font-bold data-[ismessages='0']:hidden"
+                    >
                         {
                             messagesEventManager(client.plan_management).reminingMessages
                             +

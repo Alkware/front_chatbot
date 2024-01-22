@@ -1,5 +1,5 @@
 import { useState } from "react";
-import UserPlanInfoProfile from "./components/UserPlanInfoProfile";
+import UserPlanInfoProfile from "./components/UserPlanInfoProfile/UserPlanInfoProfile";
 
 
 import MenuNavigate from "./components/MenuNavigate/MenuNavigate";

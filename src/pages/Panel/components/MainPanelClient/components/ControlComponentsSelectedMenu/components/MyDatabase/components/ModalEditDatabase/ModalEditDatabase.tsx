@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { updateDatabase } from "../../../../../../../../../../api/Prompt";
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
@@ -6,8 +6,10 @@ import { Form } from "../../../../../../../../../../components/Forms/Form";
 import { FaWizardsOfTheCoast } from "react-icons/fa";
 import { FaClipboardQuestion } from "react-icons/fa6";
 import { Prompt } from "../../../../../../../../../../@types/prompt.types";
-import { Project } from "../../../../../../../../../../@types/Project";
 import { DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../../../../../variables/variables";
+import { ListMenuModalChat } from "../../../MyProjects/components/EditProject/components/ListMenuModalChat/ListMenuModalChat";
+import { ButtonsModal } from "../../../MyProjects/components/EditProject/components/ListMenuModalChat/components/ButtonModal/ButtonsModal";
+import { daleteDatabase } from "../../../../../../../../../../api/Prompt";
 
 const listName = [
     {
@@ -24,13 +26,12 @@ const listName = [
 
 interface ModalEditDatabase {
     prompt: Prompt,
-    project: Project
+    setPrompts: Dispatch<SetStateAction<Prompt[]>>,
 }
 
 
-export function ModalEditDatabase({ prompt, project }: ModalEditDatabase) {
-    const { setModalContent } = useContext(ModalContext);
-
+export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
+    const { setModalContent, clearModal } = useContext(ModalContext);
 
 
     const handleUpdateDatabase = async () => {
@@ -45,24 +46,71 @@ export function ModalEditDatabase({ prompt, project }: ModalEditDatabase) {
                         <PopOver
                             message="Database atualizado com sucesso"
                             componentName="modal_updated_database"
+                            functionAfterComplete={() => clearModal(null, { clearAll: true })}
                         />
                 })
             }
         }
     }
 
+    async function handleDeleteDatabase() {
+        if (prompt.id) {
+            // aqui pode ser tanto deleteProject quanto deleteDatabase. Esse é o problema!
+            const deleted = await daleteDatabase(prompt.id);
+
+            if (deleted?.status === 200) {
+                localStorage.removeItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE)
+                setPrompts((data: any) => data.filter((d: any) => d.id !== deleted.data.id))
+
+                setModalContent({
+                    componentName: "modal_delete_success",
+                    components:
+                        <PopOver
+                            message="Fonte de dados excluido com sucesso!"
+                            componentName="modal_delete_success"
+                            functionAfterComplete={() => clearModal(null, { clearAll: true })}
+                        />
+                })
+            } else if(deleted?.status === 500){
+                setModalContent({
+                    componentName: "modal_failed_delete_database",
+                    components:
+                        <PopOver
+                            message="Você não pode excluir uma fonte de dados que possui um chat vinculado a ela, tente excluir todos os chats primeiro, antes de excluir essa fonte de dados."
+                            type="ERROR"
+                            componentName="modal_failed_delete_database"
+                        />
+                })
+            }
+        }
+    }
+
+
     return (
         <div className="w-[70vw] h-[60vh] flex overflow-auto ">
+
+            <div className="w-auto h-full max-w-[300px] min-w-[250px] flex flex-col justify-between items-center px-2 border-r border-primary-100">
+
+                <ListMenuModalChat
+                    listName={listName}
+                />
+
+                <ButtonsModal
+                    eventSubmit={handleUpdateDatabase}
+                    eventDelete={handleDeleteDatabase}
+                    formName={DATABASE_NAME_TO_SAVE_LOCALSTORAGE}
+                />
+            </div>
+
             <Form.Container
-                eventSubmit={handleUpdateDatabase}
                 formName={DATABASE_NAME_TO_SAVE_LOCALSTORAGE}
-                listName={listName}
-                project={project}
+                data={prompt}
             >
                 <Form.Step index={0}>
                     <Form.Input
                         fieldName="prompt_name"
                         title="Digite o nome dessa base de dados"
+                        defaultValue={prompt.prompt_name}
                     />
 
 
@@ -70,6 +118,7 @@ export function ModalEditDatabase({ prompt, project }: ModalEditDatabase) {
                         fieldName="prompt"
                         height={300}
                         title="Escreva seu prompt aqui..."
+                        defaultValue={prompt.prompt}
                     />
                 </Form.Step>
 
@@ -78,6 +127,7 @@ export function ModalEditDatabase({ prompt, project }: ModalEditDatabase) {
                         fieldName="describe_client"
                         height={150}
                         title="Escreva a persona do seu publico aqui..."
+                        defaultValue={prompt.describe_client}
                     />
                 </Form.Step>
 

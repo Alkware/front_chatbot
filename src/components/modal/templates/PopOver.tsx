@@ -42,6 +42,7 @@ export function PopOver({ message, type = "INFORMATION", functionAfterComplete, 
         <div
             className="w-screen h-screen text-light flex justify-end items-start mt-12 animate-jump-screen"
             ref={contentRef}
+            data-testid="modal-pop-over"
         >
             <div
                 className={`max-w-[400px] ${background} rounded-lg shadow-sm shadow-white/20`}
