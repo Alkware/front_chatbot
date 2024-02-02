@@ -48,8 +48,9 @@ export interface ProjectCreateTypes {
     pixel_facebook?: string,
     is_online?: boolean,
     call_to_action: Array<{
-        button_text: string,
-        link: string
+        button_text: string;
+        button_link: string;
+        cta_describe: string;
     }>,
 }
 

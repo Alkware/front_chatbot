@@ -3,19 +3,23 @@ import { useSearchParams } from "react-router-dom";
 import { registerDataLocalStorage } from "../../../../functions/registerDataLocalStorage";
 
 interface FormInput {
-    fieldName: string
-    title: string,
-    formName?: string
-    defaultValue?: string
+    fieldName: string;
+    title: string;
+    formName?: string;
+    defaultValue?: string;
+    type?: "email" | "tel" | "text" | "number" | "time"; 
 }
 
-export function FormInput({ fieldName, title, formName, defaultValue }: FormInput) {
+export function FormInput({ fieldName, title, formName, defaultValue,  type = "text"}: FormInput) {
     const [searchParams, setSearchParams] = useSearchParams();
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
+    const sizeLetter = 10;
+    const averageInputSize = 500
+    const inputWidth = (containerRef.current?.querySelector("input")?.clientWidth || averageInputSize) / sizeLetter;
 
     useEffect(() => {
         //cria um valor padrão para o input dentro do localstorage
-        if(defaultValue){
+        if (defaultValue) {
             registerDataLocalStorage({ dataset: { field_name: fieldName }, value: defaultValue }, formName)
         }
 
@@ -69,21 +73,21 @@ export function FormInput({ fieldName, title, formName, defaultValue }: FormInpu
         }
     }
 
-
     return (
         <div
-            className="w-full flex flex-col gap-2 my-8 relative"
+            className="w-full flex flex-col gap-2 my-4 relative"
             ref={containerRef}
             onClick={handleClickedInput}
             onBlur={handleExitInput}
         >
             <label
                 htmlFor={fieldName}
-                className="px-2 py-2 ml-2 absolute top-0 transition-transform opacity-50 cursor-text rounded-md whitespace-nowrap "
+                data-isbigtitle={title.length >= inputWidth ? true : false}
+                className="data-[isbigtitle=true]:w-full data-[isbigtitle=true]:text-center whitespace-nowrap text-ellipsis overflow-hidden px-2 py-2 absolute top-0 transition-transform opacity-50 cursor-text rounded-md "
             >{title}</label>
 
             <input
-                type="text"
+                type={type}
                 name={fieldName}
                 data-field_name={fieldName}
                 className="border border-primary-100"

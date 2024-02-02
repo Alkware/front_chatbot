@@ -12,6 +12,7 @@ export const STEP_NAME_URL: string = "form-step"
  */
 export const CHAT_NAME_TO_SAVE_LOCALSTORAGE = "chat"
 export const DATABASE_NAME_TO_SAVE_LOCALSTORAGE = "database"
+export const ERROR_NAME_TO_SAVE_LOCALSTORAGE = "forms-error"
 /**
  * Quantidade máxima de container disponiveis para a criação de fontes de dados, esses containers
  * estão localizados em "myDatabase"

@@ -5,8 +5,8 @@ import { useSearchParams } from "react-router-dom"
 import { createFieldsLocalStorage } from "./FormContainer"
 import { Project } from "../../../@types/Project"
 
-interface FormMultipleInput {
-    children: ReactElement[],
+interface FormOptionalInput {
+    children: ReactElement[] | ReactElement,
     optional?: {
         optional: boolean,
         active: boolean,
@@ -18,18 +18,19 @@ interface FormMultipleInput {
     project?: Project
 }
 
-export function FormMultipleInput({ children, optional, fieldName, formName, index, project }: FormMultipleInput) {
+export function FormOptionalInput({ children, optional, fieldName, formName, index, project }: FormOptionalInput) {
     const [display, setDisplay] = useState(optional?.active);
     const childrenToArray = React.Children.toArray(children)
     const [params, setParams] = useSearchParams();
 
-    useEffect(()=>{
-        if(optional?.active){
+    useEffect(() => {
+        if (optional?.active) {
             if (!formName) throw new Error("FormName is missing")
             const formData = JSON.parse(localStorage.getItem(formName) || "{}")
 
-            children.forEach((child: any) => {
-                if (!index) throw new Error("Index is missing!")
+            childrenToArray.forEach((child: any) => {
+                if (index === null || index === undefined) throw new Error("Index is missing!");
+
                 createFieldsLocalStorage(index, child, formData, project)
             })
 
@@ -42,7 +43,7 @@ export function FormMultipleInput({ children, optional, fieldName, formName, ind
         // busca o formulario no localStorage
         const formData = JSON.parse(localStorage.getItem(formName) || "{}")
         // busca a atual step do formulario
-        const currentStep = params.get(STEP_NAME_URL);
+        const currentStep = params.get(STEP_NAME_URL) || "0";
         if (!currentStep) throw new Error("The current step not founded.")
         //aumenta uma ação no formulario, forçando a atualização do simulador do chat
         const actions = params.get("actions");
@@ -57,8 +58,8 @@ export function FormMultipleInput({ children, optional, fieldName, formName, ind
                 delete formData[currentStep][fieldName]
                 setDisplay(false)
             } else {
-                children.forEach((child: any) => {
-                    if (!index) throw new Error("Index is missing!")
+                childrenToArray.forEach((child: any) => {
+                    if (index === null || index === undefined) throw new Error("Index is missing!")
                     createFieldsLocalStorage(index, child, formData, project)
                 })
                 setDisplay(true)
@@ -70,7 +71,7 @@ export function FormMultipleInput({ children, optional, fieldName, formName, ind
     }
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col">
 
             <h2
                 data-isoptional={optional?.optional}

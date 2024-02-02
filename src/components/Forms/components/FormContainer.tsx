@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { FormStep } from "./FormStep";
 import { Steps } from "./FormInputs/components/Steps/Steps";
 import { SimulatorChat } from "../../SimulatorChat/SimulatorChat";
@@ -15,6 +15,7 @@ export function FormContainer({ children, activeSimulator, data, formName }: Con
     // Transform os children em array e filtra apenas os children que contém index, ou seja, esse child é um container step.
     const childrenToArray = React.Children.toArray(children)
     const filterStepChildren  = childrenToArray.filter((child: any) => child.props.index >= 0)
+    const [access, setAccess] =  useState<boolean>()
 
     var formData: any = {};
 
@@ -27,29 +28,34 @@ export function FormContainer({ children, activeSimulator, data, formName }: Con
             // Verifica se existe um index dentro do formData, caso não houver, será criado um array vazio.
             if (!formData[child.props.index]){
                 formData[child.props.index] = {};
-                
+
                 // Looping que fará a criação dos campos no localStorage
                 React.Children.toArray(child.props.children).forEach((stepChild: any) => {
-                    //
-                    // Condição que verifica se algum filho do container step é opcional,
-                    // caso seja opcional, ele não é criado na proxíma linha de código e 
-                    // sim posteriormente, caso o usuário decida preencher o campo.
-                    //
-                    if (!stepChild.props?.optional || stepChild.props.optional.active === false) {
-                        createFieldsLocalStorage(child.props.index, stepChild, formData, data)
+                    if(stepChild.props.fieldName){
+                        //
+                        // Condição que verifica se algum filho do container step é opcional,
+                        // caso seja opcional, ele não é criado na proxíma linha de código e 
+                        // sim posteriormente, caso o usuário decida preencher o campo.
+                        //
+                        if (!stepChild.props?.optional || stepChild.props.optional.active === false) {
+                            createFieldsLocalStorage(child.props.index, stepChild, formData, data)
+                        }
                     }
                 });
             }
-
         })
-
+        
         localStorage.setItem(formName, JSON.stringify(formData))
-    }, [])
+        // libera o acesso para exibir os inputs
+        setAccess(true)
+    }, []);
+
 
     return (
+        access &&
         <div
             data-is-modal-edit={!!data}
-            className="w-full flex data-[is-modal-edit='true']:flex-row flex-col items-center gap-8 p-4"
+            className="w-full flex data-[is-modal-edit='true']:flex-row flex-col items-center gap-4 p-4"
         >
             {
                 !data &&
@@ -60,7 +66,7 @@ export function FormContainer({ children, activeSimulator, data, formName }: Con
 
             <div className="w-full flex justify-evenly gap-8">
                 <div
-                    className="flex flex-col gap-12 w-3/4 max-w-[700px]"
+                    className="w-full flex flex-col gap-12 max-w-[900px]"
                 >
                     {
                         childrenToArray.map((child: any, index: number) =>
@@ -69,7 +75,6 @@ export function FormContainer({ children, activeSimulator, data, formName }: Con
                     }
                 </div>
 
-                <SimulatorChat active={activeSimulator} />
             </div>
         </div>
     )
@@ -119,7 +124,11 @@ export function createFieldsLocalStorage(stepIndex: number, stepChild: any, form
         return
     }
 
-    // Cria propriedades com valor nulo baseado nos campos filhos do container step
-    formData[stepIndex][fieldName] = fieldFoundedData?.length ? fieldFoundedData[1] : null
+    try {
+        // Cria propriedades com valor nulo baseado nos campos filhos do container step
+        formData[stepIndex][fieldName] = fieldFoundedData?.length ? fieldFoundedData[1] : null
+    } catch (error) {
+        console.error("This error may have occurred if the input has a parent element with an existing fieldName. solution: 'parent_field_name.input_fieldname' or", error)
+    }
 
 }
