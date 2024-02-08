@@ -1,4 +1,4 @@
-import { Root } from "../../../../../../components/Form-zod/FormRoot";
+import { Root } from "../../../../../../components/Form/FormRoot";
 
 export function StepPersonalityIA() {
     return (

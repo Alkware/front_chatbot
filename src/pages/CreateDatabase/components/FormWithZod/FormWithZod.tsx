@@ -1,11 +1,11 @@
-import { Root } from "../../../../components/Form-zod/FormRoot";
+import { Root } from "../../../../components/Form/FormRoot";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { createNewDatabase } from "../../../../api/Prompt";
 import { ModalContext } from "../../../../context/ModalContext";
 import { PopOver } from "../../../../components/modal/templates/PopOver";
-import { CreateDatabaseSchema, createDatabaseSchema } from "../../../../schema/zod/createDatabaseSchema";
+import { DatabaseSchema, databaseSchema } from "../../../../schema/zod/databaseSchema";
 import { StepBasicInformation } from "./components/StepBasicInformation/StepBasicInformation";
 import { StepAdvancedInformation } from "./components/StepAdvancedInformation/StepAdvancedInformation";
 import { StepDeliveryProduct } from "./components/StepDeliveryProduct/StepDeliveryProduct";
@@ -22,10 +22,10 @@ import { StepCommonQuestions } from "./components/StepCommonQuestions/StepCommon
 export function FormWithZod({ plan_management_id }: { plan_management_id: string }) {
     const { setModalContent } = useContext(ModalContext);
     const navigate = useNavigate();
-    const createDatabaseForm = useForm<CreateDatabaseSchema>({ resolver: zodResolver(createDatabaseSchema) });
+    const createDatabaseForm = useForm<DatabaseSchema>({ resolver: zodResolver(databaseSchema) });
     const { handleSubmit } = createDatabaseForm
 
-    const handleCreateDatabase = async (data: CreateDatabaseSchema) => {
+    const handleCreateDatabase = async (data: DatabaseSchema) => {
         const prompt = encapsulatedSchema(data);
         const client_describe = data.step_7.client_describe;
 

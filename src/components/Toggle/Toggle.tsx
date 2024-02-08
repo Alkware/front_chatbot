@@ -9,9 +9,9 @@ interface ToggleComponent {
 export function ToggleComponent({ isActive = false, cb, template }: ToggleComponent) {
     const [active, setActive] = useState(isActive);
     const text = template === "yesNo" ? (
-        { positive: "Sim", negative: "Não" }
+        { positive: "sim", negative: "não" }
     ) : template === "onOff" ? (
-        { positive: "On", negative: "Off" }
+        { positive: "on", negative: "off" }
     ) : (
         { positive: "", negative: "" }
     )

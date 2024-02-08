@@ -3,8 +3,8 @@ import { ReactNode } from "react"
 interface LiTypes {
     text: string,
     index: number,
-    icon: ReactNode,
     onClick: ({ target }: any) => void,
+    icon?: ReactNode,
 }
 
 export function Li({ text, index, icon, onClick }: LiTypes) {

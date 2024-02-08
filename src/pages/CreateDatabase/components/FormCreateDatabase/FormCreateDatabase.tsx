@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { Prompt } from "../../../../@types/prompt.types";
 import { createNewDatabase } from "../../../../api/Prompt";
-import { Form } from "../../../../components/Forms/Form";
-import { ButtonsFormCreate } from "../../../../components/Forms/components/FormInputs/components/ButtonSteps/ButtonSteps";
+import { Form } from "../../../../components/EditForm/EditForm";
+import { ButtonsFormCreate } from "../../../../components/EditForm/components/FormInputs/components/ButtonSteps/ButtonSteps";
 import { DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables";
 import { ModalContext } from "../../../../context/ModalContext";
 import { useNavigate, useSearchParams } from "react-router-dom";

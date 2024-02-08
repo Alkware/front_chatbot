@@ -10,6 +10,7 @@ export async function createNewProject(data: ProjectCreateTypes) {
 
 export async function updateProject(data: Project, project_slug: string) {
     const newSlug = project_slug.split("-")[0] + "-" + data.slug
+    data.slug = newSlug
     
     const project = await axios.put(`${API_URL}/project/${project_slug}/update`, data).catch(err => console.log(err))
 
@@ -29,7 +30,6 @@ export async function deleteProject(project_id: string){
 
     return deleted
 }
-
 
 export async function findAllProjectsByPlanManagementId(planManagementId: string){
     const projects = await axios.get(`${API_URL}/projects/${planManagementId}`).catch(err => console.log(err))

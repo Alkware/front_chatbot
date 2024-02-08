@@ -2,36 +2,22 @@ import { Dispatch, SetStateAction, useContext } from "react";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { updateDatabase } from "../../../../../../../../../../api/Prompt";
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
-import { Form } from "../../../../../../../../../../components/Forms/Form";
-import { FaWizardsOfTheCoast } from "react-icons/fa";
-import { FaClipboardQuestion } from "react-icons/fa6";
 import { Prompt } from "../../../../../../../../../../@types/prompt.types";
 import { DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../../../../../variables/variables";
-import { ListMenuModalChat } from "../../../MyProjects/components/EditProject/components/ListMenuModalChat/ListMenuModalChat";
-import { ButtonsModal } from "../../../MyProjects/components/EditProject/components/ListMenuModalChat/components/ButtonModal/ButtonsModal";
 import { daleteDatabase } from "../../../../../../../../../../api/Prompt";
-
-const listName = [
-    {
-        text: "Prompt",
-        icon: <FaWizardsOfTheCoast />,
-        index: 0
-    },
-    {
-        text: "Client",
-        icon: <FaClipboardQuestion />,
-        index: 1
-    }
-]
+import { Root } from "../../../../../../../../../../components/Form/FormRoot";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
+import { databaseSchema } from "../../../../../../../../../../schema/zod/databaseSchema";
 
 interface ModalEditDatabase {
     prompt: Prompt,
     setPrompts: Dispatch<SetStateAction<Prompt[]>>,
 }
 
-
 export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
     const { setModalContent, clearModal } = useContext(ModalContext);
+    const updateDatabaseForm = useForm({ resolver: zodResolver(databaseSchema) });
 
 
     const handleUpdateDatabase = async () => {
@@ -71,7 +57,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                             functionAfterComplete={() => clearModal(null, { clearAll: true })}
                         />
                 })
-            } else if(deleted?.status === 500){
+            } else if (deleted?.status === 500) {
                 setModalContent({
                     componentName: "modal_failed_delete_database",
                     components:
@@ -88,50 +74,25 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
 
     return (
         <div className="w-[70vw] h-[60vh] flex overflow-auto ">
-
-            <div className="w-auto h-full max-w-[300px] min-w-[250px] flex flex-col justify-between items-center px-2 border-r border-primary-100">
-
-                <ListMenuModalChat
-                    listName={listName}
-                />
-
-                <ButtonsModal
-                    eventSubmit={handleUpdateDatabase}
-                    eventDelete={handleDeleteDatabase}
-                    formName={DATABASE_NAME_TO_SAVE_LOCALSTORAGE}
-                />
-            </div>
-
-            <Form.Container
-                formName={DATABASE_NAME_TO_SAVE_LOCALSTORAGE}
-                data={prompt}
+            <Root.EditForm
+                form={updateDatabaseForm}
+                onDelete={handleDeleteDatabase}
+                onSubmit={handleUpdateDatabase}
             >
-                <Form.Step index={0}>
-                    <Form.Input
-                        fieldName="prompt_name"
-                        title="Digite o nome dessa base de dados"
-                        defaultValue={prompt.prompt_name}
+
+                <Root.EditStep
+                    index={0}
+                    titleStep="Informações básicas"
+                >
+                    <Root.Input 
+                        name="a"
+                        title="as"
                     />
 
+                </Root.EditStep>
 
-                    <Form.TextArea
-                        fieldName="prompt"
-                        height={300}
-                        title="Escreva seu prompt aqui..."
-                        defaultValue={prompt.prompt}
-                    />
-                </Form.Step>
+            </Root.EditForm>
 
-                <Form.Step index={1}>
-                    <Form.TextArea
-                        fieldName="describe_client"
-                        height={150}
-                        title="Escreva a persona do seu publico aqui..."
-                        defaultValue={prompt.describe_client}
-                    />
-                </Form.Step>
-
-            </Form.Container>
         </div>
     )
 };

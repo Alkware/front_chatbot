@@ -1,4 +1,4 @@
-import { CreateDatabaseSchema } from "../zod/createDatabaseSchema";
+import { CreateDatabaseSchema } from "../zod/databaseSchema";
 
 export function encapsulatedSchema(data: CreateDatabaseSchema) {
    return `

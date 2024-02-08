@@ -7,24 +7,29 @@ import { Prompt } from "../../@types/prompt.types";
 import { PopOver } from "../../components/modal/templates/PopOver";
 import { ModalContext } from "../../context/ModalContext";
 import { createNewProject } from "../../api/project";
-import { Root } from "../../components/Form-zod/FormRoot";
-import { useForm } from "react-hook-form";
-import { CreateChatSchema, createChatSchema } from "../../schema/zod/createChatSchema";
+import { Root } from "../../components/Form/FormRoot";
+import { useFieldArray, useForm } from "react-hook-form";
+import { chatSchema, ChatSchema } from "../../schema/zod/chatSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { uploadImage } from "../../api/uploadImages";
+import { Button } from "../../components/button/Button";
+import { MdDelete } from "react-icons/md";
 
 export function CreateChat() {
     const [prompt, setPrompt] = useState<Prompt[]>([])
     const { plan_management_id } = useParams();
     const { setModalContent } = useContext(ModalContext)
     const navigate = useNavigate();
-    const createChatForm = useForm<CreateChatSchema>({ resolver: zodResolver(createChatSchema) });
-    const { handleSubmit, formState } = createChatForm
+    const createChatForm = useForm<ChatSchema>({ resolver: zodResolver(chatSchema) });
 
-    useEffect(()=>{console.log(formState.errors)},[formState.errors])
+    const { append, remove, fields } = useFieldArray({
+        control: createChatForm.control,
+        name: "step_1.call_to_action"
+    })
 
     useEffect(() => {
         (async () => {
+            // Adiciona um campo ao CTA
+            append({ button_text: "", button_link: "", button_describe: "" })
             // define o thema da página de login
             const isDark = localStorage.theme === "dark"
             document.documentElement.classList.toggle("dark", !!isDark)
@@ -36,15 +41,15 @@ export function CreateChat() {
     }, [])
 
 
-    const handleCreateProject = async (data: CreateChatSchema) => {
-        const dataImage = await uploadImage(data.step_0.logo)
+    const handleCreateProject = async (data: ChatSchema) => {
         try {
             if (!plan_management_id) throw new Error("plan management id is missing!")
 
 
             const {
                 step_0: {
-                    project_name
+                    project_name,
+                    logo
                 },
                 step_1: {
                     chat_input_message,
@@ -56,11 +61,11 @@ export function CreateChat() {
 
             const project = await createNewProject({
                 project_name,
-                logo: dataImage?.data.url,
+                logo,
                 prompt_id,
                 plan_management_id,
                 call_to_action: call_to_action || [],
-                chat_input_message: [chat_input_message],
+                chat_input_message: chat_input_message,
             });
 
             if (project?.status === 201) {
@@ -88,8 +93,9 @@ export function CreateChat() {
                 <BackHome />
 
                 <Root.Form
-                    onSubmit={handleSubmit(handleCreateProject)}
+                    onSubmit={handleCreateProject}
                     form={createChatForm}
+                    activeSimulator={true}
                 >
 
                     <Root.Step index={0}>
@@ -110,23 +116,57 @@ export function CreateChat() {
                         />
 
                         <Root.TextArea
-                            name="step_1.chat_input_message"
+                            name="step_1.chat_input_message.0"
                             title="Digite a primeira mensagem do seu chat"
                             height={100}
                         />
 
                         <Root.Optional
-                            name="call_to_action"
-                            text="Deseja adicionar alguns links para seu chat?"
+                            name="step_1.call_to_action"
+                            text="Deseja adicionar links ao seu chat?"
+                            functionOffToggle={()=> fields.forEach((_, index) => remove(index))}
                         >
-                            <Root.Input
-                                name="call_to_action.0.button_text"
-                                title="Digite o texto do botão da sua CTA"
-                            />
-                            <Root.Input
-                                name="call_to_action.0.button_link"
-                                title="Digite o texto do botão da sua CTA"
-                            />
+                            <div className="flex flex-col">
+                                <div className="flex justify-start">
+                                    <Button onClick={() => append({ button_link: "", button_text: "", button_describe: "" })}>
+                                        Adicionar link
+                                    </Button>
+                                </div>
+                                {
+                                    fields.map((field, index) =>
+                                        <div
+                                            className="flex gap-2 justify-between items-end"
+                                            key={field.id}
+                                        >
+                                            <div
+                                                className="flex flex-col border-b border-primary-100/50 my-4"
+                                            >
+                                                <Root.Flex flexDirection="row">
+                                                    <Root.Input
+                                                        name={`step_1.call_to_action.${index}.button_text`}
+                                                        title="Digite o texto do link"
+                                                    />
+                                                    <Root.Input
+                                                        name={`step_1.call_to_action.${index}.button_link`}
+                                                        title="Digite a url do link"
+                                                    />
+                                                </Root.Flex>
+                                                <Root.TextArea
+                                                    name={`step_1.call_to_action.${index}.button_describe`}
+                                                    title="Digite uma descrição para esse botão"
+                                                    help="Deixe uma descrição clara e objetiva, pois isso ajudará a IA entender o contexto da conversa e enviar o link no momento correto."
+                                                />
+                                            </div>
+
+                                            <MdDelete
+                                                className="text-3xl fill-red-500 bg-red-950/70 cursor-pointer rounded-xl p-1 mb-6"
+                                                onClick={()=> remove(index)}
+                                            />
+                                        </div>
+                                    )
+                                }
+                            </div>
+
                         </Root.Optional>
                     </Root.Step>
 

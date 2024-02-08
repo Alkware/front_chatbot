@@ -14,7 +14,7 @@ export function PopOver({ message, type = "INFORMATION", functionAfterComplete, 
     const contentRef: RefObject<HTMLDivElement> = useRef(null);
     const background = type === "INFORMATION" ? "bg-primary-100" : type === "WARNING" ? "bg-orange-500/70" : "bg-red-800/70";
     const icon = type === "INFORMATION" ? <MdInfo className="text-3xl" /> : type === "WARNING" ? <MdWarning  className="text-3xl"/> : <MdOutlet className="text-3xl" />
-    const TIME_PROGRESSING = (message.length / 2) + 10
+    const TIME_PROGRESSING = ((message?.length) / 2) + 10
 
     useEffect(() => {
         const progress: HTMLDivElement | null | undefined = contentRef.current?.querySelector("div#progress")
