@@ -8,15 +8,19 @@ import { Container } from "../../../../../../../../components/Container/Containe
 import { FaDatabase, FaLock } from "react-icons/fa"
 import { MAX_CONTAINER_TO_CREATE_DATABASE } from "../../../../../../../../variables/variables"
 import { Prompt } from "../../../../../../../../@types/prompt.types"
+import { MdEdit } from "react-icons/md"
+import { Button } from "../../../../../../../../components/button/Button"
+import { PopOver } from "../../../../../../../../components/modal/templates/PopOver"
+import { updateDatabaseName } from "../../../../../../../../api/Prompt"
 
 export function MyDatabases() {
     const { client } = useContext(ClientContext)
-    const { setModalContent } = useContext(ModalContext)
+    const { setModalContent, clearModal } = useContext(ModalContext)
     const limitPromps = Array(MAX_CONTAINER_TO_CREATE_DATABASE).fill(0)
     const [prompts, setPrompts] = useState<Prompt[]>(client?.plan_management?.prompt || [])
 
 
-    const handleEditDatabase = (index: number) => {
+    const handleEditDatabase = ( index: number) => {
         if (!!prompts?.length) {
             setModalContent({
                 componentName: "modal_create_database",
@@ -30,6 +34,51 @@ export function MyDatabases() {
             })
 
         }
+    }
+
+    const handleEditNameDatabase = (index: number) => {
+
+        async function saveNewNameDatabase(e: any) {
+            e.preventDefault();
+            const name = e.target.querySelector("input").value;
+            const prompt_id = prompts[index].id 
+            if(name){
+                const updated = await updateDatabaseName(name, prompt_id );
+                if(updated?.status === 200){
+                    setPrompts([...prompts, prompts[index].prompt_name = name])
+                    setModalContent({
+                        componentName: "modal_saved",
+                        components:
+                            <PopOver
+                                message="Nome da sua base de dados foi atualizado com sucesso!"
+                                componentName="modal_saved"
+                                functionAfterComplete={() => clearModal(null, { clearAll: true })}
+                            />
+                    })
+                }
+            }
+        }
+
+
+        setModalContent({
+            componentName: "modal_edit_name",
+            components:
+                <PopUp >
+                    <div className="flex flex-col justify-center items-center gap-4">
+                        <h2>Digite o novo nome da sua fonte de dados:</h2>
+                        <form 
+                            onSubmit={saveNewNameDatabase}
+                            className="flex flex-col justify-center items-center gap-4"
+                        >
+                            <input
+                                placeholder="Ex: Minha nova base de dados"
+                                name="database_name"
+                            />
+                            <Button>Salvar</Button>
+                        </form>
+                    </div>
+                </PopUp>
+        })
     }
 
     return (
@@ -48,10 +97,20 @@ export function MyDatabases() {
                                 >
                                     {
                                         prompts[index]?.prompt_name ?
-                                            <h2
-                                                className="w-[300px] py-4 flex justify-center items-center gap-2"
-                                                onClick={() => handleEditDatabase(index)}
-                                            ><FaDatabase />  {prompts[index]?.prompt_name}</h2>
+                                            <div className="w-[300px] flex gap-2 items-center justify-center">
+                                                <h2
+                                                    className="py-4 flex justify-center items-center gap-2"
+                                                    onClick={() => handleEditDatabase(index)}
+                                                >
+                                                    <FaDatabase />
+                                                    {prompts[index]?.prompt_name}
+                                                </h2>
+
+                                                <MdEdit
+                                                    className="cursor-text "
+                                                    onClick={()=> handleEditNameDatabase(index)}
+                                                />
+                                            </div>
                                             :
                                             <CreateNewDatabases plan_management_id={client.plan_management.id} />
                                     }

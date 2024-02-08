@@ -27,10 +27,11 @@ export function FormWithZod({ plan_management_id }: { plan_management_id: string
 
     const handleCreateDatabase = async (data: DatabaseSchema) => {
         const prompt = encapsulatedSchema(data);
-        const client_describe = data.step_7.client_describe;
+        const describe_client = data.step_7.client_describe;
+        const prompt_query = JSON.stringify(data)
 
         try {
-            const response = await createNewDatabase({ prompt, client_describe, plan_management_id })
+            const response = await createNewDatabase({ prompt, describe_client, prompt_query, plan_management_id })
             if (response?.status === 201) {
                 setModalContent({
                     componentName: "modal_created_database",

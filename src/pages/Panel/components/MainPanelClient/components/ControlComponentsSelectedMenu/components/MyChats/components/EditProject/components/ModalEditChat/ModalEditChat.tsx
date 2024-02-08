@@ -11,7 +11,7 @@ import { ChatSchema, chatSchema } from "../../../../../../../../../../../../sche
 import { getPlanManagementById } from "../../../../../../../../../../../../api/planManagement";
 import { SimulatorSlugUrl } from "../../../../../../../../../../../../components/Simulators/SimulatorSlugUrl/SimulatorSlugUrl";
 import { AxiosResponse } from "axios";
-import { MdAdd, MdDelete } from "react-icons/md";
+import { MdAdd, MdDelete, MdLink } from "react-icons/md";
 import { useSearchParams } from "react-router-dom";
 import { CTA_NAME_URL } from "../../../../../../../../../../../../variables/variables";
 import { Button } from "../../../../../../../../../../../../components/button/Button";
@@ -165,6 +165,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                     <PopOver
                         message="Você pode ter no maximo 3 CTA por chat."
                         componentName="modal_limit_cta"
+                        type="WARNING"
                     />
             })
         } else setModalContent({
@@ -230,17 +231,18 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                                 <MdAdd />  Adicionar link
                             </Button>
                         </div>
-                        <div className="flex gap-4 border-b border-primary-100/50">
+                        <div className="flex justify-center gap-4 border-b border-primary-100/50">
                             {
                                 fields.map((field, index) =>
                                     (index !== currentCTA && !!field.button_text) &&
                                     <div className="flex gap-4 " key={field.id}>
                                         <div className="w-full flex gap-4 py-4">
                                             <div
-                                                className="flex flex-col cursor-pointer bg-primary-100 px-3 rounded-lg"
+                                                className="flex items-center gap-2 cursor-pointer bg-primary-100 px-3 rounded-lg"
                                                 onClick={() => handleClickButtonLink(index)}
                                             >
                                                 {field.button_text}
+                                                <MdLink className="text-xl"/>
                                             </div>
                                         </div>
                                     </div>
@@ -249,38 +251,42 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                             }
                         </div>
 
-                        {
-                            fields.map((field, index) =>
-                                (index === currentCTA) &&
-                                <Root.Flex flexDirection="row">
-                                    <Root.Flex flexDirection="column" key={field.id}>
-                                        <Root.Flex flexDirection="row">
-                                            <Root.Input
-                                                name={`step_1.call_to_action.${index}.button_text`}
-                                                title={`Digite o texto do link`}
-                                            />
-                                            <Root.Input
-                                                name={`step_1.call_to_action.${index}.button_link`}
-                                                title={`Digite a url do link`}
+                        <div className="flex justify-center p-4">
+                            {
+                                fields.map((field, index) =>
+                                    (index === currentCTA) &&
+                                    <Root.Flex flexDirection="row">
+                                        <Root.Flex flexDirection="column" key={field.id}>
+                                            <Root.Flex flexDirection="row">
+                                                <Root.Input
+                                                    name={`step_1.call_to_action.${index}.button_text`}
+                                                    title={`Digite o texto do link`}
+                                                />
+                                                <Root.Input
+                                                    name={`step_1.call_to_action.${index}.button_link`}
+                                                    title={`Digite a url do link`}
+                                                />
+                                            </Root.Flex>
+
+                                            <Root.TextArea
+                                                name={`step_1.call_to_action.${index}.button_describe`}
+                                                title="Digite a descrição do link"
                                             />
                                         </Root.Flex>
-
-                                        <Root.TextArea
-                                            name={`step_1.call_to_action.${index}.button_describe`}
-                                            title="Digite a descrição do link"
+                                        <MdDelete
+                                            className="text-2xl fill-red-500 bg-red-900/50 rounded-full mt-4 cursor-pointer"
+                                            onClick={() => {
+                                                remove(index);
+                                                params.set(CTA_NAME_URL, (index - 1).toString());
+                                                setParams(params)
+                                            }}
                                         />
                                     </Root.Flex>
-                                    <MdDelete
-                                        className="text-2xl fill-red-500 bg-red-900/50 rounded-full mt-4 cursor-pointer"
-                                        onClick={() => {
-                                            remove(index);
-                                            params.set(CTA_NAME_URL, (index - 1).toString());
-                                            setParams(params)
-                                        }}
-                                    />
-                                </Root.Flex>
-                            )
-                        }
+                                )
+                            }
+                        </div>
+
+
 
                     </div>
                 </Root.EditStep>
