@@ -11,6 +11,9 @@ import { DatabaseSchema, databaseSchema } from "../../../../../../../../../../sc
 import { Button } from "../../../../../../../../../../components/button/Button";
 import { MdRemoveCircle } from "react-icons/md";
 import { encapsulatedSchema } from "../../../../../../../../../../schema/PromptIA/encapsulated";
+import { FaCircleInfo, FaFaceGrinBeam } from "react-icons/fa6";
+import { FaBook, FaInfo, FaMoneyCheck, FaQuestionCircle, FaSuitcase, FaTruck } from "react-icons/fa";
+import { StepEditCommonQuestions } from "./components/StepCommonQuestions/StepEditCommonQuestions";
 
 interface ModalEditDatabase {
     prompt: Prompt,
@@ -25,7 +28,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
 
     const updateDatabaseForm = useForm<DatabaseSchema>({
         resolver: zodResolver(databaseSchema),
-        defaultValues: !checkPromptIsAvalible? undefined : {
+        defaultValues: !checkPromptIsAvalible ? undefined : {
             step_0: {
                 who_created: promptData.step_0.who_created || "",
                 andvisa_record: promptData.step_0.andvisa_record || "",
@@ -95,6 +98,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
         if (database) {
             const projectUpdate = await updateDatabase(database, prompt.id);
             if (projectUpdate && projectUpdate.status === 200) {
+                setPrompts(prompts => [...prompts.filter(p => p.id !== projectUpdate.data.id), projectUpdate.data])
                 setModalContent({
                     componentName: "modal_updated_database",
                     components:
@@ -142,7 +146,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
 
 
     return (
-        <div className="w-[70vw] h-[60vh] flex overflow-auto ">
+        <div className="w-[80vw] h-[70vh] flex overflow-auto ">
             <Root.EditForm
                 form={updateDatabaseForm}
                 onDelete={handleDeleteDatabase}
@@ -152,6 +156,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 <Root.EditStep
                     index={0}
                     titleStep="Informações básicas"
+                    icon={<FaCircleInfo />}
                 >
                     <Root.Input
                         title="Quem foi o criador desse produto?"
@@ -184,6 +189,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 <Root.EditStep
                     index={1}
                     titleStep="Informações avançadas"
+                    icon={<FaInfo />}
                 >
                     <Root.TextArea
                         name="step_1.benefits"
@@ -222,6 +228,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 <Root.EditStep
                     index={2}
                     titleStep="Entrega do produto"
+                    icon={<FaTruck />}
                 >
                     <Root.Flex flexDirection="row" title="Qual o prazo médio em dias para entrega:">
                         <Root.Input
@@ -268,6 +275,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 <Root.EditStep
                     index={3}
                     titleStep="Politicas e condições"
+                    icon={<FaBook />}
                 >
                     <Root.Input
                         type="number"
@@ -298,6 +306,8 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 <Root.EditStep
                     index={4}
                     titleStep="Métodos de pagamentos"
+                    icon={<FaMoneyCheck />
+                    }
                 >
                     <Root.Flex flexDirection="row" title="Quais são os métodos de pagamentos aceitos?">
 
@@ -368,6 +378,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 <Root.EditStep
                     index={5}
                     titleStep="Sobre a empresa"
+                    icon={<FaSuitcase />}
                 >
                     <Root.Flex flexDirection="row" >
                         <Root.Input
@@ -440,26 +451,17 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 <Root.EditStep
                     index={6}
                     titleStep="Perguntas frequentes"
+                    icon={<FaQuestionCircle />}
                 >
+                    <StepEditCommonQuestions
 
-                    <div className="w-4/5 flex gap-6 justify-center items-center">
-                        <Root.Input
-                            name={`step_6.questions.${0}.ask`}
-                            title="Digite uma pergunta"
-                        />
-
-                        <Root.Input
-                            name={`step_6.questions.${0}.answer`}
-                            title="Digite a resposta"
-                        />
-                    </div>
-
-
+                    />
                 </Root.EditStep>
 
                 <Root.EditStep
                     index={7}
                     titleStep="Personalidade da IA "
+                    icon={<FaFaceGrinBeam />}
                 >
 
                     <Root.Optional
@@ -489,6 +491,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     />
 
                 </Root.EditStep>
+
 
 
             </Root.EditForm>

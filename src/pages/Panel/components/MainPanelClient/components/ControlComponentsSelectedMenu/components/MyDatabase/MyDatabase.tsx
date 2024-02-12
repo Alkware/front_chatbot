@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import CreateNewDatabases from "./components/CreateNewDatabase/CreateNewDatabase"
+import { ButtonCreateNewDatabase } from "./components/CreateNewDatabase/ButtonCreateNewDatabase"
 import { ClientContext } from "../../../../../../../../context/ClientContext"
 import { ModalContext } from "../../../../../../../../context/ModalContext"
 import { PopUp } from "../../../../../../../../components/modal/templates/PopUp"
@@ -20,7 +20,7 @@ export function MyDatabases() {
     const [prompts, setPrompts] = useState<Prompt[]>(client?.plan_management?.prompt || [])
 
 
-    const handleEditDatabase = ( index: number) => {
+    const handleEditDatabase = (index: number) => {
         if (!!prompts?.length) {
             setModalContent({
                 componentName: "modal_create_database",
@@ -41,10 +41,10 @@ export function MyDatabases() {
         async function saveNewNameDatabase(e: any) {
             e.preventDefault();
             const name = e.target.querySelector("input").value;
-            const prompt_id = prompts[index].id 
-            if(name){
-                const updated = await updateDatabaseName(name, prompt_id );
-                if(updated?.status === 200){
+            const prompt_id = prompts[index].id
+            if (name) {
+                const updated = await updateDatabaseName(name, prompt_id);
+                if (updated?.status === 200) {
                     setPrompts([...prompts, prompts[index].prompt_name = name])
                     setModalContent({
                         componentName: "modal_saved",
@@ -66,13 +66,14 @@ export function MyDatabases() {
                 <PopUp >
                     <div className="flex flex-col justify-center items-center gap-4">
                         <h2>Digite o novo nome da sua fonte de dados:</h2>
-                        <form 
+                        <form
                             onSubmit={saveNewNameDatabase}
                             className="flex flex-col justify-center items-center gap-4"
                         >
                             <input
                                 placeholder="Ex: Minha nova base de dados"
                                 name="database_name"
+                                defaultValue={prompts[index].prompt_name}
                             />
                             <Button>Salvar</Button>
                         </form>
@@ -99,20 +100,22 @@ export function MyDatabases() {
                                         prompts[index]?.prompt_name ?
                                             <div className="w-[300px] flex gap-2 items-center justify-center">
                                                 <h2
-                                                    className="py-4 flex justify-center items-center gap-2"
+                                                    className="w-[200px] text-center py-4 flex justify-center items-center gap-2 "
                                                     onClick={() => handleEditDatabase(index)}
                                                 >
                                                     <FaDatabase />
-                                                    {prompts[index]?.prompt_name}
+                                                    <span className="w-full whitespace-nowrap text-ellipsis overflow-x-hidden">
+                                                        {prompts[index]?.prompt_name}
+                                                    </span>
                                                 </h2>
 
                                                 <MdEdit
                                                     className="cursor-text "
-                                                    onClick={()=> handleEditNameDatabase(index)}
+                                                    onClick={() => handleEditNameDatabase(index)}
                                                 />
                                             </div>
                                             :
-                                            <CreateNewDatabases plan_management_id={client.plan_management.id} />
+                                            <ButtonCreateNewDatabase plan_management_id={client.plan_management.id} />
                                     }
                                 </div>
                             )

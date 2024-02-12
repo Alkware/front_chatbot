@@ -21,6 +21,15 @@ export const chatSchema = z.object({
         facebook_pixel: z.coerce.string().optional(),
     }).optional(),
     step_3: z.object({
+        chat_appearence: z.object({
+            chat_icon: z.number().min(1, "Carregue um icon para seu chat."),
+            icon_text: z.string().min(1, "Informe um texto para o icone do chat."),
+            primary_color: z.string().min(1, "Informe um cor primária para seu chat."),
+            second_color: z.string().min(1, "Informe uma cor secondária para seu chat."),
+            background: z.string().min(1, "Informe uma cor de fundo para seu chat."),
+        }).optional(),
+    }).optional(),
+    step_4: z.object({
         slug: z.coerce.string().optional(),
     }).optional(),
 })

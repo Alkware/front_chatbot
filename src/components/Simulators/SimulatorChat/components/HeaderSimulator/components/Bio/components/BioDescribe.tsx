@@ -12,7 +12,7 @@ export function BioDescribe() {
 
     return (
         <div className="w-full py-8 flex justify-center items-center">
-            <p className="w-4/5 text-center text-dark">{describe}</p>
+            <p className="w-4/5 text-center text-zinc-800">{describe}</p>
         </div>
     )
 };

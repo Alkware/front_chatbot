@@ -1,47 +1,56 @@
-import { RefObject, useRef } from "react"
-import { ContactName } from "./components/ContactName/ContactName";
-import { ProfileAvatar } from "./components/ProfileAvatar/ProfileAvatar";
-import { Bio } from "./components/Bio/Bio";
 import { Messages } from "./components/Messages/Messages";
+import { HeaderSimulator } from "./components/HeaderSimulator/HeaderSimulator";
+import { useFormContext } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { CHAT_ICONS_MODELS } from "../../../variables/variables";
 
 interface SimulatorChat {
     active: boolean | undefined,
 }
 
 export function SimulatorChat({ active }: SimulatorChat) {
-    const refContentBio: RefObject<HTMLDivElement> = useRef(null);
-    
-    const handleDisplayContentBio = () => {
-        const content = refContentBio.current
-        if (content) {
-            const isActive = content.dataset.active;
-            if (isActive === "true") content.dataset.active = "false"
-            else content.dataset.active = "true"
-        }
-    }
+    const { watch } = useFormContext();
+    const [chatIconIndex, setChatIconIndex] = useState();
+    const [iconText, setIconText] = useState();
+    const [primaryColor, setPrimaryColor] = useState();
+
+    useEffect(() => {
+        const iconIndex = watch("step_3.chat_appearence.chat_icon")
+        const primaryColor = watch("step_3.chat_appearence.primary_color")
+        const text = watch("step_3.chat_appearence.icon_text")
+
+        setChatIconIndex(iconIndex)
+        setIconText(text)
+        setPrimaryColor(primaryColor)
+    }, [watch()])
 
     return (
-        active &&
-        <div className="w-1/4 min-w-[300px] max-h-[500px] bg-light rounded-xl overflow-hidden relative">
+        (active) &&
+        <div className="flex flex-col">
+            <div className="w-1/4 min-w-[300px] max-h-[500px] overflow-hidden relative">
 
-            <div
-                className="w-full h-[60px] bg-green-500 flex cursor-pointer"
-                onClick={handleDisplayContentBio}
-            >
+                <HeaderSimulator />
 
-                <ProfileAvatar />
-
-                <ContactName />
-
-                <Bio 
-                    ref={refContentBio}
-                />
-            </div>
-
-            <div className="w-full h-[400px] flex flex-col gap-1 py-4 px-2">
                 <Messages />
             </div>
 
+            <div className="flex justify-end w-full p-4">
+                {
+                    CHAT_ICONS_MODELS.map(model =>
+                        model.id === chatIconIndex
+                        &&
+                        <div className="flex gap-2 justify-center items-end">
+                            <p className="bg-white text-center text-zinc-800 rounded-md px-2">
+                                {iconText}
+                            </p>
+                            <model.Icon
+                                className="text-5xl cursor-pointer"
+                                style={{ fill: primaryColor }}
+                            />
+                        </div>
+                    )
+                }
+            </div>
         </div>
     )
 };

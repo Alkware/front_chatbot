@@ -11,11 +11,9 @@ export function Li({ text, index, icon, onClick }: LiTypes) {
 
     return (
         <li
-            className={
-                `w-full flex gap-2 justify-center items-center text-center cursor-pointer py-3 rounded-2xl hover:bg-primary-200
-                transition-colors`
-            }
             data-index={index}
+            className=" w-full flex gap-2 justify-start items-center text-center cursor-pointer py-3 
+                transition-colors"
             onClick={onClick}
         >
             {icon} {text}

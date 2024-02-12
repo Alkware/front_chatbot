@@ -5,7 +5,7 @@ import { ClientContext } from "../../../../../../../../../../context/ClientConte
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
 
-export function CreateNewDatabases({ plan_management_id }: { plan_management_id: string }) {
+export function ButtonCreateNewDatabase({ plan_management_id }: { plan_management_id: string }) {
     const { client } = useContext(ClientContext)
     const { setModalContent } = useContext(ModalContext)
     const navigate = useNavigate();
@@ -56,5 +56,5 @@ export function CreateNewDatabases({ plan_management_id }: { plan_management_id:
 
 }
 
-export default CreateNewDatabases;
+export default ButtonCreateNewDatabase;
 

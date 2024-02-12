@@ -6,6 +6,7 @@ export interface FormEditStep {
     children: ReactElement | ReactElement[];
     index: number;
     titleStep: string;
+    icon?: ReactElement;
 }
 
 export function FormEditStep({ children, index, titleStep }: FormEditStep) {

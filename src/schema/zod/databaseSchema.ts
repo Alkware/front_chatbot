@@ -39,10 +39,10 @@ export const databaseSchema = z.object({
     }),
     step_5: z.object({
         company_name: z.string().min(1, "Informe o nome da sua empresa!"),
-        CNPJ: z.string().min(18, "CNPJ invalido!").max(18,  "CNPJ invalido!"),
+        CNPJ: z.string().min(18, "CNPJ invalido!").max(18, "CNPJ invalido!"),
         address: z.string().min(1, "Informe o endereço da sua empresa!"),
-        support_hours: z.string().min(1, "Informe qual o horário para atendimento humano!"),
         contact_email: z.string().email("E-mail inválido"),
+        support_hours: z.string().min(1, "Informe qual o horário para atendimento humano!"),
         contact_phone_number: z.string().min(11, "Número de telefone inválido!"),
     }),
     step_6: z.object({

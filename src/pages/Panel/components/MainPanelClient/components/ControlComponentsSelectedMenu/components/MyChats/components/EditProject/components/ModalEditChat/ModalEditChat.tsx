@@ -13,8 +13,9 @@ import { SimulatorSlugUrl } from "../../../../../../../../../../../../components
 import { AxiosResponse } from "axios";
 import { MdAdd, MdDelete, MdLink } from "react-icons/md";
 import { useSearchParams } from "react-router-dom";
-import { CTA_NAME_URL } from "../../../../../../../../../../../../variables/variables";
+import { CHAT_ICONS_MODELS, CTA_NAME_URL, ICON_NAME_URL } from "../../../../../../../../../../../../variables/variables";
 import { Button } from "../../../../../../../../../../../../components/button/Button";
+
 
 interface ModalEditChat {
     project: Project,
@@ -27,6 +28,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
     const { setModalContent, clearModal } = useContext(ModalContext);
     const [params, setParams] = useSearchParams();
     const currentCTA = Number(params.get(CTA_NAME_URL));
+    const currentIcon = Number(params.get(ICON_NAME_URL)) || 0
     const editChatForm = useForm<ChatSchema>({
         resolver: zodResolver(chatSchema),
         defaultValues: {
@@ -44,6 +46,15 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                 facebook_pixel: project.pixel_facebook
             },
             step_3: {
+                chat_appearence: {
+                    chat_icon: project.chat_appearence.chat_icon,
+                    icon_text: project.chat_appearence.icon_text,
+                    primary_color: project.chat_appearence.primary_color,
+                    second_color: project.chat_appearence.second_color,
+                    background: project.chat_appearence.background,
+                }
+            },
+            step_4: {
                 slug: project.slug?.split("-").filter((_, index) => index !== 0).join(""),
             }
         }
@@ -179,6 +190,13 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
 
     }
 
+    const handleSelectIcon = (id: number) => {
+        params.set(ICON_NAME_URL, id.toString())
+        setParams(params)
+        editChatForm.unregister("step_3.chat_appearence.chat_icon");
+        editChatForm.register("step_3.chat_appearence.chat_icon", { value: id })
+    }
+
     return (
         prompt &&
         <div className="w-[90vw] h-[70vh] min-h-[450px] min-w-[700px] flex">
@@ -242,7 +260,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                                                 onClick={() => handleClickButtonLink(index)}
                                             >
                                                 {field.button_text}
-                                                <MdLink className="text-xl"/>
+                                                <MdLink className="text-xl" />
                                             </div>
                                         </div>
                                     </div>
@@ -255,8 +273,8 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                             {
                                 fields.map((field, index) =>
                                     (index === currentCTA) &&
-                                    <Root.Flex flexDirection="row">
-                                        <Root.Flex flexDirection="column" key={field.id}>
+                                    <Root.Flex flexDirection="row" key={field.id}>
+                                        <Root.Flex flexDirection="column">
                                             <Root.Flex flexDirection="row">
                                                 <Root.Input
                                                     name={`step_1.call_to_action.${index}.button_text`}
@@ -303,6 +321,53 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
 
                 <Root.EditStep
                     index={3}
+                    titleStep="Aparência do chat"
+                >
+                    <Root.Flex flexDirection="column" >
+
+                        <div className="flex flex-col justify-center gap-4">
+                            <h2 className="text-center text-xl">Escolha um icone para seu chat</h2>
+                            <div className="flex gap-8 text-5xl">
+                                {
+                                    CHAT_ICONS_MODELS.map(({ Icon, id }, index: number) =>
+                                        <Icon
+                                            key={id}
+                                            data-iscurrent={currentIcon === index}
+                                            className="hover:bg-primary-100 data-[iscurrent=true]:bg-primary-100 cursor-pointer rounded-full p-2"
+                                            onClick={() => handleSelectIcon(id)}
+                                        />
+                                    )
+                                }
+                            </div>
+                        </div>
+
+                        <Root.Input
+                            name="step_3.chat_appearence.icon_text"
+                            title="Digite o texto que será exibido ao lado do icon"
+                        />
+
+
+                        <Root.Flex flexDirection="row">
+                            <Root.Color
+                                name="step_3.chat_appearence.primary_color"
+                                title="Escolha a cor primária do seu chat"
+                            />
+
+                            <Root.Color
+                                name="step_3.chat_appearence.second_color"
+                                title="Escolha a cor secundária do seu chat"
+                            />
+                        </Root.Flex>
+
+                        <Root.Color
+                            name="step_3.chat_appearence.background"
+                            title="Escolha a cor do background do seu chat"
+                        />
+                    </Root.Flex>
+                </Root.EditStep>
+
+                <Root.EditStep
+                    index={4}
                     titleStep="Configuração avançadas"
                 >
                     <Root.Flex flexDirection="column" >

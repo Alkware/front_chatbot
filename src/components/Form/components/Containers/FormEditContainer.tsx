@@ -24,6 +24,7 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
 
     useEffect(() => {
         const errors = form.formState.errors;
+        console.log(errors)
         const message = findMessageError(errors);
         if (!!message) {
             setModalContent({
@@ -59,10 +60,10 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
     return (
         <FormProvider {...form}>
             <form
-                className="w-full flex flex-row  items-center gap-4 p-4"
+                className="w-full flex flex-row  items-center gap-4 p-2"
                 onSubmit={form.handleSubmit(onSubmit)}
             >
-                <div className="w-auto h-full max-w-[300px] min-w-[250px] flex flex-col justify-between items-center px-2 border-r border-primary-100">
+                <div className="w-auto h-full max-w-[300px] min-w-[250px] flex flex-col justify-between items-center border-r border-primary-100">
 
                     <ListMenuModal
                         children={filterStepChildren}

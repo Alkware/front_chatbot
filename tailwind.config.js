@@ -19,7 +19,7 @@ export default {
         light: "#fff"
       },
       textColor:{
-        dark: "#7672F2",
+        dark: "#353535",
         light: "#fff"
       },
       animation:{

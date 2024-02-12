@@ -25,7 +25,7 @@ export function CreateDatabase() {
     return (
         plan_management_id &&
         <div className="w-screen h-screen overflow-x-hidden bg-gradient-to-br from-primary-100 to-light dark:via-primary-300 via-15% dark:to-dark to-30% text-light flex flex-col  justify-center items-center">
-            <div className="w-[90%] flex flex-col gap-2 justify-center items-center">
+            <div className="w-[90%]  flex flex-col gap-2 justify-center items-center">
 
                 <BackHome />
 

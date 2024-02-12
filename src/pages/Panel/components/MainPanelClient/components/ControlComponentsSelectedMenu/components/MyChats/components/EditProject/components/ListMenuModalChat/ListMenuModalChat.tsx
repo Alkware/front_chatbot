@@ -17,17 +17,23 @@ export const ListMenuModal = ({ children }: ListMenuModal) => {
     }
 
     return (
-            <ul className="w-full flex flex-col uppercase">
-                {
-                    children.map((child: any) =>
+        <ul className="w-full flex flex-col uppercase">
+            {
+                children.map((child: any, index: number) =>
+                    <div
+                        key={child.props.index}
+                        data-isactive={index === Number(params.get(STEP_NAME_URL)) ? true : false}
+                        className="data-[isactive=true]:bg-primary-200 hover:bg-primary-200 rounded-2xl overflow-hidden px-2 flex justify-start items-center"
+                    >
                         <Li
-                            key={child.props.index}
                             text={child.props.titleStep}
                             index={child.props.index}
+                            icon={child.props.icon}
                             onClick={handleActiveLi}
                         />
-                    )
-                }
-            </ul>
+                    </div>
+                )
+            }
+        </ul>
     )
 };

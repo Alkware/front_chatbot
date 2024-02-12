@@ -8,16 +8,6 @@ export function ProfileAvatar() {
     useEffect(() => {
         const logo_url = watch("step_0.logo")
         if (logo_url) setLogo(logo_url)
-        // else {
-        //     const dataImg = watch("step_0.logo")
-        //     if (!!dataImg?.length) {
-
-        //         var reader = new FileReader();
-        //         reader.readAsDataURL(dataImg[0])
-        //         reader.onload = (e) => setLogo(e.target?.result)
-        //     }
-        // }
-
     }, [watch()])
 
     return (
