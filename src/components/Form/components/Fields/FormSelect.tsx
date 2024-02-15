@@ -89,7 +89,6 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
                 value: list[0].value,
             })
         } else {
-            console.log(list)
             list.forEach((opt, index) => {
                 register(`${name}.${index}`, {
                     value: opt.value,

@@ -15,6 +15,7 @@ import { MdAdd, MdDelete, MdLink } from "react-icons/md";
 import { useSearchParams } from "react-router-dom";
 import { CHAT_ICONS_MODELS, CTA_NAME_URL, ICON_NAME_URL } from "../../../../../../../../../../../../variables/variables";
 import { Button } from "../../../../../../../../../../../../components/button/Button";
+import { SocialProof } from "./components/SocialProof/SocialProof";
 
 
 interface ModalEditChat {
@@ -35,7 +36,8 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
             step_0: {
                 project_name: project.project_name,
                 logo: project.logo,
-                bio: project.bio
+                bio: project.bio,
+                social_proof: project.social_proof,
             },
             step_1: {
                 prompt_id: project.prompt.id,
@@ -92,6 +94,8 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
         })
 
         if (newData && project.slug) {
+            newData.chat_appearence.can_update = project.chat_appearence.can_update
+            newData.chat_appearence.id = project.chat_appearence.id
             const projectUpdate: AxiosResponse<Project, Project> | void = await updateProject(newData, project.slug)
             if (projectUpdate && projectUpdate.status === 200) {
                 setProjects(projects => {
@@ -206,23 +210,28 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                 onSubmit={handleUpdateProject}
                 activeSimulator={true}
             >
-                <Root.EditStep
-                    index={0}
-                    titleStep="Informações do chat"
-                >
-                    <Root.Input
-                        name="step_0.project_name"
-                        title="Escreva o nome do seu chat"
-                    />
-                    <Root.TextArea
-                        name="step_0.bio"
-                        title="Escreva uma descrição para seu chat"
-                        height={100}
-                    />
-                    <Root.File
-                        name="step_0.logo"
-                    />
-                </Root.EditStep>
+                        <Root.EditStep
+            index={0}
+            titleStep="Informações do chat"
+        >
+            <Root.Container className="flex justify-start items-center gap-6">
+                <Root.File
+                    name="step_0.logo"
+                    sizeContainer="80px"
+                />
+                <Root.Input
+                    name="step_0.project_name"
+                    title="Escreva o nome do seu chat"
+                />
+            </Root.Container>
+            <Root.TextArea
+                name="step_0.bio"
+                title="Escreva uma descrição para seu chat"
+                height={100}
+            />
+
+            <SocialProof />
+        </Root.EditStep>
 
                 <Root.EditStep
                     index={1}
@@ -273,9 +282,9 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                             {
                                 fields.map((field, index) =>
                                     (index === currentCTA) &&
-                                    <Root.Flex flexDirection="row" key={field.id}>
-                                        <Root.Flex flexDirection="column">
-                                            <Root.Flex flexDirection="row">
+                                    <Root.Container className="flex" key={field.id}>
+                                        <Root.Container className="flex flex-col">
+                                            <Root.Container className="flex">
                                                 <Root.Input
                                                     name={`step_1.call_to_action.${index}.button_text`}
                                                     title={`Digite o texto do link`}
@@ -284,13 +293,13 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                                                     name={`step_1.call_to_action.${index}.button_link`}
                                                     title={`Digite a url do link`}
                                                 />
-                                            </Root.Flex>
+                                            </Root.Container>
 
                                             <Root.TextArea
                                                 name={`step_1.call_to_action.${index}.button_describe`}
                                                 title="Digite a descrição do link"
                                             />
-                                        </Root.Flex>
+                                        </Root.Container>
                                         <MdDelete
                                             className="text-2xl fill-red-500 bg-red-900/50 rounded-full mt-4 cursor-pointer"
                                             onClick={() => {
@@ -299,7 +308,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                                                 setParams(params)
                                             }}
                                         />
-                                    </Root.Flex>
+                                    </Root.Container>
                                 )
                             }
                         </div>
@@ -323,7 +332,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                     index={3}
                     titleStep="Aparência do chat"
                 >
-                    <Root.Flex flexDirection="column" >
+                    <Root.Container className="flex flex-col" >
 
                         <div className="flex flex-col justify-center gap-4">
                             <h2 className="text-center text-xl">Escolha um icone para seu chat</h2>
@@ -347,7 +356,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                         />
 
 
-                        <Root.Flex flexDirection="row">
+                        <Root.Container className="flex">
                             <Root.Color
                                 name="step_3.chat_appearence.primary_color"
                                 title="Escolha a cor primária do seu chat"
@@ -357,31 +366,30 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                                 name="step_3.chat_appearence.second_color"
                                 title="Escolha a cor secundária do seu chat"
                             />
-                        </Root.Flex>
+                        </Root.Container>
 
                         <Root.Color
                             name="step_3.chat_appearence.background"
                             title="Escolha a cor do background do seu chat"
                         />
-                    </Root.Flex>
+                    </Root.Container>
                 </Root.EditStep>
 
                 <Root.EditStep
                     index={4}
                     titleStep="Configuração avançadas"
                 >
-                    <Root.Flex flexDirection="column" >
+                    <Root.Container className="flex flex-col" >
                         <Root.Input
                             name="step_3.slug"
                             title="Altere a slug do seu chat"
                         />
 
                         <SimulatorSlugUrl previousSlug={project?.slug || ""} />
-                    </Root.Flex>
+                    </Root.Container>
                 </Root.EditStep>
             </Root.EditForm>
 
         </div>
     )
 };
-

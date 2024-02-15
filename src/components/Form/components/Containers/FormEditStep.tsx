@@ -17,10 +17,10 @@ export function FormEditStep({ children, index, titleStep }: FormEditStep) {
     return (
         <div
             data-display={currentStep === index}
-            className="w-full flex-col gap-6 data-[display='true']:flex hidden"
+            className="w-full flex-col gap-4 data-[display='true']:flex hidden"
         >
             <h2
-                className="w-full text-center text-2xl font-bold"
+                className="w-full text-center text-2xl font-bold mb-4"
             >{titleStep}</h2>
 
             {childrenToArray.map((child: any, i: number) =>

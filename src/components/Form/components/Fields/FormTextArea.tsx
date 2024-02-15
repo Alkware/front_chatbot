@@ -61,7 +61,7 @@ export function FormTextArea({ title, height = 100, help, ...props }: FormTextAr
 
     return (
         <div
-            className="w-full flex flex-col gap-2 my-4 relative"
+            className="w-full flex flex-col gap-2 relative"
             ref={containerRef}
             onClick={handleClickedInput}
             onBlur={handleExitInput}
@@ -69,7 +69,7 @@ export function FormTextArea({ title, height = 100, help, ...props }: FormTextAr
             <label
                 className={`${title ? "block" : "hidden"} py-2 absolute top-0 transition-transform opacity-50 cursor-text flex gap-2 items-center`}
             >
-                <span className="rounded-xl px-2">{title}</span>
+                <span className="w-full rounded-xl px-2">{title}</span>
 
                 <div className=" cursor-help group">
                     <MdHelpOutline

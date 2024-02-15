@@ -14,19 +14,26 @@
 
   -webkit-text-size-adjust: 100%;
 
-  --primary: #7672F2;
+  --primary-100: #7672F2;
   --primary-200: #363473;
   --primary-300: #222140;
   --dark: #0C0C0D;
   --light: #fff;
 }
 
-
-
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+body, html {
+  background-color: #0C0C0D;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
 }
 
 input,
@@ -56,10 +63,10 @@ textarea {
 /* BACKGROUNDS  */
 
 .background-dark {
-  background: linear-gradient(325deg, var(--dark) 83% , var(--primary) 100%);
+  background: linear-gradient(325deg, var(--dark) 83% , var(--primary-100) 100%);
 }
 .background-light {
-  background: linear-gradient(325deg, var(--light) 83% , var(--primary) 100%);
+  background: linear-gradient(325deg, var(--light) 83% , var(--primary-100) 100%);
 }
 
 

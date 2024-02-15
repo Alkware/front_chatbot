@@ -26,8 +26,8 @@ export function SimulatorChat({ active }: SimulatorChat) {
 
     return (
         (active) &&
-        <div className="flex flex-col">
-            <div className="w-1/4 min-w-[300px] max-h-[500px] overflow-hidden relative">
+        <div className="flex flex-col ">
+            <div className="w-1/4 min-w-[300px] max-h-[500px] overflow-hidden relative border border-white/20 rounded-xl">
 
                 <HeaderSimulator />
 
@@ -39,7 +39,7 @@ export function SimulatorChat({ active }: SimulatorChat) {
                     CHAT_ICONS_MODELS.map(model =>
                         model.id === chatIconIndex
                         &&
-                        <div className="flex gap-2 justify-center items-end">
+                        <div className="flex gap-2 justify-center items-end" key={model.id}>
                             <p className="bg-white text-center text-zinc-800 rounded-md px-2">
                                 {iconText}
                             </p>

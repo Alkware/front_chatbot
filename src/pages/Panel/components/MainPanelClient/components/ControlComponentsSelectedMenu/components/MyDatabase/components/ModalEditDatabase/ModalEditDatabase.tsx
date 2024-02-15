@@ -87,7 +87,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
 
     const handleUpdateDatabase = async (data: DatabaseSchema) => {
         const convertToString = JSON.stringify(data);
-        const promptSchema = encapsulatedSchema(data)
+        const promptSchema = encapsulatedSchema(data);
 
         const database: CreatePrompt = {
             prompt: promptSchema,

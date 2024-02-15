@@ -1,9 +1,11 @@
 import { ChangeEvent, InputHTMLAttributes, RefObject, useEffect, useRef } from "react";
 import { useFormContext } from "react-hook-form";
 import { uploadImage } from "../../../../api/uploadImages";
+import { RiUpload2Line } from "react-icons/ri";
 
 interface FormFile extends InputHTMLAttributes<HTMLInputElement> {
     name: string
+    sizeContainer: `${string}px`,
 }
 
 export function FormFile(props: FormFile) {
@@ -12,22 +14,25 @@ export function FormFile(props: FormFile) {
 
     useEffect(() => {
         const preview = refUploadImg.current?.querySelector("div#preview-img");
+        const label = refUploadImg.current?.querySelector("label");
         const img = preview?.querySelector("img");
         const logo = watch(props.name);
 
         if (logo) {
             preview?.classList.remove("hidden")
             preview?.classList.add("flex");
+            label?.classList.remove("grayscale", "filter")
 
             img && (img.src = logo)
         }
     }, [watch()])
 
     const handleUploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
-        const preview = refUploadImg.current?.querySelector("div#preview-img");
+        const containerUpload = e.currentTarget.closest(`div[data-id='${props.name}']`);
+        console.log(containerUpload)
+        const preview = containerUpload?.querySelector("div#preview-img");
         const img = preview?.querySelector("img");
-        const titleLabel = refUploadImg.current?.querySelector("label > span");
-        titleLabel && (titleLabel.textContent = "Carregando...");
+        console.log(img)
         const files = e.target.files
 
         if (files?.length) {
@@ -38,11 +43,12 @@ export function FormFile(props: FormFile) {
             }
 
             const response = await uploadImage(files[0]);
+
             if (response?.status === 200) {
                 unregister(props.name);
                 register(props.name, { value: response.data.url })
-                titleLabel && (titleLabel.textContent = "Mudar o avatar");
             }
+
         }
     }
 
@@ -50,31 +56,35 @@ export function FormFile(props: FormFile) {
 
     return (
         <div
-            className="w-full flex justify-evenly items-center mt-4"
+            className="flex justify-evenly items-center"
+            data-id={props.name}
             ref={refUploadImg}
         >
             <label
-                htmlFor="upload"
-                className="border border-dashed border-primary-100 bg-zinc-600/40 rounded-md p-4 cursor-pointer flex gap-4 items-center"
+                htmlFor={props.name}
+                className=
+                "w-[120px] h-[120px] relative overflow-hidden border border-dashed border-primary-100 bg-zinc-600/40 rounded-full p-2 cursor-pointer text-center flex jsutify-center items-center bg-[url(https://i.ibb.co/6gFGb2q/wipzee-logo-1-removebg-preview.png)] bg-no-repeat bg-cover bg-opacity-15 filter grayscale"
+                style={{ width: props.sizeContainer, height: props.sizeContainer }}
             >
-                <span>
-                    Faça o upload da sua logo
+                <span className="w-full text-white bg-black bg-opacity-65 rounded-xl font-bold flex flex-col justify-center items-center">
+                    <RiUpload2Line className="text-3xl font-bold" />
+                    <span className="text-xs">upload</span>
                 </span>
+
                 <input
-                    id="upload"
+                    id={props.name}
                     type="file"
                     className="hidden"
                     accept=".png, .jpg, .jpeg, .webp"
                     onChange={handleUploadImage}
                 />
-            </label>
 
-            <div
-                className="hidden w-[100px] h-[100px] relative justify-center items-center rounded-full overflow-hidden"
-                id="preview-img"
-            >
-                <img src="https://via.placeholder.com/100" alt="" />
-            </div>
+                <div id="preview-img" className="absolute left-0 top-0 hidden">
+                    <img
+                        className="w-full h-full object-cover"
+                    />
+                </div>
+            </label>
 
         </div>
 

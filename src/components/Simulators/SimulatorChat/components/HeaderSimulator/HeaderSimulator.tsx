@@ -6,12 +6,12 @@ import { useFormContext } from "react-hook-form";
 
 export function HeaderSimulator() {
     const refContentBio: RefObject<HTMLDivElement> = useRef(null);
-    const [primaryColor , setPrimaryColor] = useState();
+    const [primaryColor, setPrimaryColor] = useState();
     const { watch } = useFormContext();
 
-    useEffect(()=>{
-        const primaryColorData =  watch("step_3.chat_appearence.primary_color")
-        primaryColorData && ( setPrimaryColor(primaryColorData) )
+    useEffect(() => {
+        const primaryColorData = watch("step_3.chat_appearence.primary_color")
+        primaryColorData && (setPrimaryColor(primaryColorData))
     }, [watch()])
 
 
@@ -26,8 +26,9 @@ export function HeaderSimulator() {
 
     return (
         <div
-            className="w-full h-[60px] flex cursor-pointer rounded-t-xl"
-            style={{ background: primaryColor || "black" }}
+            data-iscolor={primaryColor ? true : false}
+            className="w-full h-[60px] flex cursor-pointer rounded-t-xl data-[iscolor=false]:bg-primary-100"
+            style={{ background: primaryColor }}
             onClick={handleDisplayContentBio}
         >
 

@@ -1,9 +1,9 @@
 import { FormInput } from "./components/Fields/FormInput";
-import { FormContainer } from "./components/Containers/FormContainer";
+import { FormContainerForm } from "./components/Containers/FormContainerForm";
 import { FormStep } from "./components/Containers/FormStep";
 import { FormTextArea } from "./components/Fields/FormTextArea";
 import { FormOptional } from "./components/Containers/FormOptional";
-import { FormFlex } from "./components/Containers/FormFlex";
+import { FormContainer } from "./components/Containers/FormContainer";
 import { FormCheckBox } from "./components/Fields/FormCheckBox";
 import { FormSelect } from "./components/Fields/FormSelect";
 import { FormFile } from "./components/Fields/FormFile";
@@ -12,12 +12,12 @@ import { FormEditStep } from "./components/Containers/FormEditStep";
 import { FormInputColor } from "./components/Fields/FormInputColor";
 
 export const Root = {
-    Form: FormContainer,
+    Form: FormContainerForm,
     EditForm: FormEditContainer,
     EditStep: FormEditStep,
     Step: FormStep,
     Optional: FormOptional,
-    Flex: FormFlex,
+    Container: FormContainer,
     Input: FormInput,
     TextArea: FormTextArea,
     Checkbox: FormCheckBox,

@@ -2,11 +2,6 @@ import { Chat } from "./Chat";
 import { Metric } from "./metric.types";
 import { Prompt } from "./prompt.types";
 
-export type Call_to_action = {   
-    button_text: string;
-    button_link: string;
-    button_describe: string;
-}
 
 export interface Project {
     id?: string,
@@ -25,6 +20,7 @@ export interface Project {
     created_at: string | Date,
     prompt: Prompt,
     call_to_action: Call_to_action[],
+    social_proof: Social_proof[];
     plan_message_manager: Array<{
         input: number,
         output: number,
@@ -38,6 +34,7 @@ export interface Project {
     }>,
     chat_appearence: {
         id: string,
+        can_update: boolean,
         chat_icon: number,
         icon_text: string,
         primary_color: string,
@@ -45,8 +42,23 @@ export interface Project {
         background: string,
     };
     chat: Chat[]
-
 }
+
+
+export type Call_to_action = {   
+    button_text: string;
+    button_link: string;
+    button_describe: string;
+}
+
+export type Social_proof = {   
+    person_name: string,
+    avatar: string,
+    images: string[],
+    text: string,
+    rating: number
+}
+
 
 export interface ProjectCreateTypes {
     id?: string,

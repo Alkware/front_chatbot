@@ -7,6 +7,13 @@ export const chatSchema = z.object({
         project_name: z.string().min(1, "Você precisa definir um nome para seu chat"),
         logo: z.string().url(),
         bio: z.string().optional(),
+        social_proof: z.array(z.object({
+            person_name: z.string(),
+            avatar: z.string().url(),
+            images: z.array(z.string()),
+            text: z.string(),
+            rating: z.coerce.number().min(0).max(5)
+        }))
     }),
     step_1: z.object({
         prompt_id: z.string().min(1),
