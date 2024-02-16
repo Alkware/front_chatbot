@@ -61,7 +61,7 @@ export function SelectTime({ typeFilter }: SelectTime) {
 
     return (
         <Select
-            onChange={handleSelectTime}
+            handleSelectDatabase={handleSelectTime}
             Icon={IoCalendar}
             options={[
                 { id: "0", name: "Todas as datas"},

@@ -1,24 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import CreateNewProject from "./components/CreateNewProject/CreateNewProject";
 import { ClientContext } from "../../../../../../../../context/ClientContext";
 import { Project } from "../../../../../../../../@types/Project";
 import { Container } from "../../../../../../../../components/Container/Container";
 import { CardChat } from "./components/CardChat/CardChat";
-import { findAllProjectsByPlanManagementId } from "../../../../../../../../api/project";
 
 function MyChats() {
     const { client } = useContext(ClientContext)
-    const [projects, setProjects] = useState<Project[]>([])
-
-
-    useEffect(() => {
-        (async ()=>{
-            if(client?.plan_management){
-                const projects: any = await findAllProjectsByPlanManagementId(client?.plan_management.id)
-                if(projects.data) setProjects(projects.data)
-            }
-        })()
-    }, []);
+    const [projects, setProjects] = useState<Project[]>(client ? client.plan_management.project : [])
 
     return (
         client &&

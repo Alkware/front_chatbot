@@ -92,7 +92,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
         const database: CreatePrompt = {
             prompt: promptSchema,
             prompt_query: convertToString,
-            describe_client: data.step_7.client_describe,
+            client_describe: data.step_7.client_describe,
         };
 
         if (database) {
@@ -230,7 +230,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     titleStep="Entrega do produto"
                     icon={<FaTruck />}
                 >
-                    <Root.Flex flexDirection="row" title="Qual o prazo médio em dias para entrega:">
+                    <Root.Container className="flex gap-4" title="Qual o prazo médio em dias para entrega:">
                         <Root.Input
                             type="number"
                             min={1}
@@ -248,7 +248,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                             title="até:"
                             joinAtInput="dia(s)"
                         />
-                    </Root.Flex>
+                    </Root.Container>
 
 
                     <Root.TextArea
@@ -309,7 +309,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     icon={<FaMoneyCheck />
                     }
                 >
-                    <Root.Flex flexDirection="row" title="Quais são os métodos de pagamentos aceitos?">
+                    <Root.Container className="flex gap-4" title="Quais são os métodos de pagamentos aceitos?">
 
                         <Root.Select
                             title="Escolha seus métodos de pagamentos"
@@ -324,7 +324,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                             ]}
                         />
 
-                    </Root.Flex>
+                    </Root.Container>
 
                     <Root.TextArea
                         name="step_4.how_to_buy"
@@ -339,38 +339,41 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                             > Adicionar produto</Button>
                         </div>
 
-                        {
-                            fields.map((field, index) =>
+                        <Root.Container className="flex flex-col gap-4">
+                            {
+                                fields.map((field, index) =>
 
-                                <div key={field.id} className="flex justify-center items-center gap-8">
-                                    <div className="w-4/5 flex gap-6 justify-center items-center">
-                                        <Root.Input
-                                            name={`step_4.products.${index}.name`}
-                                            title="De um nome a esse produto:"
-                                        />
+                                    <div key={field.id} className="flex justify-center items-center gap-8">
+                                        <div className="w-4/5 flex gap-6 justify-center items-center">
+                                            <Root.Input
+                                                name={`step_4.products.${index}.name`}
+                                                title="De um nome a esse produto:"
+                                            />
 
-                                        <Root.Input
-                                            name={`step_4.products.${index}.value`}
-                                            onChange={({ target }) => {
-                                                const number = parseFloat(target.value.replace(/[^\d]/g, '')) / 100;
-                                                const formatNumber = number.toLocaleString('pt-BR', {
-                                                    style: 'currency',
-                                                    currency: 'BRL',
-                                                });
+                                            <Root.Input
+                                                name={`step_4.products.${index}.value`}
+                                                onChange={({ target }) => {
+                                                    const number = parseFloat(target.value.replace(/[^\d]/g, '')) / 100;
+                                                    const formatNumber = number.toLocaleString('pt-BR', {
+                                                        style: 'currency',
+                                                        currency: 'BRL',
+                                                    });
 
-                                                target.value = formatNumber
-                                            }}
-                                            title="Qual o valor do produto?"
+                                                    target.value = formatNumber
+                                                }}
+                                                title="Qual o valor do produto?"
+                                            />
+                                        </div>
+
+                                        <MdRemoveCircle
+                                            onClick={() => remove(index)}
+                                            className="fill-red-500 text-2xl cursor-pointer"
                                         />
                                     </div>
+                                )
+                            }
+                        </Root.Container>
 
-                                    <MdRemoveCircle
-                                        onClick={() => remove(index)}
-                                        className="fill-red-500 text-2xl cursor-pointer"
-                                    />
-                                </div>
-                            )
-                        }
                     </div>
 
                 </Root.EditStep>
@@ -380,7 +383,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     titleStep="Sobre a empresa"
                     icon={<FaSuitcase />}
                 >
-                    <Root.Flex flexDirection="row" >
+                    <Root.Container className="flex gap-4" >
                         <Root.Input
                             name="step_5.company_name"
                             title="Qual o nome da empresa?"
@@ -402,14 +405,14 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                             }
                             }
                         />
-                    </Root.Flex>
+                    </Root.Container>
 
                     <Root.Input
                         name="step_5.address"
                         title="Qual o endereço da sua empresa?"
                     />
 
-                    <Root.Flex flexDirection="row" >
+                    <Root.Container className="flex gap-4" >
                         <Root.Input
                             name="step_5.contact_email"
                             title="Digite um e-mail para contato"
@@ -439,7 +442,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                             }
                             }
                         />
-                    </Root.Flex>
+                    </Root.Container>
 
                     <Root.Input
                         name="step_5.support_hours"
@@ -453,9 +456,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     titleStep="Perguntas frequentes"
                     icon={<FaQuestionCircle />}
                 >
-                    <StepEditCommonQuestions
-
-                    />
+                    <StepEditCommonQuestions />
                 </Root.EditStep>
 
                 <Root.EditStep

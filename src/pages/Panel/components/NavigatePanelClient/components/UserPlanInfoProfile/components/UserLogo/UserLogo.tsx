@@ -30,11 +30,10 @@ export function UserLogo({ menuIsOpen }: UserLogo) {
                 }
                 reader.readAsDataURL(files[0])
 
-                const form = new FormData();
-                form.append('image', files[0]);
-                const { data } = await uploadImage(form);
-                if (data && client) {
-                    await updateClient({ client_id: client?.id, logo: data.url })
+
+                const response = await uploadImage(files[0]);
+                if (response?.data && client) {
+                    await updateClient({ client_id: client?.id, logo: response.data.url })
                     refPreviewImage.current?.querySelector("div#loading")?.classList.remove("flex")
                     refPreviewImage.current?.querySelector("div#loading")?.classList.add("hidden")
 

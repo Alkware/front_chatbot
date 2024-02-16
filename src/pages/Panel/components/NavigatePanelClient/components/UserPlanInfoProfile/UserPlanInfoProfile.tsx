@@ -4,7 +4,7 @@ import { messagesEventManager } from "../../../../../../functions/messagesEventM
 import { FaGear, FaRightToBracket } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { TipContainer } from "../../../../../../components/TipContainer/TipContainer";
-import { UserLogo } from "./components/UserLogo";
+import { UserLogo } from "./components/UserLogo/UserLogo";
 import { ClientName } from "./components/ClientName/ClientName";
 
 interface UserPlanTypes {

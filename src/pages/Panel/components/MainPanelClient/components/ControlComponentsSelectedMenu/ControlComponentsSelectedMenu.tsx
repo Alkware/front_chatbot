@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import MyProjects from "./components/MyChats/MyChats";
+import MyChats from "./components/MyChats/MyChats";
 import { Metric } from "./components/Metric/Metric";
 import { MyDatabases } from "./components/MyDatabase/MyDatabase";
 import { ConversationHistoric } from "./components/ConversationHistoric/ConversationHistoric";
@@ -14,7 +14,7 @@ export function ControlComponentsSelectedMenu() {
         <div className="w-full p-8 overflow-hidden">
             {
                 tab === 0 ?
-                    <MyProjects />
+                    <MyChats />
                     :
                     tab === 1 ?
                         <Metric />

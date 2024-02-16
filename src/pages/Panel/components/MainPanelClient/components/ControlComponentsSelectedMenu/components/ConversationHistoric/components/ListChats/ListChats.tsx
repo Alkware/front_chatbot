@@ -27,7 +27,12 @@ export function ListChats({ chats, setIndex }: ListChats) {
                             className="whitespace-nowrap text-ellipsis overflow-hidden py-1 text-xl font-bold"
                             key={chat.messages.join()}
                         >
-                            {chat.messages[1].message.replace("<br/>", "")}
+                            {
+                                chat.messages.length > 1 ?
+                                    chat.messages[1].message.replace("<br/>", "")
+                                    :
+                                    `Chat ${index.toString().padStart(2, "0")}`
+                            }
                         </h2>
                         <div className="flex justify-between">
                             <span className="italic text-xs">{chat.messages.length} messagens</span>

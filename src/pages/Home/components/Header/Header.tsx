@@ -49,12 +49,12 @@ export function Header() {
             </div>
 
             <nav className="w-3/5">
-                <ul className="flex justify-center items-center gap-8 dark:text-light text-dark">
+                <ul className="flex justify-center items-center gap-8 text-primary-100">
                     {
                         menuItems.map((item) =>
                             <li
                                 key={item.key}
-                                className="cursor-pointer text-dark "
+                                className="cursor-pointer "
                                 onClick={() => handleNavigateMenu(item)}
                             >
                                 {item.text}

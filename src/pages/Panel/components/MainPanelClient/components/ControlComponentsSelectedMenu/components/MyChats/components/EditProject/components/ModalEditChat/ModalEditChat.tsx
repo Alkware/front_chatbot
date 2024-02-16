@@ -203,35 +203,35 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
 
     return (
         prompt &&
-        <div className="w-[90vw] h-[70vh] min-h-[450px] min-w-[700px] flex">
+        <div className="w-[90vw] h-[80vh] min-h-[450px] min-w-[700px] flex">
             <Root.EditForm
                 form={editChatForm}
                 onDelete={handleDeleteProject}
                 onSubmit={handleUpdateProject}
                 activeSimulator={true}
             >
-                        <Root.EditStep
-            index={0}
-            titleStep="Informações do chat"
-        >
-            <Root.Container className="flex justify-start items-center gap-6">
-                <Root.File
-                    name="step_0.logo"
-                    sizeContainer="80px"
-                />
-                <Root.Input
-                    name="step_0.project_name"
-                    title="Escreva o nome do seu chat"
-                />
-            </Root.Container>
-            <Root.TextArea
-                name="step_0.bio"
-                title="Escreva uma descrição para seu chat"
-                height={100}
-            />
+                <Root.EditStep
+                    index={0}
+                    titleStep="Informações do chat"
+                >
+                    <Root.Container className="flex justify-start items-center gap-6">
+                        <Root.File
+                            name="step_0.logo"
+                            sizeContainer="80px"
+                        />
+                        <Root.Input
+                            name="step_0.project_name"
+                            title="Escreva o nome do seu chat"
+                        />
+                    </Root.Container>
+                    <Root.TextArea
+                        name="step_0.bio"
+                        title="Escreva uma descrição para seu chat"
+                        height={100}
+                    />
 
-            <SocialProof />
-        </Root.EditStep>
+                    <SocialProof />
+                </Root.EditStep>
 
                 <Root.EditStep
                     index={1}
@@ -249,7 +249,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                     />
 
                     <div className="flex flex-col ">
-                        <div className="flex justify-end">
+                        <div className="flex justify-end py-4">
                             <Button
                                 type="button"
                                 customClass="bg-primary-200"
@@ -262,7 +262,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                             {
                                 fields.map((field, index) =>
                                     (index !== currentCTA && !!field.button_text) &&
-                                    <div className="flex gap-4 " key={field.id}>
+                                    <div className="flex gap-4" key={field.id}>
                                         <div className="w-full flex gap-4 py-4">
                                             <div
                                                 className="flex items-center gap-2 cursor-pointer bg-primary-100 px-3 rounded-lg"
@@ -282,9 +282,9 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                             {
                                 fields.map((field, index) =>
                                     (index === currentCTA) &&
-                                    <Root.Container className="flex" key={field.id}>
-                                        <Root.Container className="flex flex-col">
-                                            <Root.Container className="flex">
+                                    <Root.Container className="flex gap-4" key={field.id}>
+                                        <Root.Container className="flex flex-col gap-8">
+                                            <Root.Container className="flex gap-4">
                                                 <Root.Input
                                                     name={`step_1.call_to_action.${index}.button_text`}
                                                     title={`Digite o texto do link`}
@@ -332,11 +332,11 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                     index={3}
                     titleStep="Aparência do chat"
                 >
-                    <Root.Container className="flex flex-col" >
+                    <Root.Container className="flex flex-col gap-8" >
 
                         <div className="flex flex-col justify-center gap-4">
                             <h2 className="text-center text-xl">Escolha um icone para seu chat</h2>
-                            <div className="flex gap-8 text-5xl">
+                            <div className="flex justify-center gap-8 text-5xl">
                                 {
                                     CHAT_ICONS_MODELS.map(({ Icon, id }, index: number) =>
                                         <Icon
@@ -381,7 +381,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                 >
                     <Root.Container className="flex flex-col" >
                         <Root.Input
-                            name="step_3.slug"
+                            name="step_4.slug"
                             title="Altere a slug do seu chat"
                         />
 

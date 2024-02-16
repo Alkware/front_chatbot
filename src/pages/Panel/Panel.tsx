@@ -8,7 +8,7 @@ const MainPanelClient = lazy(() => import("./components/MainPanelClient/MainPane
 const NavigatePanelClient = lazy(() => import("./components/NavigatePanelClient/NavigatePanelClient"));
 
 function Panel() {
-    const { setClient } = useContext(ClientContext)
+    const { setClient, client } = useContext(ClientContext)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,16 +21,20 @@ function Panel() {
             }
             else navigate("/login")
         })();
-    }, [])
+    }, []);
 
+    
     return (
         <Suspense fallback={<InputLoading />}>
-            <div
-                className="w-screen h-screen overflow-hidden flex justify-start items-start  text-dark dark:text-light"
-            >
-                <NavigatePanelClient />
-                <MainPanelClient />
-            </div>
+            {
+                client &&
+                <div
+                    className="w-screen h-screen overflow-hidden flex justify-start items-start  text-dark dark:text-light"
+                >
+                    <NavigatePanelClient />
+                    <MainPanelClient />
+                </div>
+            }
         </Suspense>
     )
 }

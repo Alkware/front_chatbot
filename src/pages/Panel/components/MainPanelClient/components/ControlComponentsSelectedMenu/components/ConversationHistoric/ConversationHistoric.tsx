@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { ListChats } from "./components/ListChats";
-import { ContentChats } from "./components/ContentChats";
+import { ListChats } from "./components/ListChats/ListChats";
+import { ContentChats } from "./components/ContentChats/ContentChats";
 import { IoIosChatboxes } from "react-icons/io";
 import { FaArrowRotateLeft } from "react-icons/fa6";
 import { useSearchParams } from "react-router-dom";
@@ -25,10 +25,10 @@ export function ConversationHistoric() {
     useEffect(() => {
         const time = searchParams.get("filter_time_chats")
         const projectParam = searchParams.get("project")
-
         if (client) {
 
             if (projects?.length) {
+
                 let projectsFiltered;
                 if (projectParam) {
                     projectsFiltered = client.plan_management.project.filter((project) => project.project_name.replace(" ", "_") === projectParam && project);
@@ -36,10 +36,12 @@ export function ConversationHistoric() {
                     projectsFiltered = client.plan_management.project;
                 }
 
+
                 const chats = projectsFiltered.map((project: Project) => {
                     const chat = project.chat.filter(chat => Number(time) ? convertDateInHour(chat.created_at) <= Number(time) : true)
                     return chat
                 }).flat();
+
 
                 setChats(chats)
             }

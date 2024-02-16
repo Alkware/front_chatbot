@@ -29,10 +29,8 @@ export function FormFile(props: FormFile) {
 
     const handleUploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
         const containerUpload = e.currentTarget.closest(`div[data-id='${props.name}']`);
-        console.log(containerUpload)
         const preview = containerUpload?.querySelector("div#preview-img");
         const img = preview?.querySelector("img");
-        console.log(img)
         const files = e.target.files
 
         if (files?.length) {

@@ -1,4 +1,4 @@
-import svg from "../../../public/assests/smile-face.svg"
+import svg from "../../assests/smile-face.svg"
 
 export function InputLoading() {
     return (

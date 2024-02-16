@@ -105,6 +105,7 @@ export function CreateChat() {
                         />
                         <Root.File
                             name="step_0.logo"
+                            sizeContainer="120px"
                         />
                     </Root.Step>
 
@@ -124,11 +125,14 @@ export function CreateChat() {
                         <Root.Optional
                             name="step_1.call_to_action"
                             text="Deseja adicionar links ao seu chat?"
-                            functionOffToggle={()=> fields.forEach((_, index) => remove(index))}
+                            functionOffToggle={() => fields.forEach((_, index) => remove(index))}
                         >
                             <div className="flex flex-col">
                                 <div className="flex justify-start">
-                                    <Button onClick={() => append({ button_link: "", button_text: "", button_describe: "" })}>
+                                    <Button
+                                        type="button"
+                                        onClick={() => append({ button_link: "", button_text: "", button_describe: "" })}
+                                    >
                                         Adicionar link
                                     </Button>
                                 </div>
@@ -139,9 +143,9 @@ export function CreateChat() {
                                             key={field.id}
                                         >
                                             <div
-                                                className="flex flex-col border-b border-primary-100/50 my-4"
+                                                className="flex flex-col gap-8 border-b border-primary-100/50 my-4"
                                             >
-                                                <Root.Flex flexDirection="row">
+                                                <Root.Container className="flex gap-4">
                                                     <Root.Input
                                                         name={`step_1.call_to_action.${index}.button_text`}
                                                         title="Digite o texto do link"
@@ -150,7 +154,7 @@ export function CreateChat() {
                                                         name={`step_1.call_to_action.${index}.button_link`}
                                                         title="Digite a url do link"
                                                     />
-                                                </Root.Flex>
+                                                </Root.Container>
                                                 <Root.TextArea
                                                     name={`step_1.call_to_action.${index}.button_describe`}
                                                     title="Digite uma descrição para esse botão"
@@ -160,7 +164,7 @@ export function CreateChat() {
 
                                             <MdDelete
                                                 className="text-3xl fill-red-500 bg-red-950/70 cursor-pointer rounded-xl p-1 mb-6"
-                                                onClick={()=> remove(index)}
+                                                onClick={() => remove(index)}
                                             />
                                         </div>
                                     )

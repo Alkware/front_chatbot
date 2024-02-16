@@ -12,7 +12,7 @@ export function SimulatorSlugUrl({ previousSlug }: SimulatorSlugUrl) {
     const slicePreviousSlug = previousSlug.includes("-") ? previousSlug.split("-")[0] : "";
 
     useEffect(() => {
-        const slugData = watch("step_3.slug");
+        const slugData = watch("step_4.slug");
         setSlug(slugData.replaceAll(" ", "-"))
     }, [watch()])
 

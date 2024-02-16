@@ -8,12 +8,12 @@ export const chatSchema = z.object({
         logo: z.string().url(),
         bio: z.string().optional(),
         social_proof: z.array(z.object({
-            person_name: z.string(),
-            avatar: z.string().url(),
-            images: z.array(z.string()),
-            text: z.string(),
-            rating: z.coerce.number().min(0).max(5)
-        }))
+            person_name: z.string().min(1, "Informe o nome do cliente que avaliou."),
+            avatar: z.string().url("Informe um avatar valído."),
+            images: z.array(z.string().url()).optional(),
+            text: z.string().min(1, "Informe o que o cliente achou do seu produto."),
+            rating: z.coerce.number().min(0).max(5, "Informe um nota entre 0 e 5.")
+        })).max(5, "Limite maxímo para adicionar avaliação é de 5.").optional()
     }),
     step_1: z.object({
         prompt_id: z.string().min(1),

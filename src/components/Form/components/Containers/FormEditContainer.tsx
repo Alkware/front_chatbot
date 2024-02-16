@@ -24,7 +24,6 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
 
     useEffect(() => {
         const errors = form.formState.errors;
-        console.log(errors)
         const message = findMessageError(errors);
         if (!!message) {
             setModalContent({
@@ -75,7 +74,7 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
 
                 </div>
 
-                <div className="w-full flex justify-evenly gap-8">
+                <div className="w-full h-full flex justify-evenly gap-8">
                     <div
                         className="w-full flex flex-col gap-12 max-w-[900px]"
                     >
@@ -86,7 +85,9 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
                         }
                     </div>
 
-                    <SimulatorChat active={activeSimulator} />
+                    <div className="h-full flex items-center">
+                        <SimulatorChat active={activeSimulator} />
+                    </div>
 
                 </div>
             </form>

@@ -1,7 +1,7 @@
 import { Root } from "../../../../../../../../../../../../components/Form/FormRoot";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { Button } from "../../../../../../../../../../../../components/button/Button";
-import { MdDelete } from "react-icons/md";
+import { MdAdd, MdDelete } from "react-icons/md";
 
 export function StepEditCommonQuestions() {
     const { control } = useFormContext();
@@ -14,16 +14,19 @@ export function StepEditCommonQuestions() {
     return (
         <div className="w-full flex flex-col gap-6 justify-center items-center">
 
-            <div className="w-full flex justify-end">
+            <div className="w-full flex justify-between">
+                <h2 className="text-xl font-bold">Adicione as perguntas e as respostas frequentes</h2>
+
                 <Button
                     type="button"
                     onClick={() => append({ ask: "", answer: "" })}
                 >
                     Adicionar
+                    <MdAdd className="text-lg"/>
                 </Button>
             </div>
 
-            <div className="w-full flex flex-col">
+            <div className="w-full flex flex-col gap-4">
                 {
                     fields.map((field, index) =>
                         <div

@@ -13,9 +13,13 @@ export function SocialProof() {
 
 
     return (
-        <Root.Container className="overflow-auto h-[400px]">
-
-            <Root.Container className="flex justify-end">
+        <Root.Container className="overflow-auto h-[400px] mt-8">
+ 
+            <Root.Container className="flex justify-between items-center">
+                <div className="flex flex-col text-center">
+                    <h2 className="text-xl font-bold">Adicione avaliações dos seus clientes:</h2>
+                    <span className="text-sm opacity-70">(Essas avaliações estarão visível na bio do chat)</span>
+                </div>
                 <Button
                     type="button"
                     onClick={() => append({})}
@@ -31,9 +35,9 @@ export function SocialProof() {
                             className="w-full flex flex-col gap-6 my-4 p-2 border border-primary-100 relative"
                             key={field.id}
                         >
-                            <MdDelete 
+                            <MdDelete
                                 className="absolute -top-3 -right-3 bg-red-800/50 fill-red-500 cursor-pointer rounded-full p-1 text-2xl"
-                                onClick={()=> remove(index)}
+                                onClick={() => remove(index)}
                             />
                             <Root.Container className="w-full flex justify-start items-center gap-4">
                                 <Root.File
@@ -67,7 +71,7 @@ export function SocialProof() {
                                     sizeContainer="50px"
                                 />
                                 <Root.File
-                                   name={`step_0.social_proof.${index}.images.2`}
+                                    name={`step_0.social_proof.${index}.images.2`}
                                     sizeContainer="50px"
                                 />
                             </Root.Container>

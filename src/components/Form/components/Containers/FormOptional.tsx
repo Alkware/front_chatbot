@@ -56,7 +56,7 @@ export function FormOptional({ children, text, active = false, functionOffToggle
     }
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-3">
 
             <h2
                 className="flex gap-4 items-center text-xl font-bold"
