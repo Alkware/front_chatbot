@@ -3,7 +3,7 @@ import { Root } from "../../../../../../components/Form/FormRoot";
 export function StepDeliveryProduct() {
     return (
         <Root.Step index={2} stepTitle="Sobre a entrega do produto">
-            <Root.Flex flexDirection="row" title="Qual o prazo médio em dias para entrega:">
+            <Root.Container className="flex" title="Qual o prazo médio em dias para entrega:">
                 <Root.Input
                     type="number"
                     min={1}
@@ -21,7 +21,7 @@ export function StepDeliveryProduct() {
                     title="até:"
                     joinAtInput="dia(s)"
                 />
-            </Root.Flex>
+            </Root.Container>
 
 
             <Root.TextArea

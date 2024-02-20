@@ -30,14 +30,18 @@ export function ButtonRequestRefund({ client }: { client?: Client }) {
 
             if (response) {
                 setModalContent({
-                    isOpenModal: true,
-                    components: <PopOver message="Solicitação de reembolso foi enviada com sucesso!" />
+                    componentName: "modal_request_success",
+                    components: <PopOver message="Solicitação de reembolso foi enviada com sucesso!" componentName="modal_request_success" />
                 })
                 setTimeout(() => window.location.reload(), 1000)
             } else {
                 setModalContent({
-                    isOpenModal: true,
-                    components: <PopOver message="Ocorreu um erro ao enviar sua solicitação de reembolso, por favor entre em contato com nosso suporte." />
+                    componentName: "modal_error_request",
+                    components:
+                        <PopOver
+                            message="Ocorreu um erro ao enviar sua solicitação de reembolso, por favor entre em contato com nosso suporte."
+                            componentName="modal_error_request"
+                        />
                 })
             }
 
@@ -45,8 +49,8 @@ export function ButtonRequestRefund({ client }: { client?: Client }) {
 
         } else {
             setModalContent({
-                isOpenModal: true,
-                components: <PopOver message="Erro ao processar o cliente, por favor recarregue a página." />
+                componentName: "modal_error_client",
+                components: <PopOver message="Erro ao processar o cliente, por favor recarregue a página." componentName="modal_error_client" />
             })
         }
     }
@@ -64,13 +68,17 @@ export function ButtonRequestRefund({ client }: { client?: Client }) {
         } else false
     }
 
-    const handleCancelSubscription = ()=>{
-        if(client){
+    const handleCancelSubscription = () => {
+        if (client) {
             window.open(`https://dash.ticto.com.br/subscription-verification?code=${client?.ticto_order_code}&email=${client?.purchase_email}`)
-        }else{
+        } else {
             setModalContent({
-                isOpenModal: true,
-                components: <PopOver message="Falha ao preencher os dados de cancelamento, por favor entre em contato com o suporte." />
+                componentName: "modal_failed_cancel",
+                components:
+                    <PopOver
+                        message="Falha ao preencher os dados de cancelamento, por favor entre em contato com o suporte."
+                        componentName="modal_failed_cancel"
+                    />
             })
         }
     }
@@ -80,7 +88,7 @@ export function ButtonRequestRefund({ client }: { client?: Client }) {
             if (client.plan_management.status === "ACTIVE" && freeTrial() <= 0) {
                 if (client.refund_requested[0].status !== "PENDING") return true
                 else return false
-            } 
+            }
         } else false
     }
 

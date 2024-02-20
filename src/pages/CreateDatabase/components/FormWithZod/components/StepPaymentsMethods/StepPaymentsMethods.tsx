@@ -19,7 +19,7 @@ export function StepPaymentsMethods() {
 
     return (
         <Root.Step index={4} stepTitle="Métodos de pagamentos">
-            <Root.Flex flexDirection="row" title="Quais são os métodos de pagamentos aceitos?">
+            <Root.Container className="flex" title="Quais são os métodos de pagamentos aceitos?">
 
                 <Root.Select
                     title="Escolha seus métodos de pagamentos"
@@ -34,7 +34,7 @@ export function StepPaymentsMethods() {
                     ]}
                 />
 
-            </Root.Flex>
+            </Root.Container>
 
             <Root.TextArea
                 name="step_4.how_to_buy"

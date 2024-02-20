@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction, useContext } from "react";
 import { FcSettings } from "react-icons/fc";
-import { ModalEditProject } from "./components/ModalEditChat/ModalEditChat";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { Project } from "../../../../../../../../../../@types/Project";
 import { Prompt } from "../../../../../../../../../../@types/prompt.types";
+import { ModalEditChat } from "./components/ModalEditChat/ModalEditChat";
 
 interface EditProject {
     project: Project,
-    setNewProject: Dispatch<SetStateAction<Project>>
+    setNewProject: Dispatch<SetStateAction<Project[]>>
     prompts: Prompt[]
 }
 
@@ -16,10 +16,10 @@ export function EditProject({ project, setNewProject, prompts }: EditProject) {
 
     const handleEditProject = () => {
         setModalContent({
-            isOpenModal: true,
+            componentName: "modal_open_modal_edit",
             components: 
-            <ModalEditProject
-                setNewProject={setNewProject}
+            <ModalEditChat
+                setProjects={setNewProject}
                 project={project}
                 prompts={prompts}
             />

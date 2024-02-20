@@ -12,7 +12,7 @@ interface ModalColumnOrganizationTypes {
 }
 
 export function ModalColumnOrganization({ setColumns, columns, modalName }: ModalColumnOrganizationTypes) {
-    const { setModalContent, clearModal } = useContext(ModalContext)
+    const { clearModal } = useContext(ModalContext)
     const [columnsData, setColumnsData] = useState(columns)
 
     const handleChangeStatus = (e: any) => {

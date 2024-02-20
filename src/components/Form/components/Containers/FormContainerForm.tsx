@@ -3,12 +3,11 @@ import { FormProvider, SubmitHandler, UseFormReturn } from "react-hook-form";
 import { Steps } from "../Elements/Steps/Steps";
 import { FormButtonStep } from "../Elements/ButtonSteps/ButtonSteps";
 import { SimulatorChat } from "../../../Simulators/SimulatorChat/SimulatorChat";
-import { ChatSchema } from "../../../../schema/zod/chatSchema";
 
 interface FormContainerForm {
     children: ReactElement | ReactElement[];
     onSubmit: SubmitHandler<any>;
-    form: UseFormReturn<ChatSchema>;
+    form: UseFormReturn<any>;
     activeSimulator?: boolean;
 }
 

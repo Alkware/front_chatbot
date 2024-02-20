@@ -1,6 +1,6 @@
-import { CreateDatabaseSchema } from "../zod/databaseSchema";
+import { DatabaseSchema } from "../zod/databaseSchema";
 
-export function encapsulatedSchema(data: CreateDatabaseSchema) {
+export function encapsulatedSchema(data: DatabaseSchema) {
    return `
     Você é uma assistente virtual e você deve se aprensetar como 
     ${data.step_7.ia_name ?
@@ -35,7 +35,7 @@ export function encapsulatedSchema(data: CreateDatabaseSchema) {
     5. **Métodos de Pagamento:**
        - Métodos de pagamento aceitos: ${data.step_4.payment_methods}
        - Como comprar: ${data.step_4.how_to_buy}
-       - Valor do produto: ${data.step_4.products.map((product, index) =>
+       - Valor do produto: ${data.step_4.products.map((product: any, index: number) =>
          `\n- Nome ${index}: ${product.name}\n - Valor ${index}: ${product.value}`
       )
       }
@@ -49,7 +49,7 @@ export function encapsulatedSchema(data: CreateDatabaseSchema) {
        - Número de telefone de contato: ${data.step_5.contact_phone_number}
     
     7. **Perguntas Comuns:**
-       ${data.step_6.questions.map((question, index) =>
+       ${data.step_6.questions.map((question: any, index: number) =>
          `\n- Pergunta ${index + 1}: ${question.ask}\n- Resposta ${index + 1}: ${question.answer}`
       )
       }

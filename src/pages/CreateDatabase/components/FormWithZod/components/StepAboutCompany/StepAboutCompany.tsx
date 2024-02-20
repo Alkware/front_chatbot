@@ -4,7 +4,7 @@ export function StepAboutCompany() {
     return (
         <Root.Step index={5} stepTitle="Sobre a empresa">
 
-            <Root.Flex flexDirection="row" >
+            <Root.Container className="flex" >
                 <Root.Input
                     name="step_5.company_name"
                     title="Qual o nome da empresa?"
@@ -26,14 +26,14 @@ export function StepAboutCompany() {
                     }
                     }
                 />
-            </Root.Flex>
+            </Root.Container>
 
             <Root.Input
                 name="step_5.address"
                 title="Qual o endereço da sua empresa?"
             />
 
-            <Root.Flex flexDirection="row" >
+            <Root.Container className="flex" >
                 <Root.Input
                     name="step_5.contact_email"
                     title="Digite um e-mail para contato"
@@ -63,7 +63,7 @@ export function StepAboutCompany() {
                     }
                     }
                 />
-            </Root.Flex>
+            </Root.Container>
 
             <Root.Input
                 name="step_5.support_hours"
