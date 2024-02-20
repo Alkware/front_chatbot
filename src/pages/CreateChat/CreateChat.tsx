@@ -35,7 +35,7 @@ export function CreateChat() {
             document.documentElement.classList.toggle("dark", !!isDark)
 
             const planManagement = await getPlanManagementById(plan_management_id) as AxiosResponse<{ status: string, prompt: Prompt[] }>
-            if (!planManagement) navigate("/panel")
+            if (!planManagement.data) navigate("/panel")
             setPrompt(planManagement.data.prompt)
         })()
     }, [])
@@ -86,7 +86,7 @@ export function CreateChat() {
     }
 
     return (
-        (plan_management_id && !!prompt.length) &&
+        (plan_management_id) &&
         <div className="w-screen h-screen bg-gradient-to-br from-primary-100 to-light dark:via-primary-300 via-15% dark:to-dark to-30% text-light flex flex-col  justify-center items-center overflow-hidden">
             <div className="w-4/5 p-8 min-w-[900px] rounded-2xl flex flex-col gap-8 justify-center items-center bg-primary-100 dark:bg-dark border border-primary-300">
 

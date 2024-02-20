@@ -31,7 +31,7 @@ function MyChats() {
                                             key={project.id}
                                             project={project}
                                             setNewProject={setProjects}
-                                            prompts={client.plan_management.prompt}
+                                            prompts={client.plan_management?.prompt}
                                         />
                                     )
                                 }
