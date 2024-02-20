@@ -1,16 +1,13 @@
 import { ChangeEvent, RefObject, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { FaArrowLeft, FaArrowRight, FaCircleNotch, FaLock } from "react-icons/fa";
-
 
 interface FormSlug {
     fieldName: string
     title: string,
-    formName?: string
     defaultValue?: string
 }
 
-export function FormSlug({ fieldName, title, formName, defaultValue }: FormSlug) {
+export function FormSlug({ fieldName, title, defaultValue }: FormSlug) {
     const [searchParams, setSearchParams] = useSearchParams();
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const [slug, setSlug] = useState(defaultValue)

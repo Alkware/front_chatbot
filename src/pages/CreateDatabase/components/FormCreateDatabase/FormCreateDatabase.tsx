@@ -1,12 +1,11 @@
 import { useContext } from "react";
 import { Prompt } from "../../../../@types/prompt.types";
 import { createNewDatabase } from "../../../../api/Prompt";
-import { Form } from "../../../../components/EditForm/EditForm";
-import { ButtonsFormCreate } from "../../../../components/EditForm/components/FormInputs/components/ButtonSteps/ButtonSteps";
 import { DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables";
 import { ModalContext } from "../../../../context/ModalContext";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { PopOver } from "../../../../components/modal/templates/PopOver";
+import { Root } from "../../../../components/Form/FormRoot";
 
 interface FormCreateDatabase {
     plan_management_id: string;
@@ -29,13 +28,13 @@ export function FormCreateDatabase({ plan_management_id }: FormCreateDatabase) {
 
             if (!plan_management_id) throw new Error("plan management id is missing!")
 
-            const { prompt, describe_client, prompt_name }: Prompt = database;
+            const { prompt, client_describe, prompt_query }: Prompt = database;
 
             const databaseCreated = await createNewDatabase({
-                prompt_name,
+                prompt_query,
                 prompt,
                 plan_management_id,
-                describe_client,
+                client_describe,
             });
 
             if (databaseCreated && databaseCreated.status === 201) {
@@ -58,153 +57,143 @@ export function FormCreateDatabase({ plan_management_id }: FormCreateDatabase) {
     }
 
     return (
-        <Form.Container
-            formName={DATABASE_NAME_TO_SAVE_LOCALSTORAGE}
+        <Root.Container
+            onSubmit={handleCreateDatabase}
         >
-            <Form.Step
+            <Root.Step
                 index={0}
-                titleStep="Configurações básicas:"
+                stepTitle="Configurações básicas:"
             >
 
-                <Form.Input
-                    fieldName="prompt_name"
+                <Root.Input
+                    name="prompt_name"
                     title="De um nome a sua fonte de dados"
                 />
 
-            </Form.Step>
+            </Root.Step>
 
-            <Form.Step
+            <Root.Step
                 index={1}
-                titleStep="Informações básicas do produto:"
+                stepTitle="Informações básicas do produto:"
             >
 
-                <Form.TextArea
-                    fieldName="about_product"
+                <Root.TextArea
+                    name="about_product"
                     title="Conte para nós um pouco sobre seu produto:"
                     height={100}
                 />
 
-                <Form.Input
-                    fieldName="who_created"
+                <Root.Input
+                    name="who_created"
                     title="Quem foi o criador desse produto?"
                 />
 
-                <Form.TextArea
-                    fieldName="how_works"
+                <Root.TextArea
+                    name="how_works"
                     title="Como ele funciona?"
                     height={100}
                 />
 
-                <Form.Optional
-                    fieldName="anvisa"
-                    optional={{ active: false, optional: true, text: "Esse produto tem registro na ANVISA?" }}
+                <Root.Optional
+                    name="anvisa"
+                    active={false}
+                    text={"Esse produto tem registro na ANVISA?"}
                 >
-                    <Form.Input
-                        fieldName="anvisa.register"
+                    <Root.Input
+                        name="anvisa.register"
                         title="Registro da anvisa"
                     />
-                </Form.Optional>
+                </Root.Optional>
 
 
-            </Form.Step>
+            </Root.Step>
 
-            <Form.Step
+            <Root.Step
                 index={2}
-                titleStep="Informações avançadas do produto:"
+                stepTitle="Informações avançadas do produto:"
             >
 
-                <Form.TextArea
-                    fieldName="about_product"
+                <Root.TextArea
+                    name="about_product"
                     title="Conte para nós um pouco sobre seu produto:"
                     height={100}
                 />
 
-                <Form.Input
-                    fieldName="who_created"
+                <Root.Input
+                    name="who_created"
                     title="Quem foi o criador desse produto?"
                 />
 
-                <Form.TextArea
-                    fieldName="how_works"
+                <Root.TextArea
+                    name="how_works"
                     title="Como ele funciona?"
                     height={100}
                 />
 
-                <Form.Optional
-                    fieldName="anvisa"
-                    optional={{ active: false, optional: true, text: "Esse produto tem registro na ANVISA?" }}
+                <Root.Optional
+                    name="anvisa"
+                    active={false}
+                    text="Esse produto tem registro na ANVISA?"
                 >
-                    <Form.Input
-                        fieldName="anvisa.register"
+                    <Root.Input
+                        name="anvisa.register"
                         title="Registro da anvisa"
                     />
-                </Form.Optional>
+                </Root.Optional>
 
 
-            </Form.Step>
+            </Root.Step>
 
-            <Form.Step
+            <Root.Step
                 index={3}
-                titleStep="Dados da empresa:"
+                stepTitle="Dados da empresa:"
             >
-                <Form.Input
-                    fieldName="address"
+                <Root.Input
+                    name="address"
                     title="Digite o endereço da sua empresa"
                 />
 
-                <Form.Multiple
-                    fieldName="support"
+                <Root.Container
+                    className="flex"
                 >
-                    <Form.Input
+                    <Root.Input
                         type="email"
-                        fieldName="support.email_to_support"
+                        name="support.email_to_support"
                         title="Digite um e-mail para contato"
                     />
 
-                    <Form.Input
+                    <Root.Input
                         type="tel"
-                        fieldName="support.cell_phone_to_support"
+                        name="support.cell_phone_to_support"
                         title="Digite um número de telefone para contato"
                     />
-                </Form.Multiple>
+                </Root.Container>
 
-                <Form.Multiple
-                    fieldName="support_hour"
+                <Root.Container
                 >
-                    <Form.InputHour
-                        fatherName="support_hour.start"
+                    <Root.Input
+                        name="support_hour.start"
                         title="Suporte ao cliente começa às:"
                     />
-                    <Form.InputHour
-                        fatherName="support_hour.end"
+                    <Root.Input
+                        name="support_hour.end"
                         title="Termina às:"
                     />
-                </Form.Multiple>
+                </Root.Container>
 
 
-                <Form.Optional
-                    fieldName="register"
-                    optional={{ active: false, optional: true, text: "Deseja adicionar cnpj?" }}
+                <Root.Optional
+                    name="register"
+                    active={false}
+                    text={"Deseja adicionar cnpj?"}
                 >
-                    <Form.Input
-                        fieldName="register.cnpj"
+                    <Root.Input
+                        name="register.cnpj"
                         title="Informe seu cnpj"
                     />
-                </Form.Optional>
+                </Root.Optional>
 
-            </Form.Step>
-
-
-
-            <Form.ControllerButton>
-
-                <ButtonsFormCreate
-                    plan_management_id={plan_management_id}
-                    formName={DATABASE_NAME_TO_SAVE_LOCALSTORAGE}
-                    eventSubmit={handleCreateDatabase}
-                />
-
-            </Form.ControllerButton>
-        </Form.Container>
+            </Root.Step>
+        </Root.Container>
     )
 };

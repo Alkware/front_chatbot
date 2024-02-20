@@ -2,13 +2,12 @@ import { Project } from "../@types/Project";
 import { convertDateInHour } from "./convertDateInHour";
 import { getDollar } from "./convertDollarToReal";
 import { formatDate } from "./formatDate";
-var dollar: any;
+
+var dollar;
 
 (async () => {
     dollar = await getDollar();
 })()
-
-
 
 export function eventManager(project: Project, time: number = 0) {
 
