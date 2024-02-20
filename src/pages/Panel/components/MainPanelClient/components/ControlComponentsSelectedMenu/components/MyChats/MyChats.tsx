@@ -7,7 +7,7 @@ import { CardChat } from "./components/CardChat/CardChat";
 
 function MyChats() {
     const { client } = useContext(ClientContext)
-    const [projects, setProjects] = useState<Project[]>(client ? client.plan_management.project : [])
+    const [projects, setProjects] = useState<Project[]>(client?.plan_management ? client.plan_management.project : [])
 
     return (
         client &&
