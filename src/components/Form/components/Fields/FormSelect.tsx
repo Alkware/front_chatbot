@@ -15,17 +15,9 @@ interface FormSelect {
 export function FormSelect({ options, title, name, isMultiple, width = 300 }: FormSelect) {
     const { register, unregister, getValues } = useFormContext();
     const contentOptionsRef: RefObject<HTMLDivElement> = useRef(null);
-    const [optionsState, setOptions] = useState<{ options: Options[], selected: Options[] }>({ options, selected: [] })
-
-
-    useEffect(() => {
-        const key = getValues(name);
-        const data = options.find(opt => opt.value === key)
-        if (data) setOptions(values => Object({ ...values, selected: [data] }))
-    }, [])
+    const [optionsState, setOptions] = useState<{ options: Options[], selected: Options[] }>({ options: [], selected: [] })
 
     useEffect(() => {
-
         const handleClickOutsideElement = ({ target }: any) => {
             if (contentOptionsRef.current && !contentOptionsRef.current.contains(target)) {
                 const ul = contentOptionsRef.current?.querySelector("ul")
@@ -42,6 +34,14 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
 
     }, [])
 
+    useEffect(()=>{
+        const key = getValues(name);
+        const data = options?.find(opt => opt.value === key)
+        setOptions(() => {
+            return { options: options ? options : [], selected: data ? [data] : [] }
+        })
+    }, [])
+
     const handleDisplayOptions = ({ target }: any) => {
         if (!target.dataset.value) {
             const ul = contentOptionsRef.current?.querySelector("ul")
@@ -53,20 +53,24 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
     }
 
     const handleOptionSelected = ({ target }: any) => {
-        const value = target.dataset.value;
-        const text = target.textContent;
-        const removeValueList = !!isMultiple ? optionsState.options.filter(opt => opt.value !== value) : options;
-        const addValueListSelected = !!isMultiple ? [...optionsState.selected, { value, text }] : [{ value, text }]
-        const ul = contentOptionsRef.current?.querySelector("ul")
-        ul && (ul.classList.add("hidden"))
-
-        registerPaymentsMethods(addValueListSelected)
-        setOptions({ options: removeValueList, selected: addValueListSelected });
+        if(options){
+            const value = target.dataset.value;
+            const text = target.textContent;
+            const removeValueList = !!isMultiple ? optionsState.options.filter(opt => opt.value !== value) : options;
+            const addValueListSelected = !!isMultiple ? [...optionsState.selected, { value, text }] : [{ value, text }]
+            const ul = contentOptionsRef.current?.querySelector("ul")
+            ul && (ul.classList.add("hidden"))
+    
+            registerPaymentsMethods(addValueListSelected)
+            setOptions({ options: removeValueList, selected: addValueListSelected });
+        }
     }
 
     const handleSelectedAll = () => {
-        registerPaymentsMethods(options)
-        setOptions({ options: [], selected: options });
+        if(options){
+            registerPaymentsMethods(options)
+            setOptions({ options: [], selected: options });
+        }
     }
 
     const handleRemoveSelected = ({ currentTarget }: any) => {
@@ -96,8 +100,6 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
             })
         }
     }
-
-
 
     return (
         <div

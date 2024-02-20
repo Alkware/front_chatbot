@@ -15,7 +15,7 @@ import { Button } from "../../components/button/Button";
 import { MdDelete } from "react-icons/md";
 
 export function CreateChat() {
-    const [prompt, setPrompt] = useState<Prompt[]>([])
+    const [prompt, setPrompt] = useState<Prompt[]>()
     const { plan_management_id } = useParams();
     const { setModalContent } = useContext(ModalContext)
     const navigate = useNavigate();
@@ -110,11 +110,16 @@ export function CreateChat() {
                     </Root.Step>
 
                     <Root.Step index={1}>
-                        <Root.Select
-                            title="Selecione sua fonte de dados"
-                            name="step_1.prompt_id"
-                            options={prompt.map(p => Object({ value: p.id, text: p.prompt_name }))}
-                        />
+                        <div>
+                            {
+                                !!prompt?.length &&
+                                <Root.Select
+                                    title="Selecione sua fonte de dados"
+                                    name="step_1.prompt_id"
+                                    options={prompt.map(p => Object({ value: p.id, text: p.prompt_name }))}
+                                />
+                            }
+                        </div>
 
                         <Root.TextArea
                             name="step_1.chat_input_message.0"
