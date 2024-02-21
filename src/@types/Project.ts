@@ -44,7 +44,6 @@ export interface Project {
     chat: Chat[]
 }
 
-
 export type Call_to_action = {   
     button_text: string;
     button_link: string;

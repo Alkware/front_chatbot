@@ -55,13 +55,15 @@ export function CreateChat() {
                 }
             } = data
 
+            console.log(call_to_action)
+
 
             const project = await createNewProject({
                 project_name,
                 logo,
                 prompt_id,
                 plan_management_id,
-                call_to_action: call_to_action || [],
+                call_to_action: [],
                 chat_input_message: chat_input_message,
             });
 

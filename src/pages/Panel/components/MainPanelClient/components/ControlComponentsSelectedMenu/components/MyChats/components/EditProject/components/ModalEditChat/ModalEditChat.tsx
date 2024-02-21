@@ -148,10 +148,10 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
 
     const handleClickButtonLink = (index: number) => {
         const lastField = editChatForm.watch(`step_1.call_to_action.${currentCTA}`);
-        const hasLastField = fields.find(field => field.button_text === lastField.button_text && field.button_link === lastField.button_link)
+        const hasLastField = fields.find(field => field.button_text === lastField?.button_text && field.button_link === lastField.button_link)
 
         if (!hasLastField) {
-            if (!fields[currentCTA].button_text) {
+            if (!fields[currentCTA].button_text && lastField) {
                 update(currentCTA, {
                     button_text: lastField.button_text,
                     button_link: lastField.button_link,
