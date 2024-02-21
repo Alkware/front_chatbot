@@ -28,8 +28,6 @@ export function CreateChat() {
 
     useEffect(() => {
         (async () => {
-            // Adiciona um campo ao CTA
-            append({ button_text: "", button_link: "", button_describe: "" })
             // define o thema da página de login
             const isDark = localStorage.theme === "dark"
             document.documentElement.classList.toggle("dark", !!isDark)
