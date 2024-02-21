@@ -38,8 +38,7 @@ export function CreateChat() {
             if (!planManagement.data) navigate("/panel")
             setPrompt(planManagement.data.prompt)
         })()
-    }, [])
-
+    }, []);
 
     const handleCreateProject = async (data: ChatSchema) => {
         try {
@@ -83,7 +82,9 @@ export function CreateChat() {
         } catch (error: any) {
             throw new Error(error)
         }
-    }
+    };
+
+    console.log(prompt)
 
     return (
         (plan_management_id) &&
