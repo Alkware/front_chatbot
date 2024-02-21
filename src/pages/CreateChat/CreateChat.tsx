@@ -84,8 +84,6 @@ export function CreateChat() {
         }
     };
 
-    console.log(prompt)
-
     return (
         (plan_management_id) &&
         <div className="w-screen h-screen bg-gradient-to-br from-primary-100 to-light dark:via-primary-300 via-15% dark:to-dark to-30% text-light flex flex-col  justify-center items-center overflow-hidden">
