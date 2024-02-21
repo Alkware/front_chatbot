@@ -22,14 +22,13 @@ interface FormOptional extends HTMLAttributes<HTMLDivElement> {
  * @returns 
  */
 export function FormOptional({ children, text, active = false, functionOffToggle, ...props }: FormOptional) {
-    const { register, unregister } = useFormContext();
+    const { unregister } = useFormContext();
     const [display, setDisplay] = useState(active ? true : false);
     const [params, setParams] = useSearchParams();
 
     useEffect(() => {
         if (!display && props?.name) {
             unregister(props.name)
-            register(props.name, { value: "Não" })
         }
     }, [])
 
