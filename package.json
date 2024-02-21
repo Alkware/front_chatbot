@@ -10,7 +10,7 @@
     "test": "vitest",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "push": "tsc && vite build && git add . && git commit -m $npm_config_name && git push origin main" 
+    "push": "tsc && vite build && git add . && git commit -m '${npm_config_name}' && git push origin main" 
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
