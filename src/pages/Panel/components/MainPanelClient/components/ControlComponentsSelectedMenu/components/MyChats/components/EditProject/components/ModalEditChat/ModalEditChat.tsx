@@ -17,7 +17,6 @@ import { CHAT_ICONS_MODELS, CTA_NAME_URL, ICON_NAME_URL } from "../../../../../.
 import { Button } from "../../../../../../../../../../../../components/button/Button";
 import { SocialProof } from "./components/SocialProof/SocialProof";
 import { ClientContext } from "../../../../../../../../../../../../context/ClientContext";
-import { Client } from "../../../../../../../../../../../../@types/Client";
 
 
 interface ModalEditChat {

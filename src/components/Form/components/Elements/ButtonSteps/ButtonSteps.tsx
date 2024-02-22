@@ -51,19 +51,6 @@ export function FormButtonStep({ numberChildren, findErrorMessage }: FormButtonS
         }
     }
 
-
-    const handleErrors = async () => {
-        const currentStep = (params.get(STEP_NAME_URL) || "0");
-        const stepKey: any = `step_${currentStep}`
-        const isValid = await trigger(stepKey);
-        console.log(isValid, errors)
-
-        if (isValid) return { isError: false, message: "" }
-
-        return { isError: true, message: "Preencha todos os campos necessários!" }
-    }
-
-
     return (
         <div className="w-full flex gap-20 justify-center items-center my-8">
             <Button
