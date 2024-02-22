@@ -16,6 +16,8 @@ import { useSearchParams } from "react-router-dom";
 import { CHAT_ICONS_MODELS, CTA_NAME_URL, ICON_NAME_URL } from "../../../../../../../../../../../../variables/variables";
 import { Button } from "../../../../../../../../../../../../components/button/Button";
 import { SocialProof } from "./components/SocialProof/SocialProof";
+import { ClientContext } from "../../../../../../../../../../../../context/ClientContext";
+import { Client } from "../../../../../../../../../../../../@types/Client";
 
 
 interface ModalEditChat {
@@ -25,8 +27,9 @@ interface ModalEditChat {
 }
 
 export function ModalEditChat({ project, setProjects }: ModalEditChat) {
-    const [prompt, setPrompt] = useState<[]>();
     const { setModalContent, clearModal } = useContext(ModalContext);
+    const { setClient, client } = useContext(ClientContext)
+    const [prompt, setPrompt] = useState<[]>();
     const [params, setParams] = useSearchParams();
     const currentCTA = Number(params.get(CTA_NAME_URL));
     const currentIcon = Number(params.get(ICON_NAME_URL)) || 0
@@ -106,8 +109,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                     newData.plan_management_id = projectUpdate.data.plan_management_id
                     newData.id = projectUpdate.data.id
                     newData.prompt = {}
-                    newData.prompt.id = projectUpdate.data.prompt_id
-                    console.log(newData)
+                    newData.chat_appearence = projectUpdate.data.chat_appearence
 
                     // insere o novo dado dentro do array de projeto
                     filterWithoutOutDatedProject.splice(findIndex, 0, newData)
@@ -132,7 +134,12 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
             // aqui pode ser tanto deleteProject quanto deleteDatabase. Esse é o problema!
             const deleted = await deleteProject(project.id);
             if (deleted && deleted.status === 200) {
-                setProjects((data: any) => data.filter((d: any) => d.id !== project.id))
+                setProjects((data: any) => data.filter((d: any) => d.id !== project.id));
+                const findIndex = client?.plan_management.project.findIndex(p => p.id === project.id)
+                if(client && findIndex){
+                    client.plan_management.project.splice(findIndex, 1)
+                    setClient(client)
+                }
 
                 setModalContent({
                     componentName: "modal_delete_success",
@@ -169,7 +176,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
     }
 
     const handleAddCTA = () => {
-        if (!!fields[fields.length - 1]?.button_text) {
+        if (fields.length === 0 || !!fields[fields.length - 1]?.button_text) {
             if (fields.length < 3) {
                 append({ button_describe: "", button_link: "", button_text: "" })
                 const newCurrentCTA = currentCTA + 1;
@@ -203,7 +210,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
     }
 
     return (
-        prompt &&
+        (!!prompt?.length) &&
         <div className="w-[90vw] h-[80vh] min-h-[450px] min-w-[700px] flex">
             <Root.EditForm
                 form={editChatForm}
@@ -250,7 +257,11 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                     />
 
                     <div className="flex flex-col ">
-                        <div className="flex justify-end py-4">
+                        <div className="flex justify-between py-4">
+                            <div className="flex flex-col text-center">
+                                <h2 className="text-xl font-bold">Adicione chamadas para ação no seu chat</h2>
+                                <span className="text-sm opacity-70">(Essas CTA serão usadas no contexto da conversa)</span>
+                            </div>
                             <Button
                                 type="button"
                                 customClass="bg-primary-200"
@@ -394,3 +405,10 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
         </div>
     )
 };
+
+
+
+
+
+
+

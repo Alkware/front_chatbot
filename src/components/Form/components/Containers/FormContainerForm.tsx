@@ -21,7 +21,6 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
 
     useEffect(() => {
         const errors = form.formState.errors;
-        console.log(errors)
         const message = findMessageError(errors);
         if (!!message) {
             setModalContent({
@@ -83,6 +82,7 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
                 <div className="flex gap-4 justify-center items-center">
                     <FormButtonStep
                         numberChildren={numberChildren}
+                        findErrorMessage={findMessageError}
                     />
                 </div>
 

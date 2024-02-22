@@ -10,30 +10,33 @@ import { useFormContext } from "react-hook-form";
 
 interface FormButtonStep {
     numberChildren: number;
+    findErrorMessage: (errors: Object)=> string;
 }
 
-export function FormButtonStep({ numberChildren }: FormButtonStep) {
-    const { trigger }  = useFormContext();
+export function FormButtonStep({ numberChildren, findErrorMessage }: FormButtonStep) {
+    const { trigger, formState: { errors } }  = useFormContext();
     const [params, setParams] = useSearchParams();
     const { setModalContent } = useContext(ModalContext)
     const currentStep = Number(params.get(STEP_NAME_URL))
     const isLastStep = currentStep === (numberChildren - 1);
 
     const handleNextStep = async () => {
-        const isValid = await handleErrors();
-        const canProceed = !isValid.isError
-
-        if (canProceed) {
+        const currentStep = (params.get(STEP_NAME_URL) || "0");
+        const stepKey: any = `step_${currentStep}`
+        const isValid = await trigger(stepKey);
+        
+        if (isValid) {
             const nextStep = currentStep + 1;
             params.set(STEP_NAME_URL, nextStep.toString())
             setParams(params)
         } else {
+            const error = findErrorMessage(errors)
             setModalContent({
                 componentName: "modal_error_form_database",
                 components:
                     <PopOver
                         componentName="modal_error_form_database"
-                        message={isValid.message}
+                        message={error}
                         type="WARNING"
                     />
             })
@@ -53,6 +56,7 @@ export function FormButtonStep({ numberChildren }: FormButtonStep) {
         const currentStep = (params.get(STEP_NAME_URL) || "0");
         const stepKey: any = `step_${currentStep}`
         const isValid = await trigger(stepKey);
+        console.log(isValid, errors)
 
         if (isValid) return { isError: false, message: "" }
 

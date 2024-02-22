@@ -72,7 +72,7 @@ export function CreateChat() {
                 })
 
                 const timeout = setTimeout(() => {
-                    navigate("/panel")
+                    window.location.href = "/panel"
                     clearTimeout(timeout)
                 }, 2000);
 
@@ -81,8 +81,6 @@ export function CreateChat() {
             throw new Error(error)
         }
     };
-
-    console.log(prompt);
 
     return (
         (plan_management_id) &&

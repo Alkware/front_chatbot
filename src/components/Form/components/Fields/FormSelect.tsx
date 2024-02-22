@@ -17,6 +17,7 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
     const contentOptionsRef: RefObject<HTMLDivElement> = useRef(null);
     const [optionsState, setOptions] = useState<{ options: Options[], selected: Options[] }>({ options: [], selected: [] })
 
+
     useEffect(() => {
         const handleClickOutsideElement = ({ target }: any) => {
             if (contentOptionsRef.current && !contentOptionsRef.current.contains(target)) {
@@ -34,12 +35,15 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
 
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         const key = getValues(name);
-        const data = options?.find(opt => opt.value === key)
+
+        const data = options?.filter((opt) => key?.includes(opt.value));
+
         setOptions(() => {
-            return { options: options ? options : [], selected: data ? [data] : [] }
-        })
+            return { options: options ? options : [], selected: !!data.length ? data : [] }
+        });
+
     }, [])
 
     const handleDisplayOptions = ({ target }: any) => {
@@ -53,21 +57,21 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
     }
 
     const handleOptionSelected = ({ target }: any) => {
-        if(options){
+        if (options) {
             const value = target.dataset.value;
             const text = target.textContent;
             const removeValueList = !!isMultiple ? optionsState.options.filter(opt => opt.value !== value) : options;
             const addValueListSelected = !!isMultiple ? [...optionsState.selected, { value, text }] : [{ value, text }]
             const ul = contentOptionsRef.current?.querySelector("ul")
             ul && (ul.classList.add("hidden"))
-    
+
             registerPaymentsMethods(addValueListSelected)
             setOptions({ options: removeValueList, selected: addValueListSelected });
         }
     }
 
     const handleSelectedAll = () => {
-        if(options){
+        if (options) {
             registerPaymentsMethods(options)
             setOptions({ options: [], selected: options });
         }

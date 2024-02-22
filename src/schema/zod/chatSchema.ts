@@ -5,7 +5,7 @@ export type ChatSchema = z.infer<typeof chatSchema>
 export const chatSchema = z.object({
     step_0: z.object({
         project_name: z.string().min(1, "Você precisa definir um nome para seu chat"),
-        logo: z.string().url(),
+        logo: z.coerce.string().url("Faça o upload da logo do chat"),
         bio: z.string().optional(),
         social_proof: z.array(z.object({
             person_name: z.string().min(1, "Informe o nome do cliente que avaliou."),
@@ -16,12 +16,12 @@ export const chatSchema = z.object({
         })).max(5, "Limite maxímo para adicionar avaliação é de 5.").optional()
     }),
     step_1: z.object({
-        prompt_id: z.string().min(1),
-        chat_input_message: z.array(z.string().min(1)),
+        prompt_id: z.coerce.string().min(1, "Informe uma fonte de dados"),
+        chat_input_message: z.array(z.string().min(1, "Informe a primeira mensagem que será enviada ao seu cliente")).min(1, "Informe pelo menos uma mensagem para iniciar o chat com seu cliente."),
         call_to_action: z.array(z.object({
             button_text: z.string().min(1, "Você precisa definir um texto para seu link."),
             button_link: z.string().url("Digite uma url valída para seu link!"),
-            button_describe: z.string().min(30, "Você precisa criar uma descrição maior para seu botão. Lembre-se a descrição é muito importante para o contexto da conversa.")
+            button_describe: z.string().min(30, "Você precisa criar uma descrição maior para seu link. Lembre-se a descrição é muito importante para o contexto da conversa.")
         })).max(3, "Limite máximo para CTA é de 3").optional()
     }),
     step_2: z.object({

@@ -20,7 +20,6 @@ function CreateNewProject({ plan_management_id }: CreateNewProject) {
         if (client?.plan_management) {
             const maxPlans = client.plan_management.plan.max_projects;
             const currentNumberOfProjects = client.plan_management.project.length
-
             if (client.plan_management.status !== "DISABLED") {
                 if (maxPlans > currentNumberOfProjects) {
                     navigate(`/create-chat/${plan_management_id}`)
@@ -29,7 +28,7 @@ function CreateNewProject({ plan_management_id }: CreateNewProject) {
                         componentName: "modal_reached_max_plan",
                         components:
                             <PopOver
-                                message="Você atingiu o número maximo por plano."
+                                message="Você atingiu o número maximo de chats por plano."
                                 componentName="modal_reached_max_plan"
                             />
                     })
