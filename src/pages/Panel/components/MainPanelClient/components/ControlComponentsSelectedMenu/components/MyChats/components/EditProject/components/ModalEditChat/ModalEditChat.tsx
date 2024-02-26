@@ -238,7 +238,6 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                     <Root.TextArea
                         name="step_0.bio"
                         title="Escreva uma descrição para seu chat"
-                        height={100}
                     />
 
                     <SocialProof />
@@ -256,7 +255,6 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                     <Root.TextArea
                         name="step_1.chat_input_message.0"
                         title="Digite a primeira mensagem do seu chat"
-                        height={100}
                     />
 
                     <div className="flex flex-col ">

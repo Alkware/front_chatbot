@@ -132,7 +132,6 @@ export function CreateChat() {
                         <Root.TextArea
                             name="step_1.chat_input_message.0"
                             title="Digite a primeira mensagem do seu chat"
-                            height={100}
                         />
 
                         <Root.Optional

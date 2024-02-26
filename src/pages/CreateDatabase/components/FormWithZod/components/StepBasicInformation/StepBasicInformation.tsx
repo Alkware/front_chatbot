@@ -10,13 +10,11 @@ export function StepBasicInformation() {
             />
             <Root.TextArea
                 title="Conte um pouco sobre seu produto..."
-                height={100}
                 name="step_0.what_is"
             />
 
             <Root.TextArea
                 title="Como ele funciona?"
-                height={100}
                 name="step_0.how_works"
             />
 

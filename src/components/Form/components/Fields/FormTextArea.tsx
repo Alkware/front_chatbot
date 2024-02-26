@@ -6,11 +6,11 @@ import { FORM_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables"
 interface FormTextArea extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     title: string;
     name: string;
-    size: "SMALL" | "BIG";
+    size?: "SMALL" | "BIG";
     help?: string;
 }
 
-export function FormTextArea({ title, size, help, ...props }: FormTextArea) {
+export function FormTextArea({ title, size = "SMALL", help, ...props }: FormTextArea) {
     const { register } = useFormContext();
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
 
