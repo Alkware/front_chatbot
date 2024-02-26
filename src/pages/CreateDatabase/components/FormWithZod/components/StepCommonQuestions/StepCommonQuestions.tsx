@@ -23,7 +23,8 @@ export function StepCommonQuestions() {
         <Root.Step index={6} stepTitle="Perguntas frequentes">
 
             <div className="w-full flex flex-col">
-                <div className="w-full flex justify-end">
+                <div className="w-full flex items-center justify-between my-4">
+                    <h2 className="font-medium text-xl">Cadastre suas perguntas frequentes</h2>
                     <Button
                         type="button"
                         onClick={() => append({ ask: "", answer: "" })}

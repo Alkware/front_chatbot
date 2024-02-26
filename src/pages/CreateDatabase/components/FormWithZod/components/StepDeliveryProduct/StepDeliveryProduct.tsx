@@ -3,11 +3,10 @@ import { Root } from "../../../../../../components/Form/FormRoot";
 export function StepDeliveryProduct() {
     return (
         <Root.Step index={2} stepTitle="Sobre a entrega do produto">
-            <Root.Container className="flex" title="Qual o prazo médio em dias para entrega:">
+            <Root.Container className="flex gap-4" title="Qual o prazo médio em dias para entrega:">
                 <Root.Input
                     type="number"
                     min={1}
-                    max={365}
                     name="step_2.average_delivery_time.start"
                     title="de:"
                     joinAtInput="dia(s)"
@@ -16,7 +15,6 @@ export function StepDeliveryProduct() {
                 <Root.Input
                     type="number"
                     min={1}
-                    max={365}
                     name="step_2.average_delivery_time.end"
                     title="até:"
                     joinAtInput="dia(s)"

@@ -1,5 +1,6 @@
 import { InputHTMLAttributes, RefObject, useEffect, useRef } from "react"
 import { useFormContext } from "react-hook-form"
+import { FORM_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables";
 
 interface FormInput extends InputHTMLAttributes<HTMLInputElement> {
     name: string;
@@ -47,6 +48,19 @@ export function FormInput({ title, joinAtInput, ...props }: FormInput) {
         }
     }
 
+    const handleOnChange = (e: any) => {
+        // Registra os dados no localStorage.
+        const databaseData = JSON.parse(localStorage.getItem(FORM_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
+        const fieldNameArray = e.target.name.split(".");
+        const lastIndex = (fieldNameArray.length - 1)
+        const fieldName = /\d/.test(fieldNameArray[lastIndex]) ? fieldNameArray[fieldNameArray.length - 2] : fieldNameArray[fieldNameArray.length - 1];
+        const value = e.target.value;
+        databaseData[fieldName] = value
+        localStorage.setItem(FORM_NAME_TO_SAVE_LOCALSTORAGE, JSON.stringify(databaseData))
+        // Executa função onChange passada no Form Input.
+        props.onChange && (props.onChange(e));
+    }
+
     return (
         <div
             className="w-full flex flex-col gap-2 relative border border-primary-100 rounded-md"
@@ -61,7 +75,7 @@ export function FormInput({ title, joinAtInput, ...props }: FormInput) {
 
             <div className="h-full flex gap-2 justify-center items-center bg-gray_light px-2">
                 <input
-                    {...register(props.name, { onChange: props.onChange })}
+                    {...register(props.name, { onChange: handleOnChange })}
                     {...props}
                 />
                 <span

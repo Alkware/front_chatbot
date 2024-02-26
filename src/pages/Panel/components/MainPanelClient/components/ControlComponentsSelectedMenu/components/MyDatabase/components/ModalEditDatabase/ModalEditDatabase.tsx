@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction, useContext } from "react";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
 import { CreatePrompt, Prompt } from "../../../../../../../../../../@types/prompt.types";
-import { DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../../../../../variables/variables";
 import { daleteDatabase, updateDatabase } from "../../../../../../../../../../api/Prompt";
 import { Root } from "../../../../../../../../../../components/Form/FormRoot";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -14,6 +13,7 @@ import { encapsulatedSchema } from "../../../../../../../../../../schema/PromptI
 import { FaCircleInfo, FaFaceGrinBeam } from "react-icons/fa6";
 import { FaBook, FaInfo, FaMoneyCheck, FaQuestionCircle, FaSuitcase, FaTruck } from "react-icons/fa";
 import { StepEditCommonQuestions } from "./components/StepCommonQuestions/StepEditCommonQuestions";
+import { ClientContext } from "../../../../../../../../../../context/ClientContext";
 
 interface ModalEditDatabase {
     prompt: Prompt,
@@ -22,6 +22,7 @@ interface ModalEditDatabase {
 
 export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
     const { setModalContent, clearModal } = useContext(ModalContext);
+    const { client, setClient } = useContext(ClientContext);
     const promptData: DatabaseSchema = JSON.parse(prompt.prompt_query || "{}")
     const checkPromptIsAvalible = !!Object.keys(promptData).length ? true : false
 
@@ -33,7 +34,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 who_created: promptData.step_0.who_created || "",
                 andvisa_record: promptData.step_0.andvisa_record || "",
                 how_works: promptData.step_0.how_works || "",
-                what_is: promptData.step_0.how_works || "",
+                what_is: promptData.step_0.what_is || "",
             },
             step_1: {
                 benefits: promptData.step_1.benefits || "",
@@ -118,8 +119,16 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
             const deleted = await daleteDatabase(prompt.id);
 
             if (deleted?.status === 200) {
-                localStorage.removeItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE)
-                setPrompts((data: any) => data.filter((d: any) => d.id !== deleted.data.id))
+                // Remove esse prompt da lista de prompts que está sendo mostrado para o cliente
+                setPrompts((data: any) => data.filter((d: any) => d.id !== deleted.data.id));
+                //Busca o index desse prompt na lista de prompts do usuário
+                const findIndex = client?.plan_management.prompt.findIndex(p => p.id === prompt.id)
+                // Prompt removido para que seja atualizado de maneira ficticia a quantidade de prompts,
+                // assim possibilita a criação de novos prompts mesmo que a lista não seja atualizada
+                if(client && findIndex){
+                    client.plan_management.prompt.splice(findIndex, 1)
+                    setClient(client)
+                }
 
                 setModalContent({
                     componentName: "modal_delete_success",

@@ -133,9 +133,13 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
             // aqui pode ser tanto deleteProject quanto deleteDatabase. Esse é o problema!
             const deleted = await deleteProject(project.id);
             if (deleted && deleted.status === 200) {
+                // Remove esse project da lista de projects que está sendo mostrado para o cliente
                 setProjects((data: any) => data.filter((d: any) => d.id !== project.id));
+                //Busca o index desse project na lista de projects do usuário
                 const findIndex = client?.plan_management.project.findIndex(p => p.id === project.id)
-                if(client && findIndex){
+                // project removido para que seja atualizado de maneira ficticia a quantidade de projects,
+                // assim possibilita a criação de novos projects mesmo que a lista não seja atualizada.
+                if (client && findIndex) {
                     client.plan_management.project.splice(findIndex, 1)
                     setClient(client)
                 }

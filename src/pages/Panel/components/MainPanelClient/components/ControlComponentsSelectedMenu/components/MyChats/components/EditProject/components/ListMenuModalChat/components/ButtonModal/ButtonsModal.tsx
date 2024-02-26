@@ -5,6 +5,7 @@ import { PopUp } from "../../../../../../../../../../../../../../components/moda
 import { Confirm } from "../../../../../../../../../../../../../../components/modal/templates/Confirm";
 import { useSearchParams } from "react-router-dom";
 import { CTA_NAME_URL } from "../../../../../../../../../../../../../../variables/variables";
+import { TipContainer } from "../../../../../../../../../../../../../../components/TipContainer/TipContainer";
 
 interface ButtonsModalTypes {
     eventDelete: () => Promise<void>
@@ -37,32 +38,37 @@ export function ButtonsModal({ eventDelete }: ButtonsModalTypes) {
 
     return (
         <div className="w-full flex justify-evenly mb-4">
-            <div className="p-2 bg-dark border border-light rounded-full">
-                <button type="submit">
-                    <FcUpload
-                        className="text-3xl cursor-pointer rotate-180"
-                    />
-                </button>
+            <div className="flex justify-center items-center w-[45px] h-[50px] border border-light rounded-full">
+                <TipContainer tip="Salvar">
+                    <button type="submit">
+                        <FcUpload
+                            className="text-3xl cursor-pointer rotate-180"
+                        />
+                    </button>
+                </TipContainer>
             </div>
 
-            <div className="p-2 bg-dark border border-light rounded-full">
-                <button type="button" onClick={handleDiscardProject}>
-                    <FcFile
-                        className="text-3xl cursor-pointer"
+            <div className="flex justify-center items-center w-[45px] h-[50px] border border-light rounded-full">
+                <TipContainer tip="Descartar">
+                    <button type="button" onClick={handleDiscardProject}>
+                        <FcFile
+                            className="text-3xl cursor-pointer"
 
-                    />
-                </button>
-            </div>
-
-            <div className="p-2 bg-dark border border-light rounded-full">
-                <button type="button" onClick={eventDelete}>
-                    <FcFullTrash
-                        className="text-3xl cursor-pointer"
-                    />
-                </button>
+                        />
+                    </button>
+                </TipContainer>
             </div>
 
 
+            <div className="flex justify-center items-center w-[45px] h-[50px] border border-light rounded-full">
+                <TipContainer tip="Deletar">
+                    <button type="button" onClick={eventDelete}>
+                        <FcFullTrash
+                            className="text-3xl cursor-pointer"
+                        />
+                    </button>
+                </TipContainer>
+            </div>
         </div>
     )
 };

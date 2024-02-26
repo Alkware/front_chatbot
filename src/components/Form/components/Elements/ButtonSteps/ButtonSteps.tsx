@@ -10,11 +10,11 @@ import { useFormContext } from "react-hook-form";
 
 interface FormButtonStep {
     numberChildren: number;
-    findErrorMessage: (errors: Object)=> string;
+    findErrorMessage: (errors: Object) => string;
 }
 
 export function FormButtonStep({ numberChildren, findErrorMessage }: FormButtonStep) {
-    const { trigger, formState: { errors } }  = useFormContext();
+    const { trigger, formState: { errors } } = useFormContext();
     const [params, setParams] = useSearchParams();
     const { setModalContent } = useContext(ModalContext)
     const currentStep = Number(params.get(STEP_NAME_URL))
@@ -24,9 +24,9 @@ export function FormButtonStep({ numberChildren, findErrorMessage }: FormButtonS
         const currentStep = (params.get(STEP_NAME_URL) || "0");
         const stepKey: any = `step_${currentStep}`
         const isValid = await trigger(stepKey);
-        
+
         if (isValid) {
-            const nextStep = currentStep + 1;
+            const nextStep = Number(currentStep) + 1;
             params.set(STEP_NAME_URL, nextStep.toString())
             setParams(params)
         } else {
@@ -52,32 +52,33 @@ export function FormButtonStep({ numberChildren, findErrorMessage }: FormButtonS
     }
 
     return (
-        <div className="w-full flex gap-20 justify-center items-center my-8">
-            <Button
-                type="button"
-                customClass="px-4 cursor-pointer"
-                onClick={handlePreviousStep}
-            > <IoIosUndo /> Voltar</Button>
+            <div className="w-full flex gap-20 justify-center items-center mt-8">
 
-            <Button
-                type="submit"
-                data-islaststep={isLastStep}
-                customClass="data-[islaststep=false]:hidden justify-center px-4"
-            >
-                Enviar
-                <IoCreate />
-            </Button>
+                <Button
+                    type="button"
+                    customClass="px-4 cursor-pointer"
+                    onClick={handlePreviousStep}
+                > <IoIosUndo /> Anterior</Button>
 
-            <Button
-                type="button"
-                data-islaststep={isLastStep}
-                customClass="data-[islaststep=true]:hidden justify-center px-4"
-                onClick={handleNextStep}
-            >
-                Proximo
-                <IoIosRedo />
-            </Button>
+                <Button
+                    type="submit"
+                    data-islaststep={isLastStep}
+                    customClass="data-[islaststep=false]:hidden justify-center px-4"
+                >
+                    Enviar
+                    <IoCreate />
+                </Button>
 
-        </div>
+                <Button
+                    type="button"
+                    data-islaststep={isLastStep}
+                    customClass="data-[islaststep=true]:hidden justify-center px-4"
+                    onClick={handleNextStep}
+                >
+                    Proximo
+                    <IoIosRedo />
+                </Button>
+
+            </div>
     )
 };

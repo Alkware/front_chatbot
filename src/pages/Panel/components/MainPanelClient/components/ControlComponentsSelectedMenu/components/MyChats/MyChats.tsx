@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import CreateNewProject from "./components/CreateNewProject/CreateNewProject";
+import { ButtonCreateChat } from "./components/CreateNewProject/CreateNewProject";
 import { ClientContext } from "../../../../../../../../context/ClientContext";
 import { Project } from "../../../../../../../../@types/Project";
 import { Container } from "../../../../../../../../components/Container/Container";
@@ -15,7 +15,7 @@ function MyChats() {
 
             <div className="w-4/5 flex flex-col gap-8">
                 <div className="w-full flex justify-end items-center">
-                    <CreateNewProject
+                    <ButtonCreateChat
                         plan_management_id={client?.plan_management?.id}
                     />
                 </div>

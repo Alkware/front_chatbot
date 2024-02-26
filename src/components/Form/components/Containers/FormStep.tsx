@@ -17,11 +17,11 @@ export function FormStep({ children, index, stepTitle }: FormStep) {
             data-isvisible={index === currentStep ? true : false}
             data-id="step"
             data-index={index}
-            className="w-full data-[isvisible='false']:hidden flex flex-col gap-4"
+            className="w-full data-[isvisible='false']:hidden flex flex-col gap-6"
         >
             <h2
                 data-isvisible={stepTitle ? true : false}
-                className="data-[isvisible='false']:hidden w-full my-4 text-center font-bold text-2xl"
+                className="data-[isvisible='false']:hidden w-full my-2 lg:my-4 text-center font-bold text-2xl"
             >{stepTitle}</h2>
 
             {children}

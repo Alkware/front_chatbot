@@ -13,13 +13,28 @@ import { chatSchema, ChatSchema } from "../../schema/zod/chatSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../components/button/Button";
 import { MdDelete } from "react-icons/md";
+import { FORM_NAME_TO_SAVE_LOCALSTORAGE } from "../../variables/variables";
 
 export function CreateChat() {
     const [prompt, setPrompt] = useState<Prompt[]>()
     const { plan_management_id } = useParams();
     const { setModalContent } = useContext(ModalContext)
     const navigate = useNavigate();
-    const createChatForm = useForm<ChatSchema>({ resolver: zodResolver(chatSchema) });
+    const localStorageDatabase = JSON.parse(localStorage.getItem(FORM_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
+    const createChatForm = useForm<ChatSchema>({ 
+        resolver: zodResolver(chatSchema),
+        defaultValues: {
+            step_0: {
+                project_name: localStorageDatabase?.project_name,
+                logo: localStorageDatabase?.logo,
+            },
+            step_1: {
+                prompt_id: localStorageDatabase?.prompt_id,
+                chat_input_message: [localStorageDatabase?.chat_input_message],
+                call_to_action: localStorageDatabase?.call_to_action,
+            }
+        }
+    });
 
     const { append, remove, fields } = useFieldArray({
         control: createChatForm.control,
@@ -66,6 +81,7 @@ export function CreateChat() {
             });
 
             if (project?.status === 201) {
+                localStorage.removeItem(FORM_NAME_TO_SAVE_LOCALSTORAGE)
                 setModalContent({
                     componentName: "modal_created_chat",
                     components: <PopOver message="Chat criado com sucesso" componentName="modal_created_chat" />
@@ -83,7 +99,7 @@ export function CreateChat() {
     };
 
     return (
-        (plan_management_id) &&
+        (plan_management_id && prompt) &&
         <div className="w-screen h-screen bg-gradient-to-br from-primary-100 to-light dark:via-primary-300 via-15% dark:to-dark to-30% text-light flex flex-col  justify-center items-center overflow-hidden">
             <div className="w-4/5 p-8 min-w-[900px] rounded-2xl flex flex-col gap-8 justify-center items-center bg-primary-100 dark:bg-dark border border-primary-300">
 
@@ -107,16 +123,11 @@ export function CreateChat() {
                     </Root.Step>
 
                     <Root.Step index={1}>
-                        <div>
-                            {
-                                !!prompt?.length &&
-                                <Root.Select
-                                    title="Selecione sua fonte de dados"
-                                    name="step_1.prompt_id"
-                                    options={prompt.map(p => Object({ value: p.id, text: p.prompt_name }))}
-                                />
-                            }
-                        </div>
+                        <Root.Select
+                            title="Selecione sua fonte de dados"
+                            name="step_1.prompt_id"
+                            options={prompt.map(p => Object({ value: p.id, text: p.prompt_name }))}
+                        />
 
                         <Root.TextArea
                             name="step_1.chat_input_message.0"

@@ -10,9 +10,9 @@ export const databaseSchema = z.object({
         andvisa_record: z.string().optional(),
     }),
     step_1: z.object({
-        contraindications: z.string().min(1, "Informe quais as contra-indicações!"),
+        contraindications: z.string().optional(),
         benefits: z.string().min(1, "Informe os beneficios do produto!"),
-        side_effects: z.string().min(1, "Informe os efeitos colaterais do produto!"),
+        side_effects: z.string().optional(),
         ingredients: z.string().min(1, "Informe quais os ingredientes do produto!")
     }),
     step_2: z.object({

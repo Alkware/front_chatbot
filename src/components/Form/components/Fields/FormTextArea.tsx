@@ -1,15 +1,16 @@
 import { RefObject, TextareaHTMLAttributes, useEffect, useRef } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdHelpOutline } from "react-icons/md";
+import { FORM_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables";
 
 interface FormTextArea extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     title: string;
     name: string;
-    height?: number;
+    size: "SMALL" | "BIG";
     help?: string;
 }
 
-export function FormTextArea({ title, height = 100, help, ...props }: FormTextArea) {
+export function FormTextArea({ title, size, help, ...props }: FormTextArea) {
     const { register } = useFormContext();
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
 
@@ -58,6 +59,18 @@ export function FormTextArea({ title, height = 100, help, ...props }: FormTextAr
         }
     }
 
+    const handleOnChange = (e: any) => {
+        // Registra os dados no localStorage.
+        const databaseData = JSON.parse(localStorage.getItem(FORM_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
+        const fieldNameArray = e.target.name.split(".");
+        const lastIndex = (fieldNameArray.length - 1)
+        const fieldName = /\d/.test(fieldNameArray[lastIndex]) ? fieldNameArray[fieldNameArray.length - 2] : fieldNameArray[fieldNameArray.length - 1];
+        const value = e.target.value;
+        databaseData[fieldName] = value
+        localStorage.setItem(FORM_NAME_TO_SAVE_LOCALSTORAGE, JSON.stringify(databaseData))
+        // Executa função onChange passada no Form Input.
+        props.onChange && (props.onChange(e));
+    }
 
     return (
         <div
@@ -71,7 +84,7 @@ export function FormTextArea({ title, height = 100, help, ...props }: FormTextAr
             >
                 <span className="w-full rounded-xl px-2">{title}</span>
 
-                <div className=" cursor-help group">
+                <div className="cursor-help group">
                     <MdHelpOutline
                         data-ishelp={help ? true : false}
                         id="svg-help"
@@ -84,9 +97,9 @@ export function FormTextArea({ title, height = 100, help, ...props }: FormTextAr
             </label>
 
             <textarea
-                style={{ height }}
-                className="border border-primary-100"
-                {...register(props.name)}
+                data-isbig={size === "BIG" ? true : false}
+                className="border border-primary-100 h-[80px] lg:h-[100px] data-[isbig=true]:h-[150px]"
+                {...register(props.name, { onChange: handleOnChange })}
             ></textarea>
         </div>
     )

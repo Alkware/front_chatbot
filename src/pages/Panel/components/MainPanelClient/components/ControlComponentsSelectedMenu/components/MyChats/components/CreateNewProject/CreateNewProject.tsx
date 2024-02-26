@@ -6,42 +6,66 @@ import { ClientContext } from "../../../../../../../../../../context/ClientConte
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
 import { TipContainer } from "../../../../../../../../../../components/TipContainer/TipContainer";
+import { PopUp } from "../../../../../../../../../../components/modal/templates/PopUp";
+import { Button } from "../../../../../../../../../../components/button/Button";
+import { MdAdd } from "react-icons/md";
 
-interface CreateNewProject {
+interface ButtonCreateChat {
     plan_management_id: string,
 }
 
-function CreateNewProject({ plan_management_id }: CreateNewProject) {
+export function ButtonCreateChat({ plan_management_id }: ButtonCreateChat) {
     const { client } = useContext(ClientContext)
-    const { setModalContent } = useContext(ModalContext)
+    const { setModalContent, clearModal } = useContext(ModalContext)
     const navigate = useNavigate();
 
     const handleClickNewProject = () => {
+        console.log(client?.plan_management.prompt)
         if (client?.plan_management) {
-            const maxPlans = client.plan_management.plan.max_projects;
-            const currentNumberOfProjects = client.plan_management.project.length
-            if (client.plan_management.status !== "DISABLED") {
-                if (maxPlans > currentNumberOfProjects) {
-                    navigate(`/create-chat/${plan_management_id}`)
+            if (!!client?.plan_management.prompt.length) {
+                const maxPlans = client.plan_management.plan.max_projects;
+                const currentNumberOfProjects = client.plan_management.project.length
+                if (client.plan_management.status !== "DISABLED") {
+                    if (maxPlans > currentNumberOfProjects) {
+                        navigate(`/create-chat/${plan_management_id}`)
+                    } else {
+                        setModalContent({
+                            componentName: "modal_reached_max_plan",
+                            components:
+                                <PopOver
+                                    message="Você atingiu o número maximo de chats por plano."
+                                    componentName="modal_reached_max_plan"
+                                />
+                        })
+                    }
                 } else {
                     setModalContent({
-                        componentName: "modal_reached_max_plan",
+                        componentName: "modal_plan_is_desabled",
                         components:
                             <PopOver
-                                message="Você atingiu o número maximo de chats por plano."
-                                componentName="modal_reached_max_plan"
+                                message="O plano da sua conta está desabilitado."
+                                componentName="modal_plan_is_desabled"
+                                functionAfterComplete={() => navigate("/panel?tab=4")}
                             />
                     })
                 }
             } else {
                 setModalContent({
-                    componentName: "modal_plan_is_desabled",
+                    componentName: "modal_create_database",
                     components:
-                        <PopOver
-                            message="O plano da sua conta está desabilitado."
-                            componentName="modal_plan_is_desabled"
-                            functionAfterComplete={()=> navigate("/panel?tab=4")}
-                        />
+                        <PopUp>
+                            <div className="flex flex-col items-center justify-center gap-4">
+                                <h2 className="text-xl text-center">Para criar um novo chat, antes é necessário <br />  criar uma fonte de dados.</h2>
+                                <h2 className="text-lg text-center opacity-80">Nossa inteligência artifical vai analisar seus dados e <br /> responder as dúvidas do usuário <br />conforme as informações passadas na fonte de dados.</h2>
+                                <Button
+                                    customClass="my-4"
+                                    onClick={()=> { navigate("/panel?tab=2"); clearModal("modal_create_database")}}
+                                >
+                                    <MdAdd />
+                                    Criar fonte de dados
+                                </Button>
+                            </div>
+                        </PopUp>
                 })
             }
 
@@ -52,7 +76,7 @@ function CreateNewProject({ plan_management_id }: CreateNewProject) {
                     <PopOver
                         message="Nenhum plano foi vinculado a sua conta"
                         componentName="modal_without_plan"
-                        functionAfterComplete={()=> navigate("/panel?tab=4")}
+                        functionAfterComplete={() => navigate("/panel?tab=4")}
                     />
             })
         }
@@ -71,5 +95,4 @@ function CreateNewProject({ plan_management_id }: CreateNewProject) {
 
 }
 
-export default CreateNewProject;
 
