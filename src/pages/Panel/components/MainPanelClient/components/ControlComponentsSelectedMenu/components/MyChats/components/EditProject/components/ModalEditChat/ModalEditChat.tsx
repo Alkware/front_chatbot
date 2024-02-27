@@ -108,7 +108,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                     newData.plan_management_id = projectUpdate.data.plan_management_id
                     newData.id = projectUpdate.data.id
                     newData.prompt = projectUpdate.data.prompt;
-                    newData.chat_appearence = projectUpdate.data.chat_appearence
+                    newData.chat_appearence = projectUpdate.data.chat_appearence;
 
                     // insere o novo dado dentro do array de projeto
                     filterWithoutOutDatedProject.splice(findIndex, 0, newData)
