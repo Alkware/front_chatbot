@@ -17,7 +17,7 @@ export const chatSchema = z.object({
     }),
     step_1: z.object({
         prompt_id: z.coerce.string().min(1, "Informe uma fonte de dados"),
-        chat_input_message: z.array(z.string().min(1, "Informe a primeira mensagem que será enviada ao seu cliente")).min(1, "Informe pelo menos uma mensagem para iniciar o chat com seu cliente."),
+        chat_input_message: z.array(z.string().min(1, "Informe a primeira mensagem que será enviada ao seu cliente").max(80, "Sua primeira mensagem não pode conter no máximo 80 caracteres.")).min(1, "Informe pelo menos uma mensagem para iniciar o chat com seu cliente."),
         call_to_action: z.array(z.object({
             button_text: z.string().min(1, "Você precisa definir um texto para seu link."),
             button_link: z.string().url("Digite uma url valída para seu link!"),

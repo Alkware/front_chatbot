@@ -10,6 +10,6 @@ export function FirstMessage() {
         setFirstMessage(firstMessage)
     }, [watch()])
 
-    return <p>{firstMessage}</p>
+    return <p className="w-full">{firstMessage}</p>
     
 };
