@@ -101,8 +101,6 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
             const projectUpdate: AxiosResponse<Project, Project> | void = await updateProject(newData, project.slug)
             if (projectUpdate && projectUpdate.status === 200) {
                 setProjects(projects => {
-                    console.log(projectUpdate.data)
-
                     const findIndex = projects.findIndex(p => p.id === project.id)
                     const filterWithoutOutDatedProject = projects.filter(p => p.id !== project.id)
                     // preenchendo alguns dados ficticios até que o usuario recarregue com os dados verdadeiros.

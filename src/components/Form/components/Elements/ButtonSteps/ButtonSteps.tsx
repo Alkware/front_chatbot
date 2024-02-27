@@ -45,7 +45,6 @@ export function FormButtonStep({ numberChildren, findErrorMessage }: FormButtonS
     }
 
     const handlePreviousStep = () => {
-        console.log(currentStep)
         const previousStep = currentStep - 1;
         
         if(previousStep < 0){

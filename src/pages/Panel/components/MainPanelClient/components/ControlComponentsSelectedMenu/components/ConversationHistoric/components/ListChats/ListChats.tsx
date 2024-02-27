@@ -15,7 +15,7 @@ export function ListChats({ chats, setIndex }: ListChats) {
     }
 
     return (
-        <div className="w-1/3 flex flex-col border-r border-light/40">
+        <div className="w-[300px] flex flex-col border-r border-light/40">
             {
                 chats?.map((chat, index) =>
                     <div

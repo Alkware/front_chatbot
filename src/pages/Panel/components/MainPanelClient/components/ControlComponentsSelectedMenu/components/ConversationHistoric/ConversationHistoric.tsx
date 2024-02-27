@@ -77,7 +77,7 @@ export function ConversationHistoric() {
     return (
         <Container title="Registros" className="px-8">
 
-            <div className="flex gap-8 h-[40px]">
+            <div className="w-full flex gap-8 h-[40px]">
                 <TipContainer tip="Selecione uma data como filtro">
                     <SelectTime typeFilter="filter_time_chats" />
                 </TipContainer>
@@ -103,11 +103,13 @@ export function ConversationHistoric() {
                     chats={chats}
                     setIndex={setIndex}
                 />
-
-                <ContentChats
-                    chats={chats}
-                    index={index}
-                />
+                {
+                    !!chats.length &&
+                    <ContentChats
+                        chats={chats}
+                        index={index}
+                    />
+                }
             </div>
         </Container>
     )
