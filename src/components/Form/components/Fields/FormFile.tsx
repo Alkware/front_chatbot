@@ -1,8 +1,10 @@
-import { ChangeEvent, InputHTMLAttributes, RefObject, useEffect, useRef } from "react";
+import { ChangeEvent, InputHTMLAttributes, RefObject, useContext, useEffect, useRef } from "react";
 import { useFormContext } from "react-hook-form";
 import { uploadImage } from "../../../../api/uploadImages";
 import { RiUpload2Line } from "react-icons/ri";
 import { Loading } from "../../../loading/Loading";
+import { ModalContext } from "../../../../context/ModalContext";
+import { PopOver } from "../../../modal/templates/PopOver";
 
 interface FormFile extends InputHTMLAttributes<HTMLInputElement> {
     name: string
@@ -10,6 +12,7 @@ interface FormFile extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export function FormFile(props: FormFile) {
+    const { setModalContent } = useContext(ModalContext)
     const { register, watch, unregister } = useFormContext();
     const refUploadImg: RefObject<HTMLDivElement> = useRef(null);
 
@@ -33,7 +36,7 @@ export function FormFile(props: FormFile) {
         const preview = containerUpload?.querySelector("div#preview-img");
         const img = preview?.querySelector("img");
         const files = e.target.files
-        
+
         // Antes de fazer o upload
         const containerLoading = refUploadImg.current?.querySelector("span#container");
         const loading = containerLoading?.querySelector("div#loading")
@@ -55,9 +58,27 @@ export function FormFile(props: FormFile) {
 
             const response = await uploadImage(files[0]);
 
-            if (response?.status === 200) {
+            if (response && response?.status === 200) {
                 unregister(props.name);
                 register(props.name, { value: response.data.url })
+            } else {
+                setModalContent({
+                    componentName: "modal_error_upload_img",
+                    components:
+                        <PopOver
+                            message="Não foi possivel fazer o upload da sua imagem, tente redimenciona-la ou use outra imagem."
+                            componentName="modal_error_upload_img"
+                            type="ERROR"
+                        />
+                });
+
+                if (text) {
+                    text.textContent = "upload"
+                    iconUpload?.classList.remove("hidden")
+                    loading?.classList.add("hidden");
+                    loading?.classList.remove("flex")
+                }
+
             }
 
         }

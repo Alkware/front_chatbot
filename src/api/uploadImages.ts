@@ -11,8 +11,9 @@ export async function uploadImage(file: any) {
             const form = new FormData();
             form.append('image', file);
             const response = await axios.post(`${API_URL}/upload_image`, form).catch(err => console.log("ERRO:", err))
-            console.log(response)
+
             if (response) return response
+            
         }
     } catch (error) {
         throw new Error("Unable to upload image.")
