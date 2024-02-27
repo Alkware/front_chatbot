@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { BackHome } from "./components/BackHome";
 import { getPlanManagementById } from "../../api/planManagement";
 import { AxiosResponse } from "axios";
 import { Prompt } from "../../@types/prompt.types";
@@ -21,7 +20,7 @@ export function CreateChat() {
     const { setModalContent } = useContext(ModalContext)
     const navigate = useNavigate();
     const localStorageDatabase = JSON.parse(localStorage.getItem(FORM_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
-    const createChatForm = useForm<ChatSchema>({ 
+    const createChatForm = useForm<ChatSchema>({
         resolver: zodResolver(chatSchema),
         defaultValues: {
             step_0: {
@@ -102,9 +101,6 @@ export function CreateChat() {
         (plan_management_id && prompt) &&
         <div className="w-screen h-screen bg-gradient-to-br from-primary-100 to-light dark:via-primary-300 via-15% dark:to-dark to-30% text-light flex flex-col  justify-center items-center overflow-hidden">
             <div className="w-4/5 p-8 min-w-[900px] rounded-2xl flex flex-col gap-8 justify-center items-center bg-primary-100 dark:bg-dark border border-primary-300">
-
-                <BackHome />
-
                 <Root.Form
                     onSubmit={handleCreateProject}
                     form={createChatForm}

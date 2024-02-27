@@ -101,13 +101,15 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
             const projectUpdate: AxiosResponse<Project, Project> | void = await updateProject(newData, project.slug)
             if (projectUpdate && projectUpdate.status === 200) {
                 setProjects(projects => {
+                    console.log(projectUpdate.data)
+
                     const findIndex = projects.findIndex(p => p.id === project.id)
                     const filterWithoutOutDatedProject = projects.filter(p => p.id !== project.id)
                     // preenchendo alguns dados ficticios até que o usuario recarregue com os dados verdadeiros.
                     newData.is_online = projectUpdate.data.is_online
                     newData.plan_management_id = projectUpdate.data.plan_management_id
                     newData.id = projectUpdate.data.id
-                    newData.prompt = {}
+                    newData.prompt = projectUpdate.data.prompt;
                     newData.chat_appearence = projectUpdate.data.chat_appearence
 
                     // insere o novo dado dentro do array de projeto
@@ -214,7 +216,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
 
     return (
         (!!prompt?.length) &&
-        <div className="w-[90vw] h-[80vh] min-h-[450px] min-w-[700px] flex">
+        <div className="w-[90vw] h-[80vh] min-h-[450px] min-w-[700px] flex overflow-hidden">
             <Root.EditForm
                 form={editChatForm}
                 onDelete={handleDeleteProject}

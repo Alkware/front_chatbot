@@ -13,7 +13,7 @@ export function SocialProof() {
 
 
     return (
-        <Root.Container className="overflow-auto h-[400px] mt-8">
+        <Root.Container className="overflow-auto h-[400px]">
  
             <Root.Container className="flex justify-between items-center">
                 <div className="flex flex-col text-center">
@@ -28,11 +28,11 @@ export function SocialProof() {
                 </Button>
             </Root.Container>
 
-            <Root.Container className="px-4">
+            <Root.Container className="px-4 overflow-auto h-[300px] my-2">
                 {
                     fields.map((field: any, index: number) =>
                         <Root.Container
-                            className="w-full flex flex-col gap-6 my-4 p-2 border border-primary-100 relative"
+                            className="w-full flex flex-col gap-4 my-2 p-2 rounded-lg border border-primary-100 relative"
                             key={field.id}
                         >
                             <MdDelete

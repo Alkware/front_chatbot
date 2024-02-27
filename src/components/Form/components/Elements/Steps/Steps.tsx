@@ -1,14 +1,20 @@
 import { useSearchParams } from "react-router-dom"
 import { STEP_NAME_URL } from "../../../../../variables/variables";
-import { BackHome } from "../../../../../pages/CreateChat/components/BackHome";
+import { MouseEvent } from "react";
 
 interface Steps {
     numberSteps: number,
 }
 
 export function Steps({ numberSteps }: Steps) {
-    const [params] = useSearchParams();
-    const currentIndex = Number(params.get(STEP_NAME_URL)) || 0
+    const [params, setParams] = useSearchParams();
+    const currentIndex = Number(params.get(STEP_NAME_URL)) || 0;
+
+    const handleClickNextStep = (e: MouseEvent<HTMLDivElement>) => {
+        const indexClicked = e.currentTarget.dataset.index || 0;
+        params.set(STEP_NAME_URL, (indexClicked).toString())
+        setParams(params)
+    }
 
     return (
         <div className="flex flex-col w-full">
@@ -17,17 +23,21 @@ export function Steps({ numberSteps }: Steps) {
                     Array(numberSteps).fill(0).map((_, index) =>
                         <div key={index} className={`w-full h-[1px] bg-transparent border border-dashed border-transparent border-t-white/30 flex justify-center items-center`}>
                             <div
+                                data-index={index}
                                 className={
-                                    `w-[20px] h-[20px] flex justify-center items-center text-xs font-bold
+                                    `w-[35px] h-[35px] flex justify-center items-center text-md cursor-pointer font-bold
                                     ${index < currentIndex ?
                                         "bg-primary-100 border border-light" :
                                         index === currentIndex ? "bg-light animate-ping" :
                                             "bg-zinc-400"} rounded-full`}
+                                onClick={handleClickNextStep}
                             >{index + 1}</div>
                             {
                                 index === currentIndex &&
                                 <div
-                                    className={`w-[20px] h-[20px] flex justify-center items-center font-bold bg-primary-100 border border-light rounded-full absolute`}
+                                    data-index={index}
+                                    className={`w-[35px] h-[35px] cursor-pointer flex justify-center items-center font-bold bg-primary-100 border border-light rounded-full absolute`}
+                                    onClick={handleClickNextStep}
                                 >{index + 1}</div>
                             }
                         </div>
@@ -35,7 +45,6 @@ export function Steps({ numberSteps }: Steps) {
                 }
             </div>
 
-            <BackHome route="/panel?tab=2"/>
 
         </div>
     )

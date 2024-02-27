@@ -1,5 +1,5 @@
 import { IoIosRedo, IoIosUndo } from "react-icons/io";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { STEP_NAME_URL } from "../../../../../variables/variables";
 import { Button } from "../../../../button/Button";
 import { IoCreate } from "react-icons/io5";
@@ -14,11 +14,12 @@ interface FormButtonStep {
 }
 
 export function FormButtonStep({ numberChildren, findErrorMessage }: FormButtonStep) {
-    const { trigger, formState: { errors } } = useFormContext();
     const [params, setParams] = useSearchParams();
     const { setModalContent } = useContext(ModalContext)
+    const { trigger, formState: { errors } } = useFormContext();
     const currentStep = Number(params.get(STEP_NAME_URL))
     const isLastStep = currentStep === (numberChildren - 1);
+    const navigate =  useNavigate();
 
     const handleNextStep = async () => {
         const currentStep = (params.get(STEP_NAME_URL) || "0");
@@ -44,7 +45,13 @@ export function FormButtonStep({ numberChildren, findErrorMessage }: FormButtonS
     }
 
     const handlePreviousStep = () => {
+        console.log(currentStep)
         const previousStep = currentStep - 1;
+        
+        if(previousStep < 0){
+            navigate("/panel")
+        }
+
         if (previousStep >= 0) {
             params.set(STEP_NAME_URL, previousStep.toString())
             setParams(params)
@@ -58,7 +65,7 @@ export function FormButtonStep({ numberChildren, findErrorMessage }: FormButtonS
                     type="button"
                     customClass="px-4 cursor-pointer"
                     onClick={handlePreviousStep}
-                > <IoIosUndo /> Anterior</Button>
+                > <IoIosUndo /> { currentStep === 0 ? "Painel": "Anterior" }</Button>
 
                 <Button
                     type="submit"

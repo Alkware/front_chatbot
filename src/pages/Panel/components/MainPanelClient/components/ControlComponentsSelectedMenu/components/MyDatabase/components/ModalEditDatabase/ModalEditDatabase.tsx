@@ -125,7 +125,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 const findIndex = client?.plan_management.prompt.findIndex(p => p.id === prompt.id)
                 // Prompt removido para que seja atualizado de maneira ficticia a quantidade de prompts,
                 // assim possibilita a criação de novos prompts mesmo que a lista não seja atualizada
-                if(client && findIndex){
+                if (client && findIndex) {
                     client.plan_management.prompt.splice(findIndex, 1)
                     setClient(client)
                 }
@@ -156,6 +156,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
 
     return (
         <div className="w-[80vw] h-[70vh] flex overflow-auto ">
+
             <Root.EditForm
                 form={updateDatabaseForm}
                 onDelete={handleDeleteDatabase}

@@ -20,7 +20,6 @@ export function ButtonCreateChat({ plan_management_id }: ButtonCreateChat) {
     const navigate = useNavigate();
 
     const handleClickNewProject = () => {
-        console.log(client?.plan_management.prompt)
         if (client?.plan_management) {
             if (!!client?.plan_management.prompt.length) {
                 const maxPlans = client.plan_management.plan.max_projects;

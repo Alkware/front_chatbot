@@ -120,6 +120,7 @@ export function eventManager(project: Project, time: number = 0) {
         return formatDate(project.created_at).dateFormat_A
     }
 
+    console.log((getInputMessages() + getOutputMessages()))
 
     return {
         IS_ONLINE: project.is_online || false,
