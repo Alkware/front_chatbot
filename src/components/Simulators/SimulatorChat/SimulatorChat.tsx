@@ -27,7 +27,7 @@ export function SimulatorChat({ active }: SimulatorChat) {
     return (
         (active) &&
         <div className="flex flex-col ">
-            <div className="w-1/4 min-w-[300px] max-h-[500px] overflow-hidden relative border border-white/20 rounded-xl">
+            <div className="w-1/4 min-w-[300px] max-h-[500px] overflow-y-auto relative border border-white/20 rounded-xl">
 
                 <HeaderSimulator />
 
