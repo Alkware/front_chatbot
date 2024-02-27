@@ -4,6 +4,7 @@ import { Metric } from "./components/Metric/Metric";
 import { MyDatabases } from "./components/MyDatabase/MyDatabase";
 import { ConversationHistoric } from "./components/ConversationHistoric/ConversationHistoric";
 import { Payments } from "./components/Payments/Payments";
+import { ConfigProfile } from "./components/ConfigProfile/ConfigProfile";
 
 
 export function ControlComponentsSelectedMenu() {
@@ -28,7 +29,7 @@ export function ControlComponentsSelectedMenu() {
                                 tab === 4 ?
                                     <Payments />
                                     :
-                                    <h2>Configurações</h2>
+                                    <ConfigProfile />
 
             }
         </div>

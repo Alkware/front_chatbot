@@ -21,6 +21,9 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
         navigate("/login")
     }
 
+    const handleConfigProfile = ()=>{
+        navigate("/panel?tab=5")
+    }
 
     return (
         client &&
@@ -33,6 +36,7 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                         <FaGear
                             data-menuisopen={menuIsOpen}
                             className="text-3xl cursor-pointer hover:animate-spin data-[menuisopen=false]:hidden"
+                            onClick={handleConfigProfile}
                         />
                     </TipContainer>
                     

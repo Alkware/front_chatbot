@@ -28,7 +28,7 @@ export function ContentChats({ chats, index }: ContentChats) {
 
     return (
         infoChat &&
-        <div className="w-2/3 h-[500px] overflow-auto flex flex-col" >
+        <div className="w-2/3 overflow-auto flex flex-col" >
             <div className="w-full flex flex-col gap-4">
                 <div className="w-full h-[60px] flex items-center px-4 bg-primary-100">
                     <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
@@ -41,7 +41,7 @@ export function ContentChats({ chats, index }: ContentChats) {
                     <p className="px-4 text-xl">{infoChat?.projectName}</p>
                 </div>
 
-                <div className="w-full p-4 flex flex-col gap-4 overflow-y-auto">
+                <div className="w-full h-[350px] p-4 flex flex-col gap-4 overflow-y-auto">
                     {
                         chats[index]?.messages ? chats[index].messages.map((msg, index) =>
                             <div

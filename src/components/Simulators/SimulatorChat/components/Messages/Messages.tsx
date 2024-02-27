@@ -24,7 +24,7 @@ export function Messages() {
 
     return (
         <div
-            className="w-full h-[400px] flex flex-col gap-1 py-4 px-2 rounded-b-xl"
+            className="w-full h-[350px] flex flex-col gap-1 py-4 px-2 rounded-b-xl"
             style={{ background }}
         >
             {

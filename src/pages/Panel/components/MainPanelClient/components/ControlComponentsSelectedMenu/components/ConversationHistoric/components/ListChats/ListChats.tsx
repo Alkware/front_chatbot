@@ -20,7 +20,7 @@ export function ListChats({ chats, setIndex }: ListChats) {
                 chats?.map((chat, index) =>
                     <div
                         key={chat.id}
-                        className="w-full  cursor-pointer hover:bg-primary-200 transition-colors p-4 border border-primary-100/20"
+                        className="w-full cursor-pointer hover:bg-primary-200 transition-colors p-4 border border-primary-100/20"
                         onClick={() => handleSelectConversation(index)}
                     >
                         <h2
