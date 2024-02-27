@@ -43,7 +43,7 @@ export function StepPaymentsMethods() {
 
             <div className="w-full flex flex-col gap-4">
                 <div className="w-full flex items-center justify-between my-4">
-                    <h2 className="font-medium text-xl">Registre os produtos disponíveis para essa fonte de dados</h2>
+                    <h2 className="font-medium text-xl">Registre as ofertas do produto disponíveis para essa fonte de dados</h2>
                     <Button
                         type="button"
                         onClick={() => append({ name: "", value: "R$ 0" })}
