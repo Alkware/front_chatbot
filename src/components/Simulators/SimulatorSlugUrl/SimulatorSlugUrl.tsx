@@ -6,10 +6,9 @@ interface SimulatorSlugUrl {
     previousSlug: string
 }
 
-export function SimulatorSlugUrl({ previousSlug }: SimulatorSlugUrl) {
+export function SimulatorSlugUrl() {
     const { watch } = useFormContext();
     const [slug, setSlug] = useState();
-    const slicePreviousSlug = previousSlug.includes("-") ? previousSlug.split("-")[0] : "";
 
     useEffect(() => {
         const slugData = watch("step_4.slug");
@@ -17,7 +16,6 @@ export function SimulatorSlugUrl({ previousSlug }: SimulatorSlugUrl) {
     }, [watch()])
 
     return (
-        !!slicePreviousSlug &&
         <div className="w-full flex gap-2 items-center bg-white p-2 my-4 rounded-md">
             <FaArrowLeft className="fill-zinc-600" />
             <FaArrowRight className="fill-zinc-600" />
@@ -25,7 +23,7 @@ export function SimulatorSlugUrl({ previousSlug }: SimulatorSlugUrl) {
             <div className="w-full bg-zinc-600 rounded-xl p-3 flex gap-2 items-center">
                 <FaLock className="fill-green-600" />
 
-                <h2 className="opacity-80">https://chat.wipzee.com/{slicePreviousSlug}-{slug}</h2>
+                <h2 className="opacity-80">https://chat.wipzee.com/{slug}</h2>
             </div>
         </div>
     )

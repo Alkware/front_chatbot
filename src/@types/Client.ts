@@ -4,6 +4,8 @@ export interface Client {
     id: string,
     logo: string,
     fullname: string,
+    cpf_cnpj: string,
+    email: string,    
     isAdmin: boolean,
     user: string,
     ticto_order_code: string,

@@ -86,7 +86,7 @@ export function ButtonRequestRefund({ client }: { client?: Client }) {
     const realeaseCancelSubscriptionButton = () => {
         if (!!client?.plan_management) {
             if (client.plan_management.status === "ACTIVE" && freeTrial() <= 0) {
-                if (client.refund_requested[0].status !== "PENDING") return true
+                if (!!client.refund_requested.length && client.refund_requested[0].status !== "PENDING") return true
                 else return false
             }
         } else false

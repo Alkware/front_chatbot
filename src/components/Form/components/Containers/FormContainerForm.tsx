@@ -67,7 +67,7 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
 
                 <div className="w-full flex justify-evenly gap-4">
                     <div
-                        className="w-full h-full flex flex-col max-w-[900px] overflow-y-auto"
+                        className="w-full h-full flex flex-col max-w-[900px]"
                     >
 
                         {children}

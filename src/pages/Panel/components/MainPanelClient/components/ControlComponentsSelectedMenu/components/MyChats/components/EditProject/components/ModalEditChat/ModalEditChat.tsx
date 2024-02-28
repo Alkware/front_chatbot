@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react"
 import { Project } from "../../../../../../../../../../../../@types/Project";
 import { Prompt } from "../../../../../../../../../../../../@types/prompt.types";
-import { deleteProject, updateProject } from "../../../../../../../../../../../../api/project";
+import { checkSlugIsAvailable, deleteProject, updateProject } from "../../../../../../../../../../../../api/project";
 import { PopOver } from "../../../../../../../../../../../../components/modal/templates/PopOver";
 import { ModalContext } from "../../../../../../../../../../../../context/ModalContext";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -59,7 +59,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                 }
             },
             step_4: {
-                slug: project.slug?.split("-").filter((_, index) => index !== 0).join(""),
+                slug: project.slug,
             }
         }
     });
@@ -96,6 +96,21 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
         })
 
         if (newData && project.slug) {
+
+            if (data.step_4?.slug && data.step_4?.slug !== project.slug && !await checkSlugIsAvailable(data.step_4.slug)) {
+                setModalContent({
+                    componentName: "modal_error_slug",
+                    components:
+                        <PopOver
+                            componentName="modal_error_slug"
+                            message="A slug escolhida não está disponível!"
+                            type="WARNING"
+                        />
+                })
+                return;
+            }
+
+
             newData.chat_appearence.can_update = project.chat_appearence.can_update
             newData.chat_appearence.id = project.chat_appearence.id
             const projectUpdate: AxiosResponse<Project, Project> | void = await updateProject(newData, project.slug)
@@ -398,7 +413,13 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                             title="Altere a slug do seu chat"
                         />
 
-                        <SimulatorSlugUrl previousSlug={project?.slug || ""} />
+                        <SimulatorSlugUrl />
+                        <div className="flex flex-col">
+                            <span className="font-medium uppercase">Lembre-se</span>
+                            <span className="opacity-70">
+                                Ao trocar a slug do seu chat, todos seus clientes que possuirem a URL antiga, podem perder acesso ao seu site utilizando a antiga URL.
+                            </span>
+                        </div>
                     </Root.Container>
                 </Root.EditStep>
             </Root.EditForm>
