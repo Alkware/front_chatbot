@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { Container } from "../../../../../../../../components/Container/Container";
 import { Root } from "../../../../../../../../components/Form/FormRoot";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ClientContext } from "../../../../../../../../context/ClientContext";
 import { Button } from "../../../../../../../../components/button/Button";
 import { FaLock, FaSave } from "react-icons/fa";
@@ -10,11 +10,27 @@ import { PopUp } from "../../../../../../../../components/modal/templates/PopUp"
 import { ChangePassword } from "./components/ChangePassword/ChangePassword";
 import { checkUserIsAvailable, updateClient } from "../../../../../../../../api/client";
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver";
+import { addMaskToInput } from "../../../../../../../../functions/addMaskToInput";
+import { object, z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const clientSchema = z.object({
+    fullname: z.string().min(1, "Digite seu nome completo!").refine(text => { 
+        const splitText = text.split(" ");
+        if(splitText.length >= 2 && !!splitText[1]) return true;
+        return false;
+    }, "Vocẽ precisa informar seu nome completo"),
+    user: z.string().min(1, "Digite um nome de usuário!").max(25, "Nome de usuário muito longe, informe um menor."),
+    email: z.string().email(),
+    password: z.string().min(8, "Sua senha precisa ter no minimo 8 caracteres!"),
+    cpf_cnpj: z.string().refine(text => text.includes("."), "Digite um cnpj ou cpf valído!")
+})
 
 export function ConfigProfile() {
     const { setModalContent } = useContext(ModalContext)
     const { client, setClient } = useContext(ClientContext)
     const formEditUser = useForm({
+        resolver: zodResolver(clientSchema),
         defaultValues: {
             fullname: client?.fullname,
             user: client?.user,
@@ -23,7 +39,41 @@ export function ConfigProfile() {
             password: "senha-qualquer"
         }
     });
-    const { handleSubmit } = formEditUser
+    const { handleSubmit, formState: { errors } } = formEditUser
+
+    useEffect(() => {
+        const message = findMessageError(errors);
+        if (!!message) {
+            setModalContent({
+                componentName: "modal_error_message",
+                components:
+                    <PopOver
+                        message={message}
+                        type="WARNING"
+                        componentName="modal_error_message"
+                    />
+            })
+        }
+
+    }, [errors]);
+
+    const findMessageError = (errors: any) => {
+        if (typeof errors === 'object' && object !== null) {
+
+            for (let key in errors) {
+
+                if (key === "message") {
+                    return errors[key]
+                }
+                else {
+                    const errorMessage: any = findMessageError(errors[key]);
+                    if (errorMessage !== undefined) return errorMessage;
+                }
+
+            }
+        }
+    }
+
 
     const handleSaveDataUser = async (data: any) => {
         if (client?.user === data.user || await checkUserIsAvailable(data.user)) {
@@ -103,6 +153,7 @@ export function ConfigProfile() {
                     <Root.Input
                         name="cpf_cnpj"
                         title="CNPJ ou CPF"
+                        mask={addMaskToInput}
                     />
 
                     <Root.Container

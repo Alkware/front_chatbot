@@ -1,4 +1,5 @@
 import { Root } from "../../../../../../components/Form/FormRoot";
+import { addMaskToInput } from "../../../../../../functions/addMaskToInput";
 
 export function StepAboutCompany() {
     return (
@@ -13,18 +14,7 @@ export function StepAboutCompany() {
                 <Root.Input
                     title="Qual o seu CNPJ?"
                     name="step_5.CNPJ"
-                    onChange={({ target }) => {
-                        if (target.value.length <= 18) {
-                            const numericCnpj = target.value.replace(/[^\d]/g, '');
-                            const formatedCNPJ = numericCnpj.replace(
-                                /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
-                                '$1.$2.$3/$4-$5'
-                            );
-
-                            target.value = formatedCNPJ
-                        } else target.value = target.value.substring(0, 18)
-                    }
-                    }
+                    mask={addMaskToInput}
                 />
             </Root.Container>
 

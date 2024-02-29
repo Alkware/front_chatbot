@@ -14,6 +14,7 @@ import { FaCircleInfo, FaFaceGrinBeam } from "react-icons/fa6";
 import { FaBook, FaInfo, FaMoneyCheck, FaQuestionCircle, FaSuitcase, FaTruck } from "react-icons/fa";
 import { StepEditCommonQuestions } from "./components/StepCommonQuestions/StepEditCommonQuestions";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
+import { addMaskToInput } from "../../../../../../../../../../functions/addMaskToInput";
 
 interface ModalEditDatabase {
     prompt: Prompt,
@@ -400,18 +401,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                         <Root.Input
                             title="Qual o seu CNPJ?"
                             name="step_5.CNPJ"
-                            onChange={({ target }) => {
-                                if (target.value.length <= 18) {
-                                    const numericCnpj = target.value.replace(/[^\d]/g, '');
-                                    const formatedCNPJ = numericCnpj.replace(
-                                        /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
-                                        '$1.$2.$3/$4-$5'
-                                    );
-
-                                    target.value = formatedCNPJ
-                                } else target.value = target.value.substring(0, 18)
-                            }
-                            }
+                            mask={addMaskToInput}
                         />
                     </Root.Container>
 

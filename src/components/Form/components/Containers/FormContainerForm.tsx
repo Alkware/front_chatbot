@@ -34,7 +34,7 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
             })
         }
 
-    }, [form.formState.errors])
+    }, [form.formState.errors]);
 
     const findMessageError = (errors: any) => {
         if (typeof errors === 'object' && object !== null) {

@@ -1,14 +1,15 @@
-import { InputHTMLAttributes, RefObject, useEffect, useRef } from "react"
+import { InputHTMLAttributes, MouseEvent, RefObject, useEffect, useRef } from "react"
 import { useFormContext } from "react-hook-form"
 import { FORM_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables";
 
 interface FormInput extends InputHTMLAttributes<HTMLInputElement> {
     name: string;
     title: string;
+    mask?: (e: MouseEvent<HTMLInputElement, MouseEvent>) => void;
     joinAtInput?: string;
 }
 
-export function FormInput({ title, joinAtInput, ...props }: FormInput) {
+export function FormInput({ title, joinAtInput, mask, ...props }: FormInput) {
     const { register } = useFormContext();
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const sizeLetter = 10;
@@ -59,6 +60,8 @@ export function FormInput({ title, joinAtInput, ...props }: FormInput) {
         localStorage.setItem(FORM_NAME_TO_SAVE_LOCALSTORAGE, JSON.stringify(databaseData))
         // Executa função onChange passada no Form Input.
         props.onChange && (props.onChange(e));
+        // Executa função Mask caso ela seja passada no formInput.
+        mask && mask(e)
     }
 
     return (
