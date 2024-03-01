@@ -19,7 +19,9 @@ export const chatSchema = z.object({
         prompt_id: z.coerce.string().min(1, "Informe uma fonte de dados"),
         chat_input_message: z.array(z.string().min(1, "Informe a primeira mensagem que será enviada ao seu cliente").max(80, "Sua primeira mensagem não pode conter no máximo 80 caracteres.")).min(1, "Informe pelo menos uma mensagem para iniciar o chat com seu cliente."),
         call_to_action: z.array(z.object({
-            button_text: z.string().min(1, "Você precisa definir um texto para seu link."),
+            button_text: z.string().min(1, "Você precisa definir um texto para seu link.").refine(text => {
+                return (text.includes("(") || text.includes(")")) ? false : true
+            }, "O texto do seu botão não pode conter parenteses '()'."),
             button_link: z.string().url("Digite uma url valída para seu link!"),
             button_describe: z.string().min(30, "Você precisa criar uma descrição maior para seu link. Lembre-se a descrição é muito importante para o contexto da conversa.")
         })).max(3, "Limite máximo para CTA é de 3").optional()
