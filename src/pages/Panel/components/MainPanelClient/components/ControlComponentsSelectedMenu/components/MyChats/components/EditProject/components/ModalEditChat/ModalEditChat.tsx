@@ -4,19 +4,18 @@ import { Prompt } from "../../../../../../../../../../../../@types/prompt.types"
 import { checkSlugIsAvailable, deleteProject, updateProject } from "../../../../../../../../../../../../api/project";
 import { PopOver } from "../../../../../../../../../../../../components/modal/templates/PopOver";
 import { ModalContext } from "../../../../../../../../../../../../context/ModalContext";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Root } from "../../../../../../../../../../../../components/Form/FormRoot";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import { ChatSchema, chatSchema } from "../../../../../../../../../../../../schema/zod/chatSchema";
 import { getPlanManagementById } from "../../../../../../../../../../../../api/planManagement";
 import { SimulatorSlugUrl } from "../../../../../../../../../../../../components/Simulators/SimulatorSlugUrl/SimulatorSlugUrl";
 import { AxiosResponse } from "axios";
-import { MdAdd, MdDelete, MdLink } from "react-icons/md";
 import { useSearchParams } from "react-router-dom";
 import { CHAT_ICONS_MODELS, CTA_NAME_URL, ICON_NAME_URL } from "../../../../../../../../../../../../variables/variables";
-import { Button } from "../../../../../../../../../../../../components/button/Button";
 import { SocialProof } from "./components/SocialProof/SocialProof";
 import { ClientContext } from "../../../../../../../../../../../../context/ClientContext";
+import { CallToActionFormChat } from "../../../../../../../../../../../CreateChat/components/FormCallToAction/FormCallToAction";
 
 
 interface ModalEditChat {
@@ -30,7 +29,6 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
     const { setClient, client } = useContext(ClientContext)
     const [prompt, setPrompt] = useState<[]>();
     const [params, setParams] = useSearchParams();
-    const currentCTA = Number(params.get(CTA_NAME_URL));
     const currentIcon = Number(params.get(ICON_NAME_URL)) || 0
     const editChatForm = useForm<ChatSchema>({
         resolver: zodResolver(chatSchema),
@@ -51,11 +49,11 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
             },
             step_3: {
                 chat_appearence: {
-                    chat_icon: project.chat_appearence.chat_icon,
-                    icon_text: project.chat_appearence.icon_text,
-                    primary_color: project.chat_appearence.primary_color,
-                    second_color: project.chat_appearence.second_color,
-                    background: project.chat_appearence.background,
+                    chat_icon: project.chat_appearence?.chat_icon,
+                    icon_text: project.chat_appearence?.icon_text,
+                    primary_color: project.chat_appearence?.primary_color,
+                    second_color: project.chat_appearence?.second_color,
+                    background: project.chat_appearence?.background,
                 }
             },
             step_4: {
@@ -64,10 +62,6 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
         }
     });
 
-    const { fields, append, remove, update } = useFieldArray({
-        control: editChatForm.control,
-        name: "step_1.call_to_action"
-    })
 
     useEffect(() => {
         (async () => {
@@ -172,53 +166,6 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
         }
     }
 
-    const handleClickButtonLink = (index: number) => {
-        const lastField = editChatForm.watch(`step_1.call_to_action.${currentCTA}`);
-        const hasLastField = fields.find(field => field.button_text === lastField?.button_text && field.button_link === lastField.button_link)
-
-        if (!hasLastField) {
-            if (!fields[currentCTA].button_text && lastField) {
-                update(currentCTA, {
-                    button_text: lastField.button_text,
-                    button_link: lastField.button_link,
-                    button_describe: lastField.button_describe
-                })
-            }
-            else remove(fields.length - 1)
-
-        }
-
-        // Define o botão clicado como atual CTA
-        params.set(CTA_NAME_URL, index.toString());
-        setParams(params)
-    }
-
-    const handleAddCTA = () => {
-        if (fields.length === 0 || !!fields[fields.length - 1]?.button_text) {
-            if (fields.length < 3) {
-                append({ button_describe: "", button_link: "", button_text: "" })
-                const newCurrentCTA = currentCTA + 1;
-                params.set(CTA_NAME_URL, newCurrentCTA.toString())
-                setParams(params)
-            } else setModalContent({
-                componentName: "modal_limit_cta",
-                components:
-                    <PopOver
-                        message="Você pode ter no maximo 3 CTA por chat."
-                        componentName="modal_limit_cta"
-                        type="WARNING"
-                    />
-            })
-        } else setModalContent({
-            componentName: "modal_empty_cta",
-            components:
-                <PopOver
-                    message="Você precisa preencher o ultimo link, antes de adicionar mais"
-                    componentName="modal_empty_cta"
-                />
-        })
-
-    }
 
     const handleSelectIcon = (id: number) => {
         params.set(ICON_NAME_URL, id.toString())
@@ -272,81 +219,11 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                         title="Digite a primeira mensagem do seu chat"
                     />
 
-                    <div className="flex flex-col ">
-                        <div className="flex justify-between py-4">
-                            <div className="flex flex-col text-center">
-                                <h2 className="text-xl font-bold">Adicione chamadas para ação no seu chat</h2>
-                                <span className="text-sm opacity-70">(Essas CTA serão usadas no contexto da conversa)</span>
-                            </div>
-                            <Button
-                                type="button"
-                                customClass="bg-primary-200"
-                                onClick={handleAddCTA}
-                            >
-                                <MdAdd />  Adicionar link
-                            </Button>
-                        </div>
-                        <div className="flex justify-center gap-4 border-b border-primary-100/50">
-                            {
-                                fields.map((field, index) =>
-                                    (index !== currentCTA && !!field.button_text) &&
-                                    <div className="flex gap-4" key={field.id}>
-                                        <div className="w-full flex gap-4 py-4">
-                                            <div
-                                                className="flex items-center gap-2 cursor-pointer bg-primary-100 px-3 rounded-lg"
-                                                onClick={() => handleClickButtonLink(index)}
-                                            >
-                                                {field.button_text}
-                                                <MdLink className="text-xl" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                )
-                            }
-                        </div>
-
-                        <div className="flex justify-center p-4">
-                            {
-                                fields.map((field, index) =>
-                                    (index === currentCTA) &&
-                                    <Root.Container className="flex gap-4" key={field.id}>
-                                        <Root.Container className="flex flex-col gap-8">
-                                            <Root.Container className="flex gap-4">
-                                                <Root.Input
-                                                    name={`step_1.call_to_action.${index}.button_text`}
-                                                    title={`Digite o texto do link`}
-                                                />
-                                                <Root.Input
-                                                    name={`step_1.call_to_action.${index}.button_link`}
-                                                    title={`Digite a url do link`}
-                                                />
-                                            </Root.Container>
-
-                                            <Root.TextArea
-                                                name={`step_1.call_to_action.${index}.button_describe`}
-                                                title="Digite a descrição do link"
-                                            />
-                                        </Root.Container>
-                                        <MdDelete
-                                            className="text-2xl fill-red-500 bg-red-900/50 rounded-full mt-4 cursor-pointer"
-                                            onClick={() => {
-                                                remove(index);
-                                                params.set(CTA_NAME_URL, (index - 1).toString());
-                                                setParams(params)
-                                            }}
-                                        />
-                                    </Root.Container>
-                                )
-                            }
-                        </div>
-
-
-
-                    </div>
+                    <CallToActionFormChat />
                 </Root.EditStep>
 
-                <Root.EditStep
+                {/* Será adicionado posteriormente na wipzee */}
+                {/* <Root.EditStep
                     index={2}
                     titleStep="Eventos e rastreamentos"
                 >
@@ -354,7 +231,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                         name="step_2.facebook_pixel"
                         title="Adicione o pixel do seu facebook"
                     />
-                </Root.EditStep>
+                </Root.EditStep> */}
 
                 <Root.EditStep
                     index={3}

@@ -35,6 +35,7 @@ export const ERROR_NAME_TO_SAVE_LOCALSTORAGE = "forms-error"
  * estão localizados em "myDatabase"
  */
 export const MAX_CONTAINER_TO_CREATE_DATABASE = 9
+export const MAX_AMOUNT_CTA_THAT_CAN_BE_CREATED = 5
 
 
 import { FaFacebookMessenger, FaTelegram } from "react-icons/fa";

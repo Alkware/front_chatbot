@@ -10,9 +10,8 @@ import { Root } from "../../components/Form/FormRoot";
 import { useFieldArray, useForm } from "react-hook-form";
 import { chatSchema, ChatSchema } from "../../schema/zod/chatSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../../components/button/Button";
-import { MdDelete } from "react-icons/md";
 import { FORM_NAME_TO_SAVE_LOCALSTORAGE } from "../../variables/variables";
+import { CallToActionFormChat } from "./components/FormCallToAction/FormCallToAction";
 
 export function CreateChat() {
     const [prompt, setPrompt] = useState<Prompt[]>()
@@ -46,6 +45,10 @@ export function CreateChat() {
             const isDark = localStorage.theme === "dark"
             document.documentElement.classList.toggle("dark", !!isDark)
 
+            // Adiciona um templete para adiciona as cta;
+            append({ button_describe: "", button_link: "", button_text: "" });
+
+            // Busca os dados do prompt no gerenciamento do plano do usuário, caso não houver, ele será redirecionado para o panel.
             const planManagement = await getPlanManagementById(plan_management_id) as AxiosResponse<{ status: string, prompt: Prompt[] }>
             if (!planManagement.data) navigate("/panel")
             setPrompt(planManagement.data.prompt)
@@ -135,50 +138,7 @@ export function CreateChat() {
                             text="Deseja adicionar links ao seu chat?"
                             functionOffToggle={() => fields.forEach((_, index) => remove(index))}
                         >
-                            <div className="flex flex-col">
-                                <div className="flex justify-start">
-                                    <Button
-                                        type="button"
-                                        onClick={() => append({ button_link: "", button_text: "", button_describe: "" })}
-                                    >
-                                        Adicionar link
-                                    </Button>
-                                </div>
-                                {
-                                    fields.map((field, index) =>
-                                        <div
-                                            className="flex gap-2 justify-between items-end"
-                                            key={field.id}
-                                        >
-                                            <div
-                                                className="flex flex-col gap-8 border-b border-primary-100/50 my-4"
-                                            >
-                                                <Root.Container className="flex gap-4">
-                                                    <Root.Input
-                                                        name={`step_1.call_to_action.${index}.button_text`}
-                                                        title="Digite o texto do link"
-                                                    />
-                                                    <Root.Input
-                                                        name={`step_1.call_to_action.${index}.button_link`}
-                                                        title="Digite a url do link"
-                                                    />
-                                                </Root.Container>
-                                                <Root.TextArea
-                                                    name={`step_1.call_to_action.${index}.button_describe`}
-                                                    title="Digite uma descrição para esse botão"
-                                                    help="Deixe uma descrição clara e objetiva, pois isso ajudará a IA entender o contexto da conversa e enviar o link no momento correto."
-                                                />
-                                            </div>
-
-                                            <MdDelete
-                                                className="text-3xl fill-red-500 bg-red-950/70 cursor-pointer rounded-xl p-1 mb-6"
-                                                onClick={() => remove(index)}
-                                            />
-                                        </div>
-                                    )
-                                }
-                            </div>
-
+                            <CallToActionFormChat />
                         </Root.Optional>
                     </Root.Step>
 
