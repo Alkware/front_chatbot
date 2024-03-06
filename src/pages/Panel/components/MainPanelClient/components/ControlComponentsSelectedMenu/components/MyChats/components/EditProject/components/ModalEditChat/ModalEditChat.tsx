@@ -48,12 +48,12 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                 facebook_pixel: project.pixel_facebook
             },
             step_3: {
-                chat_appearence: {
-                    chat_icon: project.chat_appearence?.chat_icon,
-                    icon_text: project.chat_appearence?.icon_text,
-                    primary_color: project.chat_appearence?.primary_color,
-                    second_color: project.chat_appearence?.second_color,
-                    background: project.chat_appearence?.background,
+                chat_appearance: {
+                    chat_icon: project.chat_appearance?.chat_icon,
+                    icon_text: project.chat_appearance?.icon_text,
+                    primary_color: project.chat_appearance?.primary_color,
+                    second_color: project.chat_appearance?.second_color,
+                    background: project.chat_appearance?.background,
                 }
             },
             step_4: {
@@ -105,8 +105,8 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
             }
 
 
-            newData.chat_appearence.can_update = project.chat_appearence.can_update
-            newData.chat_appearence.id = project.chat_appearence.id
+            newData.chat_appearance.can_update = project.chat_appearance.can_update
+            newData.chat_appearance.id = project.chat_appearance.id
             const projectUpdate: AxiosResponse<Project, Project> | void = await updateProject(newData, project.slug)
             if (projectUpdate && projectUpdate.status === 200) {
                 setProjects(projects => {
@@ -117,7 +117,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                     newData.plan_management_id = projectUpdate.data.plan_management_id
                     newData.id = projectUpdate.data.id
                     newData.prompt = projectUpdate.data.prompt;
-                    newData.chat_appearence = projectUpdate.data.chat_appearence;
+                    newData.chat_appearance = projectUpdate.data.chat_appearance;
 
                     // insere o novo dado dentro do array de projeto
                     filterWithoutOutDatedProject.splice(findIndex, 0, newData)
@@ -170,8 +170,8 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
     const handleSelectIcon = (id: number) => {
         params.set(ICON_NAME_URL, id.toString())
         setParams(params)
-        editChatForm.unregister("step_3.chat_appearence.chat_icon");
-        editChatForm.register("step_3.chat_appearence.chat_icon", { value: id })
+        editChatForm.unregister("step_3.chat_appearance.chat_icon");
+        editChatForm.register("step_3.chat_appearance.chat_icon", { value: id })
     }
 
     return (
@@ -256,25 +256,25 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                         </div>
 
                         <Root.Input
-                            name="step_3.chat_appearence.icon_text"
+                            name="step_3.chat_appearance.icon_text"
                             title="Digite o texto que será exibido ao lado do icon"
                         />
 
 
                         <Root.Container className="flex">
                             <Root.Color
-                                name="step_3.chat_appearence.primary_color"
+                                name="step_3.chat_appearance.primary_color"
                                 title="Escolha a cor primária do seu chat"
                             />
 
                             <Root.Color
-                                name="step_3.chat_appearence.second_color"
+                                name="step_3.chat_appearance.second_color"
                                 title="Escolha a cor secundária do seu chat"
                             />
                         </Root.Container>
 
                         <Root.Color
-                            name="step_3.chat_appearence.background"
+                            name="step_3.chat_appearance.background"
                             title="Escolha a cor do background do seu chat"
                         />
                     </Root.Container>

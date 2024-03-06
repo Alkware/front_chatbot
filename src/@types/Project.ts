@@ -32,7 +32,7 @@ export interface Project {
         }>,
         created_at: string | Date
     }>,
-    chat_appearence: {
+    chat_appearance: {
         id: string,
         can_update: boolean,
         chat_icon: number,

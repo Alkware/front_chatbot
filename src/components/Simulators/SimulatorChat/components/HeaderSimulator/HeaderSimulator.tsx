@@ -10,7 +10,7 @@ export function HeaderSimulator() {
     const { watch } = useFormContext();
 
     useEffect(() => {
-        const primaryColorData = watch("step_3.chat_appearence.primary_color")
+        const primaryColorData = watch("step_3.chat_appearance.primary_color")
         primaryColorData && (setPrimaryColor(primaryColorData))
     }, [watch()])
 

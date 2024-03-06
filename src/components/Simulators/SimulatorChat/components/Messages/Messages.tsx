@@ -14,8 +14,8 @@ export function Messages() {
     const [background, setBackground] = useState();
 
     useEffect(() => {
-        const secondColorData = watch("step_3.chat_appearence.second_color")
-        const backgroundData = watch("step_3.chat_appearence.background")
+        const secondColorData = watch("step_3.chat_appearance.second_color")
+        const backgroundData = watch("step_3.chat_appearance.background")
         const buttons = watch("step_1.call_to_action");
         setButtons(buttons)
         setSecundaryColor(secondColorData)
