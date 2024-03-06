@@ -43,29 +43,33 @@ import { RiChatSmile2Fill, RiMessage2Fill, RiWhatsappFill } from "react-icons/ri
 import { BiSolidMessageDetail } from "react-icons/bi";
 import { ElementType } from "react"
 
+/**
+ * Modelo para icone do widget do usuário
+ * OBS: Não pode haver um id com o numero 0 para evitar conflitos em comparação de dados, já que o 0 é falsiano.
+ */
 export const CHAT_ICONS_MODELS: Array<{ id: number, Icon: ElementType }> = [
     {
-        id: 0,
+        id: 1,
         Icon: RiMessage2Fill
     },
     {
-        id: 1,
+        id: 2,
         Icon: BiSolidMessageDetail
     },
     {
-        id: 2,
+        id: 3,
         Icon: RiWhatsappFill
     },
     {
-        id: 3,
+        id: 4,
         Icon: FaFacebookMessenger
     },
     {
-        id: 4,
+        id: 5,
         Icon: FaTelegram
     },
     {
-        id: 5,
+        id: 6,
         Icon: RiChatSmile2Fill
     },
 ]

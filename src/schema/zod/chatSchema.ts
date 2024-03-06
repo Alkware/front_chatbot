@@ -31,7 +31,7 @@ export const chatSchema = z.object({
     }).optional(),
     step_3: z.object({
         chat_appearance: z.object({
-            chat_icon: z.number().min(1, "Carregue um icon para seu chat."),
+            chat_icon: z.number().min(1, "Selecione um icon para o widget do seu chat."),
             icon_text: z.string().min(1, "Informe um texto para o icone do chat."),
             primary_color: z.string().min(1, "Informe um cor primária para seu chat."),
             second_color: z.string().min(1, "Informe uma cor secondária para seu chat."),

@@ -246,7 +246,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                                     CHAT_ICONS_MODELS.map(({ Icon, id }, index: number) =>
                                         <Icon
                                             key={id}
-                                            data-iscurrent={currentIcon === index}
+                                            data-iscurrent={(currentIcon - 1) === index}
                                             className="hover:bg-primary-100 data-[iscurrent=true]:bg-primary-100 cursor-pointer rounded-full p-2"
                                             onClick={() => handleSelectIcon(id)}
                                         />

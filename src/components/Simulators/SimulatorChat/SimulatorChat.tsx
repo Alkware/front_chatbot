@@ -19,6 +19,8 @@ export function SimulatorChat({ active }: SimulatorChat) {
         const primaryColor = watch("step_3.chat_appearance.primary_color")
         const text = watch("step_3.chat_appearance.icon_text")
 
+        console.log("icon indeex", iconIndex)
+
         setChatIconIndex(iconIndex)
         setIconText(text)
         setPrimaryColor(primaryColor)
