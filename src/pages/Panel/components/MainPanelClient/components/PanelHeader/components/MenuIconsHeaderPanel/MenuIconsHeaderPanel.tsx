@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { FaBell, FaMoon, FaSun } from "react-icons/fa"
+import { FaMoon, FaSun } from "react-icons/fa"
 import { TipContainer } from "../../../../../../../../components/TipContainer/TipContainer";
+import { Notification } from "./components/Notification/Notification";
 
 export function MenuIconsHeaderPanel() {
 
@@ -25,11 +26,7 @@ export function MenuIconsHeaderPanel() {
 
         <div className="flex gap-3 px-8">
             <TipContainer tip="Notificações" position="BOTTOM">
-                <div className="bg-primary-100 rounded-full p-1">
-                    <FaBell
-                        className="text-2xl fill-light cursor-pointer"
-                    />
-                </div>
+                <Notification />
             </TipContainer>
             <TipContainer tip="Escolha entre thema light ou dark" position="BOTTOM">
                 <div

@@ -23,7 +23,6 @@ function Panel() {
         })();
     }, []);
 
-    
     return (
         <Suspense fallback={<InputLoading />}>
             {

@@ -37,7 +37,7 @@ export function Header() {
     }
 
     return (
-        <header className="w-full h-[100px] overflow-hidden p-4 border-b border-primary-100/30 flex justify-between items-center dark:bg-dark bg-light fixed z-50">
+        <header className="w-full h-[100px] overflow-hidden p-4 flex justify-between items-center absolute z-50">
 
             <div className="w-1/5 h-[100px] py-4">
                 <img
@@ -49,7 +49,7 @@ export function Header() {
             </div>
 
             <nav className="w-3/5">
-                <ul className="flex justify-center items-center gap-8 text-primary-100">
+                <ul className="flex justify-center items-center gap-8 ">
                     {
                         menuItems.map((item) =>
                             <li
@@ -66,7 +66,7 @@ export function Header() {
 
             <div className="w-1/5 flex justify-center">
                 <div
-                    className="p-2 rounded-full cursor-pointer bg-primary-100 mx-8 text-light"
+                    className="p-2 rounded-full cursor-pointer bg-primary-200 mx-8 text-light"
                     onClick={toggleTheme}
                 >
                     {

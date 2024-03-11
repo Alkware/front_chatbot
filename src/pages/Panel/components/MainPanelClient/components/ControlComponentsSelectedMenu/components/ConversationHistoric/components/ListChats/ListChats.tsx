@@ -18,6 +18,7 @@ export function ListChats({ chats, setIndex }: ListChats) {
         <div className="w-[300px] flex flex-col border-r border-light/40">
             {
                 chats?.map((chat, index) =>
+                    !!chat.messages.length &&
                     <div
                         key={chat.id}
                         className="w-full cursor-pointer hover:bg-primary-200 transition-colors p-4 border border-primary-100/20"
@@ -36,7 +37,9 @@ export function ListChats({ chats, setIndex }: ListChats) {
                         </h2>
                         <div className="flex justify-between">
                             <span className="italic text-xs">{chat.messages.length} messagens</span>
-                            <span className="italic text-xs">{formatDate(chat.messages[chat.messages.length - 1].time).dateFormat_A}</span>
+                            <span className="italic text-xs">{
+                                formatDate(chat.messages[chat.messages.length - 1].time).dateFormat_A
+                            }</span>
                         </div>
                     </div>
                 )

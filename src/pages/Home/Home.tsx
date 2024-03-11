@@ -11,7 +11,7 @@ function Index() {
 
     return (
         <div
-            className="w-screen h-screen overflow-x-hidden scroll-smooth dark:bg-dark bg-light dark:text-light text-gray"
+            className="w-screen h-screen overflow-x-hidden scroll-smooth dark:bg-dark bg-light dark:text-light text-gray relative"
         >
             <Header />
             <Main />
