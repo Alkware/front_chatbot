@@ -7,8 +7,6 @@ import { PopOver } from "../../../../../../../../components/modal/templates/PopO
 import { Container } from "../../../../../../../../components/Container/Container"
 import { TableMetric } from "./components/TableMetric"
 import { Columns } from "../../../../../../../../@types/Column.types"
-import { Button } from "../../../../../../../../components/button/Button"
-import { BsStars } from "react-icons/bs"
 
 export function Metric() {
     const columnsStorage: Columns[] = JSON.parse(localStorage.getItem("metricColumnActive") || "[]")
