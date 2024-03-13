@@ -23,9 +23,7 @@ function Index() {
         const container = homeRef.current;
         if (container) {
             const currentScroll = container.scrollTop;
-            console.log(currentScroll)
             let userStep;
-            console.log(step, "0", "===", step === "0")
             if (currentScroll >= 100 && step === "0") {
                 userStep = "1";
                 container?.removeEventListener("scroll", handleControllStepUser)

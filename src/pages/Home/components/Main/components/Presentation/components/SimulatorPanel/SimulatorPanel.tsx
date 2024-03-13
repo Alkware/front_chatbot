@@ -12,7 +12,7 @@ export function SimulatorPanel() {
                 <div className="w-1/3 flex flex-col bg-primary-100 p-4">
                     <ul>
                         <div className="p-2 border-2 border-white relative z-20">
-                            <li className="">Meus chats</li>
+                            <li className="">Meus chat</li>
                         </div>
                         <li>Métricas</li>
                         <li>Fonte de dados</li>
