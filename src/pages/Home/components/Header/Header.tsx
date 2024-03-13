@@ -37,7 +37,7 @@ export function Header() {
     }
 
     return (
-        <header className="w-full h-[100px] overflow-hidden p-4 flex justify-between items-center absolute z-50">
+        <header className="w-full h-[100px] overflow-hidden flex justify-between items-center absolute z-50">
 
             <div className="w-1/5 h-[100px] py-4">
                 <img

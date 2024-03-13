@@ -10,7 +10,7 @@ export function Modal() {
                 modal.components &&
                 <div
                     key={index}
-                    className="w-screen h-screen backdrop-blur-sm absolute top-0 right-0 flex justify-end overflow-hidden z-[999]"
+                    className="w-screen h-auto backdrop-blur-sm absolute top-0 right-0 flex justify-end z-[999]"
                 >
                     {modal.components}
                 </div>

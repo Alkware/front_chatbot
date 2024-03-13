@@ -18,7 +18,7 @@ export function Notification() {
     const notification_number = notifications?.filter(notification => !notification.read)
 
     useEffect(() => {
-        const sortNotifications = client?.notification_client.sort((a, b) => {
+        const sortNotifications = client?.notification_client?.sort((a, b) => {
             if(!a.read && b.read) return -1
             else if(a.read && !b.read) return 1
             else return 0

@@ -1,53 +1,5 @@
-import { useContext, useEffect } from "react";
-import { SimulatorDevice } from "./components/SimulatorCellPhone/SimulatorDevice";
-import { ModalContext } from "../../../../../../context/ModalContext";
-import { PopUp } from "../../../../../../components/modal/templates/PopUp";
-
+import { SimulatorDevice } from "./components/SimulatorDevice/SimulatorDevice";
 export function Presentation() {
-    const { setModalContent, clearModal } = useContext(ModalContext);
-
-    useEffect(() => {
-        window.addEventListener("wheel", handleFirstScrollUser);
-
-        return () => window.removeEventListener("wheel", handleFirstScrollUser)
-    }, [])
-
-    const handleFirstScrollUser = () => {
-        setModalContent({
-            componentName: "modal_show_simulator_mobile",
-            components:
-                <PopUp noBackground={true} >
-                    <div
-                        className="w-screen h-[105vh] flex justify-center items-center bg-black/70"
-                        onWheel={handleScrollSimulator}
-                    >
-                        <SimulatorDevice />
-                    </div>
-                </PopUp>
-        })
-        window.removeEventListener("wheel", handleFirstScrollUser)
-    }
-
-
-    const handleScrollSimulator = () => {
-        clearModal("modal_show_simulator_mobile")
-
-
-        setModalContent({
-            componentName: "modal_show_simulator_desktop",
-            components:
-                <PopUp noBackground={true} >
-                    <div
-                        className="w-screen h-[105vh] flex flex-col gap-4 justify-center items-center bg-black/70"
-                        onWheel={()=> { clearModal(null, { clearAll: true }); window.location.href = "#price" }}
-                    >
-                        <h2 className="uppercase font-bold text-2xl">Veja como é fácil criar um chat na wipzee</h2>
-                        <SimulatorDevice isDesktop={true} />
-                    </div>
-                </PopUp>
-        })
-    }
-
     return (
         <section
             id="home"
@@ -70,7 +22,6 @@ export function Presentation() {
                 <div className="w-3/5 flex justify-center">
                     <SimulatorDevice />
                 </div>
-
             </div>
         </section>
     )
