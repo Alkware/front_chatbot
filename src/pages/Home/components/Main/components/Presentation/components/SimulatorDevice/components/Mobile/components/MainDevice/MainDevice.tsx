@@ -36,7 +36,7 @@ export function MainDevice({ messages }:MainDevice) {
                         <div
                             key={msg.id}
                             data-isuser={msg.isUser}
-                            className="w-2/3 bg-light rounded-md text-dark p-2 data-[isuser=true]:self-end data-[isuser=true]:bg-[#c2c0f7]"
+                            className="w-3/4 bg-light rounded-md text-dark p-2 data-[isuser=true]:self-end data-[isuser=true]:bg-[#c2c0f7]"
                         >
                             <p>{msg.text}</p>
                             <p 

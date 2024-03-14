@@ -27,14 +27,15 @@
   box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
   background-color: #0C0C0D;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-div#root{
+div#root {
   height: 100vh;
   overflow: auto;
   scroll-behavior: smooth;
@@ -67,27 +68,16 @@ textarea {
 /* BACKGROUNDS  */
 
 .background-dark {
-  background: linear-gradient(325deg, var(--dark) 83% , var(--primary-100) 100%);
+  background: linear-gradient(325deg, var(--dark) 83%, var(--primary-100) 100%);
 }
+
 .background-light {
-  background: linear-gradient(325deg, var(--light) 83% , var(--primary-100) 100%);
+  background: linear-gradient(325deg, var(--light) 83%, var(--primary-100) 100%);
 }
 
 
 
 /* animation */
-
-@keyframes smooth-display-left {
-  from {
-    transform: translateX(100%);
-  }
-
-  to {
-    transform: translateX(0%);
-  }
-}
-
-
 @keyframes loading {
   from {
     transform: rotate(45deg) scale(.5, 1.25) rotate(360deg)
@@ -121,5 +111,82 @@ textarea {
   100% {
     transform: scale(1);
     opacity: 100%;
+  }
+}
+
+
+/* class animations home */
+
+.focus-on-element-with-scroll {
+  animation: focus-on-element 1ms linear;
+  animation-timeline: view(block);
+  animation-range: cover 30% cover 70%;
+}
+
+@keyframes focus-on-element {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(10);
+  }
+}
+
+.transform-mobile-to-desktop {
+  animation: transform-mobile linear forwards;
+  animation-timeline: view();
+  animation-range: cover 50% 70%;
+}
+
+@keyframes transform-mobile {
+  to {
+    border: 1px solid black;
+    width: 90vw;
+    transform: translateY(30vh);
+  }
+}
+
+.change-device {
+  animation: change-device linear forwards;
+  animation-timeline: view();
+  animation-range: cover 50% 100%;
+}
+
+@keyframes change-device {
+  to {
+    visibility: visible;
+  }
+}
+
+.smooth-display-left {
+  animation: smooth-display-left linear;
+  animation-timeline: view();
+  animation-range: cover 100% 120%;
+}
+
+@keyframes smooth-display-left {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.smooth-display-right {
+  animation: smooth-display-right linear;
+  animation-timeline: view();
+  animation-range: cover 80% 120%;
+}
+
+@keyframes smooth-display-right {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0%);
   }
 }
