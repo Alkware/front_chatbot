@@ -5,7 +5,7 @@ import { ClientContext } from "../../../../../../../../context/ClientContext"
 import { getClientById } from "../../../../../../../../api/client"
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver"
 import { Container } from "../../../../../../../../components/Container/Container"
-import { TableMetric } from "./components/TableMetric"
+import { TableMetric } from "./components/TableMetric/TableMetric"
 import { Columns } from "../../../../../../../../@types/Column.types"
 
 export function Metric() {
@@ -42,7 +42,7 @@ export function Metric() {
         <div className="w-full h-full overflow-y-auto flex flex-col gap-8">
             <Container
                 title="Métricas"
-                className="flex-col gap-8"
+                className="flex-col items-center gap-8"
             >
                 <OptionsTable
                     client={client}

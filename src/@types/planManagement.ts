@@ -8,6 +8,7 @@ export interface PlanManagement {
     next_payment: string,
     status: "DISABLED" | "ACTIVE",
     created_at: string,
+    metric_analysis: Array<{}>;
     trasaction: Array<{
         payment_method: string,
         amount_paid: number,
@@ -22,6 +23,7 @@ export interface PlanManagement {
         max_projects: number,
         max_messages: number,
         max_databases: number,
+        max_analyze_metric: number
     },
     prompt: Prompt[]
     plan_message_manager: Array<{

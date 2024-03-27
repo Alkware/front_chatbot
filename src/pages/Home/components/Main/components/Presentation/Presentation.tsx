@@ -1,27 +1,35 @@
-import { SimulatorDevice } from "./components/SimulatorDevice/SimulatorDevice";
 export function Presentation() {
     return (
         <section
             id="home"
-            className="w-screen h-screen flex flex-col items-center"
+            className="w-screen h-screen flex flex-col items-center justify-center"
         >
-            <div className="w-full h-full flex absolute">
-                <div className="w-[95vw] h-[80vw] absolute -z-0 -top-[35vw] left-1/2 -translate-x-1/2 bg-gradient-to-b from-primary-100 from-[50%] to-dark to-[95%] rounded-full "> </div>
-            </div>
+            <div className="w-full px-4 max-w-[1300px] flex gap-4">
+                <div className="w-1/2 flex flex-col gap-4 items-center z-10">
 
-            <div className="w-[80vw] h-full flex flex-col items-center mt-[160px] z-10 space-y-8">
-                <h1 className="w-2/3 text-3xl font-bold text-center uppercase ">
-                    Automação Completa do Seu Site Com Inteligência Artificial Para Aumentar Suas Vendas e Reduzir Reclamações
-                </h1>
-                <h2
-                    className="text-xl opacity-80"
-                >
-                    Atendimento rápido e personalizado 24/7. Conheça o poder do chabot da WIPZEE!
-                </h2>
+                    <h1 className="w-full text-5xl font-bold uppercase font-sans animate-jump-screen">
+                        Transforme seu <br />atendimento
+                    </h1>
+                    <div className="w-full flex gap-2 items-center">
+                        <h2
+                            className="text-3xl"
+                        >
+                            Venda mais com um
+                        </h2>
+                        <span className="text-3xl bg-red-500 font-bold rounded-md animate-jump-screen">único link inteligente</span>
+                    </div>
+                    <h3
+                        className="text-xl opacity-70 animate-display-screen"
+                    >
+                        Descubra a solução ideal para otimizar suas vendas e reduzir reclamações, de forma simples e eficiente com o uso da inteligênia artificial.</h3>
 
-                <div className="w-3/5 flex flex-col items-center justify-center pt-12 relative">
-                    <SimulatorDevice />
-                    <div className="flex rounded-full w-[500px] h-[500px] bg-black/80 absolute scale-0 focus-on-element-with-scroll"></div>
+                </div>
+                <div className="w-1/2 flex flex-col items-center justify-center pt-12 relative">
+                    <img
+                        src="https://i.ibb.co/RvX8XRX/com-unscreen.gif"
+                        alt=""
+                        className="w-full h-full cover"
+                    />
                 </div>
             </div>
         </section>

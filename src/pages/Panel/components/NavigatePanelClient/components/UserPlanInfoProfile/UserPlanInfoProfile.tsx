@@ -6,22 +6,42 @@ import { useNavigate } from "react-router-dom";
 import { TipContainer } from "../../../../../../components/TipContainer/TipContainer";
 import { UserLogo } from "./components/UserLogo/UserLogo";
 import { ClientName } from "./components/ClientName/ClientName";
+import { ModalContext } from "../../../../../../context/ModalContext";
+import { PopUp } from "../../../../../../components/modal/templates/PopUp";
+import { Confirm } from "../../../../../../components/modal/templates/Confirm";
 
 interface UserPlanTypes {
     menuIsOpen: boolean
 }
 
 const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
+    const { setModalContent, clearModal } = useContext(ModalContext)
     const { client } = useContext(ClientContext)
     const navigate = useNavigate();
 
 
     const handleExitThePanel = () => {
-        localStorage.removeItem("token")
-        navigate("/login")
+
+        function handleConfirmExitThePanel() {
+            localStorage.removeItem("token")
+            clearModal("modal_confirm_exit_panel")
+            navigate("/login")
+        }
+
+        setModalContent({
+            componentName: "modal_confirm_exit_panel",
+            components:
+                <PopUp>
+                    <Confirm
+                        title="Tem certeza que deseja sair do painel?"
+                        confirmFunction={handleConfirmExitThePanel}
+                        cancelFuntion={()=> clearModal("modal_confirm_exit_panel")}
+                    />
+                </PopUp>
+        })
     }
 
-    const handleConfigProfile = ()=>{
+    const handleConfigProfile = () => {
         navigate("/panel?tab=5")
     }
 
@@ -39,7 +59,7 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                             onClick={handleConfigProfile}
                         />
                     </TipContainer>
-                    
+
                     <UserLogo menuIsOpen={menuIsOpen} />
 
                     <TipContainer tip="Sair do seu painel">
@@ -57,7 +77,7 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                 >
                     <ClientName />
 
-                    <h3 
+                    <h3
                         data-ismessages={messagesEventManager(client.plan_management).maxMessages}
                         className="flex gap-1 justify-center items-center text-primary-200 dark:text-light font-bold data-[ismessages='0']:hidden"
                     >

@@ -1,43 +1,22 @@
 import { useState } from "react";
 import { URL_LOGO } from "../../../../variables/variables"
 import { BsFillMoonStarsFill, BsSunFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 export function Header() {
-    const [theme, setTheme] = useState<string>(localStorage.theme)
+    const [theme] = useState<string>(localStorage.theme)
+    const navigate = useNavigate();
 
-    const menuItems = [
-        {
-            key: "prices",
-            text: "Preços",
-            navigate: "/#price"
-        },
-        {
-            key: "about_us",
-            text: "Sobre nós",
-            navigate: "/#about"
-        },
-        {
-            key: "login",
-            text: "Login",
-            navigate: "/login"
-        },
-    ]
-
-
-    const handleNavigateMenu = (item: { navigate: string }) => {
-        window.location.href = item.navigate
-    }
-
-    const toggleTheme = () => {
-        const isDark = theme === "dark";
-        const currentTheme = isDark ? "light" : "dark"
-        document.documentElement.classList.toggle("dark", !isDark)
-        localStorage.theme = currentTheme
-        setTheme(currentTheme)
-    }
+    // const toggleTheme = () => {
+    //     const isDark = theme === "dark";
+    //     const currentTheme = isDark ? "light" : "dark"
+    //     document.documentElement.classList.toggle("dark", !isDark)
+    //     localStorage.theme = currentTheme
+    //     setTheme(currentTheme)
+    // }
 
     return (
-        <header className="w-full h-[100px] overflow-hidden flex justify-between items-center absolute z-50">
+        <header className="w-full max-w-[1300px] h-[100px] overflow-hidden flex justify-between items-center absolute z-50">
 
             <div className="w-1/5 h-[100px] py-4">
                 <img
@@ -48,26 +27,23 @@ export function Header() {
                 />
             </div>
 
-            <nav className="w-3/5">
+            <nav className="flex justify-center items-center">
                 <ul className="flex justify-center items-center gap-8 ">
-                    {
-                        menuItems.map((item) =>
-                            <li
-                                key={item.key}
-                                className="cursor-pointer "
-                                onClick={() => handleNavigateMenu(item)}
-                            >
-                                {item.text}
-                            </li>
-                        )
-                    }
-                </ul>
-            </nav>
 
-            <div className="w-1/5 flex justify-center">
+                    <li
+                        className="cursor-pointer px-3 py-2 rounded-lg border border-primary-100/40 neon-effect "
+                        onClick={() => navigate("/login")}
+                    > Entrar </li>
+
+                    <li
+                        className="cursor-pointer px-6 py-2 rounded-lg transition-colors bg-primary-100/80 hover:bg-primary-100 neon-effect "
+                        onClick={() => navigate("/register")}
+                    > Criar conta </li>
+                </ul>
+
                 <div
-                    className="p-2 rounded-full cursor-pointer bg-primary-200 mx-8 text-light"
-                    onClick={toggleTheme}
+                    className="p-2 rounded-full cursor-pointer bg-primary-200 mx-8 text-light neon-effect"
+                    // onClick={toggleTheme}
                 >
                     {
                         theme === "dark" || !theme ?
@@ -76,7 +52,8 @@ export function Header() {
                             <BsSunFill />
                     }
                 </div>
-            </div>
+            </nav>
+
         </header>
     )
 };

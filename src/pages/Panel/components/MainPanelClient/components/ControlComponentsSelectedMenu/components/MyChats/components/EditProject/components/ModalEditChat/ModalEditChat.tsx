@@ -16,6 +16,8 @@ import { CHAT_ICONS_MODELS, CTA_NAME_URL, ICON_NAME_URL } from "../../../../../.
 import { SocialProof } from "./components/SocialProof/SocialProof";
 import { ClientContext } from "../../../../../../../../../../../../context/ClientContext";
 import { CallToActionFormChat } from "../../../../../../../../../../../CreateChat/components/FormCallToAction/FormCallToAction";
+import { PopUp } from "../../../../../../../../../../../../components/modal/templates/PopUp";
+import { Confirm } from "../../../../../../../../../../../../components/modal/templates/Confirm";
 
 
 interface ModalEditChat {
@@ -138,32 +140,48 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
     }
 
     async function handleDeleteProject() {
-        if (project.id) {
-            // aqui pode ser tanto deleteProject quanto deleteDatabase. Esse é o problema!
-            const deleted = await deleteProject(project.id);
-            if (deleted && deleted.status === 200) {
-                // Remove esse project da lista de projects que está sendo mostrado para o cliente
-                setProjects((data: any) => data.filter((d: any) => d.id !== project.id));
-                //Busca o index desse project na lista de projects do usuário
-                const findIndex = client?.plan_management.project.findIndex(p => p.id === project.id)
-                // project removido para que seja atualizado de maneira ficticia a quantidade de projects,
-                // assim possibilita a criação de novos projects mesmo que a lista não seja atualizada.
-                if (client && findIndex) {
-                    client.plan_management.project.splice(findIndex, 1)
-                    setClient(client)
-                }
+        const handleConfirmDeleteChat = async () => {
+            if (project.id) {
+                // aqui pode ser tanto deleteProject quanto deleteDatabase. Esse é o problema!
+                const deleted = await deleteProject(project.id);
+                if (deleted && deleted.status === 200) {
+                    // Remove esse project da lista de projects que está sendo mostrado para o cliente
+                    setProjects((data: any) => data.filter((d: any) => d.id !== project.id));
+                    //Busca o index desse project na lista de projects do usuário
+                    const findIndex = client?.plan_management.project.findIndex(p => p.id === project.id)
+                    // project removido para que seja atualizado de maneira ficticia a quantidade de projects,
+                    // assim possibilita a criação de novos projects mesmo que a lista não seja atualizada.
+                    if (client && findIndex) {
+                        client.plan_management.project.splice(findIndex, 1)
+                        setClient(client)
+                    }
 
-                setModalContent({
-                    componentName: "modal_delete_success",
-                    components:
-                        <PopOver
-                            message="Chat excluido com sucesso!"
-                            componentName="modal_delete_success"
-                            functionAfterComplete={() => clearModal(null, { clearAll: true })}
-                        />
-                })
+                    setModalContent({
+                        componentName: "modal_delete_success",
+                        components:
+                            <PopOver
+                                message="Chat excluido com sucesso!"
+                                componentName="modal_delete_success"
+                                functionAfterComplete={() => clearModal(null, { clearAll: true })}
+                            />
+                    })
+                }
             }
         }
+
+
+        setModalContent({
+            componentName: "modal_confirm_delete_chat",
+            components:
+                <PopUp>
+                    <Confirm
+                        title="Tem certeza que deseja deletar esse chat?"
+                        subTitle="Uma vez removido, não pode ser revertido."
+                        confirmFunction={handleConfirmDeleteChat}
+                        cancelFuntion={() => clearModal("modal_confirm_delete_chat")}
+                    />
+                </PopUp>
+        })
     }
 
 

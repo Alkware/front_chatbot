@@ -21,7 +21,7 @@ export function ButtonsModal({ eventDelete }: ButtonsModalTypes) {
             components:
                 <PopUp>
                     <Confirm
-                        message={`Essa ação excluirá permanentemente! Você tem certeza? `}
+                        title={`Essa ação excluirá permanentemente! Você tem certeza? `}
                         confirmFunction={handleDeleteProject}
                         cancelFuntion={() => clearModal("modal_delete")}
                     />

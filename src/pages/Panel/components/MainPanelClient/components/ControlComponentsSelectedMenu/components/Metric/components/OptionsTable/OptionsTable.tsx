@@ -9,6 +9,9 @@ import { Columns } from "../../../../../../../../../../@types/Column.types";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { SelectTime } from "../../../../../../../../../../components/SelectTime/SelectTime";
 import { Button } from "../../../../../../../../../../components/button/Button";
+import { PopUp } from "../../../../../../../../../../components/modal/templates/PopUp";
+import { AnalyzeMetric } from "./components/AnalyzeMetric/AnalyzeMetric";
+import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
 
 interface OptionsTable {
     client: Client | undefined,
@@ -44,9 +47,32 @@ export function OptionsTable({ client, handleRequestDataProject, setColumns, col
         })
     }
 
+    const handleClickAnalyzeMetric = () => {
+        const maxAnalyzeMetric = client?.plan_management.plan.max_analyze_metric;
+        const numberMetricsAnalyzed = client?.plan_management.metric_analysis.length || 0;
+
+        if (maxAnalyzeMetric && numberMetricsAnalyzed <= maxAnalyzeMetric) {
+
+            setModalContent({
+                componentName: "modal_show_analyze_metric",
+                components:
+                    <PopUp>
+                        <AnalyzeMetric />
+                    </PopUp>
+            })
+        } else setModalContent({
+            componentName: "modal_warning_number_metric_analyzed",
+            components: <PopOver
+                componentName="modal_warning_number_metric_analyzed"
+                message="Limite de análise atingida por plano."
+                type="WARNING"
+            />
+        })
+
+    }
 
     return (
-        <div className="w-full flex gap-8 justify-end items-center">
+        <div className="w-[70vw] flex gap-8 justify-end items-center">
             <div
                 className="p-2 bg-dark border border-primary-100 rounded-md cursor-pointer"
                 onClick={reloadMetric}
@@ -65,6 +91,7 @@ export function OptionsTable({ client, handleRequestDataProject, setColumns, col
 
             <Button
                 customClass="bg-primary-100 border border-primary-100 px-4"
+                onClick={handleClickAnalyzeMetric}
             > <BsStars className="text-xl" /> Analisar métricas com IA</Button>
         </div>
     )
