@@ -118,6 +118,31 @@ textarea {
 }
 
 
+@keyframes rising-and-disappears {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    opacity: .5;
+    transform: translate(10vw, -100vh);
+  }
+}
+
+@keyframes rising-and-disappears-reverse {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    opacity: .5;
+    transform: translate(-10vw, -100vh);
+  }
+}
+
+
 /* class animations home */
 
 .focus-on-element-with-scroll {
@@ -135,6 +160,7 @@ textarea {
     transform: scale(10);
   }
 }
+
 
 .transform-mobile-to-desktop {
   animation: transform-mobile linear forwards;
