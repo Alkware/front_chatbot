@@ -1,8 +1,9 @@
 import { RefObject, useEffect, useRef } from "react";
 import { Header } from "./components/Header/Header";
 import { Main } from "./components/Main/Main";
+import { Footer } from "./components/Footer/Footer";
 
-function Index() {
+export function Home() {
     const homeRef: RefObject<HTMLDivElement> = useRef(null);
 
     useEffect(() => {
@@ -13,13 +14,11 @@ function Index() {
     return (
         <div
             ref={homeRef}
-            className="w-screen h-screen overflow-x-hidden scroll-smooth dark:bg-black bg-light dark:text-light text-gray relative flex justify-center"
+            className="dark:bg-dark bg-light dark:text-light text-primary-100 relative flex flex-col justify-center"
         >
-            <div className="w-full h-full absolute top-0 left-0  bg-[url(https://i.ibb.co/vxGTSd0/Untitled-design-4.png)] bg-no-repeat bg-cover -z-1"></div>
             <Header />
             <Main />
+            <Footer />
         </div>
     )
 }
-
-export default Index;

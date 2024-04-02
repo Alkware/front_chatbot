@@ -62,34 +62,38 @@ const messages = [
 ]
 
 
-export function Mobile() {
+export function SimulatorMobile() {
     return (
-        <div className="w-full h-full bg-zinc-800 rounded-2xl overflow-hidden flex flex-col gap-1 relative top-0 ">
-            <div
-                className="w-full flex justify-around group-data-[isdesktop=true]:justify-end"
-            >
-                <div className="flex px-4 p-1">
-                    <MdAlarm className="text-xl fill-light" />
+        <div
+            className="group w-[400px] h-auto border-[20px] border-black rounded-[2rem] z-50 transform-mobile-to-desktop"
+        >
+            <div className="w-full h-full bg-zinc-800 rounded-2xl overflow-hidden flex flex-col gap-1 relative top-0 ">
+                <div
+                    className="w-full flex justify-around group-data-[isdesktop=true]:justify-end"
+                >
+                    <div className="flex px-4 p-1">
+                        <MdAlarm className="text-xl fill-light" />
+                    </div>
+                    <div
+                        className="group-data-[isdesktop=true]:hidden w-1/2 h-[30px] bg-black rounded-b-2xl flex justify-evenly items-center gap-4"
+                    >
+                        <div className="w-1/5 h-1/3 rounded-2xl bg-zinc-600"></div>
+                        <div className="w-1/12 h-1/3 rounded-2xl bg-zinc-600"></div>
+                    </div>
+                    <div className="flex gap-2 justify-end px-4 p-1">
+                        <MdSignalCellular3Bar className="text-xl fill-light" />
+                        <MdBattery50 className="text-xl fill-light" />
+                    </div>
                 </div>
                 <div
-                    className="group-data-[isdesktop=true]:hidden w-1/2 h-[30px] bg-black rounded-b-2xl flex justify-evenly items-center gap-4"
+                    className="w-full h-auto flex flex-col"
                 >
-                    <div className="w-1/5 h-1/3 rounded-2xl bg-zinc-600"></div>
-                    <div className="w-1/12 h-1/3 rounded-2xl bg-zinc-600"></div>
-                </div>
-                <div className="flex gap-2 justify-end px-4 p-1">
-                    <MdSignalCellular3Bar className="text-xl fill-light" />
-                    <MdBattery50 className="text-xl fill-light" />
-                </div>
-            </div>
-            <div
-                className="w-full h-auto flex flex-col"
-            >
-                <HeaderDevice messages={messages} />
-                <MainDevice messages={messages} />
-                <div className="w-full h-[80px] flex gap-2 px-4 justify-center items-center">
-                    <input className="h-[50px]" />
-                    <MdSend />
+                    <HeaderDevice messages={messages} />
+                    <MainDevice messages={messages} />
+                    <div className="w-full h-[80px] flex gap-2 px-4 justify-center items-center">
+                        <input className="h-[50px]" />
+                        <MdSend />
+                    </div>
                 </div>
             </div>
         </div>

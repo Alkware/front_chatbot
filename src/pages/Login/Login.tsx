@@ -50,7 +50,7 @@ function Login() {
 
     return (
         access &&
-        <div className="w-screen h-screen flex flex-col dark:bg-dark bg-light dark:text-light text-gray">
+        <div className="w-screen h-screen flex flex-col items-center dark:bg-dark bg-light dark:text-light text-gray">
 
             <Header />
 

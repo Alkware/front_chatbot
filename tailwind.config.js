@@ -15,11 +15,11 @@ export default {
         },
         dark: "#0C0C0D",
         gray: "#191919",
-        gray_light: "#353535",
+        gray_light: "#111111",
         light: "#fff"
       },
       textColor:{
-        dark: "#353535",
+        dark: "#111111",
         light: "#fff"
       },
       animation:{
@@ -33,6 +33,7 @@ export default {
         "rising-reverse-10": "rising-and-disappears-reverse 10s linear infinite",
         "rising-reverse-14": "rising-and-disappears-reverse 14s linear 1s infinite",
         "rising-reverse-18": "rising-and-disappears-reverse 18s linear 3s infinite",
+        "down-and-display": "down-and-display 350ms linear "
       },
     },
   },

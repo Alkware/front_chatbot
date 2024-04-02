@@ -3,7 +3,7 @@ import { URL_LOGO } from "../../variables/variables";
 export function CompanyLogo() {
     return (
         <h2
-            className="w-full flex justify-center items-center p-4"
+            className="flex justify-center items-center"
         >
             <img
                 src={URL_LOGO}

@@ -17,8 +17,7 @@ export function MainDevice({ messages }:MainDevice) {
             const newReleasedMessages = messages.length > releasedMessages ? (releasedMessages + 1).toString() : -1;
             params.set("released_messages", newReleasedMessages.toString());
             setParams(params)
-
-        }, 3000)
+        }, 5000)
 
         return () => clearInterval(interval)
 
@@ -28,7 +27,7 @@ export function MainDevice({ messages }:MainDevice) {
     return (
         <div 
             ref={containerMessagesRef}
-            className="h-[500px] flex flex-col gap-2 w-full p-2 overflow-y-auto"
+            className="h-[500px] flex flex-col gap-2 w-full p-2 overflow-y-auto remove-scrollbar"
             >
             {
                 messages.map((msg, index) => {

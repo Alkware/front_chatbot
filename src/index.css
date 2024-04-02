@@ -17,7 +17,7 @@
   --primary-100: #7672F2;
   --primary-200: #363473;
   --primary-300: #222140;
-  --dark: #0C0C0D;
+  --dark: #111111;
   --light: #fff;
 }
 
@@ -35,10 +35,9 @@ html {
   align-items: center;
 }
 
-div#root {
-  height: 100vh;
-  overflow: auto;
-  scroll-behavior: smooth;
+
+body::-webkit-scrollbar {
+    display: none; /* Oculta a barra de rolagem */
 }
 
 input,
@@ -65,6 +64,15 @@ textarea {
   transform: rotate3d(1, 0, 0, 70deg) scale(1.03);
 }
 
+.neon-effect:hover {
+  box-shadow: 0px 0px 1px var(--primary-100), 0px 0px 5px var(--primary-100), 0px 0px 20px var(--primary-100);
+}
+
+.remove-scrollbar::-webkit-scrollbar{
+  display: none;
+}
+
+
 /* BACKGROUNDS  */
 
 .background-dark {
@@ -75,9 +83,6 @@ textarea {
   background: linear-gradient(325deg, var(--light) 83%, var(--primary-100) 100%);
 }
 
-.neon-effect:hover {
-  box-shadow: 0px 0px 1px var(--primary-100), 0px 0px 5px var(--primary-100), 0px 0px 20px var(--primary-100);
-}
 
 
 /* animation */
@@ -117,6 +122,16 @@ textarea {
   }
 }
 
+@keyframes down-and-display {
+  0%{
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100%{
+    opacity: 100%;
+    transform: translateY(0);
+  }
+}
 
 @keyframes rising-and-disappears {
   0% {
@@ -145,77 +160,35 @@ textarea {
 
 /* class animations home */
 
-.focus-on-element-with-scroll {
-  animation: focus-on-element 1ms linear;
+
+.leave-page-left {
+  animation: leave-page-left linear;
   animation-timeline: view(block);
-  animation-range: cover 30% cover 70%;
+  animation-range: cover 50% cover 100%;
 }
 
-@keyframes focus-on-element {
+@keyframes leave-page-left  {
   from {
-    transform: scale(0);
+    transform: translateX(0);
   }
 
   to {
-    transform: scale(10);
-  }
-}
-
-
-.transform-mobile-to-desktop {
-  animation: transform-mobile linear forwards;
-  animation-timeline: view();
-  animation-range: cover 50% 70%;
-}
-
-@keyframes transform-mobile {
-  to {
-    border: 1px solid black;
-    width: 90vw;
-    transform: translateY(30vh);
-  }
-}
-
-.change-device {
-  animation: change-device linear forwards;
-  animation-timeline: view();
-  animation-range: cover 50% 100%;
-}
-
-@keyframes change-device {
-  to {
-    visibility: visible;
-  }
-}
-
-.smooth-display-left {
-  animation: smooth-display-left linear;
-  animation-timeline: view();
-  animation-range: cover 100% 120%;
-}
-
-@keyframes smooth-display-left {
-  from {
-    transform: translateX(100%);
-  }
-
-  to {
-    transform: translateX(0%);
-  }
-}
-
-.smooth-display-right {
-  animation: smooth-display-right linear;
-  animation-timeline: view();
-  animation-range: cover 80% 120%;
-}
-
-@keyframes smooth-display-right {
-  from {
     transform: translateX(-100%);
   }
+}
+
+.leave-page-right {
+  animation: leave-page-right linear;
+  animation-timeline: view();
+  animation-range: cover 50% cover 100%;
+}
+
+@keyframes leave-page-right  {
+  from {
+    transform: translateX(0);
+  }
 
   to {
-    transform: translateX(0%);
+    transform: translateX(100%);
   }
 }

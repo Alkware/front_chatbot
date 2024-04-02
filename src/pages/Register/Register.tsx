@@ -1,9 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod";
 import { registerClient } from "../../api/client";
 import { useEffect } from "react";
+import { Header } from "../Home/components/Header/Header";
+import animateLoginLight from "../../assests/animate-login-light.svg"
+import animateLoginDark from "../../assests/animate-login-dark.svg"
+import { Button } from "../../components/button/Button";
 
 const createClientFormSchema = z.object({
     email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
@@ -25,6 +29,8 @@ type CreateUserFormData = z.infer<typeof createClientFormSchema>;
 
 function Register() {
     const navigate = useNavigate();
+    const [ search ] = useSearchParams();
+    const whereClickComeFrom = search.get("from");
     const { register, handleSubmit, formState: { errors } } = useForm<CreateUserFormData>({
         resolver: zodResolver(createClientFormSchema)
     });
@@ -51,70 +57,87 @@ function Register() {
     }
 
     return (
-        <div className="w-screen h-screen flex justify-center items-center dark:bg-dark bg-light">
-            <div className="w-full max-w-[480px] rounded-xl flex bg-gradient-to-tr from-blue-500 to-dark-color_main">
-                <div className="w-full h-full flex gap-4 flex-col items-center relative p-4">
-                    <h1 className="text-2xl">Registre em nossa plataforma</h1>
+        <div className="w-screen h-screen flex flex-col justify-center items-center dark:bg-dark bg-light relative">
+            <Header />
 
-                    <form
-                        onSubmit={handleSubmit(createUser)}
-                        className="flex flex-col gap-2 justify-center items-center text-light"
+            <div className="w-full h-full flex gap-4 flex-col justify-center items-center relative p-4">
+
+
+                <div className="w-3/5 h-3/5 flex items-center gap- rounded-xl">
+
+                    <div
+                        className="w-1/2"
                     >
-
-                        <input
-                            type="text"
-                            className="rounded-md p-2 w-full bg-dark"
-                            placeholder="Digite seu nome e sobrenome"
-                            {...register("fullname")}
+                        <img
+                            src="https://i.ibb.co/sq5xWh0/Mobile-login-pana.png"
+                            alt=""
+                            className="w-full h-full object-cover"
                         />
-                        <span className="w-full text-center text-red-600 bg-red-300/50">{errors.fullname?.message}</span>
+                    </div>
+
+                    <div className="w-1/2 h-full p-4 flex flex-col justify-between items-center gap-4 bg-primary-100 rounded-xl">
+                        <h1 className="text-2xl text-light">Registre em nossa plataforma</h1>
+
+                        <div className="flex flex-col">
+                            <form
+                                onSubmit={handleSubmit(createUser)}
+                                className="flex flex-col gap-2 justify-center items-center text-light"
+                            >
+
+                                <input
+                                    type="text"
+                                    className="rounded-md p-2 w-full bg-dark"
+                                    placeholder="Digite seu nome e sobrenome"
+                                    {...register("fullname")}
+                                />
+                                <span className="w-full text-center text-red-600 bg-red-300/50">{errors.fullname?.message}</span>
 
 
-                        <input
-                            type="email"
-                            className="rounded-md p-2 w-full  bg-dark"
-                            placeholder="Digite um e-mail válido"
-                            {...register("email")}
-                        />
-                        <span className="w-full text-center text-red-600 bg-red-300/50">{errors.email?.message}</span>
+                                <input
+                                    type="email"
+                                    className="rounded-md p-2 w-full  bg-dark"
+                                    placeholder="Digite um e-mail válido"
+                                    {...register("email")}
+                                />
+                                <span className="w-full text-center text-red-600 bg-red-300/50">{errors.email?.message}</span>
 
 
-                        <input
-                            type="password"
-                            className="rounded-md p-2 w-full  bg-dark"
-                            placeholder="Digite sua senha"
-                        />
-                        <span className="w-full text-center text-red-600 bg-red-300/50">{errors.password?.message}</span>
+                                <input
+                                    type="password"
+                                    className="rounded-md p-2 w-full  bg-dark"
+                                    placeholder="Digite sua senha"
+                                />
+                                <span className="w-full text-center text-red-600 bg-red-300/50">{errors.password?.message}</span>
 
 
-                        <input
-                            type="password"
-                            className="rounded-md p-2 w-full  bg-dark"
-                            placeholder="Confirme sua senha"
-                            {...register("password")}
-                        />
-                        <span className="w-full text-center text-red-600 bg-red-300/50">{errors.password?.message}</span>
+                                <input
+                                    type="password"
+                                    className="rounded-md p-2 w-full  bg-dark"
+                                    placeholder="Confirme sua senha"
+                                    {...register("password")}
+                                />
+                                <span className="w-full text-center text-red-600 bg-red-300/50">{errors.password?.message}</span>
 
-                        <input
-                            type="submit"
-                            value="Registre-se"
-                            className="w-full bg-blue_main p-3 cursor-pointer hover:brightness-110 transition-all"
-                        />
+                                <Button customClass="bg-primary-200 w-full">Criar conta</Button>
 
-                    </form>
+                            </form>
 
+                            <div className="w-full flex justify-evenly items-center mt-8">
 
+                                <a
+                                    className="underline cursor-pointer"
+                                    onClick={() => navigate("/login")}
+                                >Fazer login</a>
 
-                    <div className="w-full flex justify-evenly items-center mt-8">
-
-                        <a
-                            className="underline cursor-pointer"
-                            onClick={() => navigate("/login")}
-                        >Fazer login</a>
+                            </div>
+                        </div>
 
                     </div>
 
                 </div>
+
+
+
             </div>
         </div>
     )

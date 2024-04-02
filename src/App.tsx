@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Register from "./pages/Register/Register"
-import Index from "./pages/Home/Home"
 import Login from "./pages/Login/Login"
 import Thanks from "./pages/Thanks/Thanks"
+import { Home } from "./pages/Home/Home"
 import { CreateChat } from "./pages/CreateChat/CreateChat"
 import { Modal } from "./components/modal/Modal"
 import { CreateDatabase } from "./pages/CreateDatabase/CreateDatabase"
@@ -16,9 +16,9 @@ const Panel = lazy(()=> import("./pages/Panel/Panel"));
 function App() {
   return (
     <BrowserRouter>
-
       <Routes>
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/create-first-link" element={<h1>Create a first link</h1>} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/panel" element={<Suspense fallback={<InputLoading />}><Panel /></Suspense>} />
