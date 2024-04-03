@@ -35,8 +35,8 @@ export function Presentation() {
                     </h3>
 
                     <Button
-                        customClass="neon-effect w-full rounded-sm text-xl font-bold my-8 uppercase"
-                        onClick={() => navigate("/create-first-link")}
+                        customClass="neon-effect-hover w-full rounded-sm text-xl font-bold my-8 uppercase"
+                        onClick={() => navigate("/register")}
                     >Crie seu link agora</Button>
                 </div>
                 <div className="w-2/5 flex flex-col items-center justify-center pt-12 relative z-10 leave-page-right ">

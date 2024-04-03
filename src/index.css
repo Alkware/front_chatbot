@@ -37,7 +37,8 @@ html {
 
 
 body::-webkit-scrollbar {
-    display: none; /* Oculta a barra de rolagem */
+  display: none;
+  /* Oculta a barra de rolagem */
 }
 
 input,
@@ -58,17 +59,22 @@ textarea {
 
 .element-3d {
   transform: rotate3d(1, 0, 0, 70deg);
+
 }
 
 .element-3d:hover {
   transform: rotate3d(1, 0, 0, 70deg) scale(1.03);
 }
 
-.neon-effect:hover {
+.neon-effect-hover:hover {
+  box-shadow: 0px 0px 1px var(--primary-100), 0px 0px 5px var(--primary-100), 0px 0px 20px var(--primary-100);
+}
+.neon-effect {
   box-shadow: 0px 0px 1px var(--primary-100), 0px 0px 5px var(--primary-100), 0px 0px 20px var(--primary-100);
 }
 
-.remove-scrollbar::-webkit-scrollbar{
+
+.remove-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
@@ -83,7 +89,17 @@ textarea {
   background: linear-gradient(325deg, var(--light) 83%, var(--primary-100) 100%);
 }
 
+.radial-gradient {
+  background: radial-gradient(#7672f240, #7672f205, transparent)
+}
 
+.border-gradient {
+  border-width: 10px;
+  /* Set the width of the border */
+  border-style: solid;
+  /* Set the style of the border */
+  border-image: linear-gradient(to right, #7672f280, #7672f280, #7672f280);
+}
 
 /* animation */
 @keyframes loading {
@@ -123,11 +139,12 @@ textarea {
 }
 
 @keyframes down-and-display {
-  0%{
+  0% {
     opacity: 0;
     transform: translateY(-100%);
   }
-  100%{
+
+  100% {
     opacity: 100%;
     transform: translateY(0);
   }
@@ -167,7 +184,7 @@ textarea {
   animation-range: cover 50% cover 100%;
 }
 
-@keyframes leave-page-left  {
+@keyframes leave-page-left {
   from {
     transform: translateX(0);
   }
@@ -183,12 +200,55 @@ textarea {
   animation-range: cover 50% cover 100%;
 }
 
-@keyframes leave-page-right  {
+@keyframes leave-page-right {
   from {
     transform: translateX(0);
   }
 
   to {
     transform: translateX(100%);
+  }
+}
+
+.animate-light-running {
+  animation: animate-light-running linear 10s infinite;
+}
+
+
+@keyframes animate-light-running {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translate(60vw, 0%) rotate(0deg);
+  }
+
+  51% {
+    transform: translate(58.8vw, 0%) rotate(90deg);
+  }
+
+  100% {
+    transform: translate(58.8vw, 100vh) rotate(90deg);
+  }
+}
+
+.animate-light-running-down {
+  animation: animate-light-running-down linear 8s infinite alternate;
+}
+
+.animate-light-running-down-forwards {
+  animation: animate-light-running-down linear 8s infinite alternate-reverse;
+}
+
+
+
+@keyframes animate-light-running-down {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(100vh);
   }
 }

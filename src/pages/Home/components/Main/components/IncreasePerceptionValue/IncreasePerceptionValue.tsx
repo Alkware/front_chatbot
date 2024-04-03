@@ -27,9 +27,8 @@ export function IncreasePerceptionValue() {
         const handleScrollPage = () => {
             const section = document.body.querySelector("#increase-perception-value");
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            if(scrollTop > 300) {
+            if (scrollTop > 300) {
                 const sectionTop = section?.getBoundingClientRect().height || 0;
-                console.log(sectionTop)
                 window.scrollTo({ behavior: "smooth", top: sectionTop })
                 window.removeEventListener("scroll", handleScrollPage)
             }
@@ -60,8 +59,7 @@ export function IncreasePerceptionValue() {
             className="w-screen h-screen flex flex-col items-center justify-center relative bg-gradient-to-b from-black to-dark"
         >
             <div className="w-full h-full flex flex-col justify-center items-center gap-32">
-
-                <div className="flex flex-col items-center ">
+                <div className="flex flex-col items-center z-10">
                     <h1 className="text-5xl font-bold py-4">Por que a wipzee vai aumentar suas vendas?</h1>
                     <h2 className="text-2xl opacity-80">Não somos mais um desses chatbots convencionais e queremos  mostrar o por que</h2>
                 </div>
@@ -95,6 +93,35 @@ export function IncreasePerceptionValue() {
                     }
                 </div>
             </div>
+
+            <div className="w-[50vw] h-[40vw] absolute top-0 left-0 -z-0 flex justify-start items-center gap-2 -translate-y-1/3">
+                <div className="w-full h-full radial-gradient flex gap-2 justify-center items-center">
+                    {
+                        Array.from({ length: 12 }).map((_, index) =>
+                            index === 6 ?
+                                <div
+                                    key={index}
+                                    className="w-[60vw] h-screen absolute top-1/2 left-2/3 border-t-2 border-r-2 border-primary-100/15 rounded-xl overflow-hidden"
+                                >
+                                    <div className="w-[2vw] rounded-full h-[2px] bg-gradient-to-r from-transparent to-primary-100/80 animate-light-running"></div>
+                                </div>
+                                :
+                                index % 2 ?
+                                    <div
+                                        key={index}
+                                        className="w-full h-[1px] absolute top-1/3 opacity-50 bg-gradient-to-r from-transparent via-primary-100/50 to-transparent"
+                                        style={{ translate: `0 ${index * 25}px` }}
+                                    ></div>
+                                    :
+                                    <div
+                                        key={index}
+                                        className="w-[1px] h-full absolute left-1/3 opacity-50 bg-gradient-to-b from-transparent via-primary-100/50 to-transparent"
+                                        style={{ translate: `${index * 25}px 0` }}
+                                    ></div>
+                        )
+                    }
+                </div>
+            </div>
         </section>
     )
-};
+}

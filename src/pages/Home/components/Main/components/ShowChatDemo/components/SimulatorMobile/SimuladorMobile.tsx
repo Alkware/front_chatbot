@@ -65,7 +65,7 @@ const messages = [
 export function SimulatorMobile() {
     return (
         <div
-            className="group w-[400px] h-auto border-[20px] border-black rounded-[2rem] z-50 transform-mobile-to-desktop"
+            className="group w-[400px] h-auto border-[20px] border-black rounded-[2rem] z-50 neon-effect"
         >
             <div className="w-full h-full bg-zinc-800 rounded-2xl overflow-hidden flex flex-col gap-1 relative top-0 ">
                 <div
@@ -91,8 +91,8 @@ export function SimulatorMobile() {
                     <HeaderDevice messages={messages} />
                     <MainDevice messages={messages} />
                     <div className="w-full h-[80px] flex gap-2 px-4 justify-center items-center">
-                        <input className="h-[50px]" />
-                        <MdSend />
+                        <input className="h-[40px]" disabled/>
+                        <MdSend className="bg-primary-100 p-1 rounded-full text-4xl" />
                     </div>
                 </div>
             </div>

@@ -58,7 +58,7 @@ export function TableMetric({ columns, setColumns, planManagement }: BodyTableMe
                 }
             </div>
             < div
-                className="flex-none flex bg-primary-300"
+                className="flex-none flex "
             >
                 {
                     columns.map((column: Columns, index) =>

@@ -21,6 +21,6 @@ export function messagesEventManager(plan_management: PlanManagement) {
         output,
         totalMessages,
         maxMessages,
-        reminingMessages: maxMessages - totalMessages
+        reminingMessages: maxMessages - totalMessages < 0 ? 0 : maxMessages - totalMessages
     }
 }

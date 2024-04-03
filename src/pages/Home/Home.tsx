@@ -14,7 +14,7 @@ export function Home() {
     return (
         <div
             ref={homeRef}
-            className="dark:bg-dark bg-light dark:text-light text-primary-100 relative flex flex-col justify-center"
+            className="dark:bg-dark bg-light dark:text-light text-primary-100 relative flex flex-col justify-center items-center"
         >
             <Header />
             <Main />

@@ -18,7 +18,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/create-first-link" element={<h1>Create a first link</h1>} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/panel" element={<Suspense fallback={<InputLoading />}><Panel /></Suspense>} />
