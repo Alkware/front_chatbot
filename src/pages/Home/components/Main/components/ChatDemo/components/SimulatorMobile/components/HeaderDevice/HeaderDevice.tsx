@@ -3,9 +3,10 @@ import { useSearchParams } from "react-router-dom";
 
 interface HeaderDevice {
     messages: Array<{ id: number, isUser: boolean, text: string }>
+    size?: "BIG" | "SMALL"
 }
 
-export function HeaderDevice({ messages }: HeaderDevice) {
+export function HeaderDevice({ messages, size }: HeaderDevice) {
     const [isTyping, setTyping] = useState<boolean>();
     const [params] = useSearchParams();
     const currentReleasedMessage = Number(params.get("released_messages")) || -1
@@ -22,19 +23,22 @@ export function HeaderDevice({ messages }: HeaderDevice) {
     }, [currentReleasedMessage])
 
     return (
-        <div className="flex items-center w-full h-[50px] bg-primary-100">
+        <div 
+            data-size={size}
+            className="group flex items-center w-full data-[size='SMALL']:min-h-[40px] min-h-[50px] bg-primary-100"
+        >
             <div className="w-1/5 h-full flex justify-center items-center">
                 <img
                     src="https://i.ibb.co/bJH2Mgy/homem-bonito-e-confiante-sorrindo-com-as-maos-cruzadas-no-peito.jpg"
                     alt=""
-                    className="w-[40px] h-[40px] object-cover rounded-full"
+                    className="group-data-[size='SMALL']:w-[30px] group-data-[size='SMALL']:h-[30px] w-[40px] h-[40px] object-cover rounded-full"
                 />
             </div>
             <div className="flex flex-col">
-                <h2>Suporte inteligente</h2>
+                <h2 className="group-data-[size='SMALL']:text-sm">Suporte inteligente</h2>
                 <span
                     data-istyping={!!isTyping}
-                    className="opacity-80 text-sm data-[istyping=false]:hidden"
+                    className="opacity-80 text-sm data-[istyping=false]:hidden group-data-[size='SMALL']:text-xs"
                 >Digitando...</span>
             </div>
         </div>

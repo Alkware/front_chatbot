@@ -74,28 +74,28 @@ export function DesktopDemo() {
     <div
       className="w-screen h-screen flex flex-col gap-12 items-center relative"
     >
-      <h2 className="text-6xl font-bold py-12">Conheça nossa plataforma</h2>
+      <h2 className="text-5xl xl:text-6xl font-bold py-12">Conheça nossa plataforma</h2>
 
-      <div className="w-4/5 flex rounded-md z-10">
+      <div className="w-[95%] md:w-4/5 h-4/5 flex flex-col md:flex-row rounded-md z-10">
 
-        <div className="w-1/4 flex flex-col items-center bg-primary-300">
+        <div className="w-full md:w-1/4 min-w-[200px] flex flex-row md:flex-col justify-between md:justify-start p-2 md:p-0 items-center bg-primary-300">
           {
             tabManagement.map(tab =>
               <span
                 key={tab.index}
                 tabIndex={tab.index}
                 data-active={tab.index === currentVideo?.index}
-                className="p-2 border-b border-primary-100/50 w-full text-center cursor-pointer hover:bg-primary-100/30 data-[active=true]:bg-primary-100/30"
+                className="p-1 md:p-2 border-r md:border-b border-primary-100/50 md:w-full text-center text-sm md:text-md cursor-pointer hover:bg-primary-100/30 data-[active=true]:bg-primary-100/30"
                 onClick={handleSelectTab}
               >{tab.title}</span>
             )
           }
         </div>
 
-        <div className="w-auto bg-dark">
+        <div className="w-full md:w-3/4 h-full bg-dark">
           {
             currentVideo ?
-              <div className="w-[900px] h-[513px] relative border-8 border-primary-300 ">
+              <div className="w-full h-full relative border-8 border-primary-300 ">
                 <div
                   ref={playRef}
                   className=""

@@ -1,6 +1,6 @@
 import { IncreasePerceptionValue } from "./components/IncreasePerceptionValue/IncreasePerceptionValue";
 import { Presentation } from "./components/Presentation/Presentation";
-import { ChatDemo } from "./components/ShowChatDemo/ShowChatDemo";
+import { ChatDemo } from "./components/ChatDemo/ChatDemo";
 import { DesktopDemo } from "./components/DesktopDemo/DesktopDemo";
 import { Comparison } from "./components/Comparison/Comparison";
 import { Plans } from "./components/Plans/Plans";

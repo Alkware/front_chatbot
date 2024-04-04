@@ -1,12 +1,12 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod";
 import { registerClient } from "../../api/client";
 import { useEffect } from "react";
 import { Header } from "../Home/components/Header/Header";
-import animateLoginLight from "../../assests/animate-login-light.svg"
-import animateLoginDark from "../../assests/animate-login-dark.svg"
+// import animateLoginLight from "../../assests/animate-login-light.svg"
+// import animateLoginDark from "../../assests/animate-login-dark.svg"
 import { Button } from "../../components/button/Button";
 
 const createClientFormSchema = z.object({
@@ -29,8 +29,8 @@ type CreateUserFormData = z.infer<typeof createClientFormSchema>;
 
 function Register() {
     const navigate = useNavigate();
-    const [ search ] = useSearchParams();
-    const whereClickComeFrom = search.get("from");
+    // const [ search ] = useSearchParams();
+    // const whereClickComeFrom = search.get("from");
     const { register, handleSubmit, formState: { errors } } = useForm<CreateUserFormData>({
         resolver: zodResolver(createClientFormSchema)
     });

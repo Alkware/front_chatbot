@@ -58,15 +58,16 @@ export function IncreasePerceptionValue() {
             id="increase-perception-value"
             className="w-screen h-screen flex flex-col items-center justify-center relative bg-gradient-to-b from-black to-dark"
         >
-            <div className="w-full h-full flex flex-col justify-center items-center gap-32">
-                <div className="flex flex-col items-center z-10">
-                    <h1 className="text-5xl font-bold py-4">Por que a wipzee vai aumentar suas vendas?</h1>
-                    <h2 className="text-2xl opacity-80">Não somos mais um desses chatbots convencionais e queremos  mostrar o por que</h2>
+            <div className="w-full h-full flex flex-col justify-center items-center gap-8 md:gap-0">
+
+                <div className="w-full md:h-1/4 flex flex-col items-center z-10">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold py-4">Por que a wipzee vai aumentar suas vendas?</h1>
+                    <h2 className="w-4/5 md:w-auto text-base md:text-lg lg:text-xl opacity-80">Não somos mais um desses chatbots convencionais e queremos  mostrar o por que</h2>
                 </div>
 
                 <div
                     ref={containerDropDown}
-                    className="w-4/5 h-1/2 flex flex-col flex-wrap gap-8 p-4 "
+                    className="w-4/5 md:w-[90%] h-3/4 my-8 md:my-0 flex flex-col justify-start items-center flex-nowrap md:flex-wrap gap-4"
                 >
                     {
                         contents.map((content, index) =>
@@ -75,16 +76,16 @@ export function IncreasePerceptionValue() {
                                 data-isactive={index === 0 ? true : false}
                                 data-index={index}
                                 onClick={handleClickDropDown}
-                                className="w-2/5 data-[isactive=true]:h-auto h-1/4 group flex flex-col cursor-pointer rounded-md relative overflow-hidden"
+                                className="w-full md:w-[48%] data-[isactive=true]:h-auto h-auto md:h-1/4 group flex flex-col cursor-pointer rounded-md relative overflow-hidden"
                                 style={{ order: index }}
                             >
                                 <div className="flex gap-4 w-full justify-between p-3 bg-primary-300 rounded-md border border-primary-100 z-20">
                                     <MdCheck className="bg-primary-100 rounded-full p-1 text-xl fill-primary-300" />
-                                    <span className="font-bold text-xl">{content.title}</span>
+                                    <span className="font-medium text-base md:text-lg lg:text-xl">{content.title}</span>
                                     <MdArrowDropDown className="text-2xl fill-primary-100" />
                                 </div>
                                 <div className="p-2 group-data-[isactive=false]:hidden animate-down-and-display bg-primary-300 z-10">
-                                    <p className="text-center text-lg">
+                                    <p className="text-center text-base lg:text-lg opacity-80">
                                         {content.text}
                                     </p>
                                 </div>

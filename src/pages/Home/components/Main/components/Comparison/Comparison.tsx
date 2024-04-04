@@ -26,9 +26,9 @@ export function Comparison() {
     const navigate = useNavigate();
 
     return (
-        <div className="w-screen h-screen flex flex-col gap-8 items-center relative">
+        <div className="w-screen h-auto md:h-screen flex flex-col gap-8 items-center relative">
             <h2 className="text-5xl p-8">Compare e escolha</h2>
-            <div className="flex gap-8">
+            <div className="flex flex-col md:flex-row gap-8">
                 <div className="flex flex-col items-center cursor-not-allowed border border-red-800/50 rounded-lg bg-red-500/10 gap-2 p-4 opacity-70 animate-pulse">
                     <h3 className="text-2xl font-medium">Outras Soluções</h3>
                     <p className="opacity-70">Soluções incompletas e ineficazes do mercado</p>
