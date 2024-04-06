@@ -26,12 +26,14 @@ export function Comparison() {
     const navigate = useNavigate();
 
     return (
-        <div className="w-screen h-auto md:h-screen flex flex-col gap-8 items-center relative">
-            <h2 className="text-5xl p-8">Compare e escolha</h2>
-            <div className="flex flex-col md:flex-row gap-8">
-                <div className="flex flex-col items-center cursor-not-allowed border border-red-800/50 rounded-lg bg-red-500/10 gap-2 p-4 opacity-70 animate-pulse">
+        <div className="w-screen h-auto md:h-screen py-12 flex flex-col gap-8 items-center relative">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl p-8 font-bold">Compare e escolha</h2>
+
+            <div className="flex flex-col md:flex-row gap-8 items-center">
+
+                <div className="w-[90%] md:w-auto flex flex-col items-center cursor-not-allowed border border-red-800/50 rounded-lg bg-red-500/10 gap-2 p-4 opacity-70 animate-pulse">
                     <h3 className="text-2xl font-medium">Outras Soluções</h3>
-                    <p className="opacity-70">Soluções incompletas e ineficazes do mercado</p>
+                    <p className="text-center md:text-left opacity-70">Soluções incompletas e ineficazes do mercado</p>
                     <div className="flex flex-col gap-4 my-4">
                         {
                             otherSolutions.map(text =>
@@ -46,9 +48,10 @@ export function Comparison() {
                         }
                     </div>
                 </div>
-                <div className="flex flex-col items-center cursor-pointer border border-primary-100/50 rounded-lg bg-primary-100/10 gap-2 p-4 shadow-md shadow-primary-100/40 hover:scale-110 transition-transform decoration-neutral-100">
+
+                <div className="w-[90%] md:w-auto flex flex-col items-center cursor-pointer border border-primary-100/50 rounded-lg bg-primary-100/10 gap-2 p-4 shadow-md shadow-primary-100/40 hover:scale-110 transition-transform decoration-neutral-100">
                     <h3 className="text-2xl font-medium">Wipzee</h3>
-                    <p className="opacity-70">Assistente eficaz utilizando inteligência artifical</p>
+                    <p className="opacity-70 text-center md:text-left">Assistente eficaz utilizando inteligência artifical</p>
                     <div className="flex flex-col gap-4 my-4">
                         {
                             wipzee.map(text =>
@@ -73,7 +76,7 @@ export function Comparison() {
             </Button>
 
 
-            <div className="w-[50vw] h-[100vh] absolute -top-1/4 left-1/2 -z-0 flex justify-start items-center gap-2 -translate-x-1/2">
+            <div className="w-[50vw] h-[100vh] absolute -top-1/4 left-0 md:left-1/2 -z-0 flex justify-start items-center gap-2 -translate-x-1/2">
 
                 <div className="w-full h-full flex gap-2 justify-center items-center">
                     {

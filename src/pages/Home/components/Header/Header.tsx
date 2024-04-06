@@ -16,7 +16,7 @@ export function Header() {
     }
 
     return (
-        <header className="w-full max-w-[1300px] h-[100px] overflow-hidden flex justify-between items-center absolute top-0 z-50">
+        <header className="w-full max-w-[1300px] h-[75px] md:h-[100px] overflow-hidden flex justify-between items-center absolute top-0 z-50">
 
             <div className="w-1/5 h-[100px] py-4">
                 <img
@@ -28,21 +28,21 @@ export function Header() {
             </div>
 
             <nav className="flex justify-center items-center">
-                <ul className="flex justify-center items-center gap-8 ">
+                <ul className="flex justify-center items-center gap-3 md:gap-8 ">
 
                     <li
-                        className="cursor-pointer px-3 py-2 rounded-lg border border-primary-100/40 neon-effect-hover text-primary-100"
+                        className="cursor-pointer px-2 md:px-3 py-2 rounded-lg border border-primary-100/40 neon-effect-hover text-primary-100"
                         onClick={() => navigate("/login")}
                     > Entrar </li>
 
                     <li
-                        className="cursor-pointer px-6 py-2 rounded-lg transition-colors bg-primary-100/80 hover:bg-primary-100 neon-effect-hover text-light "
+                        className="cursor-pointer px-3 md:px-6 py-2 rounded-lg transition-colors bg-primary-100/80 hover:bg-primary-100 neon-effect-hover text-light "
                         onClick={() => navigate("/register")}
                     > Criar conta </li>
                 </ul>
 
                 <div
-                    className="p-2 rounded-full cursor-pointer bg-primary-200 mx-8 text-light neon-effect-hover"
+                    className="p-2 rounded-full cursor-pointer bg-primary-200 mx-3 md:mx-8 text-light neon-effect-hover"
                     onClick={toggleTheme}
                 >
                     {

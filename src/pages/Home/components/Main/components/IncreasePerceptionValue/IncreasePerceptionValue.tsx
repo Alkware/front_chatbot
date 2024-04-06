@@ -56,18 +56,18 @@ export function IncreasePerceptionValue() {
     return (
         <section
             id="increase-perception-value"
-            className="w-screen h-screen flex flex-col items-center justify-center relative bg-gradient-to-b from-black to-dark"
+            className="w-screen h-auto md:h-screen py-12 md:py-12 flex flex-col items-center justify-center relative bg-gradient-to-b from-black to-dark"
         >
             <div className="w-full h-full flex flex-col justify-center items-center gap-8 md:gap-0">
 
                 <div className="w-full md:h-1/4 flex flex-col items-center z-10">
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold py-4">Por que a wipzee vai aumentar suas vendas?</h1>
-                    <h2 className="w-4/5 md:w-auto text-base md:text-lg lg:text-xl opacity-80">Não somos mais um desses chatbots convencionais e queremos  mostrar o por que</h2>
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold py-4 text-center md:text-left">Por que a wipzee vai aumentar suas vendas?</h1>
+                    <h2 className="w-4/5 md:w-auto text-base md:text-lg lg:text-xl opacity-80 text-center md:text-left">Não somos mais um desses chatbots convencionais e queremos  mostrar o por que</h2>
                 </div>
 
                 <div
                     ref={containerDropDown}
-                    className="w-4/5 md:w-[90%] h-3/4 my-8 md:my-0 flex flex-col justify-start items-center flex-nowrap md:flex-wrap gap-4"
+                    className="max-2xs:w-[90%] w-4/5 md:w-[90%] h-3/4 flex flex-col justify-start items-center flex-nowrap md:flex-wrap gap-4"
                 >
                     {
                         contents.map((content, index) =>

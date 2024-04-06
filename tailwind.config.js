@@ -22,6 +22,10 @@ export default {
         dark: "#111111",
         light: "#fff"
       },
+      screens:{
+        "2xs": "380px",
+        "xs": "480px",
+      },
       animation:{
         "smooth_display_left": "smooth-display-left 500ms ease-in-out",
         "loading": "loading 500ms linear infinite",

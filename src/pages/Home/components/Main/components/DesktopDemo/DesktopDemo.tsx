@@ -72,20 +72,20 @@ export function DesktopDemo() {
 
   return (
     <div
-      className="w-screen h-screen flex flex-col gap-12 items-center relative"
+      className="w-screen h-screen py-12 flex flex-col gap-0 md:gap-12 items-center relative"
     >
-      <h2 className="text-5xl xl:text-6xl font-bold py-12">Conheça nossa plataforma</h2>
+      <h2 className="max-2xs:text-2xl text-3xl md:text-3xl lg:text-5xl xl:text-6xl font-bold py-4 md:py-12 text-center md:text-left">Conheça nossa plataforma</h2>
 
       <div className="w-[95%] md:w-4/5 h-4/5 flex flex-col md:flex-row rounded-md z-10">
 
-        <div className="w-full md:w-1/4 min-w-[200px] flex flex-row md:flex-col justify-between md:justify-start p-2 md:p-0 items-center bg-primary-300">
+        <div className="w-full md:w-1/4 min-w-[200px] flex flex-col justify-between md:justify-start p-2 md:p-0 items-center bg-primary-300">
           {
             tabManagement.map(tab =>
               <span
                 key={tab.index}
                 tabIndex={tab.index}
                 data-active={tab.index === currentVideo?.index}
-                className="p-1 md:p-2 border-r md:border-b border-primary-100/50 md:w-full text-center text-sm md:text-md cursor-pointer hover:bg-primary-100/30 data-[active=true]:bg-primary-100/30"
+                className="w-full p-1 md:p-2 border-r md:border-b border-primary-100/50 md:w-full text-center text-sm md:text-md cursor-pointer hover:bg-primary-100/30 data-[active=true]:bg-primary-100/30"
                 onClick={handleSelectTab}
               >{tab.title}</span>
             )
@@ -120,7 +120,7 @@ export function DesktopDemo() {
         </div>
       </div>
 
-      <div className="w-[50vw] h-[40vw] absolute top-1/3 left-1/2 -z-0 flex justify-start items-center gap-2 -translate-x-1/2">
+      <div className="w-[90vw] md:w-[50vw] h-[40vw] absolute top-0 md:top-1/3 left-1/2 -z-0 flex justify-start items-center gap-2 -translate-x-1/2 ">
         <div className="w-full h-full radial-gradient flex gap-2 justify-center items-center">
           
         </div>

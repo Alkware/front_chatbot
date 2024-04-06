@@ -21,10 +21,10 @@ const plans = [
 
 export function Plans() {
     return (
-        <div className="w-screen h-auto md:h-screen flex gap-8 flex-col items-center relative">
-            <h2 className="text-5xl p-8">Planos</h2>
+        <div className="w-screen  h-auto md:h-screen flex gap-8 flex-col items-center relative">
+            <h2 className="text-3xl md:text-5xl p-8 font-bold">Planos</h2>
 
-            <div className="w-4/5 flex flex-col md:flex-row gap-4 justify-center">
+            <div className="w-4/5 flex flex-col md:flex-row gap-4 justify-center items-center">
                 {
                     plans.map(plan =>
                         <div 
