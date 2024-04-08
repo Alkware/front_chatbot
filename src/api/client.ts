@@ -62,3 +62,14 @@ export async function checkUserIsAvailable(user: string) {
 
     return response?.data.available
 }
+
+
+export async function updateTutorialClient(client_id: string , tutorial: boolean){
+    
+    const response = await axios.put(`${API_URL}/client/update_tutorial`, { client_id, tutorial })
+    .catch(err =>{
+        console.error(err)
+    })
+
+    return response?.data
+}

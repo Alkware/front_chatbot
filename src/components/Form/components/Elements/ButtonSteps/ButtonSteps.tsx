@@ -11,9 +11,11 @@ import { useFormContext } from "react-hook-form";
 interface FormButtonStep {
     numberChildren: number;
     findErrorMessage: (errors: Object) => string;
+    hiddenPreviewButton?: boolean;
+    titleButtonSend?: string;
 }
 
-export function FormButtonStep({ numberChildren, findErrorMessage }: FormButtonStep) {
+export function FormButtonStep({ numberChildren, findErrorMessage, hiddenPreviewButton, titleButtonSend }: FormButtonStep) {
     const [params, setParams] = useSearchParams();
     const { setModalContent } = useContext(ModalContext)
     const { trigger, formState: { errors } } = useFormContext();
@@ -58,27 +60,28 @@ export function FormButtonStep({ numberChildren, findErrorMessage }: FormButtonS
     }
 
     return (
-            <div className="w-full flex gap-20 justify-center items-center mt-8">
+            <div className="w-full flex gap-4 lg:gap-16 xl:gap-20 justify-center items-center mt-8">
 
                 <Button
                     type="button"
-                    customClass="px-4 cursor-pointer"
+                    data-display={hiddenPreviewButton && currentStep === 0 }
+                    customClass="cursor-pointer data-[display=true]:hidden px-4 max-lg:text-sm"
                     onClick={handlePreviousStep}
                 > <IoIosUndo /> { currentStep === 0 ? "Painel": "Anterior" }</Button>
 
                 <Button
                     type="submit"
                     data-islaststep={isLastStep}
-                    customClass="data-[islaststep=false]:hidden justify-center px-4"
+                    customClass="data-[islaststep=false]:hidden justify-center px-4 max-lg:text-sm"
                 >
-                    Enviar
+                    { titleButtonSend || "Enviar" }
                     <IoCreate />
                 </Button>
 
                 <Button
                     type="button"
                     data-islaststep={isLastStep}
-                    customClass="data-[islaststep=true]:hidden justify-center px-4"
+                    customClass="data-[islaststep=true]:hidden justify-center px-4 max-lg:text-sm"
                     onClick={handleNextStep}
                 >
                     Proximo

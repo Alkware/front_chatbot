@@ -52,7 +52,7 @@ export function ButtonCreateNewDatabase({ plan_management_id }: { plan_managemen
         }
     }
 
-    return <FaPlus className="w-[300px] text-5xl py-3" onClick={handleClickNewDatabases} />
+    return <FaPlus className="w-[300px] text-5xl py-3 " onClick={handleClickNewDatabases} />
 
 }
 

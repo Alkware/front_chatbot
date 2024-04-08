@@ -7,7 +7,7 @@ export function FrequentlyQuestions() {
             </div>
             <div className="w-full h-full flex justify-center ">
                 <div
-                    className="w-[90vw] h-[150vw] md:w-[450px] md:h-[600px] rounded-lg overflow-hidden"
+                    className="w-[90vw] h-[150vw] md:w-[30vw] md:h-[40vw] rounded-lg overflow-hidden"
                     id="wipzee-chat"
                 ></div>
             </div>

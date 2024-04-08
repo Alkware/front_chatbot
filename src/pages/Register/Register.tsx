@@ -5,9 +5,7 @@ import z from "zod";
 import { registerClient } from "../../api/client";
 import { useEffect } from "react";
 import { Header } from "../Home/components/Header/Header";
-// import animateLoginLight from "../../assests/animate-login-light.svg"
-// import animateLoginDark from "../../assests/animate-login-dark.svg"
-import { Button } from "../../components/button/Button";
+import { Root } from "../../components/Form/FormRoot";
 
 const createClientFormSchema = z.object({
     email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
@@ -31,7 +29,7 @@ function Register() {
     const navigate = useNavigate();
     // const [ search ] = useSearchParams();
     // const whereClickComeFrom = search.get("from");
-    const { register, handleSubmit, formState: { errors } } = useForm<CreateUserFormData>({
+    const formRegister = useForm<CreateUserFormData>({
         resolver: zodResolver(createClientFormSchema)
     });
 
@@ -52,8 +50,6 @@ function Register() {
 
             navigate("/panel")
         } else alert("E-mail inserido já existe")
-
-
     }
 
     return (
@@ -63,7 +59,7 @@ function Register() {
             <div className="w-full h-full flex gap-4 flex-col justify-center items-center relative p-4">
 
 
-                <div className="w-3/5 h-3/5 flex items-center gap- rounded-xl">
+                <div className="w-[95%] md:w-4/5 flex flex-col sm:flex-row items-center rounded-xl">
 
                     <div
                         className="w-1/2"
@@ -75,55 +71,50 @@ function Register() {
                         />
                     </div>
 
-                    <div className="w-1/2 h-full p-4 flex flex-col justify-between items-center gap-4 bg-primary-100 rounded-xl">
-                        <h1 className="text-2xl text-light">Registre em nossa plataforma</h1>
+                    <div className="w-full nvxs:w-4/5 sm:w-3/5 py-4 flex flex-col justify-start items-center gap-4 bg-primary-200 rounded-xl">
+                        <h1 className="text-xl md:text-2xl text-light text-center font-bold">Registre em nossa plataforma</h1>
 
-                        <div className="flex flex-col">
-                            <form
-                                onSubmit={handleSubmit(createUser)}
-                                className="flex flex-col gap-2 justify-center items-center text-light"
+                        <div className="w-full flex flex-col text-light">
+                            <Root.Form
+                                form={formRegister}
+                                onSubmit={formRegister.handleSubmit(createUser)}
+                                hiddenPreviewButton={true}
+                                titleButtonSend="Criar conta"
                             >
+                                <Root.Step index={0}>
+                                    <Root.Input
+                                        name="fullname"
+                                        title="Digite seu nome completo"
+                                    />
+                                    <Root.Input
+                                        name="email"
+                                        title="Digite um e-mail válido"
+                                    />
 
-                                <input
-                                    type="text"
-                                    className="rounded-md p-2 w-full bg-dark"
-                                    placeholder="Digite seu nome e sobrenome"
-                                    {...register("fullname")}
-                                />
-                                <span className="w-full text-center text-red-600 bg-red-300/50">{errors.fullname?.message}</span>
+                                </Root.Step>
 
+                                <Root.Step index={1}>
+                                    <Root.Input
+                                        name="password"
+                                        title="Crie uma nova senha de acesso"
+                                        type="password"
+                                    />
 
-                                <input
-                                    type="email"
-                                    className="rounded-md p-2 w-full  bg-dark"
-                                    placeholder="Digite um e-mail válido"
-                                    {...register("email")}
-                                />
-                                <span className="w-full text-center text-red-600 bg-red-300/50">{errors.email?.message}</span>
+                                    <Root.Input
+                                        name="confirm_password"
+                                        title="Confirme sua senha de acesso"
+                                        type="password"
+                                    />
 
+                                </Root.Step>
+                            </Root.Form>
 
-                                <input
-                                    type="password"
-                                    className="rounded-md p-2 w-full  bg-dark"
-                                    placeholder="Digite sua senha"
-                                />
-                                <span className="w-full text-center text-red-600 bg-red-300/50">{errors.password?.message}</span>
-
-
-                                <input
-                                    type="password"
-                                    className="rounded-md p-2 w-full  bg-dark"
-                                    placeholder="Confirme sua senha"
-                                    {...register("password")}
-                                />
-                                <span className="w-full text-center text-red-600 bg-red-300/50">{errors.password?.message}</span>
-
-                                <Button customClass="bg-primary-200 w-full">Criar conta</Button>
-
-                            </form>
-
-                            <div className="w-full flex justify-evenly items-center mt-8">
-
+                            <div className="w-full flex flex-col justify-evenly items-center ">
+                                <div className="w-full flex gap-2 items-center mb-8">
+                                    <div className="w-full h-1 bg-gradient-to-r from-transparent to-primary-100 rounded-xl"></div>
+                                    <span className="font-bold text-sm">OU</span>
+                                    <div className="w-full h-1 bg-gradient-to-r from-primary-100 to-transparent rounded-xl"></div>
+                                </div>
                                 <a
                                     className="underline cursor-pointer"
                                     onClick={() => navigate("/login")}

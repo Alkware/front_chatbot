@@ -6,7 +6,7 @@ import { Client } from "../../../../../../../../../../@types/Client"
 
 export function CardPlan({ client }: { client?: Client }) {
     return (
-        <div className="w-1/2 min-w-[150px] max-w-[400px] border border-zinc-600 p-2 rounded-md">
+        <div className="w-1/2 min-w-[150px] max-w-[400px] border border-zinc-600 p-2 rounded-md z-50">
             <h2 className="w-full text-center">Plano atual:</h2>
 
             <div className="w-full flex justify-center p-4">
@@ -19,6 +19,8 @@ export function CardPlan({ client }: { client?: Client }) {
 
             <ButtonChangeAndAddPlan client={client} />
             <ButtonRequestRefund  client={client}/>
+
+          
             
         </div>
     )

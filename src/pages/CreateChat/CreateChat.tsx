@@ -12,11 +12,14 @@ import { chatSchema, ChatSchema } from "../../schema/zod/chatSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FORM_NAME_TO_SAVE_LOCALSTORAGE } from "../../variables/variables";
 import { CallToActionFormChat } from "./components/FormCallToAction/FormCallToAction";
+import { updateTutorialClient } from "../../api/client";
+import { ClientContext } from "../../context/ClientContext";
 
 export function CreateChat() {
     const [prompt, setPrompt] = useState<Prompt[]>()
     const { plan_management_id } = useParams();
     const { setModalContent } = useContext(ModalContext)
+    const { client } = useContext(ClientContext)
     const navigate = useNavigate();
     const localStorageDatabase = JSON.parse(localStorage.getItem(FORM_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
     const createChatForm = useForm<ChatSchema>({
@@ -84,6 +87,10 @@ export function CreateChat() {
 
             if (project?.status === 201) {
                 localStorage.removeItem(FORM_NAME_TO_SAVE_LOCALSTORAGE)
+
+                // Atualiza o status do tutorial para que ele não apareça mais.
+                client && await updateTutorialClient(client.id, false)
+
                 setModalContent({
                     componentName: "modal_created_chat",
                     components: <PopOver message="Chat criado com sucesso" componentName="modal_created_chat" />

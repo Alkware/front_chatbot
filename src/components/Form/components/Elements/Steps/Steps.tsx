@@ -17,6 +17,7 @@ export function Steps({ numberSteps }: Steps) {
     }
 
     return (
+        numberSteps > 1 &&
         <div className="flex flex-col w-full">
             <div className="w-full flex justify-between items-center mb-8">
                 {
@@ -25,7 +26,7 @@ export function Steps({ numberSteps }: Steps) {
                             <div
                                 data-index={index}
                                 className={
-                                    `w-[35px] h-[35px] flex justify-center items-center text-md cursor-pointer font-bold
+                                    `w-[25px] md:w-[35px] h-[25px] md:h-[35px] flex justify-center items-center text-md cursor-pointer font-bold
                                     ${index < currentIndex ?
                                         "bg-primary-100 border border-light" :
                                         index === currentIndex ? "bg-light animate-ping" :
@@ -36,7 +37,7 @@ export function Steps({ numberSteps }: Steps) {
                                 index === currentIndex &&
                                 <div
                                     data-index={index}
-                                    className={`w-[35px] h-[35px] cursor-pointer flex justify-center items-center font-bold bg-primary-100 border border-light rounded-full absolute`}
+                                    className={`w-[25px] md:w-[35px] h-[25px] md:h-[35px] cursor-pointer flex justify-center items-center font-bold bg-primary-100 border border-light rounded-full absolute`}
                                     onClick={handleClickNextStep}
                                 >{index + 1}</div>
                             }

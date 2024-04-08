@@ -41,11 +41,6 @@ export function IncreasePerceptionValue() {
 
 
     const handleClickDropDown = (e: MouseEvent<HTMLDivElement>) => {
-        const currentIndex = e.currentTarget.dataset.index;
-
-        if (currentIndex == "2") e.currentTarget.style.order = "4"
-
-
         const contents: NodeListOf<HTMLDivElement> | undefined = containerDropDown.current?.querySelectorAll("div[data-isactive]");
         contents?.forEach((content) => content.dataset.isactive = "false");
         const content = e.currentTarget;

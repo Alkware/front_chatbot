@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { MouseEvent, RefObject, useContext, useEffect, useRef, useState } from "react"
 import { Loading } from "../../../../../../../../../../../../components/loading/Loading";
 import { ClientContext } from "../../../../../../../../../../../../context/ClientContext";
 import { eventManager } from "../../../../../../../../../../../../functions/events";
@@ -9,6 +9,8 @@ import { formatTextAI } from "../../../../../../../../../../../../functions/form
 import { ModalContext } from "../../../../../../../../../../../../context/ModalContext";
 import { Button } from "../../../../../../../../../../../../components/button/Button";
 import { PopOver } from "../../../../../../../../../../../../components/modal/templates/PopOver";
+import { MdStar } from "react-icons/md";
+import { PopUp } from "../../../../../../../../../../../../components/modal/templates/PopUp";
 
 interface Analyze {
     status: "APRROVED" | "REJECT",
@@ -34,6 +36,7 @@ export function AnalyzeMetric() {
     const { clearModal, setModalContent } = useContext(ModalContext)
     const { client } = useContext(ClientContext)
     const [analyze, setAnalyze] = useState<Analyze | null>();
+    const containerStarRef: RefObject<HTMLDivElement> = useRef(null)
 
 
     useEffect(() => {
@@ -110,16 +113,14 @@ export function AnalyzeMetric() {
         }
 
         (async () => {
-            console.log("olá")
             const response: AxiosResponse<ResponseAI> | void = await analizyDataWithArtifialIntelligence(prompt);
-            console.log(response)
             if (response?.status === 200 && !!response.data) {
                 const { text } = response.data.choices[0];
                 localStorage.setItem("analyze_saved", text)
                 setAnalyze({ status: "APRROVED", text })
-            }else setModalContent({
+            } else setModalContent({
                 componentName: "modal_error_analyze_metric",
-                components: <PopOver 
+                components: <PopOver
                     componentName="modal_error_analyze_metric"
                     message="Não foi possível analisar suas métricas, por favor tente mais tarde."
                     type="ERROR"
@@ -136,14 +137,59 @@ export function AnalyzeMetric() {
         </div>
     )
 
+
+    const handleSelectStar = (e: MouseEvent<HTMLDivElement>) => {
+        const index = e.currentTarget.tabIndex;
+        const spanReview = e.currentTarget.querySelector("span")?.textContent || "Regular";
+        const stars = containerStarRef.current?.querySelectorAll("div > svg");
+        stars?.forEach(star => star.classList.remove("fill-primary-100"));
+        stars?.forEach((star, indexStar) => indexStar <= index && star.classList.add("fill-primary-100"));
+        setModalContent({
+            componentName: "modal_show_feedback_analyze",
+            components: 
+            <PopUp>
+                <div className="w-[300px] flex flex-col items-center gap-2">
+                    <h2 className="text-center font-bold text-lg">Sua avaliação foi {spanReview}.</h2>
+                    <p className="text-center opacity-80">Gostaria de deixar um feedback em algo poderia melhorar?</p>
+                    <textarea></textarea>
+                    <Button customClass="my-4">Enviar</Button>
+                </div>
+            </PopUp>
+        })
+    }
+
     return (
         <div className="max-w-[500px] flex flex-col items-center gap-4">
             <h2 className="text-2xl font-bold">Relatório da análise</h2>
-            <div className="max-h-[300px] overflow-auto">
+            <div className="max-h-[300px] overflow-auto border border-primary-100 p-2">
                 <p
                     dangerouslySetInnerHTML={{ __html: formatTextAI(analyze.text) }}
                     className="text-center"
                 ></p>
+            </div>
+
+            <div className="flex flex-col w-full items-center my-4">
+                <h2 className="text-xl font-bold">Avalie essa análise:</h2>
+                <div
+                    className="flex gap-2"
+                    ref={containerStarRef}
+                >
+                    {
+                        Array.from({ length: 5 }).map((_, index) =>
+                            <div
+                                tabIndex={index}
+                                onClick={handleSelectStar}
+                                className="group flex flex-col justify-center items-center"
+                            >
+                                <MdStar className="cursor-pointer text-3xl hover:fill-primary-100" />
+                                <span
+                                    className="group-hover:opacity-100 opacity-0"
+                                >{index === 0 ? "horrível" : index === 1 ? "ruim" : index === 2 ? "regular" : index === 3 ? "boa" : "excelente"}</span>
+                            </div>
+                        )
+                    }
+                </div>
+
             </div>
 
             <div className="flex gap-8 justify-center items-center">

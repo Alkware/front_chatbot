@@ -93,7 +93,7 @@ export function FormWithZod({ plan_management_id }: { plan_management_id: string
                             componentName="modal_created_database"
                             message="Fonte de dados criada com sucesso!"
                             type="INFORMATION"
-                            functionAfterComplete={() => window.location.href = "/panel?tab=2"}
+                            functionAfterComplete={() => window.location.href = "/panel?tab=0"}
                         />
                 })
             }

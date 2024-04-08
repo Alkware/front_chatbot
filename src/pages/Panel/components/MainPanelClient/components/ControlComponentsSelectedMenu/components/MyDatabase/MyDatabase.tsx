@@ -12,6 +12,7 @@ import { MdEdit } from "react-icons/md"
 import { Button } from "../../../../../../../../components/button/Button"
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver"
 import { updateDatabaseName } from "../../../../../../../../api/Prompt"
+import { Tutorial } from "../../../../../../../../components/Tutorial/Tutorial"
 
 export function MyDatabases() {
     const { client } = useContext(ClientContext)
@@ -94,13 +95,13 @@ export function MyDatabases() {
                                 <div
                                     key={index}
                                     data-prompt={!!prompts[index]?.prompt_name}
-                                    className="flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-300 hover:bg-primary-200 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
+                                    className="flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-300 hover:bg-primary-200 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20 z-50"
                                 >
                                     {
                                         prompts[index]?.prompt_name ?
                                             <div className="w-[300px] flex gap-2 items-center justify-center">
                                                 <h2
-                                                    className="w-[200px] text-center py-4 flex justify-center items-center gap-2 "
+                                                    className="w-[200px] text-center py-4 flex justify-center items-center gap-2"
                                                     onClick={() => handleEditDatabase(index)}
                                                 >
                                                     <FaDatabase />
@@ -131,6 +132,8 @@ export function MyDatabases() {
                             )
                     )
                 }
+
+                <Tutorial tutorialId="database" />
             </div >
         </Container>
     )

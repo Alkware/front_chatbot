@@ -7,7 +7,8 @@ export interface Client {
     fullname: string,
     cpf_cnpj: string,
     email: string,
-    isAdmin: boolean,
+    is_admin: boolean,
+    tutorial: boolean;
     user: string,
     ticto_order_code: string,
     purchase_email: string,

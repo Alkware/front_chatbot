@@ -12,9 +12,11 @@ interface FormContainerForm {
     onSubmit: SubmitHandler<any>;
     form: UseFormReturn<any>;
     activeSimulator?: boolean;
+    hiddenPreviewButton?: boolean;
+    titleButtonSend?: string;
 }
 
-export function FormContainerForm({ children, onSubmit, form, activeSimulator = false }: FormContainerForm) {
+export function FormContainerForm({ children, onSubmit, form, activeSimulator = false, hiddenPreviewButton, titleButtonSend }: FormContainerForm) {
     const childrenToArray = React.Children.toArray(children);
     const numberChildren = childrenToArray.length
     const { setModalContent } = useContext(ModalContext)
@@ -80,6 +82,8 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
                 <FormButtonStep
                     numberChildren={numberChildren}
                     findErrorMessage={findMessageError}
+                    hiddenPreviewButton={hiddenPreviewButton}
+                    titleButtonSend={titleButtonSend}
                 />
 
             </form>
