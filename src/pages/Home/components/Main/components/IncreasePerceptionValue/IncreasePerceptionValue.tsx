@@ -51,7 +51,7 @@ export function IncreasePerceptionValue() {
     return (
         <section
             id="increase-perception-value"
-            className="w-screen h-auto md:h-screen py-12 md:py-12 flex flex-col items-center justify-center relative bg-gradient-to-b from-black to-dark"
+            className="w-screen h-auto md:h-screen py-12 md:py-12 flex flex-col items-center justify-center relative bg-gradient-to-b from-light dark:from-black to-light dark:to-dark"
         >
             <div className="w-full h-full flex flex-col justify-center items-center gap-8 md:gap-0">
 
@@ -74,13 +74,13 @@ export function IncreasePerceptionValue() {
                                 className="w-full md:w-[48%] data-[isactive=true]:h-auto h-auto md:h-1/4 group flex flex-col cursor-pointer rounded-md relative overflow-hidden"
                                 style={{ order: index }}
                             >
-                                <div className="flex gap-4 w-full justify-between p-3 bg-primary-300 rounded-md border border-primary-100 z-20">
-                                    <MdCheck className="bg-primary-100 rounded-full p-1 text-xl fill-primary-300" />
-                                    <span className="font-medium text-base md:text-lg lg:text-xl">{content.title}</span>
-                                    <MdArrowDropDown className="text-2xl fill-primary-100" />
+                                <div className="flex gap-4 w-full justify-between p-3 bg-primary-100 dark:bg-primary-300 rounded-tr-md border border-light dark:border-dark z-20">
+                                    <MdCheck className="bg-light dark:bg-primary-100 rounded-full p-1 text-xl fill-primary-300" />
+                                    <span className="font-medium text-base md:text-lg lg:text-xl text-light dark:text-primary-100">{content.title}</span>
+                                    <MdArrowDropDown className="text-2xl fill-light dark:fill-primary-100" />
                                 </div>
-                                <div className="p-2 group-data-[isactive=false]:hidden animate-down-and-display bg-primary-300 z-10">
-                                    <p className="text-center text-base lg:text-lg opacity-80">
+                                <div className="p-2 group-data-[isactive=false]:hidden animate-down-and-display bg-primary-100 dark:bg-primary-300 z-10">
+                                    <p className="text-center text-base lg:text-lg opacity-80 text-light dark:text-primary-100">
                                         {content.text}
                                     </p>
                                 </div>

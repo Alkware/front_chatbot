@@ -24,19 +24,13 @@ export function Presentation() {
                     </h1>
 
                     <h2
-                        className="text-center md:text-left text-base max-2xs:text-sm xl:text-xl opacity-70 animate-display-screen text-primary-200 dark:text-light"
+                        className="px-2 text-center md:text-left text-base xl:text-xl opacity-70 animate-display-screen text-primary-200 dark:text-light"
                     >Descubra a solução ideal para otimizar suas vendas e reduzir reclamações, de forma simples e eficiente com o uso da inteligênia artificial.
                     </h2>
-                    <h3
-                        className="text-center md:text-left text-sm lg:text-base xl:text-xl opacity-70 animate-display-screen uppercase font-semibold text-primary-200 dark:text-light"
-                    >
-                        Simplifique seu negócio com o link inteligente da wipzee!
-                    </h3>
-
                     <Button
                         customClass="neon-effect-hover mx-auto text-base md:text-lg lg:text-xl font-bold my-0 md:my-8 uppercase"
                         onClick={() => navigate("/register")}
-                    >Crie seu link agora</Button>
+                    >Crie seu chat agora</Button>
                 </div>
 
                 <div className="w-full h-2/5 md:w-2/5 md:h-3/5 flex justify-center items-start md:items-center md:justify-center pt-0 md:pt-12 relative z-10 leave-page-right ">

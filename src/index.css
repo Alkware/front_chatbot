@@ -79,6 +79,29 @@ textarea {
   display: none;
 }
 
+.hamburger {
+  width: 30px;
+  height: 3px;
+  background-color: var(--primary-100);
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  width: 30px;
+  height: 3px;
+  background-color: var(--primary-100);
+  position: absolute;
+}
+
+.hamburger::before {
+  top: -10px;
+}
+
+.hamburger::after {
+  top: 10px;
+}
+
 
 /* BACKGROUNDS  */
 

@@ -5,7 +5,7 @@ import { SimulatorMobile } from "./components/SimulatorMobile/SimuladorMobile"
 export function ChatDemo() {
     const navigate = useNavigate();
     return (
-        <div className="w-screen h-auto md:h-screen py-12 md:py-0 flex flex-col md:flex-wrap justify-between md:justify-evenly relative bg-[url(https://i.ibb.co/BLbZyYV/wepik-modern-ia-20240403185919-NJt-W.png)] bg-left bg-cover bg-no-repeat">
+        <div className="w-screen h-auto md:h-screen py-12 md:py-0 flex flex-col md:flex-wrap justify-between md:justify-evenly relative bg-[url(https://i.ibb.co/C7NJmyg/5954583-872.jpg)] dark:bg-[url(https://i.ibb.co/BLbZyYV/wepik-modern-ia-20240403185919-NJt-W.png)] bg-left bg-cover bg-no-repeat">
 
             <div className="w-full md:w-1/2 h-auto md:h-full flex flex-col gap-4 items-center ">
 

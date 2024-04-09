@@ -11,10 +11,17 @@ import { Button } from "../../../../../../../../../../../../components/button/Bu
 import { PopOver } from "../../../../../../../../../../../../components/modal/templates/PopOver";
 import { MdStar } from "react-icons/md";
 import { PopUp } from "../../../../../../../../../../../../components/modal/templates/PopUp";
+import { ModalFeedbackAnalyze } from "./components/ModalFeedbackAnalyze";
+import { createMetricAnalysis, getMetricAnalysis } from "../../../../../../../../../../../../api/metricAnalysis";
 
 interface Analyze {
     status: "APRROVED" | "REJECT",
-    text: string
+    analysis: Array<{
+        result: string;
+        feedback: string;
+        metrics_analysis_rating: number;
+        id: string;
+    }>
 }
 
 interface ResponseAI {
@@ -40,15 +47,49 @@ export function AnalyzeMetric() {
 
 
     useEffect(() => {
-        const analyzesaved = localStorage.getItem("analyze_saved")
-        if (analyzesaved) setAnalyze({ status: "APRROVED", text: analyzesaved });
-        else handleAnalyzeMetric()
-    }, [])
+        (async () => {
+            if (client) {
+                const allAnalysis = await getMetricAnalysis(client.plan_management.id);
+                const analysis = allAnalysis.data.response;
+                const maxAnalysisByDay = client.plan_management.plan.max_analyze_metric;
+                if (analysis.length) setAnalyze({ status: "APRROVED", analysis });
+                else {
+                    if (analysis.length < maxAnalysisByDay) handleAnalyzeMetric()
+                    else {
+                        setModalContent({
+                            componentName: "modal_limit_analysis",
+                            components:
+                                <PopOver
+                                    componentName="modal_limit_analysis"
+                                    message="O limite de analises no seu plano foi atingido. Aguarde até amanhã ou mude de plano para fazer uma nova análise."
+                                />
+                        })
+                    }
+                }
+            }
+        })();
+    }, []);
 
 
     const handleAnalyzeMetric = () => {
+        if (analyze && client && analyze?.analysis.length >= client.plan_management.plan.max_analyze_metric) {
+            setModalContent({
+                componentName: "modal_max_limit_analysis",
+                components:
+                    <PopOver
+                        componentName="modal_max_limit_analysis"
+                        message="O limite de análises no seu plano foi atingido. Aguarde até amanhã ou mude de plano para fazer uma nova análise."
+                        type="WARNING"
+                    />
+            })
+
+            return;
+        }
+
+
         setAnalyze(null)
-        const project = client?.plan_management.project;
+        if (!client) throw new Error("Client is missing!")
+        const project = client.plan_management.project;
         const timeNow = formatDate(new Date()).currentHour;
 
         if (project) {
@@ -116,8 +157,8 @@ export function AnalyzeMetric() {
             const response: AxiosResponse<ResponseAI> | void = await analizyDataWithArtifialIntelligence(prompt);
             if (response?.status === 200 && !!response.data) {
                 const { text } = response.data.choices[0];
-                localStorage.setItem("analyze_saved", text)
-                setAnalyze({ status: "APRROVED", text })
+                const createData = await createMetricAnalysis(client?.plan_management.id, text);
+                setAnalyze({ status: "APRROVED", analysis: createData.data.response })
             } else setModalContent({
                 componentName: "modal_error_analyze_metric",
                 components: <PopOver
@@ -129,41 +170,57 @@ export function AnalyzeMetric() {
         })()
     }
 
+    const handleSelectStar = (e: MouseEvent<HTMLDivElement>) => {
+        if (!analyze?.analysis[0].feedback) {
+            const index = e.currentTarget.tabIndex;
+            const spanReview = e.currentTarget.querySelector("span")?.textContent || "Regular";
+            const stars = containerStarRef.current?.querySelectorAll("div > svg");
+            stars?.forEach(star => star.classList.remove("fill-primary-100"));
+            stars?.forEach((star, indexStar) => (indexStar+1) <= index && star.classList.add("fill-primary-100"));
+            setModalContent({
+                componentName: "modal_show_feedback_analyze",
+                components:
+                    <PopUp>
+                        <ModalFeedbackAnalyze
+                            index={index}
+                            spanReview={spanReview}
+                            metric_analysis_id={analyze?.analysis[0].id}
+                        />
+                    </PopUp>
+            });
+
+        } else {
+            setModalContent({
+                componentName: "modal_error_analysis_metric",
+                components:
+                    <PopOver
+                        componentName="modal_error_analysis_metric"
+                        message="Essa análise já foi avaliada!"
+                        type="WARNING"
+                    />
+            })
+        }
+
+    }
+
 
     if (!analyze) return (
         <div className="flex flex-col items-center gap-4">
             <Loading />
             <h2>Analisando métricas</h2>
         </div>
-    )
-
-
-    const handleSelectStar = (e: MouseEvent<HTMLDivElement>) => {
-        const index = e.currentTarget.tabIndex;
-        const spanReview = e.currentTarget.querySelector("span")?.textContent || "Regular";
-        const stars = containerStarRef.current?.querySelectorAll("div > svg");
-        stars?.forEach(star => star.classList.remove("fill-primary-100"));
-        stars?.forEach((star, indexStar) => indexStar <= index && star.classList.add("fill-primary-100"));
-        setModalContent({
-            componentName: "modal_show_feedback_analyze",
-            components: 
-            <PopUp>
-                <div className="w-[300px] flex flex-col items-center gap-2">
-                    <h2 className="text-center font-bold text-lg">Sua avaliação foi {spanReview}.</h2>
-                    <p className="text-center opacity-80">Gostaria de deixar um feedback em algo poderia melhorar?</p>
-                    <textarea></textarea>
-                    <Button customClass="my-4">Enviar</Button>
-                </div>
-            </PopUp>
-        })
-    }
+    );
 
     return (
         <div className="max-w-[500px] flex flex-col items-center gap-4">
-            <h2 className="text-2xl font-bold">Relatório da análise</h2>
+            <div className="flex flex-col items-center">
+                <h2 className="text-2xl font-bold">Relatório da análise</h2>
+                <span className="opacity-70">{analyze.analysis.length}/{client?.plan_management.plan.max_analyze_metric} Análises restantes de hoje</span>
+            </div>
+
             <div className="max-h-[300px] overflow-auto border border-primary-100 p-2">
                 <p
-                    dangerouslySetInnerHTML={{ __html: formatTextAI(analyze.text) }}
+                    dangerouslySetInnerHTML={{ __html: formatTextAI(analyze.analysis[0].result) }}
                     className="text-center"
                 ></p>
             </div>
@@ -177,11 +234,15 @@ export function AnalyzeMetric() {
                     {
                         Array.from({ length: 5 }).map((_, index) =>
                             <div
-                                tabIndex={index}
+                                key={index}
+                                tabIndex={index + 1}
                                 onClick={handleSelectStar}
                                 className="group flex flex-col justify-center items-center"
                             >
-                                <MdStar className="cursor-pointer text-3xl hover:fill-primary-100" />
+                                <MdStar
+                                    data-isselected={(index + 1) <= analyze.analysis[0].metrics_analysis_rating}
+                                    className="cursor-pointer text-3xl hover:fill-primary-100 data-[isselected=true]:fill-primary-100"
+                                />
                                 <span
                                     className="group-hover:opacity-100 opacity-0"
                                 >{index === 0 ? "horrível" : index === 1 ? "ruim" : index === 2 ? "regular" : index === 3 ? "boa" : "excelente"}</span>

@@ -2,7 +2,6 @@ import { FaArrowRotateLeft } from "react-icons/fa6";
 import { ModalColumnOrganization } from "../ModalColumnOrganization/ModalColumnOrganization";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { BsStars } from "react-icons/bs";
-
 import { FaBorderAll } from "react-icons/fa";
 import { Client } from "../../../../../../../../../../@types/Client";
 import { Columns } from "../../../../../../../../../../@types/Column.types";
@@ -11,7 +10,6 @@ import { SelectTime } from "../../../../../../../../../../components/SelectTime/
 import { Button } from "../../../../../../../../../../components/button/Button";
 import { PopUp } from "../../../../../../../../../../components/modal/templates/PopUp";
 import { AnalyzeMetric } from "./components/AnalyzeMetric/AnalyzeMetric";
-import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
 
 interface OptionsTable {
     client: Client | undefined,
@@ -48,27 +46,13 @@ export function OptionsTable({ client, handleRequestDataProject, setColumns, col
     }
 
     const handleClickAnalyzeMetric = () => {
-        const maxAnalyzeMetric = client?.plan_management.plan.max_analyze_metric;
-        const numberMetricsAnalyzed = client?.plan_management.metric_analysis.length || 0;
-
-        if (maxAnalyzeMetric && numberMetricsAnalyzed <= maxAnalyzeMetric) {
-
-            setModalContent({
-                componentName: "modal_show_analyze_metric",
-                components:
-                    <PopUp>
-                        <AnalyzeMetric />
-                    </PopUp>
-            })
-        } else setModalContent({
-            componentName: "modal_warning_number_metric_analyzed",
-            components: <PopOver
-                componentName="modal_warning_number_metric_analyzed"
-                message="Limite de análise atingida por plano."
-                type="WARNING"
-            />
+        setModalContent({
+            componentName: "modal_show_analyze_metric",
+            components:
+                <PopUp>
+                    <AnalyzeMetric />
+                </PopUp>
         })
-
     }
 
     return (
