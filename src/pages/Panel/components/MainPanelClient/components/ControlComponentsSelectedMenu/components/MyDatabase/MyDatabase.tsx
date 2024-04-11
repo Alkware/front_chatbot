@@ -90,7 +90,7 @@ export function MyDatabases() {
                 {
                     limitPromps.map((_, index) =>
                         //Verifica quantos slots o usuário tem disponivel e o resto que não está disponivel ficará com um cadeado.
-                        (client.plan_management?.plan && index < client.plan_management.plan.max_databases) ?
+                        (client.plan_management?.plan && index < Number(client.plan_management.plan.max_databases.default)) ?
                             (
                                 <div
                                     key={index}

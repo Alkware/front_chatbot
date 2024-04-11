@@ -75,7 +75,7 @@ export function DesktopDemo() {
 
   return (
     <div
-      className="w-screen h-auto md:h-screen py-12 flex flex-col gap-0 md:gap-12 items-center relative"
+      className="w-screen h-auto py-12 flex flex-col gap-0 md:gap-12 items-center relative"
     >
       <h2 className="max-2xs:text-2xl text-3xl md:text-3xl lg:text-5xl xl:text-6xl font-bold py-12 text-center md:text-left">Conheça nossa plataforma</h2>
 

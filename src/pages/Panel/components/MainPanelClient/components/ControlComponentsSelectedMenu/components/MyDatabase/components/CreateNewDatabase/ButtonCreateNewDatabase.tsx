@@ -13,7 +13,7 @@ export function ButtonCreateNewDatabase({ plan_management_id }: { plan_managemen
     const handleClickNewDatabases = () => {
         if (client?.plan_management) {
 
-            const maxPlans = client.plan_management.plan.max_databases;
+            const maxPlans = Number(client.plan_management.plan.max_databases.default);
             const currentNumberOfProjects = client.plan_management.prompt.length
 
             if (client.plan_management.status !== "DISABLED") {

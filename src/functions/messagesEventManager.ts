@@ -14,7 +14,7 @@ export function messagesEventManager(plan_management: PlanManagement) {
 
     const totalMessages = input + output
 
-    const maxMessages = plan_management ? plan_management.plan.max_messages : 0
+    const maxMessages = plan_management ? Number(plan_management.plan.max_messages.default) : 0
 
     return {
         input,

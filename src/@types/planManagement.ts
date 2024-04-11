@@ -1,3 +1,4 @@
+import { Plan } from "./Plan";
 import { Project } from "./Project"
 import { Prompt } from "./prompt.types"
 
@@ -18,13 +19,7 @@ export interface PlanManagement {
         transaction_describe : | "PAYMENT" | "REFUND_REQUEST" | "REFUND_CANCELLATION" | "SUBSCRIPTION_CANCELLATION" | "UNKNOWN"
     }>,
     project: Project[],
-    plan: {
-        plan_name: string,
-        max_projects: number,
-        max_messages: number,
-        max_databases: number,
-        max_analyze_metric: number
-    },
+    plan: Plan,
     prompt: Prompt[]
     plan_message_manager: Array<{
         input: number,

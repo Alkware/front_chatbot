@@ -72,7 +72,7 @@ export function AnalyzeMetric() {
 
 
     const handleAnalyzeMetric = () => {
-        if (analyze && client && analyze?.analysis.length >= client.plan_management.plan.max_analyze_metric) {
+        if (analyze && client && analyze?.analysis.length >= Number(client.plan_management.plan.max_analyze_metric.default)) {
             setModalContent({
                 componentName: "modal_max_limit_analysis",
                 components:
@@ -215,7 +215,7 @@ export function AnalyzeMetric() {
         <div className="max-w-[500px] flex flex-col items-center gap-4">
             <div className="flex flex-col items-center">
                 <h2 className="text-2xl font-bold">Relatório da análise</h2>
-                <span className="opacity-70">{analyze.analysis.length}/{client?.plan_management.plan.max_analyze_metric} Análises restantes de hoje</span>
+                <span className="opacity-70">{analyze.analysis.length}/{Number(client?.plan_management.plan.max_analyze_metric.default)} Análises restantes de hoje</span>
             </div>
 
             <div className="max-h-[300px] overflow-auto border border-primary-100 p-2">

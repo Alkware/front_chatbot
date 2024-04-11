@@ -22,7 +22,7 @@ export function ButtonCreateChat({ plan_management_id }: ButtonCreateChat) {
     const handleClickNewProject = () => {
         if (client?.plan_management) {
             if (!!client?.plan_management.prompt.length) {
-                const maxPlans = client.plan_management.plan.max_projects;
+                const maxPlans = Number(client.plan_management.plan.max_projects.default);
                 const currentNumberOfProjects = client.plan_management.project.length
                 if (client.plan_management.status !== "DISABLED") {
                     if (maxPlans > currentNumberOfProjects) {

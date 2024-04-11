@@ -1,43 +1,109 @@
+import { useEffect, useState } from "react"
 import { Button } from "../../../../../../components/button/Button"
-
-const plans = [
-    {
-        plan: "basic",
-        value: "R$ 1,99",
-        isBestSeller: false, 
-    },
-    {
-        plan: "Startdard",
-        value: "R$ 4,99",
-        isBestSeller: true, 
-    },
-    {
-        plan: "Premium",
-        value: "R$ 9,99",
-        isBestSeller: false, 
-    },
-]
-
+import { Plan } from "../../../../../../@types/Plan";
+import { getPlans } from "../../../../../../api/plan";
+import { AxiosResponse } from "axios";
+import { MdAutoAwesome, MdCheck } from "react-icons/md";
 
 export function Plans() {
+    const [plans, setPlans] = useState<Array<Plan>>();
+
+    useEffect(() => {
+        (async () => {
+            const response: AxiosResponse<{ error: boolean, response: Plan[] }> | void = await getPlans();
+            const plans = response ? response.data.response.sort((a, b) => a.order_relevance - b.order_relevance) : null
+            if (plans) setPlans(plans)
+        })();
+    }, [])
+
     return (
+
         <div className="w-screen  h-auto md:h-screen flex gap-8 flex-col items-center relative">
             <h2 className="text-3xl md:text-5xl p-8 font-bold">Planos</h2>
 
-            <div className="w-4/5 flex flex-col md:flex-row gap-4 justify-center items-center">
+            <div className="w-4/5 flex flex-col md:flex-row gap-8 justify-center z-50">
                 {
-                    plans.map(plan =>
-                        <div 
-                            key={plan.plan}
-                            data-isbestseller={plan.isBestSeller}
-                            className="h-[400px] w-[250px] group relative flex flex-col justify-between gap-4 border border-primary-100 bg-primary-100/20 rounded-md p-4 items-center"
-                        >
-                            <div className="absolute top-0 right-0 bg-orange-700 p-1 -translate-y-1/2 rounded-full text-xs font-bold group-data-[isbestseller=false]:hidden">Mais vendido</div>
-                            <h3 className="text-2xl font-bold">{plan.plan}</h3>
-                            <p>{plan.value}</p>
-                            <Button>Contratar agora</Button>
-                        </div>    
-                    )
+                    plans?.length ?
+                        plans.map((plan, index) =>
+                            <div
+                                key={plan.id}
+                                id={plan.id}
+                                data-isbestseller={index === 2}
+                                className="group relative flex flex-col hover:scale-105 transition-transform duration-300 cursor-pointer justify-between gap-4 border border-primary-100 bg-primary-100/20 rounded-md p-2 items-center"
+                            >
+                                <div className="absolute top-0 right-0 bg-orange-500 text-light p-1 -translate-y-1/2 rounded-full text-xs font-bold group-data-[isbestseller=false]:hidden">Mais vendido</div>
+                                <div className="w-full flex flex-col gap-4">
+                                    <h3 className="w-full  text-center text-xl font-bold">{plan.plan_name}</h3>
+                                    <div className="w-full flex gap-2 justify-start items-center">
+                                        <MdCheck />
+                                        <p>{plan.max_messages.default} Mensagens</p>
+                                    </div>
+                                    <div className="w-full flex gap-2 justify-start items-center">
+                                        <MdCheck />
+                                        <p>{plan.max_projects.default} chat(s)</p>
+                                    </div>
+                                    <div className="w-full flex gap-2 justify-start items-center">
+                                        <MdCheck />
+                                        <p>{plan.max_databases.default} base de dado(s)</p>
+                                    </div>
+                                    <div className="w-full flex gap-2 justify-start items-center">
+                                        <MdCheck />
+                                        <p>{plan.max_analyze_metric.default} análise(s) de metricas/dia</p>
+                                    </div>
+                                </div>
+                                {
+                                    (Number(plan.max_analyze_metric.bonus) > 0 ||
+                                        Number(plan.max_databases.bonus) > 0 ||
+                                        Number(plan.max_messages.bonus) > 0 ||
+                                        Number(plan.max_projects.bonus) > 0) &&
+                                    <div className="w-full flex flex-col justify-start items-center bg-primary-100 text-light rounded-md p-2">
+                                        <div className="flex flex-col mb-4 items-center">
+                                            <h2 className="text-2xl font-bold">Bônus</h2>
+                                            <h3 className="text-center font-medium text-sm">Contratando hoje você ganha:</h3>
+                                        </div>
+                                        <div className="w-full flex flex-col gap-2 items-start">
+                                            {
+                                                Number(plan.max_analyze_metric.bonus) > 0 &&
+                                                <div className="flex gap-2 items-center">
+                                                    <MdAutoAwesome />
+                                                    <p>{plan.max_analyze_metric.bonus} análise(s) grátis</p>
+                                                </div>
+                                            }
+                                            {
+                                                Number(plan.max_messages.bonus) > 0 &&
+                                                <div className="flex gap-2 items-center">
+                                                    <MdAutoAwesome />
+                                                    <p>{plan.max_messages.bonus} mensagens grátis</p>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+
+                                <div className="flex flex-col gap-4 items-center">
+                                    <div className="flex items-start gap-1">
+                                        <p className="text-4xl font-bold">{Number(plan.monthly_price).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
+                                        <div className="flex flex-col justify-between">
+                                            <span className="text-xs">Total:</span>
+                                            <span className="text-xs">{Math.floor((Number(plan.monthly_price) * plan.duration_days / 30)).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</span>
+                                        </div>
+                                    </div>
+
+                                    {
+                                        Number(plan.monthly_price) > 0 &&
+                                        <Button 
+                                            customClass="neon-effect-hover"
+                                            onClick={()=> window.location.href = plan.payment_link}
+                                        >
+                                            Contratar agora
+                                        </Button>
+                                    }
+
+                                </div>
+                            </div>
+                        )
+                        :
+                        <h2>Error ao exibir os planos</h2>
                 }
             </div>
 
