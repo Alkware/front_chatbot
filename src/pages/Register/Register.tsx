@@ -10,6 +10,7 @@ import { Root } from "../../components/Form/FormRoot";
 const createClientFormSchema = z.object({
     email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
     password: z.string().min(6, "Crie uma senha forte com no minimo 6 caracteres"),
+    confirm_policies: z.boolean().refine((value) => value === true, { message: "Você precisa concordar com nossos termos de uso, politicas de privacidade e politicas de cookies." }),
     fullname: z.string().min(1, "Seu nome não pode estar vazio.").refine((input) => {
         const words = input.trim().split(" ");
         return words.length >= 2
@@ -27,8 +28,6 @@ type CreateUserFormData = z.infer<typeof createClientFormSchema>;
 
 function Register() {
     const navigate = useNavigate();
-    // const [ search ] = useSearchParams();
-    // const whereClickComeFrom = search.get("from");
     const formRegister = useForm<CreateUserFormData>({
         resolver: zodResolver(createClientFormSchema)
     });
@@ -40,6 +39,7 @@ function Register() {
     }, [])
 
     async function createUser(data: any) {
+        console.log(data)
 
         const clientCreated = await registerClient(data);
 
@@ -104,6 +104,11 @@ function Register() {
                                         name="confirm_password"
                                         title="Confirme sua senha de acesso"
                                         type="password"
+                                    />
+
+                                    <Root.Checkbox 
+                                        name="confirm_policies"
+                                        title={`Confirme que você leu as <a class="underline text-blue-300" href="/polices" target="blank">Politicas de privacidade</a>, <a class="underline text-blue-300" href="/cookies" target="blank">Politicas de cookies</a>, <a class="underline text-blue-300" href="/terms" target="blank">termos de uso</a>. com o entendimento das politicas, você estará autorizado a criar uma conta em nossa plataforma. `}
                                     />
 
                                 </Root.Step>

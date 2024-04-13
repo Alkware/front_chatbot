@@ -1,5 +1,15 @@
-export function Plans() {
+import { Header } from "../Home/components/Header/Header";
+import { Plans } from "../Home/components/Main/components/Plans/Plans";
+
+export function PlansPage() {
+
+
     return (
-        <h1>Página de planos</h1>
+        <div className="w-screen h-screen flex flex-col bg-light dark:bg-dark">
+            <Header />
+            <div className="mt-[100px]">
+                <Plans />
+            </div>
+        </div>
     )
 };

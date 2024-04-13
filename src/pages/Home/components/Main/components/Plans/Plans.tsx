@@ -17,9 +17,8 @@ export function Plans() {
     }, [])
 
     return (
-
         <div className="w-screen  h-auto md:h-screen flex gap-8 flex-col items-center relative">
-            <h2 className="text-3xl md:text-5xl p-8 font-bold">Planos</h2>
+            <h2 className="text-3xl md:text-5xl p-8 font-bold text-primary-100 dark:text-light">Planos</h2>
 
             <div className="w-4/5 flex flex-col md:flex-row gap-8 justify-center z-50">
                 {
@@ -29,7 +28,7 @@ export function Plans() {
                                 key={plan.id}
                                 id={plan.id}
                                 data-isbestseller={index === 2}
-                                className="group relative flex flex-col hover:scale-105 transition-transform duration-300 cursor-pointer justify-between gap-4 border border-primary-100 bg-primary-100/20 rounded-md p-2 items-center"
+                                className="group relative flex flex-col hover:scale-105 transition-transform duration-300 cursor-pointer justify-between gap-4 border border-primary-100 bg-primary-100/20 rounded-md p-2 items-center text-primary-100 dark:text-light"
                             >
                                 <div className="absolute top-0 right-0 bg-orange-500 text-light p-1 -translate-y-1/2 rounded-full text-xs font-bold group-data-[isbestseller=false]:hidden">Mais vendido</div>
                                 <div className="w-full flex flex-col gap-4">

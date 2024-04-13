@@ -76,11 +76,11 @@ export function IncreasePerceptionValue() {
                             >
                                 <div className="flex gap-4 w-full justify-between p-3 bg-primary-100 dark:bg-primary-300 rounded-tr-md border border-light dark:border-dark z-20">
                                     <MdCheck className="bg-light dark:bg-primary-100 rounded-full p-1 text-xl fill-primary-300" />
-                                    <span className="font-medium text-base md:text-lg lg:text-xl text-light dark:text-primary-100">{content.title}</span>
+                                    <span className="font-medium text-base md:text-lg lg:text-xl text-light ">{content.title}</span>
                                     <MdArrowDropDown className="text-2xl fill-light dark:fill-primary-100" />
                                 </div>
                                 <div className="p-2 group-data-[isactive=false]:hidden animate-down-and-display bg-primary-100 dark:bg-primary-300 z-10">
-                                    <p className="text-center text-base lg:text-lg opacity-80 text-light dark:text-primary-100">
+                                    <p className="text-center text-base lg:text-lg opacity-80 text-light ">
                                         {content.text}
                                     </p>
                                 </div>

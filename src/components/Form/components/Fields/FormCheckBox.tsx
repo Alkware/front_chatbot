@@ -1,20 +1,24 @@
-import { UseFormRegisterReturn } from "react-hook-form"
+import { useFormContext } from "react-hook-form"
 
 interface FormCheckBox {
-    register: UseFormRegisterReturn<any>;
+    name: string;
     title: string;
 }
 
-export function FormCheckBox({ register, title }: FormCheckBox) {
+export function FormCheckBox({ name, title }: FormCheckBox) {
+    const { register } = useFormContext();
+
     return (
-        <div className="flex flex-row justify-evenly items-center mt-4 gap-2">
-            <h2 className="text-xs whitespace-nowrap ">
-                {title}
-            </h2>
+        <div className="w-full flex justify-start items-start">
             <input
+                className="w-[10%] bg-blue-500 cursor-pointer"
                 type="checkbox"
-                {...register}
+                {...register(name)}
             />
+            <h2
+                className="w-[90%] text-sm"
+                dangerouslySetInnerHTML={{ __html: title }}
+            ></h2>
         </div>
     )
 };
