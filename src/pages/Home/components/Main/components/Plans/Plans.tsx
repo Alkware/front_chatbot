@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Button } from "../../../../../../components/button/Button"
 import { Plan } from "../../../../../../@types/Plan";
 import { getPlans } from "../../../../../../api/plan";
 import { AxiosResponse } from "axios";
 import { MdAutoAwesome, MdCheck } from "react-icons/md";
+import { ClientContext } from "../../../../../../context/ClientContext";
 
 export function Plans() {
+    const { client } = useContext(ClientContext)
     const [plans, setPlans] = useState<Array<Plan>>();
 
     useEffect(() => {
@@ -92,7 +94,7 @@ export function Plans() {
                                         Number(plan.monthly_price) > 0 &&
                                         <Button 
                                             customClass="neon-effect-hover"
-                                            onClick={()=> window.location.href = plan.payment_link}
+                                            onClick={()=> window.location.href = `${plan.payment_link}?pid=${plan.id}&cid=${client?.id}`}
                                         >
                                             Contratar agora
                                         </Button>

@@ -81,14 +81,14 @@ export function DesktopDemo() {
 
       <div className="flex flex-col md:flex-row rounded-md z-10">
 
-        <div className="w-full md:w-1/4 min-w-[200px] flex flex-col justify-between md:justify-start p-2 md:p-0 items-center bg-primary-300">
+        <div className="w-full md:w-1/4 min-w-[200px] flex flex-col justify-between md:justify-start p-2 md:p-0 items-center bg-primary-100 dark:bg-primary-300">
           {
             tabManagement.map(tab =>
               <span
                 key={tab.index}
                 tabIndex={tab.index}
                 data-active={tab.index === currentVideo?.index}
-                className="w-full p-1 md:p-2 md:border-b border-primary-100/50 md:w-full text-center text-sm md:text-md cursor-pointer hover:bg-primary-100/30 data-[active=true]:bg-primary-100/30"
+                className="w-full p-1 md:p-2 md:border-b border-primary-100/50 md:w-full text-center text-sm md:text-md text-light dark:text-primary-100 cursor-pointer hover:bg-primary-200/30 data-[active=true]:bg-primary-200/30"
                 onClick={handleSelectTab}
               >{tab.title}</span>
             )
@@ -98,7 +98,7 @@ export function DesktopDemo() {
         <div className="bg-dark">
           {
             currentVideo ?
-              <div className="relative border-8 border-primary-300 ">
+              <div className="relative border-8 border-primary-100 dark:border-primary-300 ">
                 <div
                   ref={playRef}
                   onClick={handlePlay}
