@@ -10,6 +10,7 @@ export interface Plan {
     order_relevance: number;
     payment_link: string;
     plan_name: string;
+    status: "DISABLED" | "ACTIVE"
 }
 
 export interface Default_limit_plan {

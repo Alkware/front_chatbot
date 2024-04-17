@@ -26,6 +26,7 @@ export function Plans() {
                 {
                     plans?.length ?
                         plans.map((plan, index) =>
+                            plan.status !== "DISABLED" &&
                             <div
                                 key={plan.id}
                                 id={plan.id}
