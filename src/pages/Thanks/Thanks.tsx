@@ -3,7 +3,7 @@ import { Button } from "../../components/button/Button";
 import { Header } from "../Home/components/Header/Header";
 import { StarsAnimation } from "../Home/components/Main/components/Presentation/components/StarsAnimation";
 
-export default function Thanks() {
+export function Thanks() {
     const [params] = useSearchParams();
     const account = params.get("account") === "0";
     const data = JSON.parse(localStorage.getItem("tictoCheckoutInitialData") || "{}");

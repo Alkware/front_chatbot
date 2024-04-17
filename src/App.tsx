@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Register from "./pages/Register/Register"
 import Login from "./pages/Login/Login"
-import Thanks from "./pages/Thanks/Thanks"
+import { Thanks } from "./pages/Thanks/Thanks"
 import { Home } from "./pages/Home/Home"
 import { CreateChat } from "./pages/CreateChat/CreateChat"
 import { Modal } from "./components/modal/Modal"
@@ -15,7 +15,7 @@ import { Terms } from "./pages/Terms/Terms"
 import { Cookies } from "./pages/Cookies/Cookies"
 import { FirstAccess } from "./pages/FirstAccess/FirstAccess"
 
-const Panel = lazy(()=> import("./pages/Panel/Panel"));
+const Panel = lazy(() => import("./pages/Panel/Panel"));
 
 function App() {
   return (
