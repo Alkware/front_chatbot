@@ -2,7 +2,6 @@ import imgRobo from "../../../../../../assests/robo-home.svg"
 import { Button } from "../../../../../../components/button/Button"
 // import smileFace from "../../../../../../assests/ballon-conversation.svg"
 import { useNavigate } from "react-router-dom"
-import { FaAsterisk } from "react-icons/fa"
 import { StarsAnimation } from "./components/StarsAnimation";
 
 

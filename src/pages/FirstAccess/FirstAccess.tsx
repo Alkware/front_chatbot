@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { authenticateClient, loginClient, loginClientFirstAccess } from "../../api/client";
+import { authenticateClient, loginClientFirstAccess } from "../../api/client";
 import { useEffect, useState } from "react";
 import { Header } from "../Home/components/Header/Header";
 import { Root } from "../../components/Form/FormRoot";
@@ -15,13 +15,12 @@ const createClientFormSchema = z.object({
 
 type createClientFormTypes = z.infer<typeof createClientFormSchema>
 
-function FirstAccess() {
+export function FirstAccess() {
     const navigate = useNavigate();
     const [access, setAccess] = useState<boolean>();
     const formLogin = useForm<createClientFormTypes>({
         resolver: zodResolver(createClientFormSchema)
     })
-    const { register, handleSubmit, formState: { errors } } = formLogin;
 
     useEffect(() => {
         (async () => {
@@ -87,5 +86,3 @@ function FirstAccess() {
         </div>
     )
 }
-
-export default FirstAccess;  

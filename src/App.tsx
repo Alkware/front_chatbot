@@ -13,7 +13,7 @@ import { InputLoading } from "./components/loading/InputLoading"
 import { Police } from "./pages/Police/Police"
 import { Terms } from "./pages/Terms/Terms"
 import { Cookies } from "./pages/Cookies/Cookies"
-import FirstAccess from "./pages/FirstAccess/FirstAccess"
+import { FirstAccess } from "./pages/FirstAccess/FirstAccess"
 
 const Panel = lazy(()=> import("./pages/Panel/Panel"));
 

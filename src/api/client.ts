@@ -22,7 +22,7 @@ export async function authenticateClient(token: string) {
         headers: {
             Authorization: "Bearer " + token
         }
-    }).catch(error => console.log(error))
+    }).catch(error => console.log(error));
 
     return client
 }
