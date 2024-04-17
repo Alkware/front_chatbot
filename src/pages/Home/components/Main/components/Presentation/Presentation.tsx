@@ -3,6 +3,7 @@ import { Button } from "../../../../../../components/button/Button"
 // import smileFace from "../../../../../../assests/ballon-conversation.svg"
 import { useNavigate } from "react-router-dom"
 import { FaAsterisk } from "react-icons/fa"
+import { StarsAnimation } from "./components/StarsAnimation";
 
 
 export function Presentation() {
@@ -43,50 +44,7 @@ export function Presentation() {
 
             </div>
 
-            <div className="w-[80vw] flex flex-col absolute bottom-[10vw]">
-                {
-                    Array.from({ length: 8 }).map((_, indexContainer) =>
-                        <div
-                            className="w-full flex"
-                            key={indexContainer}
-                            style={{ paddingLeft: `${(indexContainer) * 4}vw`, justifyContent: `${indexContainer < 2 ? "space-between" : indexContainer < 4 ? "space-evenly" : "space-around"}` }}
-                        >
-                            {
-                                Array.from({ length: 4 }).map((_, index) =>
-                                    indexContainer % 2 ?
-                                        <FaAsterisk
-                                            key={index}
-                                            data-animate={index === 0 ? 1 : index}
-                                            className="fill-primary-100 text-sm data-[animate='1']:animate-rising-10 data-[animate='2']:animate-rising-14 data-[animate='3']:animate-rising-18 z-0 opacity-15"
-                                        />
-                                        :
-                                        <FaAsterisk
-                                            key={index}
-                                            data-animate={index === 0 ? 1 : index}
-                                            className="fill-primary-100 text-sm data-[animate='1']:animate-rising-reverse-10 data-[animate='2']:animate-rising-reverse-14 data-[animate='3']:animate-rising-reverse-18 z-0 opacity-15"
-                                            style={{ margin: `0 ${index}px` }}
-                                        />
-
-                                )
-                            }
-                        </div>
-                    )
-                }
-            </div>
-
-            {/* <div
-                className="w-[70px] absolute bottom-2 lg:bottom-10 right-8 z-50 cursor-pointer leave-page-right "
-                onClick={() => window.open("https://wa.link/m6ozgl")}
-            >
-                <span
-                    className="absolute w-[150px] -translate-x-1/4 -top-[25px] font-bold"
-                >Precisa de ajuda?</span>
-                <img
-                    src={smileFace}
-                    alt=""
-                    className="w-full h-full object-cover"
-                />
-            </div> */}
+            <StarsAnimation />
         </section>
     )
 }

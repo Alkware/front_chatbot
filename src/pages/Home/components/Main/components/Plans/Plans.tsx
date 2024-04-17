@@ -95,7 +95,7 @@ export function Plans() {
                                         Number(plan.monthly_price) > 0 &&
                                         <Button 
                                             customClass="neon-effect-hover"
-                                            onClick={()=> window.location.href = `${plan.payment_link}?pid=${plan.id}&cid=${client?.id}`}
+                                            onClick={()=> window.location.href = `${plan.payment_link}?pid=${plan.id}&cid=${client?.id}&account=false`}
                                         >
                                             Contratar agora
                                         </Button>

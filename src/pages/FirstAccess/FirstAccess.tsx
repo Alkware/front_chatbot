@@ -2,9 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { authenticateClient, loginClient } from "../../api/client";
+import { authenticateClient, loginClient, loginClientFirstAccess } from "../../api/client";
 import { useEffect, useState } from "react";
 import { Header } from "../Home/components/Header/Header";
+import { Root } from "../../components/Form/FormRoot";
 
 
 const createClientFormSchema = z.object({
@@ -14,12 +15,13 @@ const createClientFormSchema = z.object({
 
 type createClientFormTypes = z.infer<typeof createClientFormSchema>
 
-function Login() {
+function FirstAccess() {
     const navigate = useNavigate();
     const [access, setAccess] = useState<boolean>();
-    const { register, handleSubmit, formState: { errors } } = useForm<createClientFormTypes>({
+    const formLogin = useForm<createClientFormTypes>({
         resolver: zodResolver(createClientFormSchema)
     })
+    const { register, handleSubmit, formState: { errors } } = formLogin;
 
     useEffect(() => {
         (async () => {
@@ -36,7 +38,9 @@ function Login() {
     }, [])
 
     const handleLogin = async (data: any) => {
-        const client = await loginClient(data)
+        console.log(data)
+        const client = await loginClientFirstAccess(data)
+        console.log(client)
 
         if (client) {
             const { token } = client.data
@@ -57,41 +61,26 @@ function Login() {
             <div className="w-full h-full flex items-center justify-center">
 
                 <div className="w-full max-w-[480px] border border-primary-100 rounded-2xl flex flex-col items-center relative p-4 gap-2">
-                    <h1>Faça seu login</h1>
+                    <h1 className="text-2xl font-bold">Faça seu primeiro acesso!</h1>
+                    <h3 className="opacity-80 text-center">Use o mesmo e-mail e cpf/cnpj que você utilizou para fazer o pagamento do plano.</h3>
 
-                    <form
-                        onSubmit={handleSubmit(handleLogin)}
-                        className="flex flex-col gap-2"
+                    <Root.Form
+                        form={formLogin}
+                        onSubmit={handleLogin}
                     >
-                        <input
-                            type="email"
-                            className="rounded-md p-2 w-full  bg-dark"
-                            placeholder="Digite seu email"
-                            {...register("email")}
-                        />
-                        <span className="w-full text-center text-red-600 bg-red-300/50">{errors.email?.message}</span>
-
-                        <input
-                            type="password"
-                            className="rounded-md p-2 w-full bg-dark"
-                            placeholder="Digite sua senha"
-                            {...register("password")}
-                        />
-                        <span className="w-full text-center text-red-600 bg-red-300/50">{errors.password?.message}</span>
-
-                        <input
-                            type="submit"
-                            value="Entrar"
-                            className="w-full bg-blue_main p-3 cursor-pointer"
-                        />
-                    </form>
-
-
-                    <a
-                        className="underline cursor-pointer"
-                        onClick={() => navigate("/register")}
-                    >Registre-se</a>
-
+                        <Root.Step
+                            index={0}
+                        >
+                            <Root.Input
+                                name="email"
+                                title="Digite seu e-mal:"
+                            />
+                            <Root.Input
+                                name="cpf_cnpj"
+                                title="Digite seu cpf ou cnpj:"
+                            />
+                        </Root.Step>
+                    </Root.Form>
                 </div>
 
             </div>
@@ -99,4 +88,4 @@ function Login() {
     )
 }
 
-export default Login;  
+export default FirstAccess;  

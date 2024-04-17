@@ -13,6 +13,7 @@ import { InputLoading } from "./components/loading/InputLoading"
 import { Police } from "./pages/Police/Police"
 import { Terms } from "./pages/Terms/Terms"
 import { Cookies } from "./pages/Cookies/Cookies"
+import FirstAccess from "./pages/FirstAccess/FirstAccess"
 
 const Panel = lazy(()=> import("./pages/Panel/Panel"));
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/first-access" element={<FirstAccess />} />
         <Route path="/panel" element={<Suspense fallback={<InputLoading />}><Panel /></Suspense>} />
         <Route path="/thanks" element={<Thanks />} />
         <Route path="/admin/panel" element={<Admin />} />
