@@ -6,6 +6,8 @@ import { StarsAnimation } from "../Home/components/Main/components/Presentation/
 export default function Thanks() {
     const [params] = useSearchParams();
     const account = params.get("account") === "0";
+    const data = JSON.parse(localStorage.getItem("tictoCheckoutInitialData") || "{}");
+    console.log(data)
 
     return (
         <div className="w-screen h-screen flex flex-col items-center justify-center bg-[url(https://i.ibb.co/2vrnfCz/Untitled-design-8.png)] dark:bg-[url(https://i.ibb.co/vxGTSd0/Untitled-design-4.png)] bg-no-repeat bg-cover">
