@@ -8,9 +8,6 @@ import { useEffect } from "react";
 export function Thanks() {
     const [params] = useSearchParams();
     const account = params.get("account") === "0";
-    // const data = JSON.parse(localStorage.getItem("tictoCheckoutInitialData") || "{}");
-    console.log(account, params.get("account"))
-    console.log(localStorage)
 
     useEffect(() => {
         (async () => {
@@ -29,7 +26,7 @@ export function Thanks() {
                 <h3 className="text-base  md:text-xl text-center font-medium opacity-80">Esperamos que sua experiência seja incrível com a gente!</h3>
                 {
                     account &&
-                    <div className="bg-light p-4 flex flex-col items-center my-4">
+                    <div className="bg-primary-100/50 p-4 flex flex-col items-center my-4 text-primary-200 dark:text-light rounded-md">
                         <h3>Sua conta já foi criada!</h3>
                         <div className="flex gap-2">
                             Use o mesmo e-mail que você utilizou para fazer o pagamento
