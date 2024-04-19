@@ -2,10 +2,14 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { authenticateClient, loginClientFirstAccess } from "../../api/client";
-import { useEffect, useState } from "react";
+import { authenticateClient, changePasswordClient, loginClientFirstAccess } from "../../api/client";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { Header } from "../Home/components/Header/Header";
 import { Root } from "../../components/Form/FormRoot";
+import { ModalContext } from "../../context/ModalContext";
+import { PopUp } from "../../components/modal/templates/PopUp";
+import { Button } from "../../components/button/Button";
+import { PopOver } from "../../components/modal/templates/PopOver";
 
 
 const createClientFormSchema = z.object({
@@ -17,6 +21,7 @@ type createClientFormTypes = z.infer<typeof createClientFormSchema>
 
 export function FirstAccess() {
     const navigate = useNavigate();
+    const { setModalContent } = useContext(ModalContext)
     const [access, setAccess] = useState<boolean>();
     const formLogin = useForm<createClientFormTypes>({
         resolver: zodResolver(createClientFormSchema)
@@ -37,14 +42,80 @@ export function FirstAccess() {
     }, [])
 
     const handleLogin = async (data: any) => {
-        console.log(data)
         const client = await loginClientFirstAccess(data)
-        console.log(client)
 
         if (client) {
             const { token } = client.data
-            localStorage.setItem("token", token);
-            navigate("/panel")
+
+            const createPassowordAndRedirectToPanel = async (event: FormEvent<HTMLFormElement>) => {
+                event.preventDefault();
+                const containerInputs: any = event.currentTarget;
+                if (!containerInputs) return;
+
+                const password = containerInputs.querySelector("input[name=password]").value;
+                const confirm = containerInputs.querySelector("input[name=confirm]").value;
+
+
+                if (password.length > 6) {
+                    if (password === confirm) {
+                        const clientIsLogged = token && await authenticateClient(token)
+                        const response = await changePasswordClient({
+                            client_id: clientIsLogged.data.client.id,
+                            current_password: "wipzee",
+                            new_password: confirm
+                        });
+
+                        console.log(response)
+                        // localStorage.setItem("token", token);
+                        // navigate("/panel")
+                    } else setModalContent({
+                        componentName: "modal_pass_not_equal",
+                        components:
+                            <PopOver
+                                componentName="modal_pass_not_equal"
+                                message="Sua senha não é igual, confirme e tente novamente"
+                                type="WARNING"
+                            />
+                    })
+                } else setModalContent({
+                    componentName: "modal_pass_is_small",
+                    components:
+                        <PopOver
+                            componentName="modal_pass_is_small"
+                            message="Sua senha é muito fraca, digite uma mais forte."
+                            type="WARNING"
+                        />
+                })
+
+
+            }
+
+            setModalContent({
+                componentName: "modal_create_password",
+                components:
+                    <PopUp>
+                        <h2 className="text-center text-xl font-bold mb-8">Crie uma nova senha:</h2>
+                        <form onSubmit={createPassowordAndRedirectToPanel}>
+                            <div className="flex flex-col gap-4">
+                                <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Digite sua nova senha"
+                                />
+                                <input
+                                    type="password"
+                                    name="confirm"
+                                    placeholder="Confirme sua senha"
+                                />
+                            </div>
+                            <Button
+                                customClass="mx-auto mt-8"
+                            >Criar senha</Button>
+                        </form>
+                    </PopUp>
+            })
+
+
         } else {
             alert("email ou senha estão incorretos")
         }
@@ -73,7 +144,7 @@ export function FirstAccess() {
                         >
                             <Root.Input
                                 name="email"
-                                title="Digite seu e-mal:"
+                                title="Digite seu e-mail:"
                             />
                             <Root.Input
                                 name="cpf_cnpj"
