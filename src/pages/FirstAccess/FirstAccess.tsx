@@ -10,7 +10,7 @@ import { Root } from "../../components/Form/FormRoot";
 
 const createClientFormSchema = z.object({
     email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
-    password: z.string().min(1, "Sua senha não pode estar vazia."),
+    cpf_cnpj: z.string().min(1, "Cpf ou cnpj não pode estar vazio"),
 })
 
 type createClientFormTypes = z.infer<typeof createClientFormSchema>
@@ -66,6 +66,7 @@ export function FirstAccess() {
                     <Root.Form
                         form={formLogin}
                         onSubmit={handleLogin}
+                        hiddenPreviewButton={true}
                     >
                         <Root.Step
                             index={0}
