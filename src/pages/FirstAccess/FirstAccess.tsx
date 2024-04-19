@@ -44,7 +44,7 @@ export function FirstAccess() {
     const handleLogin = async (data: any) => {
         const client = await loginClientFirstAccess(data)
 
-        if (client) {
+        if (client?.status === 200) {
             const { token } = client.data
 
             const createPassowordAndRedirectToPanel = async (event: FormEvent<HTMLFormElement>) => {
@@ -65,9 +65,20 @@ export function FirstAccess() {
                             new_password: confirm
                         });
 
-                        console.log(response)
-                        // localStorage.setItem("token", token);
-                        // navigate("/panel")
+                        if (response?.status === 200) {
+                            setModalContent({
+                                componentName: "modal_show_success_password",
+                                components:
+                                    <PopOver
+                                        componentName="modal_show_success_password"
+                                        message="Senha criada com sucesso!"
+                                        functionAfterComplete={()=>{
+                                            localStorage.setItem("token", token);
+                                            navigate("/panel");
+                                        }}
+                                    />
+                            })
+                        }
                     } else setModalContent({
                         componentName: "modal_pass_not_equal",
                         components:
@@ -117,7 +128,15 @@ export function FirstAccess() {
 
 
         } else {
-            alert("email ou senha estão incorretos")
+            setModalContent({
+                componentName: "modal_error_first_access",
+                components:
+                    <PopOver
+                        componentName="modal_error_first_access"
+                        message="E-mail ou cpf/cnpj inválidos!"
+                        type="WARNING"
+                    />
+            })
         }
 
     }

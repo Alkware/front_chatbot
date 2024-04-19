@@ -53,6 +53,8 @@ export async function updateClient(data: { client_id: string, fullname?: string,
 
 export async function changePasswordClient(data: { client_id: string, current_password: string, new_password: string }) {
 
+    console.log(data.current_password)
+    
     const client = await axios.put(`${API_URL}/client/change_password/${data.client_id}`, data)
         .catch(err => {
             console.error(err)
