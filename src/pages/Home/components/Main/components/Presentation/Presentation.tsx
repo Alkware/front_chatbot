@@ -1,4 +1,4 @@
-import imgRobo from "../../../../../../assests/robo-home.svg"
+import imgRobo from "../../../../../../assests/ia-robo-img.svg"
 import { Button } from "../../../../../../components/button/Button"
 import { useNavigate } from "react-router-dom"
 import { StarsAnimation } from "./components/StarsAnimation";
