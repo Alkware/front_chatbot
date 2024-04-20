@@ -21,7 +21,7 @@ type createClientFormTypes = z.infer<typeof createClientFormSchema>
 
 export function FirstAccess() {
     const navigate = useNavigate();
-    const { setModalContent } = useContext(ModalContext)
+    const { setModalContent, clearModal } = useContext(ModalContext)
     const [access, setAccess] = useState<boolean>();
     const formLogin = useForm<createClientFormTypes>({
         resolver: zodResolver(createClientFormSchema)
@@ -98,7 +98,7 @@ export function FirstAccess() {
                         />
                 })
 
-
+                clearModal("modal_create_password")
             }
 
             setModalContent({

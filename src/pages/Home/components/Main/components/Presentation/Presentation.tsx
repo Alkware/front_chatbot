@@ -35,7 +35,7 @@ export function Presentation() {
                 <div className="w-full h-2/5 md:w-2/5 md:h-3/5 flex justify-center items-start md:items-center md:justify-center pt-0 md:pt-12 relative z-10 leave-page-right ">
                     <img
                         src={imgRobo}
-                        alt=""
+                        alt="Imagem de uma inteligencia artificial como robo atendendo os seus clientes"
                         className="w-full h-full object-contain"
                     />
                 </div>
