@@ -22,7 +22,9 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
     const { setModalContent } = useContext(ModalContext)
 
     useEffect(() => {
-        const errors = form.formState.errors;
+        const { errors } = form.formState;
+        console.log("erro:", errors);
+
         const message = findMessageError(errors);
         if (!!message) {
             setModalContent({

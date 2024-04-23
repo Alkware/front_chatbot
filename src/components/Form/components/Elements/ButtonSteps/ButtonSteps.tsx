@@ -33,6 +33,7 @@ export function FormButtonStep({ numberChildren, findErrorMessage, hiddenPreview
             params.set(STEP_NAME_URL, nextStep.toString())
             setParams(params)
         } else {
+            console.log(errors)
             const error = findErrorMessage(errors)
             setModalContent({
                 componentName: "modal_error_form_database",

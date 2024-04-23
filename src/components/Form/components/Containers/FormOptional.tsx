@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom"
 import { STEP_NAME_URL } from "../../../../variables/variables";
 import { ToggleComponent } from "../../../Toggle/Toggle";
 import { useFormContext } from "react-hook-form";
+import { twMerge } from "tailwind-merge";
 
 interface FormOptional extends HTMLAttributes<HTMLDivElement> {
     children: ReactElement | ReactElement[];
@@ -70,7 +71,7 @@ export function FormOptional({ children, text, active = false, functionOffToggle
 
             <div
                 data-display={display}
-                className="data-[display='false']:hidden flex justify-between items-center gap-8 mt-4"
+                className={twMerge("data-[display='false']:hidden flex justify-between items-center gap-8 mt-4", props.className)}
             >
                 {children}
             </div>

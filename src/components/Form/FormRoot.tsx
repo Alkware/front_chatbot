@@ -10,6 +10,7 @@ import { FormFile } from "./components/Fields/FormFile";
 import { FormEditContainer } from "./components/Containers/FormEditContainer";
 import { FormEditStep } from "./components/Containers/FormEditStep";
 import { FormInputColor } from "./components/Fields/FormInputColor";
+import { FormMultipleInputs } from "./components/Fields/FormMultipleInputs";
 
 export const Root = {
     Form: FormContainerForm,
@@ -24,4 +25,5 @@ export const Root = {
     Color: FormInputColor,
     Select: FormSelect,
     File: FormFile,
+    MultipleInput: FormMultipleInputs,
 }

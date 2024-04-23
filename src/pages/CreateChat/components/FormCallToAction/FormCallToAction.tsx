@@ -56,10 +56,6 @@ export function CallToActionFormChat({ }: CallToActionFormChat) {
 
 
     const handleAddCTA = () => {
-
-
-
-
         // Verifica se o ultimo link 
         if (fields.length < MAX_AMOUNT_CTA_THAT_CAN_BE_CREATED) {
             append({ button_describe: "", button_link: "", button_text: "" })
@@ -75,8 +71,6 @@ export function CallToActionFormChat({ }: CallToActionFormChat) {
                     type="WARNING"
                 />
         })
-
-
     }
 
     return (

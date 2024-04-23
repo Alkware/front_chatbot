@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPlanManagementById } from "../../api/planManagement";
-import { FormWithZod } from "./components/FormWithZod/FormWithZod";
+import { FormCreateDatabase } from "./components/FormCreateDatabase/FormCreateDatabase";
 
 export function CreateDatabase() {
     const { plan_management_id } = useParams();
@@ -25,7 +25,7 @@ export function CreateDatabase() {
         <div className="w-screen h-screen overflow-x-hidden bg-gradient-to-br from-primary-100 to-light dark:via-primary-300 via-15% dark:to-dark to-30% text-light flex flex-col justify-center items-center">
             <div className="w-[90%] h-full flex flex-col gap-2 justify-start items-center">
 
-                <FormWithZod plan_management_id={plan_management_id} />
+                <FormCreateDatabase plan_management_id={plan_management_id} />
 
             </div>
         </div >

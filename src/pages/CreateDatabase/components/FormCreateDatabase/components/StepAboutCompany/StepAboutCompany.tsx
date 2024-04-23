@@ -3,35 +3,35 @@ import { addMaskToInput } from "../../../../../../functions/addMaskToInput";
 
 export function StepAboutCompany() {
     return (
-        <Root.Step index={5} stepTitle="Sobre a empresa">
+        <Root.Step index={3} stepTitle="Sobre a empresa">
 
             <Root.Container className="flex gap-4" >
                 <Root.Input
-                    name="step_5.company_name"
+                    name="step_3.company_name"
                     title="Qual o nome da empresa?"
                 />
 
                 <Root.Input
                     title="Qual o seu CNPJ?"
-                    name="step_5.CNPJ"
+                    name="step_3.CNPJ"
                     mask={addMaskToInput}
                 />
             </Root.Container>
 
             <Root.Input
-                name="step_5.address"
+                name="step_3.address"
                 title="Qual o endereço da sua empresa?"
             />
 
             <Root.Container className="flex gap-4" >
                 <Root.Input
-                    name="step_5.contact_email"
+                    name="step_3.contact_email"
                     title="Digite um e-mail para contato"
                 />
 
                 <Root.Input
                     title="Digite um telefone para contato"
-                    name="step_5.contact_phone_number"
+                    name="step_3.contact_phone_number"
                     onChange={({ target }) => {
                         const numeric = target.value.replace(/[^\d]/g, '');
                         if (numeric.length < 11) {
@@ -56,7 +56,7 @@ export function StepAboutCompany() {
             </Root.Container>
 
             <Root.Input
-                name="step_5.support_hours"
+                name="step_3.support_hours"
                 title="Qual seu horário para suporte humano?"
             />
         </Root.Step>

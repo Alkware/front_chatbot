@@ -32,58 +32,39 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
         resolver: zodResolver(databaseSchema),
         defaultValues: !checkPromptIsAvalible ? undefined : {
             step_0: {
-                who_created: promptData.step_0.who_created || "",
-                andvisa_record: promptData.step_0.andvisa_record || "",
-                how_works: promptData.step_0.how_works || "",
-                what_is: promptData.step_0.what_is || "",
+                products: promptData.step_0.products || "",
+                questions: promptData.step_0.questions,
             },
             step_1: {
-                benefits: promptData.step_1.benefits || "",
-                contraindications: promptData.step_1.contraindications || "",
-                ingredients: promptData.step_1.ingredients || "",
-                side_effects: promptData.step_1.side_effects || "",
+                payment_methods: promptData.step_1.payment_methods || "",
+                how_to_buy: promptData.step_1.how_to_buy || "",
+                order_tracking: promptData.step_1.order_tracking || "",
+                tracking_link: promptData.step_1.tracking_link || ""
             },
             step_2: {
-                average_delivery_time: {
-                    end: promptData.step_2.average_delivery_time.end || 0,
-                    start: promptData.step_2.average_delivery_time.start || 0
-                },
-                order_tracking: promptData.step_2.order_tracking || "",
-                tracking_link: promptData.step_2.tracking_link || ""
+                days_of_warranty: promptData.step_2.days_of_warranty || 0,
+                how_exchanges_work_and_returns: promptData.step_2.how_exchanges_work_and_returns || "",
+                how_guarantee_work: promptData.step_2.how_guarantee_work || ""
             },
             step_3: {
-                days_of_warranty: promptData.step_3.days_of_warranty || 0,
-                disclaimer: promptData.step_3.disclaimer || "",
-                how_exchanges_work_and_returns: promptData.step_3.how_exchanges_work_and_returns || "",
-                how_guarantee_work: promptData.step_3.how_guarantee_work || ""
+                address: promptData.step_3.address || "",
+                CNPJ: promptData.step_3.CNPJ || "",
+                company_name: promptData.step_3.company_name || "",
+                contact_email: promptData.step_3.contact_email || "",
+                contact_phone_number: promptData.step_3.contact_phone_number || "",
+                support_hours: promptData.step_3.support_hours || "",
             },
             step_4: {
-                how_to_buy: promptData.step_4.how_to_buy || "",
-                payment_methods: promptData.step_4.payment_methods || "",
-                products: promptData.step_4.products || "",
-            },
-            step_5: {
-                address: promptData.step_5.address || "",
-                CNPJ: promptData.step_5.CNPJ || "",
-                company_name: promptData.step_5.company_name || "",
-                contact_email: promptData.step_5.contact_email || "",
-                contact_phone_number: promptData.step_5.contact_phone_number || "",
-                support_hours: promptData.step_5.support_hours || "",
-            },
-            step_6: {
-                questions: promptData.step_6.questions || "",
-            },
-            step_7: {
-                client_describe: promptData.step_7.client_describe || "",
-                ia_name: promptData.step_7.ia_name || "",
-                restrictions: promptData.step_7.restrictions
+                client_describe: promptData.step_4.client_describe || "",
+                ia_name: promptData.step_4.ia_name || "",
+                restrictions: promptData.step_4.restrictions
             }
         }
     });
 
     const { fields, append, remove } = useFieldArray({
         control: updateDatabaseForm.control,
-        name: 'step_4.products'
+        name: 'step_0.products'
     });
 
 
@@ -94,7 +75,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
         const database: CreatePrompt = {
             prompt: promptSchema,
             prompt_query: convertToString,
-            client_describe: data.step_7.client_describe,
+            client_describe: data.step_4.client_describe,
         };
 
         if (database) {
@@ -344,7 +325,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                         <div className="w-full flex justify-end">
                             <Button
                                 type="button"
-                                onClick={() => append({ name: "", value: "R$ 0" })}
+                                onClick={() => append({ name: "", value: "R$ 0", description: "", optional_variable: [] })}
                             > Adicionar produto</Button>
                         </div>
 
