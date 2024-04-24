@@ -15,10 +15,10 @@ interface Select {
 export function Select({ options, alternativeTitle, title, Icon, defaultValue, handleSelectDatabase }: Select) {
 
     return (
-        <div className="w-full px-2 h-full bg-gray border border-primary-100 font-bold rounded-lg flex gap-2 justify-center items-center">
-            {Icon && <Icon className="text-2xl" />}
+        <div className="w-full px-2 h-full bg-light dark:bg-gray border border-primary-100 font-bold rounded-lg flex gap-2 justify-center items-center">
+            {Icon && <Icon className="text-2xl fill-primary-100 dark:fill-light" />}
             <select
-                className="h-full bg-gray cursor-pointer outline-none "
+                className="h-full bg-light dark:bg-gray text-primary-100 dark:text-light cursor-pointer outline-none "
                 disabled={options.length ? false : true}
                 onChange={handleSelectDatabase}
                 defaultValue={defaultValue ? defaultValue : "#"}

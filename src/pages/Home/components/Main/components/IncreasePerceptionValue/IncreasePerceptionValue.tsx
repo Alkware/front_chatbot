@@ -51,7 +51,7 @@ export function IncreasePerceptionValue() {
     return (
         <section
             id="increase-perception-value"
-            className="w-screen h-auto md:h-screen py-12 md:py-12 flex flex-col items-center justify-center relative bg-gradient-to-b from-light dark:from-black to-light dark:to-dark"
+            className="w-screen h-auto md:min-h-screen py-12 md:py-12 flex flex-col items-center justify-center relative bg-gradient-to-b from-light dark:from-black to-light dark:to-dark"
         >
             <div className="w-full h-full flex flex-col justify-center items-center gap-8 md:gap-0">
 
@@ -62,7 +62,7 @@ export function IncreasePerceptionValue() {
 
                 <div
                     ref={containerDropDown}
-                    className="max-2xs:w-[90%] w-4/5 md:w-[90%] h-3/4 flex flex-col justify-start items-center flex-nowrap md:flex-wrap gap-4"
+                    className="max-2xs:w-[90%] w-4/5 md:w-[90%] max-w-[1000px] flex flex-col gap-4"
                 >
                     {
                         contents.map((content, index) =>
@@ -71,7 +71,7 @@ export function IncreasePerceptionValue() {
                                 data-isactive={index === 0 ? true : false}
                                 data-index={index}
                                 onClick={handleClickDropDown}
-                                className="w-full md:w-[48%] data-[isactive=true]:h-auto h-auto md:h-1/4 group flex flex-col cursor-pointer rounded-md relative overflow-hidden"
+                                className="w-full data-[isactive=true]:h-auto h-auto group flex flex-col cursor-pointer rounded-md relative overflow-hidden"
                                 style={{ order: index }}
                             >
                                 <div className="flex gap-4 w-full justify-between p-3 bg-primary-100 dark:bg-primary-300 rounded-tr-md border border-light dark:border-dark z-20">

@@ -32,7 +32,7 @@ export function TipContainer({ children, tip, position = "TOP" }: TipContainer) 
                     text-center invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity`
                 }
             >
-                <span className="opacity-90 font-bold">{tip}</span>
+                <span className="opacity-90 font-bold text-light">{tip}</span>
                 <IoCaretDownOutline
                     data-position={position}
                     className="border-light/40 fill-primary-100 absolute left-1/2 -translate-x-1/2 data-[position='BOTTOM']:top-0 data-[position='BOTTOM']:-translate-y-[78%] data-[position='BOTTOM']:rotate-180"

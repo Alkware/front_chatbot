@@ -1,5 +1,4 @@
 import { Root } from "../../../../../../components/Form/FormRoot";
-import { addMaskToInput } from "../../../../../../functions/addMaskToInput";
 
 export function StepAboutCompany() {
     return (
@@ -10,18 +9,9 @@ export function StepAboutCompany() {
                     name="step_3.company_name"
                     title="Qual o nome da empresa?"
                 />
-
-                <Root.Input
-                    title="Qual o seu CNPJ?"
-                    name="step_3.CNPJ"
-                    mask={addMaskToInput}
-                />
             </Root.Container>
 
-            <Root.Input
-                name="step_3.address"
-                title="Qual o endereço da sua empresa?"
-            />
+
 
             <Root.Container className="flex gap-4" >
                 <Root.Input
@@ -59,6 +49,14 @@ export function StepAboutCompany() {
                 name="step_3.support_hours"
                 title="Qual seu horário para suporte humano?"
             />
+            <Root.Optional
+                text="Sua empresa possui um endereço físico?"
+            >
+                <Root.Input
+                    name="step_3.address"
+                    title="Qual o endereço da sua empresa?"
+                />
+            </Root.Optional>
         </Root.Step>
     )
 };

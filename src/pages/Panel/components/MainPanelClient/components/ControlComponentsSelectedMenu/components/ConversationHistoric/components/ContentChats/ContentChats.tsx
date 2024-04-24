@@ -28,8 +28,8 @@ export function ContentChats({ chats, index }: ContentChats) {
 
     return (
         infoChat &&
-        <div className="w-2/3 overflow-auto flex flex-col" >
-            <div className="w-full flex flex-col gap-4">
+        <div className="w-full h-full flex flex-col" >
+            <div className="w-full h-full flex flex-col gap-4">
                 <div className="w-full h-[60px] flex items-center px-4 bg-primary-100">
                     <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
                         <img
@@ -38,10 +38,10 @@ export function ContentChats({ chats, index }: ContentChats) {
                             className="w-full h-full object-cover"
                         />
                     </div>
-                    <p className="px-4 text-xl">{infoChat?.projectName}</p>
+                    <p className="px-4 text-xl text-light dark:text-primary-100">{infoChat?.projectName}</p>
                 </div>
 
-                <div className="w-full h-[350px] p-4 flex flex-col gap-4 overflow-y-auto">
+                <div className="w-full h-full p-4 flex flex-col gap-4 overflow-auto">
                     {
                         chats[index]?.messages ? chats[index].messages.map((msg, index) =>
                             <div
@@ -51,7 +51,7 @@ export function ContentChats({ chats, index }: ContentChats) {
                             >
                                 <div
                                     data-player={msg.player}
-                                    className="bg-light text-black/80 data-[player='1']:bg-primary-200 data-[player='1']:text-light p-2 rounded-xl max-w-md"
+                                    className="bg-primary-100/50 dark:bg-light text-black/80 data-[player='1']:bg-primary-100 dark:data-[player='1']:bg-primary-200 data-[player='1']:text-light p-2 rounded-xl max-w-md"
                                 >
                                     <h2
                                         className=""

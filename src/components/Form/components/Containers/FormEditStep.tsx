@@ -17,7 +17,7 @@ export function FormEditStep({ children, index, titleStep }: FormEditStep) {
     return (
         <div
             data-display={currentStep === index}
-            className="w-full flex-col gap-4 data-[display='true']:flex hidden"
+            className="w-full flex-col gap-8 data-[display='true']:flex hidden"
         >
             <h2
                 className="w-full text-center text-2xl font-bold"

@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 import { Root } from "../../../../../../../../components/Form/FormRoot";
 import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver";
+import { AddVariables } from "./components/AddVariables/AddVariables";
 
 export function AddProducts() {
     const { setModalContent } = useContext(ModalContext)
@@ -97,15 +98,8 @@ export function AddProducts() {
                                 <Root.Optional
                                     text="Seu produto possui alguma variavél?"
                                 >
-                                    <Root.Input
-                                        // name={`step_0.products.${index}.optional_variable.0.field_title`}
-                                        name="a"
-                                        title="Digite o nome da variavél: (ex: COR)"
-                                    />
-                                    <Root.Input
-                                        // name={`step_0.products.${index}.optional_variable.0.options`}
-                                        name="b"
-                                        title="Digite a variavél: (ex: ROSA)"
+                                    <AddVariables
+                                        index={index}
                                     />
                                 </Root.Optional>
                             </div>

@@ -1,6 +1,4 @@
 import { MdCheck, MdClose } from "react-icons/md";
-import { Button } from "../../../../../../components/button/Button";
-import { useNavigate } from "react-router-dom";
 
 const otherSolutions = [
     "Difícil configuração",
@@ -23,10 +21,8 @@ const wipzee = [
 ];
 
 export function Comparison() {
-    const navigate = useNavigate();
-
     return (
-        <div className="w-screen h-auto md:h-screen py-12 flex flex-col gap-8 items-center relative">
+        <div className="w-screen h-auto md:min-h-screen py-12 flex flex-col gap-8 items-center relative">
             <h2 className="text-3xl md:text-4xl lg:text-5xl p-8 font-bold">Compare e escolha</h2>
 
             <div className="flex flex-col md:flex-row gap-8 items-center">
@@ -67,14 +63,6 @@ export function Comparison() {
                     </div>
                 </div>
             </div>
-
-            <Button
-                customClass="my-8 cursor-pointer neon-effect-hover z-10"
-                onClick={() => navigate("/register")}
-            >
-                Escolher a wipzee
-            </Button>
-
 
             <div className="w-[50vw] h-[100vh] absolute -top-1/4 left-0 md:left-1/2 -z-0 flex justify-start items-center gap-2 -translate-x-1/2">
 

@@ -1,11 +1,11 @@
-import { RefObject, useContext, useEffect, useRef } from "react"
+import { MouseEvent, RefObject, useContext, useEffect, useRef } from "react"
 import { ModalContext } from "../../../context/ModalContext";
 import { MdInfo, MdWarning, MdOutlet } from "react-icons/md";
 
 interface PopOver {
     message: string,
     type?: "INFORMATION" | "WARNING" | "ERROR",
-    functionAfterComplete?: ()=> void,
+    functionAfterComplete?: () => void,
     componentName: `modal_${string}`
 }
 
@@ -13,7 +13,7 @@ export function PopOver({ message, type = "INFORMATION", functionAfterComplete, 
     const { clearModal } = useContext(ModalContext)
     const contentRef: RefObject<HTMLDivElement> = useRef(null);
     const background = type === "INFORMATION" ? "bg-primary-100" : type === "WARNING" ? "bg-orange-500/70" : "bg-red-800/70";
-    const icon = type === "INFORMATION" ? <MdInfo className="text-3xl" /> : type === "WARNING" ? <MdWarning  className="text-3xl"/> : <MdOutlet className="text-3xl" />
+    const icon = type === "INFORMATION" ? <MdInfo className="text-3xl" /> : type === "WARNING" ? <MdWarning className="text-3xl" /> : <MdOutlet className="text-3xl" />
     const TIME_PROGRESSING = ((message?.length) / 2) + 10
 
     useEffect(() => {
@@ -38,11 +38,18 @@ export function PopOver({ message, type = "INFORMATION", functionAfterComplete, 
         return () => clearInterval(interval)
     }, [])
 
+    const handleCloseModal = (e: MouseEvent<HTMLDivElement>) => {
+        const isModal = e.currentTarget.dataset.testid;
+
+        if(!!isModal) clearModal(componentName)
+    }   
+
     return (
         <div
             className="w-screen h-screen text-light flex justify-end items-start mt-12 animate-jump-screen"
             ref={contentRef}
             data-testid="modal-pop-over"
+            onClick={handleCloseModal}
         >
             <div
                 className={`max-w-[400px] ${background} rounded-lg shadow-sm shadow-white/20`}

@@ -39,8 +39,6 @@ function Register() {
     }, [])
 
     async function createUser(data: any) {
-        console.log(data)
-
         const clientCreated = await registerClient(data);
 
         if (clientCreated && clientCreated.status === 201) {

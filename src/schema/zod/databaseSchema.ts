@@ -9,8 +9,8 @@ export const databaseSchema = z.object({
             value: z.string().min(1, "Informe o valor do produto!"),
             description: z.string().min(1, "Informe como seu produto funciona"),
             optional_variable: z.optional(z.array(z.object({
-               field_title: z.string().min(1, "O titulo da sua variável não pode estar vazio."),
-               options: z.array(z.string()).min(1, "Vocẽ precisa definir pelo menos uma opção.")
+               title: z.string().min(1, "O titulo da sua variável não pode estar vazio."),
+               answer: z.string().min(1, "Vocẽ precisa definir pelo menos uma opção.")
             })))
         })).min(1, "Você precisa cadastrar pelo menos um produto"),
 
@@ -28,12 +28,11 @@ export const databaseSchema = z.object({
     step_2: z.object({
         days_of_warranty: z.coerce.number().min(1, "Informe pelo menos 1 dia de garantia para seus clientes").max(1000, "Você pode definir no máximo 1000 dias de garantia"),
         how_guarantee_work: z.string().min(1, "Informe como funciona a garantia!"),
-        how_exchanges_work_and_returns: z.string().min(1, "Informe como funciona as trocas e devoluções!"),
+        how_exchanges_work_and_returns: z.string().optional(),
     }),
     step_3: z.object({
         company_name: z.string().min(1, "Informe o nome da sua empresa!"),
-        CNPJ: z.optional(z.string().refine(text => text.includes("/"), "Digite um cnpj valído!")),
-        address: z.string().min(1, "Informe o endereço da sua empresa!"),
+        address: z.string().optional(),
         contact_email: z.string().min(1, "Informe o e-mail da sua empresa.").email("E-mail inválido"),
         contact_phone_number: z.string().min(11, "Número de telefone inválido!"),
         support_hours: z.string().min(1, "Informe qual o horário para atendimento humano!"),

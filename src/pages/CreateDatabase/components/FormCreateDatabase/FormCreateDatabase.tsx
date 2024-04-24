@@ -11,7 +11,7 @@ import { StepPoliciesAndConditions } from "./components/StepPoliciesAndCondition
 import { StepAboutCompany } from "./components/StepAboutCompany/StepAboutCompany";
 import { StepPersonalityIA } from "./components/StepPersonalityIA/StepPersonalityIA";
 import { useForm } from "react-hook-form";
-import { encapsulatedSchema } from "../../../../schema/PromptIA/encapsulated";
+import { transformSchemaInText } from "../../../../schema/PromptIA/encapsulated";
 import { FORM_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables";
 
 export function FormCreateDatabase({ plan_management_id }: { plan_management_id: string }) {
@@ -37,7 +37,6 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
             },
             step_3: {
                 address: localStorageDatabase.address || "",
-                CNPJ: localStorageDatabase.CNPJ || "",
                 company_name: localStorageDatabase.company_name || "",
                 contact_email: localStorageDatabase.contact_email || "",
                 contact_phone_number: localStorageDatabase.contact_phone_number || "",
@@ -53,8 +52,7 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
     const { handleSubmit } = createDatabaseForm
 
     const handleCreateDatabase = async (data: DatabaseSchema) => {
-        console.log(data)
-        const prompt = encapsulatedSchema(data);
+        const prompt = transformSchemaInText(data);
         const client_describe = data.step_4.client_describe;
         const prompt_query = JSON.stringify(data)
 

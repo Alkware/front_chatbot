@@ -41,7 +41,7 @@ function MyChats() {
                             </div>
                         )
                             :
-                            <h2 className="py-8 font-bold">
+                            <h2 className="py-8 font-bold text-primary-100 dark:text-light">
                                 Você ainda não possui nenhum chat, clique em "Novo chat" para começar seu primeiro projeto.
                             </h2>
                     }

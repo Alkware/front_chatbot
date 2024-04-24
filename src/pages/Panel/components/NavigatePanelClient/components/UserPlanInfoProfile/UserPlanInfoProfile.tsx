@@ -55,7 +55,7 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                     <TipContainer tip="Edite seu perfil">
                         <FaGear
                             data-menuisopen={menuIsOpen}
-                            className="text-3xl cursor-pointer hover:animate-spin data-[menuisopen=false]:hidden"
+                            className="text-3xl cursor-pointer hover:animate-spin data-[menuisopen=false]:hidden fill-primary-100 dark:fill-light"
                             onClick={handleConfigProfile}
                         />
                     </TipContainer>
@@ -65,7 +65,7 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                     <TipContainer tip="Sair do seu painel">
                         <FaRightToBracket
                             data-menuisopen={menuIsOpen}
-                            className="text-3xl cursor-pointer -scale-x-100 hover:fill-red-500 transition-colors duration-200 data-[menuisopen=false]:hidden"
+                            className="text-3xl cursor-pointer -scale-x-100 fill-primary-100 dark:fill-light hover:fill-red-500 transition-colors duration-200 data-[menuisopen=false]:hidden"
                             onClick={handleExitThePanel}
                         />
                     </TipContainer>
@@ -79,7 +79,7 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
 
                     <h3
                         data-ismessages={messagesEventManager(client.plan_management).maxMessages}
-                        className="flex gap-1 justify-center items-center text-primary-200 dark:text-light font-bold data-[ismessages='0']:hidden"
+                        className="flex gap-1 justify-center items-center text-primary-100 dark:text-light font-bold data-[ismessages='0']:hidden"
                     >
                         {
                             messagesEventManager(client.plan_management).reminingMessages

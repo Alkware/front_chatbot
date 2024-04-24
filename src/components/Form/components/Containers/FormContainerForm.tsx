@@ -23,7 +23,6 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
 
     useEffect(() => {
         const { errors } = form.formState;
-        console.log("erro:", errors);
 
         const message = findMessageError(errors);
         if (!!message) {

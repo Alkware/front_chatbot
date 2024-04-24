@@ -90,7 +90,7 @@ export function ConversationHistoric() {
                 </TipContainer>
                 <TipContainer tip="Atualize seus chats">
                     <div
-                        className="p-2 bg-primary-100 rounded-md cursor-pointer"
+                        className="p-2 bg-light dark:bg-gray border border-primary-100 rounded-md cursor-pointer"
                         onClick={reloadMetric}
                     >
                         <FaArrowRotateLeft className="text-xl" />
@@ -98,7 +98,7 @@ export function ConversationHistoric() {
                 </TipContainer>
             </div>
 
-            <div className="w-full flex bg-gray my-4">
+            <div className="w-full h-3/4 flex bg-light dark:bg-gray my-4 overflow-hidden">
                 <ListChats
                     chats={chats}
                     setIndex={setIndex}

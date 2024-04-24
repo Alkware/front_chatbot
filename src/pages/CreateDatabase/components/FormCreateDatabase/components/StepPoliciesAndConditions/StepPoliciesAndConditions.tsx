@@ -18,11 +18,14 @@ export function StepPoliciesAndConditions() {
                 title="Como funciona a garantia?"
             />
 
-
-            <Root.TextArea
-                name="step_2.how_exchanges_work_and_returns"
-                title="Como funciona as trocas e devoluções?"
-            />
+            <Root.Optional
+                text="Esse produto/serviço possui trocas e devoluções?"
+            >
+                <Root.TextArea
+                    name="step_2.how_exchanges_work_and_returns"
+                    title="Como funciona as trocas e devoluções?"
+                />
+            </Root.Optional>
 
         </Root.Step>
     )

@@ -19,7 +19,7 @@ export function Plans() {
     }, [])
 
     return (
-        <div className="w-screen  h-auto md:h-screen flex gap-8 flex-col items-center relative">
+        <div className="w-screen  h-auto md:min-h-screen flex gap-8 flex-col items-center relative">
             <h2 className="text-3xl md:text-5xl p-8 font-bold text-primary-100 dark:text-light">Planos</h2>
 
             <div className="w-4/5 flex flex-col md:flex-row gap-8 justify-center z-50">
@@ -33,7 +33,7 @@ export function Plans() {
                                 data-isbestseller={index === 2}
                                 className="group relative flex flex-col hover:scale-105 transition-transform duration-300 cursor-pointer justify-between gap-4 border border-primary-100 bg-primary-100/20 rounded-md p-2 items-center text-primary-100 dark:text-light"
                             >
-                                <div className="absolute top-0 right-0 bg-orange-500 text-light p-1 -translate-y-1/2 rounded-full text-xs font-bold group-data-[isbestseller=false]:hidden">Mais vendido</div>
+                                <div className="w-4/5 absolute -top-1 left-1/2 -translate-x-1/2 bg-primary-200 text-light border-2 border-primary-100 uppercase text-center -translate-y-1/2 rounded-full text-sm font-bold group-data-[isbestseller=false]:hidden">Mais popular</div>
                                 <div className="w-full flex flex-col gap-4">
                                     <h3 className="w-full  text-center text-xl font-bold">{plan.plan_name}</h3>
                                     <div className="w-full flex gap-2 justify-start items-center">
@@ -48,7 +48,10 @@ export function Plans() {
                                         <MdCheck />
                                         <p>{plan.max_databases.default} base de dado(s)</p>
                                     </div>
-                                    <div className="w-full flex gap-2 justify-start items-center">
+                                    <div
+                                        data-display={Number(plan.max_analyze_metric.default) > 0}
+                                        className="w-full flex gap-2 justify-start items-center data-[display=false]:hidden"
+                                    >
                                         <MdCheck />
                                         <p>{plan.max_analyze_metric.default} análise(s) de metricas/dia</p>
                                     </div>
@@ -92,13 +95,20 @@ export function Plans() {
                                     </div>
 
                                     {
-                                        Number(plan.monthly_price) > 0 &&
-                                        <Button 
-                                            customClass="neon-effect-hover"
-                                            onClick={()=> window.location.href = `${plan.payment_link}?pid=${plan.id}&cid=${client?.id}&account=0`}
-                                        >
-                                            Contratar agora
-                                        </Button>
+                                        Number(plan.monthly_price) > 0 ?
+                                            <Button
+                                                customClass="neon-effect-hover"
+                                                onClick={() => window.location.href = `${plan.payment_link}?pid=${plan.id}&cid=${client?.id}&account=0`}
+                                            >
+                                                Contratar agora
+                                            </Button>
+                                            :
+                                            <Button
+                                                customClass="neon-effect-hover"
+                                                onClick={() => window.location.href = "/register"}
+                                            >
+                                               Testar agora
+                                            </Button>
                                     }
 
                                 </div>

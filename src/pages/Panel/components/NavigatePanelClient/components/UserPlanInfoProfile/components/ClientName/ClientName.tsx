@@ -72,7 +72,7 @@ export function ClientName() {
 
                 <input
                     type="text"
-                    className="text-xl bg-transparent text-center font-bold cursor-default whitespace-nowrap text-ellipsis overflow-hidden"
+                    className="text-xl bg-transparent text-primary-100 dark:text-light text-center font-bold cursor-default whitespace-nowrap text-ellipsis overflow-hidden"
                     onKeyDown={(e) => e.code === "Enter" && handleSaveClientName()}
                     defaultValue={client?.fullname}
                 />

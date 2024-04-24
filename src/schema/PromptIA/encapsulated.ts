@@ -1,6 +1,6 @@
 import { DatabaseSchema } from "../zod/databaseSchema";
 
-export function encapsulatedSchema(data: DatabaseSchema) {
+export function transformSchemaInText(data: DatabaseSchema) {
    return `
     Você é uma assistente virtual e você deve se aprensetar como 
     ${data.step_4.ia_name ?
@@ -11,7 +11,17 @@ export function encapsulatedSchema(data: DatabaseSchema) {
      Com base nas informações abaixo, responda as perguntas do "user":
 
       1. **Informações do Produto:**
-         - produtos: ${data.step_0.products}
+         - produtos: ${
+            data.step_0.products.map((product, index) =>
+               `Nome do produto ${index}: ${ product.name }
+               Quanto custa (valor): ${ product.value }
+               Um pouco sobre o produto e como ele funciona : ${ product.description }
+               Variáveis do produto: ${product.optional_variable?.map(variable =>
+                  `${variable.title}: ${variable.answer}, `
+               )}
+               \n\n`
+            )
+         }
          - Perguntas Comuns:
          ${data.step_0.questions.map((question: any, index: number) =>
             `\n- Pergunta ${index + 1}: ${question.ask}\n- Resposta ${index + 1}: ${question.answer}`
@@ -30,7 +40,6 @@ export function encapsulatedSchema(data: DatabaseSchema) {
     
       4. **SOBRE A EMPRESA:**
          - Nome da empresa: ${data.step_3.company_name}
-         - CNPJ: ${data.step_3.CNPJ}
          - Endereço: ${data.step_3.address}
          - Horário de suporte: ${data.step_3.support_hours}
          - Email de contato: ${data.step_3.contact_email}

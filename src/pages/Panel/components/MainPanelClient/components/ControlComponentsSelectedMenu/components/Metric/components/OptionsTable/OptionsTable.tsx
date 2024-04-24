@@ -58,10 +58,10 @@ export function OptionsTable({ client, handleRequestDataProject, setColumns, col
     return (
         <div className="w-[70vw] flex gap-8 justify-end items-center">
             <div
-                className="p-2 bg-dark border border-primary-100 rounded-md cursor-pointer"
+                className="p-2 bg-light dark:bg-dark border border-primary-100 rounded-md cursor-pointer"
                 onClick={reloadMetric}
             >
-                <FaArrowRotateLeft className="text-xl" />
+                <FaArrowRotateLeft className="text-xl fill-primary-100 dark:fill-light" />
             </div>
 
             <div className="h-[40px]">
@@ -70,8 +70,8 @@ export function OptionsTable({ client, handleRequestDataProject, setColumns, col
 
             <Button
                 onClick={handleColumnOrganization}
-                customClass="bg-dark border border-primary-100 px-4"
-            > <FaBorderAll className="text-xl" /> Organize as colunas</Button>
+                customClass="bg-light dark:bg-dark text-primary-100 dark:text-light border border-primary-100 px-4"
+            > <FaBorderAll className="text-xl fill-primary-100 dark:fill-light" /> Organize as colunas</Button>
 
             <Button
                 customClass="bg-primary-100 border border-primary-100 px-4"

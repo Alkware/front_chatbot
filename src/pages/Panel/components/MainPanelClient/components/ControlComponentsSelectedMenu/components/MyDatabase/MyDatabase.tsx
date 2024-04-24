@@ -95,7 +95,7 @@ export function MyDatabases() {
                                 <div
                                     key={index}
                                     data-prompt={!!prompts[index]?.prompt_name}
-                                    className="flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-300 hover:bg-primary-200 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20 z-50"
+                                    className="flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20 z-50"
                                 >
                                     {
                                         prompts[index]?.prompt_name ?

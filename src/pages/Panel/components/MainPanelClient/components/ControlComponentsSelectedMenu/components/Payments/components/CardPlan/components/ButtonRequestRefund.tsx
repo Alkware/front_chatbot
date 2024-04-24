@@ -10,7 +10,7 @@ export function ButtonRequestRefund({ client }: { client?: Client }) {
     const { setModalContent } = useContext(ModalContext)
 
     const freeTrial = () => {
-        if (client?.plan_management) return calculatesRemainingFreeTrialDays(client?.plan_management.free_trial)
+        if (client?.plan_management && Number(client.plan_management.plan.monthly_price) > 0) return calculatesRemainingFreeTrialDays(client?.plan_management.free_trial)
         else return 0
     }
 
@@ -57,7 +57,7 @@ export function ButtonRequestRefund({ client }: { client?: Client }) {
 
 
     const realeaseRefundButton = () => {
-        if (!!client?.plan_management) {
+        if (!!client?.plan_management && Number(client.plan_management.plan.monthly_price) > 0) {
             if (!!client?.refund_requested.length && client.plan_management.status === "ACTIVE" && freeTrial() > 0) {
                 if (client.refund_requested[0].status !== "PENDING") return true
                 else return false
@@ -84,7 +84,7 @@ export function ButtonRequestRefund({ client }: { client?: Client }) {
     }
 
     const realeaseCancelSubscriptionButton = () => {
-        if (!!client?.plan_management) {
+        if (!!client?.plan_management && Number(client.plan_management.plan.monthly_price) > 0) {
             if (client.plan_management.status === "ACTIVE" && freeTrial() <= 0) {
                 if (!!client.refund_requested.length && client.refund_requested[0].status !== "PENDING") return true
                 else return false

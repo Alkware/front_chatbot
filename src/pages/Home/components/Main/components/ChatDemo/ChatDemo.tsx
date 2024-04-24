@@ -5,7 +5,7 @@ import { SimulatorMobile } from "./components/SimulatorMobile/SimuladorMobile"
 export function ChatDemo() {
     const navigate = useNavigate();
     return (
-        <div className="w-screen h-auto md:h-screen py-12 md:py-0 flex flex-col md:flex-wrap justify-between md:justify-evenly relative bg-[url(https://i.ibb.co/C7NJmyg/5954583-872.jpg)] dark:bg-[url(https://i.ibb.co/BLbZyYV/wepik-modern-ia-20240403185919-NJt-W.png)] bg-left bg-cover bg-no-repeat">
+        <div className="w-screen h-auto md:h-screen py-12 md:py-0 flex flex-col md:flex-wrap justify-between md:justify-evenly relative bg-[url(https://i.ibb.co/SrdsDsS/wepik-bg-wipzee-202404241829339-YTV.png)] dark:bg-[url(https://i.ibb.co/YZnmH7q/wepik-bg-wipzee-20240424183105l58e.png)] bg-left bg-cover bg-no-repeat">
 
             <div className="w-full md:w-1/2 h-auto md:h-full flex flex-col gap-4 items-center ">
 
@@ -15,6 +15,12 @@ export function ChatDemo() {
                     Utilizamos uma linguagem natural humanizada para trazer confiança e segurança ao seu cliente. então
                     conheça nossos planos e faça agora o seu cadastro pelo chat. É super rápido!
                 </h3>
+                <Button
+                    customClass="my-4 md:my-8 uppercase text-base md:text-xl neon-effect-hover"
+                    onClick={() => navigate("/register")}
+                >
+                    Crie seu chat agora mesmo
+                </Button>
             </div>
 
             <div className="w-full md:w-1/2 flex flex-col gap-4 justify-start items-center">
@@ -23,12 +29,7 @@ export function ChatDemo() {
                         size={window.innerWidth > 768 ? "BIG" : "SMALL"}
                     />
                 </div>
-                <Button
-                    customClass="my-4 md:my-8 uppercase text-base md:text-xl neon-effect-hover"
-                    onClick={() => navigate("/register")}
-                >
-                    Crie seu chat agora mesmo
-                </Button>
+                
             </div>
         </div>
     )

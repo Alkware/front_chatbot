@@ -10,7 +10,6 @@ import { PopUp } from "../../../../../../../../components/modal/templates/PopUp"
 import { ChangePassword } from "./components/ChangePassword/ChangePassword";
 import { checkUserIsAvailable, updateClient } from "../../../../../../../../api/client";
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver";
-import { addMaskToInput } from "../../../../../../../../functions/addMaskToInput";
 import { object, z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -23,7 +22,6 @@ const clientSchema = z.object({
     user: z.string().min(1, "Digite um nome de usuário!").max(25, "Nome de usuário muito longe, informe um menor."),
     email: z.string().email(),
     password: z.string().min(8, "Sua senha precisa ter no minimo 8 caracteres!"),
-    cpf_cnpj: z.string().refine(text => text.includes("."), "Digite um cnpj ou cpf valído!")
 })
 
 export function ConfigProfile() {
@@ -34,7 +32,6 @@ export function ConfigProfile() {
         defaultValues: {
             fullname: client?.fullname,
             user: client?.user,
-            cpf_cnpj: client?.cpf_cnpj,
             email: client?.email,
             password: "senha-qualquer"
         }
@@ -149,12 +146,6 @@ export function ConfigProfile() {
                             title="Usuário"
                         />
                     </Root.Container>
-
-                    <Root.Input
-                        name="cpf_cnpj"
-                        title="CNPJ ou CPF"
-                        mask={addMaskToInput}
-                    />
 
                     <Root.Container
                         className="flex gap-4 justify-center items-center"

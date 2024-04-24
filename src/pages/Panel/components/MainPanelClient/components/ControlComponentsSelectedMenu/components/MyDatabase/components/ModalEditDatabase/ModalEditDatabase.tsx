@@ -4,17 +4,15 @@ import { PopOver } from "../../../../../../../../../../components/modal/template
 import { CreatePrompt, Prompt } from "../../../../../../../../../../@types/prompt.types";
 import { daleteDatabase, updateDatabase } from "../../../../../../../../../../api/Prompt";
 import { Root } from "../../../../../../../../../../components/Form/FormRoot";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import { DatabaseSchema, databaseSchema } from "../../../../../../../../../../schema/zod/databaseSchema";
-import { Button } from "../../../../../../../../../../components/button/Button";
-import { MdRemoveCircle } from "react-icons/md";
-import { encapsulatedSchema } from "../../../../../../../../../../schema/PromptIA/encapsulated";
+import { transformSchemaInText } from "../../../../../../../../../../schema/PromptIA/encapsulated";
 import { FaCircleInfo, FaFaceGrinBeam } from "react-icons/fa6";
-import { FaBook, FaInfo, FaMoneyCheck, FaQuestionCircle, FaSuitcase, FaTruck } from "react-icons/fa";
-import { StepEditCommonQuestions } from "./components/StepCommonQuestions/StepEditCommonQuestions";
+import { FaBook, FaInfo, FaSuitcase } from "react-icons/fa";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
-import { addMaskToInput } from "../../../../../../../../../../functions/addMaskToInput";
+import { ComomQuestions } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepProdutinformation/components/ComomQuestions/ComomQuestions";
+import { AddProducts } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepProdutinformation/components/AddProducts/AddProducts";
 
 interface ModalEditDatabase {
     prompt: Prompt,
@@ -24,7 +22,9 @@ interface ModalEditDatabase {
 export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
     const { setModalContent, clearModal } = useContext(ModalContext);
     const { client, setClient } = useContext(ClientContext);
+    console.log(prompt)
     const promptData: DatabaseSchema = JSON.parse(prompt.prompt_query || "{}")
+    console.log(promptData)
     const checkPromptIsAvalible = !!Object.keys(promptData).length ? true : false
 
 
@@ -48,7 +48,6 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
             },
             step_3: {
                 address: promptData.step_3.address || "",
-                CNPJ: promptData.step_3.CNPJ || "",
                 company_name: promptData.step_3.company_name || "",
                 contact_email: promptData.step_3.contact_email || "",
                 contact_phone_number: promptData.step_3.contact_phone_number || "",
@@ -62,15 +61,9 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
         }
     });
 
-    const { fields, append, remove } = useFieldArray({
-        control: updateDatabaseForm.control,
-        name: 'step_0.products'
-    });
-
-
     const handleUpdateDatabase = async (data: DatabaseSchema) => {
         const convertToString = JSON.stringify(data);
-        const promptSchema = encapsulatedSchema(data);
+        const promptSchema = transformSchemaInText(data);
 
         const database: CreatePrompt = {
             prompt: promptSchema,
@@ -147,164 +140,27 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
 
                 <Root.EditStep
                     index={0}
-                    titleStep="Informações básicas"
+                    titleStep="Informações do produto"
                     icon={<FaCircleInfo />}
                 >
-                    <Root.Input
-                        title="Quem foi o criador desse produto?"
-                        name="step_0.who_created"
-                    />
-                    <Root.TextArea
-                        title="Conte um pouco sobre seu produto..."
-                        name="step_0.what_is"
-                    />
 
-                    <Root.TextArea
-                        title="Como ele funciona?"
-                        name="step_0.how_works"
-                    />
+                    <AddProducts />
 
-                    <Root.Optional
-                        text="O produto possui registro na ANVISA?"
-
-                    >
-                        <Root.Input
-                            title="Digite o registro da ANVISA:"
-                            name="step_0.andvisa_record"
-                        />
-                    </Root.Optional>
+                    <ComomQuestions />
 
                 </Root.EditStep>
 
                 <Root.EditStep
                     index={1}
-                    titleStep="Informações avançadas"
+                    titleStep="Métodos de pagamento"
                     icon={<FaInfo />}
                 >
-                    <Root.TextArea
-                        name="step_1.benefits"
-                        title="Quais são os beneficios do seu produto?"
-                    />
 
-                    <Root.TextArea
-                        name="step_1.ingredients"
-                        title="Quais são os ingredientes do seu produto?"
-                    />
-
-                    <Root.Optional
-                        active={true}
-                        text="Esse produto possui alguma contra indicação?"
-                        name="step_1.contraindications"
-                    >
-                        <Root.TextArea
-                            name="step_1.contraindications"
-                            title="Quais são as contra-indicações do seu produto?"
-                        />
-                    </Root.Optional>
-
-                    <Root.Optional
-                        active={true}
-                        text="Existe algum efeito colateral?"
-                        name="step_1.side_effects"
-                    >
-                        <Root.TextArea
-                            name="step_1.side_effects"
-                            title="Quais?"
-                        />
-                    </Root.Optional>
-
-                </Root.EditStep>
-
-                <Root.EditStep
-                    index={2}
-                    titleStep="Entrega do produto"
-                    icon={<FaTruck />}
-                >
-                    <Root.Container className="flex gap-4" title="Qual o prazo médio em dias para entrega:">
-                        <Root.Input
-                            type="number"
-                            min={1}
-                            max={365}
-                            name="step_2.average_delivery_time.start"
-                            title="de:"
-                            joinAtInput="dia(s)"
-                        />
-
-                        <Root.Input
-                            type="number"
-                            min={1}
-                            max={365}
-                            name="step_2.average_delivery_time.end"
-                            title="até:"
-                            joinAtInput="dia(s)"
-                        />
-                    </Root.Container>
-
-
-                    <Root.TextArea
-                        name="step_2.order_tracking"
-                        title="Como os clientes podem rastrear seu pedido?"
-                    />
-
-                    <Root.Optional
-                        active={false}
-                        text="Você possui link para rastrear pedido?"
-                    >
-                        <Root.Input
-                            title="Digite a url do site:"
-                            name="step_2.tracking_link"
-                            onChange={({ target }) => {
-                                if (!target.value.toLowerCase().includes("http"))
-                                    target.value = `https://${target.value.replace("http", "")}`
-                            }}
-                        />
-                    </Root.Optional>
-
-                </Root.EditStep>
-
-                <Root.EditStep
-                    index={3}
-                    titleStep="Politicas e condições"
-                    icon={<FaBook />}
-                >
-                    <Root.Input
-                        type="number"
-                        name="step_3.days_of_warranty"
-                        title="Quantos dias o cliente tem de garantia?"
-                    />
-
-                    <Root.TextArea
-                        name="step_3.how_guarantee_work"
-                        title="Como funciona a garantia?"
-                    />
-
-
-                    <Root.TextArea
-                        name="step_3.how_exchanges_work_and_returns"
-                        title="Como funciona as trocas e devoluções?"
-                    />
-
-                    <Root.Optional active={false} text="Gostaria de deixar um disclaimer para seus clientes?">
-                        <Root.TextArea
-                            name="step_3.disclaimer"
-                            title="Aviso legal ( Disclaimer )"
-                        />
-                    </Root.Optional>
-
-                </Root.EditStep>
-
-                <Root.EditStep
-                    index={4}
-                    titleStep="Métodos de pagamentos"
-                    icon={<FaMoneyCheck />
-                    }
-                >
                     <Root.Container className="flex gap-4" title="Quais são os métodos de pagamentos aceitos?">
-
                         <Root.Select
                             title="Escolha seus métodos de pagamentos"
                             isMultiple={true}
-                            name="step_4.payment_methods"
+                            name="step_1.payment_methods"
                             options={[
                                 { value: "Pix", text: "Pix" },
                                 { value: "Boleto", text: "Boleto" },
@@ -313,93 +169,84 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                                 { value: "Pagamentos em aplicativo", text: "Pagamentos em aplicativo" },
                             ]}
                         />
-
                     </Root.Container>
 
                     <Root.TextArea
-                        name="step_4.how_to_buy"
+                        name="step_1.how_to_buy"
                         title="como comprar seu produto?"
                     />
 
-                    <div className="w-full flex flex-col">
-                        <div className="w-full flex justify-end">
-                            <Button
-                                type="button"
-                                onClick={() => append({ name: "", value: "R$ 0", description: "", optional_variable: [] })}
-                            > Adicionar produto</Button>
-                        </div>
-
-                        <Root.Container className="flex flex-col gap-4">
-                            {
-                                fields.map((field, index) =>
-
-                                    <div key={field.id} className="flex justify-center items-center gap-8">
-                                        <div className="w-4/5 flex gap-6 justify-center items-center">
-                                            <Root.Input
-                                                name={`step_4.products.${index}.name`}
-                                                title="De um nome a esse produto:"
-                                            />
-
-                                            <Root.Input
-                                                name={`step_4.products.${index}.value`}
-                                                onChange={({ target }) => {
-                                                    const number = parseFloat(target.value.replace(/[^\d]/g, '')) / 100;
-                                                    const formatNumber = number.toLocaleString('pt-BR', {
-                                                        style: 'currency',
-                                                        currency: 'BRL',
-                                                    });
-
-                                                    target.value = formatNumber
-                                                }}
-                                                title="Qual o valor do produto?"
-                                            />
-                                        </div>
-
-                                        <MdRemoveCircle
-                                            onClick={() => remove(index)}
-                                            className="fill-red-500 text-2xl cursor-pointer"
-                                        />
-                                    </div>
-                                )
-                            }
-                        </Root.Container>
-
-                    </div>
+                    <Root.Optional text="Você está entregando um produto físico?" >
+                        <Root.TextArea
+                            name="step_1.order_tracking"
+                            title="Como os clientes podem rastrear seu pedido?"
+                        />
+                        <Root.Optional
+                            active={false}
+                            text="Você possui link para rastrear pedido?"
+                        >
+                            <Root.Input
+                                title="Digite a url do site:"
+                                name="step_1.tracking_link"
+                                onChange={({ target }) => {
+                                    if (!target.value.toLowerCase().includes("http"))
+                                        target.value = `https://${target.value.replace("http", "")}`
+                                }}
+                            />
+                        </Root.Optional>
+                    </Root.Optional>
 
                 </Root.EditStep>
 
                 <Root.EditStep
-                    index={5}
+                    index={2}
+                    titleStep="Politicas e condições"
+                    icon={<FaBook />}
+                >
+                    <Root.Input
+                        type="number"
+                        name="step_2.days_of_warranty"
+                        title="Quantos dias o cliente tem de garantia?"
+                    />
+
+                    <Root.TextArea
+                        name="step_2.how_guarantee_work"
+                        title="Como funciona a garantia?"
+                    />
+                    <Root.Optional text="Esse produto/serviço possui troca ou devolução?">
+                        <Root.TextArea
+                            name="step_2.how_exchanges_work_and_returns"
+                            title="Como funciona as trocas e devoluções?"
+                        />
+                    </Root.Optional>
+                </Root.EditStep>
+
+                <Root.EditStep
+                    index={3}
                     titleStep="Sobre a empresa"
                     icon={<FaSuitcase />}
                 >
                     <Root.Container className="flex gap-4" >
                         <Root.Input
-                            name="step_5.company_name"
+                            name="step_3.company_name"
                             title="Qual o nome da empresa?"
-                        />
-
-                        <Root.Input
-                            title="Qual o seu CNPJ?"
-                            name="step_5.CNPJ"
-                            mask={addMaskToInput}
                         />
                     </Root.Container>
 
                     <Root.Input
-                        name="step_5.address"
+                        name="step_3.address"
                         title="Qual o endereço da sua empresa?"
                     />
 
                     <Root.Container className="flex gap-4" >
                         <Root.Input
-                            name="step_5.contact_email"
+                            name="step_3.contact_email"
                             title="Digite um e-mail para contato"
                         />
 
                         <Root.Input
                             title="Digite um telefone para contato"
-                            name="step_5.contact_phone_number"
+                            name="step_3.contact_phone_number"
                             onChange={({ target }) => {
                                 const numeric = target.value.replace(/[^\d]/g, '');
                                 if (numeric.length < 11) {
@@ -424,22 +271,14 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     </Root.Container>
 
                     <Root.Input
-                        name="step_5.support_hours"
+                        name="step_3.support_hours"
                         title="Qual seu horário para suporte humano?"
                     />
 
                 </Root.EditStep>
 
                 <Root.EditStep
-                    index={6}
-                    titleStep="Perguntas frequentes"
-                    icon={<FaQuestionCircle />}
-                >
-                    <StepEditCommonQuestions />
-                </Root.EditStep>
-
-                <Root.EditStep
-                    index={7}
+                    index={4}
                     titleStep="Personalidade da IA "
                     icon={<FaFaceGrinBeam />}
                 >
@@ -449,7 +288,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                         active={false}
                     >
                         <Root.Input
-                            name="step_7.ia_name"
+                            name="step_4.ia_name"
                             title="Qual o nome da sua inteligência artificial?"
                         />
                     </Root.Optional>
@@ -457,17 +296,17 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     <Root.Optional
                         text="Deseja adicionar restrições de palavras ou frase?"
                         active={false}
-                        name="step_7.restrictions"
+                        name="step_4.restrictions"
                     >
                         <Root.Input
-                            name="step_7.restrictions"
+                            name="step_4.restrictions"
                             title="Faça uma lista de restrições para que a IA evite utiliza-la em uma conversa"
                         />
                     </Root.Optional>
 
                     <Root.TextArea
                         title="Faça uma breve descrição de quem é seu público (cliente)"
-                        name="step_7.client_describe"
+                        name="step_4.client_describe"
                     />
 
                 </Root.EditStep>
