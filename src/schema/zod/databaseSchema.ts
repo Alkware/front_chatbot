@@ -9,8 +9,8 @@ export const databaseSchema = z.object({
             value: z.string().min(1, "Informe o valor do produto!"),
             description: z.string().min(1, "Informe como seu produto funciona"),
             optional_variable: z.optional(z.array(z.object({
-               title: z.string().min(1, "O titulo da sua variável não pode estar vazio."),
-               answer: z.string().min(1, "Vocẽ precisa definir pelo menos uma opção.")
+               title: z.optional(z.string().min(1, "O titulo da sua variável não pode estar vazio.")),
+               answer: z.optional(z.string().min(1, "A variável não pode estar vazia."))
             })))
         })).min(1, "Você precisa cadastrar pelo menos um produto"),
 
