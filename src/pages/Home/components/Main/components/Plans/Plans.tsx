@@ -33,7 +33,7 @@ export function Plans() {
                                 data-isbestseller={index === 2}
                                 className="min-w-[300px] group relative flex flex-col hover:scale-105 transition-transform duration-300 cursor-pointer justify-between gap-4 border border-primary-100 bg-primary-100/20 rounded-md p-2 items-center text-primary-100 dark:text-light"
                             >
-                                <div className="w-4/5 absolute -top-1 left-1/2 -translate-x-1/2 bg-orange-500 text-light border-2 border-primary-100 uppercase text-center -translate-y-1/2 rounded-full text-sm font-bold group-data-[isbestseller=false]:hidden">Mais popular</div>
+                                <div className="w-4/5 absolute -top-1 left-1/2 -translate-x-1/2 bg-orange-500 text-light border-2 border-orange-800 uppercase text-center -translate-y-1/2 rounded-full text-sm font-bold group-data-[isbestseller=false]:hidden">Mais popular</div>
                                 <div className="w-full flex flex-col gap-4">
                                     <h3 className="w-full  text-center text-xl font-bold">{plan.plan_name}</h3>
                                     <div className="w-full flex gap-2 justify-start items-center">
