@@ -35,7 +35,7 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                     <Confirm
                         title="Tem certeza que deseja sair do painel?"
                         confirmFunction={handleConfirmExitThePanel}
-                        cancelFuntion={()=> clearModal("modal_confirm_exit_panel")}
+                        cancelFuntion={() => clearModal("modal_confirm_exit_panel")}
                     />
                 </PopUp>
         })
@@ -88,6 +88,22 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                             +
                             messagesEventManager(client.plan_management).maxMessages
                         }
+                    </h3>
+
+                    <h3
+                        data-ismessages={messagesEventManager(client.plan_management).maxBonus}
+                        className="flex gap-1 justify-center items-center bg-primary-300 p-1 rounded-lg border border-primary-100 text-primary-100 dark:text-light font-bold data-[ismessages='0']:hidden"
+                    >
+                        Bônus
+                        <span>
+                            {
+                                messagesEventManager(client.plan_management).reminingMessagesBonus
+                                +
+                                " / "
+                                +
+                                messagesEventManager(client.plan_management).maxBonus
+                            }
+                        </span>
                     </h3>
                 </div>
             </div>

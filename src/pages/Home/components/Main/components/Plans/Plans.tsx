@@ -13,7 +13,7 @@ export function Plans() {
     useEffect(() => {
         (async () => {
             const response: AxiosResponse<{ error: boolean, response: Plan[] }> | void = await getPlans();
-            const plans = response ? response.data.response.sort((a, b) => a.order_relevance - b.order_relevance) : null
+            const plans = response ? response.data.response.sort((a, b) => a.order_relevance - b.order_relevance) : null;
             if (plans) setPlans(plans)
         })();
     }, [])
@@ -26,12 +26,12 @@ export function Plans() {
                 {
                     plans?.length ?
                         plans.map((plan, index) =>
-                            plan.status !== "DISABLED" &&
+                            (plan.status !== "DISABLED") &&
                             <div
                                 key={plan.id}
                                 id={plan.id}
                                 data-isbestseller={index === 2}
-                                className="group relative flex flex-col hover:scale-105 transition-transform duration-300 cursor-pointer justify-between gap-4 border border-primary-100 bg-primary-100/20 rounded-md p-2 items-center text-primary-100 dark:text-light"
+                                className="min-w-[300px] group relative flex flex-col hover:scale-105 transition-transform duration-300 cursor-pointer justify-between gap-4 border border-primary-100 bg-primary-100/20 rounded-md p-2 items-center text-primary-100 dark:text-light"
                             >
                                 <div className="w-4/5 absolute -top-1 left-1/2 -translate-x-1/2 bg-primary-200 text-light border-2 border-primary-100 uppercase text-center -translate-y-1/2 rounded-full text-sm font-bold group-data-[isbestseller=false]:hidden">Mais popular</div>
                                 <div className="w-full flex flex-col gap-4">
@@ -97,14 +97,14 @@ export function Plans() {
                                     {
                                         Number(plan.monthly_price) > 0 ?
                                             <Button
-                                                customClass="neon-effect-hover"
+                                                customClass="neon-effect-hover mt-8 mb-4"
                                                 onClick={() => window.location.href = `${plan.payment_link}?pid=${plan.id}&cid=${client?.id}&account=0`}
                                             >
                                                 Contratar agora
                                             </Button>
                                             :
                                             <Button
-                                                customClass="neon-effect-hover"
+                                                customClass="neon-effect-hover mt-8 mb-4"
                                                 onClick={() => window.location.href = "/register"}
                                             >
                                                Testar agora

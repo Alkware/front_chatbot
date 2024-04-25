@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod";
-import { registerClient } from "../../api/client";
+import { authenticateClient, registerClient } from "../../api/client";
 import { useEffect } from "react";
 import { Header } from "../Home/components/Header/Header";
 import { Root } from "../../components/Form/FormRoot";
@@ -33,9 +33,18 @@ function Register() {
     });
 
     useEffect(() => {
-        // define o thema da página de register
-        const isDark = localStorage.theme === "dark"
-        document.documentElement.classList.toggle("dark", !!isDark)
+        (async () => {
+            // define o thema da página de register
+            const isDark = localStorage.theme === "dark"
+            document.documentElement.classList.toggle("dark", !!isDark)
+
+
+            //verifica se o usuário já está authenticado, se estiver ele já vai direto para o painel
+            const token = localStorage.getItem("token");
+            const clientIsLogged = token && await authenticateClient(token);
+            (clientIsLogged && navigate("/panel"));
+
+        })();
     }, [])
 
     async function createUser(data: any) {
@@ -104,7 +113,7 @@ function Register() {
                                         type="password"
                                     />
 
-                                    <Root.Checkbox 
+                                    <Root.Checkbox
                                         name="confirm_policies"
                                         title={`Confirme que você leu as <a class="underline text-blue-300" href="/polices" target="blank">Politicas de privacidade</a>, <a class="underline text-blue-300" href="/cookies" target="blank">Politicas de cookies</a>, <a class="underline text-blue-300" href="/terms" target="blank">termos de uso</a>. com o entendimento das politicas, você estará autorizado a criar uma conta em nossa plataforma. `}
                                     />
