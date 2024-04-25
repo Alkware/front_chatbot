@@ -82,7 +82,7 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                         className="flex gap-1 justify-center items-center text-primary-100 dark:text-light font-bold data-[ismessages='0']:hidden"
                     >
                         {
-                            messagesEventManager(client.plan_management).reminingMessages
+                            messagesEventManager(client.plan_management).totalMessages
                             +
                             " / "
                             +
