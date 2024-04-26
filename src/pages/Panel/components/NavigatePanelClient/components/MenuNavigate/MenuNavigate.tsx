@@ -45,15 +45,15 @@ function MenuNavigate({ menuIsOpen }: containerMenuTypes) {
                     <li
                         key={menu.name}
                         data-tab={Number(searchParams.get("tab")) == index ? true : false}
-                        className="w-full py-3 flex gap-2 justify-center items-center text-center cursor-pointer font-bold text-xl hover:text-primary-300 hover:dark:text-light hover:bg-primary-100/30 hover:dark:bg-dark data-[tab=true]:dark:bg-dark transition-colors duration-300 group"
+                        className="w-full py-2 tall-6:py-3 flex gap-2 justify-center items-center text-center cursor-pointer font-bold text-xl hover:text-primary-300 hover:dark:text-light hover:bg-primary-100/30 hover:dark:bg-dark data-[tab=true]:dark:bg-dark transition-colors duration-300 group"
                         onClick={() => handleSelectedTabNavigation(index)}
                     >
                         <div
                             data-menuisopen={menuIsOpen}
                             className="w-full data-[menuisopen=true]:w-4/5 flex justify-center data-[menuisopen=true]:justify-start items-center gap-2"
                         >
-                            <menu.Icon className="group-hover:fill-primary-200 text-primary-100 dark:text-light text-xl transition-colors duration-100" />
-                            <p className={`group-hover:text-primary-200 text-primary-100 dark:text-white transition-colors duration-100 whitespace-nowrap text-ellipsis ${menuIsOpen ? "block" : "hidden"}`}>{menu.name}</p>
+                            <menu.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-xl transition-colors duration-100" />
+                            <p className={`group-hover:text-primary-100 text-primary-100 dark:text-white transition-colors duration-100 whitespace-nowrap text-ellipsis ${menuIsOpen ? "block" : "hidden"}`}>{menu.name}</p>
                         </div>
                     </li>
                 )

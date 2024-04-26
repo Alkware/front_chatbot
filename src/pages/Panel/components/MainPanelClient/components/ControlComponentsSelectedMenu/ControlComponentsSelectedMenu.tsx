@@ -12,7 +12,7 @@ export function ControlComponentsSelectedMenu() {
     const tab = Number(searchParams.get("tab")) || 0;
 
     return (
-        <div className="w-full p-8 overflow-hidden">
+        <div className="w-full px-8">
             {
                 tab === 0 ?
                     <MyChats />

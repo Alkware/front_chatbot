@@ -16,18 +16,20 @@ function NavigatePanelClient() {
             data-menuisopen={menuIsOpen}
             className="w-[280px] data-[menuisopen=false]:w-[70px] relative h-full bg-gradient-to-b from-primary-100 via-light to-light dark:to-primary-300 dark:via-primary-300"
         >
-            <CompanyLogo />
+            <div className="flex flex-col">
+                <CompanyLogo />
 
-            <nav
-                className="w-full py-4 relative"
-            >
-                <UserPlanInfoProfile menuIsOpen={menuIsOpen} />
+                <nav
+                    className="w-full h-full py-4 relative"
+                >
+                    <UserPlanInfoProfile menuIsOpen={menuIsOpen} />
 
-                <MenuNavigate
-                    menuIsOpen={menuIsOpen}
-                />
+                    <MenuNavigate
+                        menuIsOpen={menuIsOpen}
+                    />
 
-            </nav>
+                </nav>
+            </div>
 
             <ControlCloseMenuNavigation
                 menuIsOpen={menuIsOpen}

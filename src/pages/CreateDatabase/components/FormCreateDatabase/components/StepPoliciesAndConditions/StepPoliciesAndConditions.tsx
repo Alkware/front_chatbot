@@ -19,6 +19,8 @@ export function StepPoliciesAndConditions() {
             />
 
             <Root.Optional
+                name="step_2.how_exchanges_work_and_returns"
+                defaultField={""}
                 text="Esse produto/serviço possui trocas e devoluções?"
             >
                 <Root.TextArea

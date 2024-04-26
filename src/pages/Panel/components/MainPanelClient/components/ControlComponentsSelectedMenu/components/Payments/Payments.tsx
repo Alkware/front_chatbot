@@ -11,8 +11,8 @@ export function Payments() {
 
 
     return (
-        <Container title="Assinatura" className="flex-col gap-8">
-            <div className="w-full p-4 flex gap-6 justify-center">
+        <Container title="Assinatura" className="flex-col">
+            <div className="w-full flex justify-center">
                 <CardPlan client={client} />
 
                 <CardRefund client={client} />

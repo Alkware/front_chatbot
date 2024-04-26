@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
-import { HeaderTableMetric } from "../HeaderTableMetric"
+import { HeaderTableMetric } from "../HeaderTableMetric/HeaderTableMetric"
 import { useSearchParams } from "react-router-dom"
 import { Columns } from "../../../../../../../../../../@types/Column.types";
 import { PlanManagement } from "../../../../../../../../../../@types/planManagement";

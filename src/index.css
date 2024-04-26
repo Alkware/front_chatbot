@@ -125,6 +125,25 @@ textarea {
   border-image: linear-gradient(to right, #7672f280, #7672f280, #7672f280);
 }
 
+@media (min-height: 750){
+  .min-h-custom-750 {
+    min-height: 750px;
+  }
+}
+
+@media (min-height: 650){
+  .min-h-custom-650 {
+    min-height: 650px;
+  }
+}
+
+
+@media (min-height: 550){
+  .min-h-custom-550 {
+    min-height: 550px;
+  }
+}
+
 /* animation */
 @keyframes loading {
   from {

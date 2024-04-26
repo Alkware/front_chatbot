@@ -5,8 +5,9 @@ export function StepPersonalityIA() {
         <Root.Step index={4} stepTitle="Personalidade da IA">
 
             <Root.Optional
+                defaultField={""}
+                name="step_4.ia_name"
                 text="Deseja dar um nome a sua inteligência artificial?"
-                active={false}
             >
                 <Root.Input
                     name="step_4.ia_name"
@@ -15,8 +16,8 @@ export function StepPersonalityIA() {
             </Root.Optional>
 
             <Root.Optional
+                defaultField={""}
                 text="Deseja adicionar restrições de palavras ou frase?"
-                active={false}
                 name="step_4.restrictions"
             >
                 <Root.Input

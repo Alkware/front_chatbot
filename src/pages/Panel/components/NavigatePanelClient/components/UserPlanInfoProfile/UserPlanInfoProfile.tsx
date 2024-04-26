@@ -48,14 +48,14 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
     return (
         client &&
         <div
-            className="w-full min-h-[80px] flex flex-col gap-2 justify-center items-center relative"
+            className="w-full flex flex-col gap-2 justify-center items-center relative"
         >
-            <div className="w-4/5 flex flex-col justify-center items-center gap-2 border-b border-primary-100 dark:border-light/30 pb-8">
+            <div className="w-4/5 pb-2 flex flex-col justify-center items-center gap-2 border-b border-primary-100 dark:border-light/30">
                 <div className="w-full flex justify-center gap-2 items-end">
                     <TipContainer tip="Edite seu perfil">
                         <FaGear
                             data-menuisopen={menuIsOpen}
-                            className="text-3xl cursor-pointer hover:animate-spin data-[menuisopen=false]:hidden fill-primary-100 dark:fill-light"
+                            className="text-2xl cursor-pointer hover:animate-spin data-[menuisopen=false]:hidden fill-primary-100 dark:fill-light"
                             onClick={handleConfigProfile}
                         />
                     </TipContainer>
@@ -65,7 +65,7 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                     <TipContainer tip="Sair do seu painel">
                         <FaRightToBracket
                             data-menuisopen={menuIsOpen}
-                            className="text-3xl cursor-pointer -scale-x-100 fill-primary-100 dark:fill-light hover:fill-red-500 transition-colors duration-200 data-[menuisopen=false]:hidden"
+                            className="text-2xl cursor-pointer -scale-x-100 fill-primary-100 dark:fill-light hover:fill-red-500 transition-colors duration-200 data-[menuisopen=false]:hidden"
                             onClick={handleExitThePanel}
                         />
                     </TipContainer>

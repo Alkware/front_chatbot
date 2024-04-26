@@ -75,7 +75,7 @@ export function CallToActionFormChat({ }: CallToActionFormChat) {
 
     return (
         <div className="flex flex-col ">
-            <div className="flex justify-between py-4">
+            <div className="flex justify-between">
                 <div className="flex flex-col text-center">
                     <h2 className="text-xl font-bold">Adicione chamadas para ação no seu chat</h2>
                     <span className="text-sm opacity-70">(Essas CTA serão usadas no contexto da conversa)</span>
@@ -88,7 +88,7 @@ export function CallToActionFormChat({ }: CallToActionFormChat) {
                     <MdAdd />  Adicionar link
                 </Button>
             </div>
-            <div className="flex justify-center gap-4 border-b border-primary-100/50">
+            <div className="flex justify-center gap-4 pb-2 border-b border-primary-100/50">
                 {
                     fields.map((field: Field, index: number) =>
                         (index !== currentCTA && !!field.button_text) &&
@@ -121,6 +121,10 @@ export function CallToActionFormChat({ }: CallToActionFormChat) {
                                     <Root.Input
                                         name={`step_1.call_to_action.${index}.button_link`}
                                         title={`Digite a url do link`}
+                                        onChange={({ target }) => {
+                                            if (!target.value.toLowerCase().includes("http"))
+                                                target.value = `https://${target.value.replace("http", "")}`
+                                        }}
                                     />
                                 </Root.Container>
 
@@ -130,7 +134,7 @@ export function CallToActionFormChat({ }: CallToActionFormChat) {
                                 />
                             </Root.Container>
                             <MdDelete
-                                className="text-2xl fill-red-500 bg-red-900/50 rounded-full mt-4 cursor-pointer"
+                                className="text-3xl p-1 fill-red-500 bg-red-900/50 rounded-full mt-4 cursor-pointer"
                                 onClick={() => {
                                     remove(index);
                                     params.set(CTA_NAME_URL, (index - 1).toString());

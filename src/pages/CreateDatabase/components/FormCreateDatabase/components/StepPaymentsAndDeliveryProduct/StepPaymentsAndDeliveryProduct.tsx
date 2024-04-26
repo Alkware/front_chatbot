@@ -27,15 +27,19 @@ export function StepPaymentsAndDeliveryProduct() {
             />
 
             <Root.Optional
+                name="step_2.order_tracking"
+                defaultField={""}
                 text="Você está entregando um produto físico?"
                 className="w-full flex flex-col gap-6 "
             >
                 <Root.TextArea
                     name="step_2.order_tracking"
-                    title="Como os clientes podem rastrear seu pedido?"
+                    title="Descreva como seu produto vai ser entregue e as politicas de frete?"
                 />
 
                 <Root.Optional
+                    name="step_2.tracking_link"
+                    defaultField={""}
                     active={false}
                     text="Você possui link para rastrear pedido?"
                 >

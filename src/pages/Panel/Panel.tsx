@@ -28,7 +28,7 @@ function Panel() {
             {
                 client &&
                 <div
-                    className="w-screen h-screen overflow-hidden flex justify-start items-start text-primary-100 dark:text-light"
+                    className="w-screen h-screen flex justify-start items-start text-primary-100 dark:text-light"
                 >
                     <NavigatePanelClient />
                     <MainPanelClient />

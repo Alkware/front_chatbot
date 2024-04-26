@@ -45,7 +45,7 @@ export function UserLogo({ menuIsOpen }: UserLogo) {
     return (
         <div
             data-menuisopen={menuIsOpen}
-            className="w-[40px] h-[40px] data-[menuisopen=true]:w-[100px] data-[menuisopen=true]:h-[100px] rounded-full overflow-hidden cursor-pointer border-4 border-primary-100 dark:border-light"
+            className="w-[40px] h-[40px] data-[menuisopen=true]:w-[80px] data-[menuisopen=true]:h-[80px] rounded-full overflow-hidden cursor-pointer border-4 border-primary-100 dark:border-light"
         >
             <label
                 className="w-full h-full relative cursor-pointer"
@@ -61,7 +61,7 @@ export function UserLogo({ menuIsOpen }: UserLogo) {
                 <img
                     src={client?.logo || "https://via.placeholder.com/100"}
                     alt=""
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                 />
 
                 <div

@@ -50,6 +50,8 @@ export function StepAboutCompany() {
                 title="Qual seu horário para suporte humano?"
             />
             <Root.Optional
+                name="step_3.address"
+                defaultField={''}
                 text="Sua empresa possui um endereço físico?"
             >
                 <Root.Input

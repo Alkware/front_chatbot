@@ -51,10 +51,12 @@ export function AnalyzeMetric() {
             if (client) {
                 const allAnalysis = await getMetricAnalysis(client.plan_management.id);
                 const analysis = allAnalysis.data.response;
-                const maxAnalysisByDay = client.plan_management.plan.max_analyze_metric;
+                const maxAnalysisByDay = client.plan_management.plan.max_analyze_metric.default;
+                const maxAnalysisWithBonusByDay = client.plan_management.plan.max_analyze_metric.bonus;
+                const totalAnalysis = Number(maxAnalysisByDay + maxAnalysisWithBonusByDay)
                 if (analysis.length) setAnalyze({ status: "APRROVED", analysis });
                 else {
-                    if (analysis.length < maxAnalysisByDay) handleAnalyzeMetric()
+                    if (analysis.length == totalAnalysis) handleAnalyzeMetric()
                     else {
                         setModalContent({
                             componentName: "modal_limit_analysis",
@@ -62,6 +64,7 @@ export function AnalyzeMetric() {
                                 <PopOver
                                     componentName="modal_limit_analysis"
                                     message="O limite de analises no seu plano foi atingido. Aguarde até amanhã ou mude de plano para fazer uma nova análise."
+                                    functionAfterComplete={()=> clearModal(null, { clearAll: true }) }
                                 />
                         })
                     }

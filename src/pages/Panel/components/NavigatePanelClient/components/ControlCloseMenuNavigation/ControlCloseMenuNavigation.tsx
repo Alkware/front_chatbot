@@ -5,7 +5,7 @@ const ControlCloseMenuNavigation = ({ menuIsOpen, setMenuIsOpen }: any) => {
     return (
         <div 
             data-menuisopen={menuIsOpen}
-            className="w-full absolute bottom-6 flex data-[menuisopen=true]:justify-end justify-center"
+            className="w-full absolute bottom-0 tall-6:bottom-6 flex data-[menuisopen=true]:justify-end justify-center"
         >
             {
                 menuIsOpen ?

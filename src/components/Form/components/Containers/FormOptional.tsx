@@ -7,10 +7,11 @@ import { twMerge } from "tailwind-merge";
 
 interface FormOptional extends HTMLAttributes<HTMLDivElement> {
     children: ReactElement | ReactElement[];
-    name?: string,
     text: string;
+    defaultField: [] | "''" | {};
+    name: string,
     active?: boolean;
-    functionOffToggle?: ()=> void;
+    functionOffToggle?: () => void;
 }
 
 /**
@@ -22,14 +23,15 @@ interface FormOptional extends HTMLAttributes<HTMLDivElement> {
  * @param active Define se o toggle vai iniciar ativado ou desativado.
  * @returns 
  */
-export function FormOptional({ children, text, active = false, functionOffToggle, ...props }: FormOptional) {
-    const { unregister } = useFormContext();
+export function FormOptional({ children, text, active = false, defaultField, functionOffToggle, ...props }: FormOptional) {
+    const { unregister, register } = useFormContext();
     const [display, setDisplay] = useState(active ? true : false);
     const [params, setParams] = useSearchParams();
 
     useEffect(() => {
         if (!display && props?.name) {
             unregister(props.name)
+            register(props.name, { value: defaultField })
         }
     }, [])
 
@@ -56,7 +58,7 @@ export function FormOptional({ children, text, active = false, functionOffToggle
     }
 
     return (
-        <div className="flex flex-col gap-3">
+        <div className="w-full flex flex-col gap-3">
 
             <h2
                 className="flex gap-4 items-center text-xl font-bold"

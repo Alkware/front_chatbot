@@ -176,13 +176,18 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                         title="como comprar seu produto?"
                     />
 
-                    <Root.Optional text="Você está entregando um produto físico?" >
+                    <Root.Optional
+                        defaultField={""}
+                        name="step_1.order_tracking"
+                        text="Você está entregando um produto físico?"
+                    >
                         <Root.TextArea
                             name="step_1.order_tracking"
                             title="Como os clientes podem rastrear seu pedido?"
                         />
                         <Root.Optional
-                            active={false}
+                            defaultField={""}
+                            name="step_1.tracking_link"
                             text="Você possui link para rastrear pedido?"
                         >
                             <Root.Input
@@ -213,7 +218,11 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                         name="step_2.how_guarantee_work"
                         title="Como funciona a garantia?"
                     />
-                    <Root.Optional text="Esse produto/serviço possui troca ou devolução?">
+                    <Root.Optional
+                        defaultField={""}
+                        name="step_2.how_exchanges_work_and_returns"
+                        text="Esse produto/serviço possui troca ou devolução?"
+                    >
                         <Root.TextArea
                             name="step_2.how_exchanges_work_and_returns"
                             title="Como funciona as trocas e devoluções?"
@@ -284,8 +293,9 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 >
 
                     <Root.Optional
+                        defaultField={""}
+                        name="step_4.ia_name"
                         text="Deseja dar um nome a sua inteligência artificial?"
-                        active={false}
                     >
                         <Root.Input
                             name="step_4.ia_name"
@@ -294,8 +304,8 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     </Root.Optional>
 
                     <Root.Optional
+                        defaultField={""}
                         text="Deseja adicionar restrições de palavras ou frase?"
-                        active={false}
                         name="step_4.restrictions"
                     >
                         <Root.Input

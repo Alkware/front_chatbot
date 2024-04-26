@@ -25,6 +25,10 @@ export default {
       screens:{
         "2xs": "380px",
         "xs": "480px",
+        'tall-8': { 'raw': '(min-height: 800px)' },
+        'tall-7': { 'raw': '(min-height: 700px)' },
+        'tall-6': { 'raw': '(min-height: 600px)' },
+        'tall-5': { 'raw': '(min-height: 500px)' },
       },
       animation:{
         "smooth_display_left": "smooth-display-left 500ms ease-in-out",

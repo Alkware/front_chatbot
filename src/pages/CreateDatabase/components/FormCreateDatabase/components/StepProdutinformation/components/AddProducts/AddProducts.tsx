@@ -1,17 +1,17 @@
-import { MdAdd, MdRemoveCircle } from "react-icons/md";
-import { Button } from "../../../../../../../../components/button/Button";
+import { MdAdd, MdDelete } from "react-icons/md";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useContext, useEffect } from "react";
 import { Root } from "../../../../../../../../components/Form/FormRoot";
 import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver";
 import { AddVariables } from "./components/AddVariables/AddVariables";
+import { TipContainer } from "../../../../../../../../components/TipContainer/TipContainer";
 
 export function AddProducts() {
     const { setModalContent } = useContext(ModalContext)
     const { control, watch } = useFormContext();
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields, append, remove, update } = useFieldArray({
         control,
         name: 'step_0.products'
     });
@@ -42,16 +42,13 @@ export function AddProducts() {
 
 
     return (
-        <div className="w-full flex flex-col gap-4">
-            <div className="w-full flex items-center justify-between my-4">
+        <div className="w-full flex flex-col gap-4 px-4">
+            <div className="w-full flex items-center justify-start my-4">
                 <h2 className="font-medium text-2xl">Cadastre seus produtos disponíveis:</h2>
-                <Button
-                    type="button"
-                    onClick={handleAddNewProduct}
-                ><MdAdd /> Adicionar produto</Button>
             </div>
 
             <Root.MultipleInput
+                update={update}
                 fields={fields}
                 remove={remove}
                 titleParameter="name"
@@ -83,10 +80,20 @@ export function AddProducts() {
                                     }}
                                     title="Qual o valor do produto?"
                                 />
-                                <MdRemoveCircle
-                                    onClick={() => remove(index)}
-                                    className="fill-red-500 text-5xl cursor-pointer"
-                                />
+                                <div className="flex gap-4 justify-center items-center">
+                                    <TipContainer tip="Adicionar novo produto">
+                                        <MdAdd
+                                            onClick={handleAddNewProduct}
+                                            className="fill-green-700 bg-green-200 text-3xl p-1 cursor-pointer rounded-full"
+                                        />
+                                    </TipContainer>
+                                    <TipContainer tip="Remover produto">
+                                        <MdDelete
+                                            onClick={() => fields.length > 1 && remove(index)}
+                                            className="fill-red-700 bg-red-200 text-3xl p-1 cursor-pointer rounded-full"
+                                        />
+                                    </TipContainer>
+                                </div>
                             </div>
                             <div className="w-[90%] flex gap-6 justify-center items-center">
                                 <Root.TextArea
@@ -96,7 +103,10 @@ export function AddProducts() {
                             </div>
                             <div className="w-[90%] flex gap-6 justify-center items-center">
                                 <Root.Optional
-                                    text="Seu produto possui alguma variavél?"
+                                    name={`step_0.products.${index}.optional_variable.${0}`}
+                                    defaultField={{}}
+                                    text="Seu produto possui alguma variável?"
+                                    active={!!watch(`step_0.products.${index}.optional_variable.${0}`)}
                                 >
                                     <AddVariables
                                         index={index}

@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react";
-import { Button } from "../../../../../../../../components/button/Button";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { MdAdd, MdRemoveCircle } from "react-icons/md";
+import { MdAdd, MdDelete } from "react-icons/md";
 import { Root } from "../../../../../../../../components/Form/FormRoot";
 import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver";
@@ -10,7 +9,7 @@ export function ComomQuestions() {
     const { setModalContent } = useContext(ModalContext);
     const { control, watch } = useFormContext();
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields, append, remove, update } = useFieldArray({
         control,
         name: 'step_0.questions'
     });
@@ -20,11 +19,11 @@ export function ComomQuestions() {
             append({ ask: "", answer: "" })
     }, [])
 
-    const handleAddNewAsk =()=>{
+    const handleAddNewAsk = () => {
         const product = watch(`step_0.questions.${fields.length - 1}`)
 
         if (product.ask && product.answer) {
-            append({ ask: "", answer: ""})
+            append({ ask: "", answer: "" })
         } else {
             setModalContent({
                 componentName: "modal_error_add_product",
@@ -41,15 +40,12 @@ export function ComomQuestions() {
     return (
 
         <div className="w-full flex flex-col">
-            <div className="w-full flex items-center justify-between my-4">
+            <div className="w-full flex items-center justify-start my-4">
                 <h2 className="font-medium text-xl">Cadastre suas perguntas frequentes</h2>
-                <Button
-                    type="button"
-                    onClick={handleAddNewAsk}
-                ><MdAdd /> Adicionar perguntas</Button>
             </div>
 
             <Root.MultipleInput
+                update={update}
                 fields={fields}
                 remove={remove}
                 titleParameter="ask"
@@ -69,10 +65,16 @@ export function ComomQuestions() {
                                 />
                             </div>
 
-                            <MdRemoveCircle
-                                onClick={() => remove(index)}
-                                className="fill-red-500 text-2xl cursor-pointer"
-                            />
+                            <div className="flex gap-4 justify-center items-center">
+                                <MdAdd
+                                    onClick={handleAddNewAsk}
+                                    className="fill-green-700 bg-green-200 text-3xl p-1 cursor-pointer rounded-full"
+                                />
+                                <MdDelete
+                                    onClick={() => fields.length > 1 && remove(index)}
+                                    className="fill-red-700 bg-red-200 text-3xl p-1 cursor-pointer rounded-full"
+                                />
+                            </div>
                         </div>
                     )
                 }

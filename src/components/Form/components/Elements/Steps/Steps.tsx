@@ -18,7 +18,7 @@ export function Steps({ numberSteps }: Steps) {
 
     return (
         numberSteps > 1 &&
-        <div className="flex flex-col w-full">
+        <div className="w-full flex flex-col">
             <div className="w-full flex justify-between items-center mb-8">
                 {
                     Array(numberSteps).fill(0).map((_, index) =>

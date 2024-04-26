@@ -37,7 +37,7 @@ export function CreateChat() {
         }
     });
 
-    const { append, remove, fields } = useFieldArray({
+    const { remove, fields } = useFieldArray({
         control: createChatForm.control,
         name: "step_1.call_to_action"
     })
@@ -47,9 +47,6 @@ export function CreateChat() {
             // define o thema da página de login
             const isDark = localStorage.theme === "dark"
             document.documentElement.classList.toggle("dark", !!isDark)
-
-            // Adiciona um templete para adiciona as cta;
-            append({ button_describe: "", button_link: "", button_text: "" });
 
             // Busca os dados do prompt no gerenciamento do plano do usuário, caso não houver, ele será redirecionado para o panel.
             const planManagement = await getPlanManagementById(plan_management_id) as AxiosResponse<{ status: string, prompt: Prompt[] }>
@@ -109,8 +106,8 @@ export function CreateChat() {
 
     return (
         (plan_management_id && prompt) &&
-        <div className="w-screen h-screen bg-gradient-to-br from-primary-100 to-light dark:via-primary-300 via-15% dark:to-dark to-30% text-light flex flex-col justify-center items-center overflow-hidden">
-            <div className="w-4/5 h-[90%] p-4  min-w-[900px] rounded-2xl flex justify-center items-start bg-primary-100 dark:bg-dark border border-primary-300">
+        <div className="w-screen h-screen bg-gradient-to-br from-primary-100 to-light dark:via-primary-300 via-15% dark:to-dark to-30% text-light flex flex-col justify-center items-center">
+            <div className="w-4/5 h-[90%] p-4 min-w-[1200px] rounded-2xl flex justify-center items-start bg-primary-100 dark:bg-dark border border-primary-300">
                 <Root.Form
                     onSubmit={handleCreateProject}
                     form={createChatForm}
@@ -142,6 +139,7 @@ export function CreateChat() {
 
                         <Root.Optional
                             name="step_1.call_to_action"
+                            defaultField={[]}
                             text="Deseja adicionar links ao seu chat?"
                             functionOffToggle={() => fields.forEach((_, index) => remove(index))}
                         >

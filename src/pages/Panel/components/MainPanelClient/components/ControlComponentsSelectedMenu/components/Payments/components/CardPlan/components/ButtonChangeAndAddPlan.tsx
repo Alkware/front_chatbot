@@ -17,7 +17,7 @@ export function ButtonChangeAndAddPlan({ client }: { client?: Client }) {
 
     return (
         realeaseAddPlanButton() &&
-        <div className="w-full flex flex-col gap-4 my-4">
+        <div className="w-full flex flex-col my-4 justify-center items-center">
             <Button onClick={handleChangePlan}>
                 {
                     client?.plan_management && client.plan_management.status !== "DISABLED" ?

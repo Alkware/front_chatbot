@@ -20,6 +20,7 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
 
     useEffect(() => {
         const handleClickOutsideElement = ({ target }: any) => {
+            
             if (contentOptionsRef.current && !contentOptionsRef.current.contains(target)) {
                 const ul = contentOptionsRef.current?.querySelector("ul")
                 const contentSelect = contentOptionsRef.current?.querySelector("div#select")
@@ -62,8 +63,6 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
             const text = target.textContent;
             const removeValueList = !!isMultiple ? optionsState.options.filter(opt => opt.value !== value) : options;
             const addValueListSelected = !!isMultiple ? [...optionsState.selected, { value, text }] : [{ value, text }]
-            const ul = contentOptionsRef.current?.querySelector("ul")
-            ul && (ul.classList.add("hidden"))
 
             registerPaymentsMethods(addValueListSelected)
             setOptions({ options: removeValueList, selected: addValueListSelected });

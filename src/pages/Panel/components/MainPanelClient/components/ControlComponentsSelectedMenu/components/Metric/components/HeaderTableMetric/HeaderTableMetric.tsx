@@ -7,7 +7,7 @@ interface ModalColumnOrganizationTypes {
 }
 
 const defaultColumns: Columns[] = [
-    { key: "IS_ONLINE", columnName: "status", status: true, dataType: "boolean" },
+    { key: "IS_ONLINE", columnName: "Status", status: true, dataType: "boolean" },
     { key: "NAME", columnName: "Nome do chat", status: true, dataType: "string" },
     { key: "CAT", columnName: "Chats abertos (total)", status: true, dataType: "number" },
     { key: "CAU", columnName: "Chats abertos (unico)", status: false, dataType: "number" },
@@ -48,7 +48,7 @@ export function HeaderTableMetric({ setColumns, columns }: ModalColumnOrganizati
                     column.status &&
                     <span
                         key={column.columnName}
-                        className="w-48 flex-none p-3 text-center bg-primary-100 dark:bg-primary-300 text-light dark:text-primary-100 border-r border-r-light dark:border-r-primary-100"
+                        className="flex-none p-3 text-sm font-bold uppercase text-center bg-primary-100 dark:bg-primary-300 text-light dark:text-primary-100 border-r border-r-light dark:border-r-primary-100"
                     >
                         {column.columnName}
                     </span>

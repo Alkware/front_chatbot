@@ -7,7 +7,6 @@ import { CreateChat } from "./pages/CreateChat/CreateChat"
 import { Modal } from "./components/modal/Modal"
 import { CreateDatabase } from "./pages/CreateDatabase/CreateDatabase"
 import { PlansPage } from "./pages/Plans/Plans"
-import { Admin } from "./pages/Admin/Admin"
 import { Suspense, lazy } from "react"
 import { InputLoading } from "./components/loading/InputLoading"
 import { Police } from "./pages/Police/Police"
@@ -27,7 +26,6 @@ function App() {
         <Route path="/first-access" element={<FirstAccess />} />
         <Route path="/panel" element={<Suspense fallback={<InputLoading />}><Panel /></Suspense>} />
         <Route path="/thanks" element={<Thanks />} />
-        <Route path="/admin/panel" element={<Admin />} />
         <Route path="/plans" element={<PlansPage />} />
         <Route path="/create-chat/:plan_management_id" element={<CreateChat />} />
         <Route path="/create-database/:plan_management_id" element={<CreateDatabase />} />

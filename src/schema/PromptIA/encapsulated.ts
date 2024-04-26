@@ -30,7 +30,7 @@ export function transformSchemaInText(data: DatabaseSchema) {
       2. **MÉTODOS DE PAGAMENTO E CONDIÇÕES:**
          - Métodos de pagamento aceitos: ${data.step_1.payment_methods}
          - Como comprar: ${data.step_1.how_to_buy}
-         - Rastreamento do pedido: ${data.step_1.order_tracking}
+         - Como o produto vai ser entregue e as politicas de frete: ${data.step_1.order_tracking}
          - link para rastreamento: ${data.step_1.tracking_link}
     
       3. **POLITICAS E CONDIÇÕES:**

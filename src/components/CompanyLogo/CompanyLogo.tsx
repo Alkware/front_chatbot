@@ -8,7 +8,7 @@ export function CompanyLogo() {
             <img
                 src={URL_LOGO}
                 alt="Logo da empresa"
-                className="w-[120px]"
+                className="w-[90px]"
             />
         </h2>
     )
