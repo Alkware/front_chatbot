@@ -1,7 +1,6 @@
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 
 const ControlCloseMenuNavigation = ({ menuIsOpen, setMenuIsOpen }: any) => {
-
     return (
         <div 
             data-menuisopen={menuIsOpen}
@@ -10,19 +9,19 @@ const ControlCloseMenuNavigation = ({ menuIsOpen, setMenuIsOpen }: any) => {
             {
                 menuIsOpen ?
                     <FaCaretLeft
-                        className="text-4xl fill-zinc-100 cursor-pointer"
+                        className="text-4xl fill-primary-100 dark:fill-zinc-100 cursor-pointer"
                         data-control-arrow="left"
                         onClick={() => setMenuIsOpen(false)}
                     />
                     :
                     <FaCaretRight
-                        className="text-4xl fill-zinc-100 cursor-pointer"
+                        className="text-4xl fill-primary-100 dark:fill-zinc-100 cursor-pointer"
                         data-control-arrow="right"
                         onClick={() => setMenuIsOpen(true)}
                     />
             }
         </div>
-    )
+    );
 };
 
 export default ControlCloseMenuNavigation;

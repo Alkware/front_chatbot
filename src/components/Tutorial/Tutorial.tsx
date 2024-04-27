@@ -36,7 +36,7 @@ export function Tutorial({ tutorialId }: Tutorial) {
 
     const handleUpdateTutorial = async () => {
         if(client) {
-            const clientUpdated = await updateTutorialClient(client.id, false)
+            const clientUpdated = await updateTutorialClient(client.id, false);
             setClient(clientUpdated)
         }
     }
