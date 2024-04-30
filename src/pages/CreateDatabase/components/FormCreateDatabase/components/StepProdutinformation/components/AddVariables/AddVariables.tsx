@@ -1,19 +1,32 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { Root } from "../../../../../../../../../../components/Form/FormRoot";
 import { MdAdd, MdDelete } from "react-icons/md";
 import { useContext, useEffect } from "react";
-import { ModalContext } from "../../../../../../../../../../context/ModalContext";
-import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
+import { ModalContext } from "../../../../../../../../context/ModalContext";
+import { PopOver } from "../../../../../../../../components/modal/templates/PopOver";
+import { Root } from "../../../../../../../../components/Form/FormRoot";
+import { TipContainer } from "../../../../../../../../components/TipContainer/TipContainer";
+
 
 interface AddVariables {
     index: number;
 }
 
+const options = [
+    { text: "COR", value: "COR" },
+    { text: "TAMANHO", value: "TAMANHO" },
+    { text: "MARCA", value: "MARCA" },
+    { text: "PESO", value: "PESO" },
+    { text: "MODELO", value: "MODELO" },
+    { text: "MATERIAL", value: "MATERIAL" },
+    { text: "QUANTIDADE EM ESTOQUE", value: "QUANTIDADE EM ESTOQUE" },
+    { text: "DIMENSÕES DE ENVIO", value: "DIMENSÕES DE ENVIO" },
+];
+
 export function AddVariables({ index }: AddVariables) {
     const { control, watch } = useFormContext();
     const { setModalContent } = useContext(ModalContext);
 
-    const { fields, append, remove, update }: any = useFieldArray({
+    const { fields, append, remove, update } = useFieldArray({
         name: `step_0.products.${index}.optional_variable`,
         control,
     })
@@ -26,7 +39,7 @@ export function AddVariables({ index }: AddVariables) {
         const product = watch(`step_0.products.${index}.optional_variable.${fields.length - 1}`)
 
         if (product.title && product.answer) {
-            append({ title: product?.title || "", answer: "" })
+            append({ title: "", answer: "" })
         } else {
             setModalContent({
                 componentName: "modal_error_add_product",
@@ -44,45 +57,50 @@ export function AddVariables({ index }: AddVariables) {
         <div className="w-full flex flex-col gap-4">
             {
                 <Root.MultipleInput
+                    name={`step_0.products.${index}.optional_variable`}
                     update={update}
-                    fields={fields}
                     remove={remove}
-                    titleParameter="answer"
                 >
                     {
-                        fields.map((field: any, indexVariable: number) =>
-                            <div
+                        fields.map((field: any, indexVariable: number) => {
+                            return <div
                                 className="flex items-center justify-between gap-3"
                                 key={field.id}
                             >
-                                <Root.Input
+                                <Root.Select
+                                    title="Variável"
                                     name={`step_0.products.${index}.optional_variable.${indexVariable}.title`}
-                                    title="Digite o nome da variável: (ex: COR)"
+                                    options={options}
                                 />
+
                                 <Root.Input
                                     name={`step_0.products.${index}.optional_variable.${indexVariable}.answer`}
-                                    title="Digite a variável: (ex: ROSA)"
+                                    title="Digite a variável: (ex: ROSA ou ROSA, AZUL, PRETO)"
                                 />
                                 <div className="flex gap-4 justify-center items-center">
                                     {
                                         indexVariable === (fields.length - 1) &&
-                                        <MdAdd
-                                            onClick={handleAddNewVariable}
-                                            className="text-3xl bg-green-200 fill-green-700 rounded-full cursor-pointer"
-                                        />
+                                        <TipContainer
+                                            tip="Adicionar nova varável"
+                                        >
+                                            <MdAdd
+                                                onClick={handleAddNewVariable}
+                                                className="text-3xl bg-green-200 fill-green-700 rounded-full cursor-pointer"
+                                            />
+                                        </TipContainer>
                                     }
-                                    <MdDelete
-                                        className="text-3xl bg-red-200 fill-red-700 rounded-full cursor-pointer"
-                                        onClick={() => fields.length > 1 && remove(indexVariable)}
-                                    />
+                                    <TipContainer tip="Remove varável">
+                                        <MdDelete
+                                            className="text-3xl bg-red-200 fill-red-700 rounded-full cursor-pointer"
+                                            onClick={() => fields.length > 1 && remove(indexVariable)}
+                                        />
+                                    </TipContainer>
                                 </div>
                             </div>
-
-                        )
+                        })
 
                     }
                 </Root.MultipleInput>
-
             }
         </div >
 

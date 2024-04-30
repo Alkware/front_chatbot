@@ -7,10 +7,13 @@ import { PopOver } from "../../../../../../../../../../components/modal/template
 import { updateIsOnlineProject } from "../../../../../../../../../../api/project";
 import { PopUp } from "../../../../../../../../../../components/modal/templates/PopUp";
 import { TipContainer } from "../../../../../../../../../../components/TipContainer/TipContainer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ShareProject } from "./components/ShareProject";
 import { ModalEditChat } from "../EditProject/components/ModalEditChat/ModalEditChat";
 import { Prompt } from "../../../../../../../../../../@types/prompt.types";
+import { TutoralContainer } from "../../../../../../../../../../components/TutoralContainer/TutoralContainer";
+import { updateTutorialClient } from "../../../../../../../../../../api/client";
+import { ClientContext } from "../../../../../../../../../../context/ClientContext";
 
 interface CardChat {
     project: Project,
@@ -20,10 +23,18 @@ interface CardChat {
 }
 
 export function CardChat({ project, setNewProject, prompts }: CardChat) {
+    const { client } = useContext(ClientContext);
     const { setModalContent } = useContext(ModalContext);
     const navigate = useNavigate();
+    const [params, setParams] = useSearchParams();
 
     const handleEditProject = () => {
+        if(params.get("tour") === "2"){
+            params.set("tour", "0")
+            setParams(params)
+            !!client && updateTutorialClient(client?.id, false);
+        }
+
         setModalContent({
             componentName: "modal_edit_project",
             components:
@@ -77,6 +88,11 @@ export function CardChat({ project, setNewProject, prompts }: CardChat) {
     }
 
     const handleGetLinks = () => {
+        // adiciona 'tour' parametro a url indicando que o usuário foi para o 2° parte do tutorial;
+        params.set("tour", "2");
+        setParams(params);
+
+        // Verifica se existe uma slug, caso não exista, avisa o cliente da falha.
         if (!project.slug) {
             setModalContent({
                 componentName: "modal_failed_display_link",
@@ -113,18 +129,32 @@ export function CardChat({ project, setNewProject, prompts }: CardChat) {
                 className="w-full flex justify-between items-center gap-2 p-2"
             >
                 <div className="flex justify-center gap-2">
-                    <TipContainer tip="Veja todos os seus links">
-                        <FaLink
-                            className=" text-xl"
-                            onClick={handleGetLinks}
-                        />
-                    </TipContainer>
-                    <TipContainer tip="Edite seu chat">
-                        <FaGear
-                            className="text-xl"
-                            onClick={handleEditProject}
-                        />
-                    </TipContainer>
+                    <TutoralContainer
+                        title="Vamos acessar seu chat"
+                        text="Clique aqui em cima para obter seu link ou para pegar o código do widget"
+                        hidden={params.get("tour") === "2" || params.get("tour") === "0"}
+                    >
+                        <TipContainer tip="Veja todos os seus links">
+                            <FaLink
+                                className=" text-xl"
+                                onClick={handleGetLinks}
+                            />
+                        </TipContainer>
+                    </TutoralContainer>
+
+                    <TutoralContainer
+                        title="Vamos personalizar seu chat"
+                        text="Agora que já viu como funciona, vamos conhecer como podemos deixar ele de acordo com a sua marca!"
+                        hidden={params.get("tour") !== "2"}
+                    >
+                        <TipContainer tip="Edite seu chat">
+                            <FaGear
+                                className="text-xl"
+                                onClick={handleEditProject}
+                            />
+                        </TipContainer>
+                    </TutoralContainer>
+
                 </div>
                 <div className="flex justify-center">
                     <TipContainer tip="Ative ou desative seu chat">

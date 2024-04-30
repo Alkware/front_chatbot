@@ -4,7 +4,7 @@ import { ControlComponentsSelectedMenu } from "./components/ControlComponentsSel
 export default function MainPanelClient() {
 
     return (
-        <div className="w-[90%] h-full overflow-auto flex-grow flex flex-col items-center bg-gradient-to-br from-primary-100 from-[10%] to-light to-[20%] dark:to-dark">
+        <div className="w-[90%] h-full flex-grow flex flex-col items-center bg-gradient-to-br from-primary-100 from-[10%] to-light to-[20%] dark:to-dark">
             <PanelHeader />
             <ControlComponentsSelectedMenu />
         </div>

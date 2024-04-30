@@ -1,13 +1,14 @@
-import { MdAdd, MdDelete } from "react-icons/md";
-import { useFieldArray, useFormContext } from "react-hook-form";
 import { useContext, useEffect } from "react";
-import { Root } from "../../../../../../../../components/Form/FormRoot";
-import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver";
-import { AddVariables } from "./components/AddVariables/AddVariables";
+import { ModalContext } from "../../../../../../../../context/ModalContext";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { Root } from "../../../../../../../../components/Form/FormRoot";
+import { MdAdd, MdDelete } from "react-icons/md";
 import { TipContainer } from "../../../../../../../../components/TipContainer/TipContainer";
+import { AddVariables } from "../AddVariables/AddVariables";
+import { ComomQuestions } from "../ComomQuestions/ComomQuestions";
 
-export function AddProducts() {
+export function AddProduct() {
     const { setModalContent } = useContext(ModalContext)
     const { control, watch } = useFormContext();
 
@@ -17,8 +18,7 @@ export function AddProducts() {
     });
 
     useEffect(() => {
-        !fields.length &&
-            append({ name: "", value: "R$ 0", description: "" })
+        append({ name: "", value: "R$ 0", description: "" })
     }, [])
 
 
@@ -40,7 +40,6 @@ export function AddProducts() {
         }
     }
 
-
     return (
         <div className="w-full flex flex-col gap-4 px-4">
             <div className="w-full flex items-center justify-start my-4">
@@ -48,19 +47,32 @@ export function AddProducts() {
             </div>
 
             <Root.MultipleInput
+                name="step_0.products"
                 update={update}
-                fields={fields}
                 remove={remove}
-                titleParameter="name"
             >
                 {
                     fields.map((field, index) =>
                         <div
-                            className="w-full bg-primary-100/20 rounded-md py-4 flex flex-col justify-center items-center gap-6"
+                            className="w-full bg-primary-100/20 rounded-md py-4 flex flex-col justify-center items-center gap-6 relative"
                             tabIndex={index}
                             key={field.id}
                         >
-                            <div className="w-[90%] flex gap-6 justify-center items-center">
+                            <div className="bg-primary-200 p-2 z-50 flex gap-4 justify-center items-center absolute top-0 -translate-y-1/2 right-0 rounded-md">
+                                <TipContainer tip="Adicionar novo produto">
+                                    <MdAdd
+                                        onClick={handleAddNewProduct}
+                                        className="bg-primary-100 fill-primary-300 text-3xl p-1 cursor-pointer rounded-full"
+                                    />
+                                </TipContainer>
+                                <TipContainer tip="Remover produto">
+                                    <MdDelete
+                                        onClick={() => fields.length > 1 && remove(index)}
+                                        className="fill-red-700 bg-red-200 text-3xl p-1 cursor-pointer rounded-full"
+                                    />
+                                </TipContainer>
+                            </div>
+                            <div className="w-[90%] flex gap-6 justify-center items-center relative">
                                 <Root.Input
                                     name={`step_0.products.${index}.name`}
                                     title="De um nome a esse produto:"
@@ -80,20 +92,7 @@ export function AddProducts() {
                                     }}
                                     title="Qual o valor do produto?"
                                 />
-                                <div className="flex gap-4 justify-center items-center">
-                                    <TipContainer tip="Adicionar novo produto">
-                                        <MdAdd
-                                            onClick={handleAddNewProduct}
-                                            className="fill-green-700 bg-green-200 text-3xl p-1 cursor-pointer rounded-full"
-                                        />
-                                    </TipContainer>
-                                    <TipContainer tip="Remover produto">
-                                        <MdDelete
-                                            onClick={() => fields.length > 1 && remove(index)}
-                                            className="fill-red-700 bg-red-200 text-3xl p-1 cursor-pointer rounded-full"
-                                        />
-                                    </TipContainer>
-                                </div>
+
                             </div>
                             <div className="w-[90%] flex gap-6 justify-center items-center">
                                 <Root.TextArea
@@ -101,14 +100,27 @@ export function AddProducts() {
                                     title="Conte um pouco sobre seu produto e como ele funciona"
                                 />
                             </div>
-                            <div className="w-[90%] flex gap-6 justify-center items-center">
+                            <div className="w-[90%] flex gap-6 justify-center items-center my-8">
                                 <Root.Optional
                                     name={`step_0.products.${index}.optional_variable.${0}`}
                                     defaultField={{}}
-                                    text="Seu produto possui alguma variável?"
-                                    active={!!watch(`step_0.products.${index}.optional_variable.${0}`)}
+                                    text="Esse produto possui alguma variável?"
+                                    active={!!watch(`step_0.products.${index}.optional_variable.${0}.title`)}
                                 >
                                     <AddVariables
+                                        index={index}
+                                    />
+                                </Root.Optional>
+                            </div>
+
+                            <div className="w-[90%] flex gap-6 justify-center items-center my-8">
+                                <Root.Optional
+                                    name={`step_0.products.${index}.optional_variable.${0}`}
+                                    defaultField={{}}
+                                    text="Esse produto possui perguntas frequentes?"
+                                    active={!!watch(`step_0.products.${index}.questions.${0}.ask`)}
+                                >
+                                    <ComomQuestions
                                         index={index}
                                     />
                                 </Root.Optional>

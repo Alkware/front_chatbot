@@ -5,13 +5,17 @@ import { Root } from "../../../../../../../../components/Form/FormRoot";
 import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver";
 
-export function ComomQuestions() {
+
+interface ComomQuestions {
+    index: number
+}
+export function ComomQuestions({ index }: ComomQuestions) {
     const { setModalContent } = useContext(ModalContext);
     const { control, watch } = useFormContext();
 
     const { fields, append, remove, update } = useFieldArray({
         control,
-        name: 'step_0.questions'
+        name: `step_0.products.${index}.questions`
     });
 
     useEffect(() => {
@@ -20,7 +24,7 @@ export function ComomQuestions() {
     }, [])
 
     const handleAddNewAsk = () => {
-        const product = watch(`step_0.questions.${fields.length - 1}`)
+        const product = watch(`step_0.products.${index}.questions.${fields.length - 1}`)
 
         if (product.ask && product.answer) {
             append({ ask: "", answer: "" })
@@ -38,47 +42,39 @@ export function ComomQuestions() {
     }
 
     return (
+        <Root.MultipleInput
+            name={`step_0.products.${index}.questions`}
+            update={update}
+            remove={remove}
+        >
+            {
+                fields.map((field, index) =>
+                    <div key={field.id} className="flex justify-center rounded-md p-4 items-center gap-4">
+                        <div className="w-4/5 flex gap-6 justify-center items-center">
+                            <Root.Input
+                                name={`step_0.products.${index}.questions.${index}.ask`}
+                                title="Digite uma pergunta"
+                            />
 
-        <div className="w-full flex flex-col">
-            <div className="w-full flex items-center justify-start my-4">
-                <h2 className="font-medium text-xl">Cadastre suas perguntas frequentes</h2>
-            </div>
-
-            <Root.MultipleInput
-                update={update}
-                fields={fields}
-                remove={remove}
-                titleParameter="ask"
-            >
-                {
-                    fields.map((field, index) =>
-                        <div key={field.id} className="flex justify-start bg-primary-100/20 rounded-md p-4 items-center gap-4">
-                            <div className="w-[90%] flex gap-6 justify-center items-center">
-                                <Root.Input
-                                    name={`step_0.questions.${index}.ask`}
-                                    title="Digite uma pergunta"
-                                />
-
-                                <Root.Input
-                                    name={`step_0.questions.${index}.answer`}
-                                    title="Digite a resposta"
-                                />
-                            </div>
-
-                            <div className="flex gap-4 justify-center items-center">
-                                <MdAdd
-                                    onClick={handleAddNewAsk}
-                                    className="fill-green-700 bg-green-200 text-3xl p-1 cursor-pointer rounded-full"
-                                />
-                                <MdDelete
-                                    onClick={() => fields.length > 1 && remove(index)}
-                                    className="fill-red-700 bg-red-200 text-3xl p-1 cursor-pointer rounded-full"
-                                />
-                            </div>
+                            <Root.Input
+                                name={`step_0.products.${index}.questions.${index}.answer`}
+                                title="Digite a resposta"
+                            />
                         </div>
-                    )
-                }
-            </Root.MultipleInput>
-        </div>
+
+                        <div className="flex gap-4 justify-center items-center">
+                            <MdAdd
+                                onClick={handleAddNewAsk}
+                                className="fill-primary-200 bg-primary-100 text-3xl p-1 cursor-pointer rounded-full"
+                            />
+                            <MdDelete
+                                onClick={() => fields.length > 1 && remove(index)}
+                                className="fill-red-700 bg-red-200 text-3xl p-1 cursor-pointer rounded-full"
+                            />
+                        </div>
+                    </div>
+                )
+            }
+        </Root.MultipleInput>
     )
 };

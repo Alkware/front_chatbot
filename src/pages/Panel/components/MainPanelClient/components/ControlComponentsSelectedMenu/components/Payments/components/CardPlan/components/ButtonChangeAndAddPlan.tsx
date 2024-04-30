@@ -20,8 +20,11 @@ export function ButtonChangeAndAddPlan({ client }: { client?: Client }) {
         <div className="w-full flex flex-col my-4 justify-center items-center">
             <Button onClick={handleChangePlan}>
                 {
-                    client?.plan_management && client.plan_management.status !== "DISABLED" ?
+                    (client?.plan_management && client.plan_management.status) !== "DISABLED" ?
+                        Number(client?.plan_management.plan.monthly_price) > 0 ?
                         "Mudar de plano"
+                        :
+                        "Contratar plano"
                         :
                         "Adicionar plano"
                 }

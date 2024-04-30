@@ -9,19 +9,17 @@ export const databaseSchema = z.object({
             value: z.string().min(1, "Informe o valor do produto!"),
             description: z.string().min(1, "Informe como seu produto funciona"),
             optional_variable: z.optional(z.array(z.object({
-               title: z.optional(z.string()),
-               answer: z.optional(z.string())
-            })))
+                title: z.optional(z.string()),
+                answer: z.optional(z.string())
+            }))),
+            questions: z.array(z.object({
+                ask: z.string().min(1, "Digite a pergunta frequente do cliente."),
+                answer: z.string().min(1, "Digite a resposta frequente."),
+            })).min(1, "Você precisa adicionar pelo menos uma pergunta frequente"),
         })).min(1, "Você precisa cadastrar pelo menos um produto"),
-
-        questions: z.array(z.object({
-            ask: z.string().min(1, "Digite a pergunta frequente do cliente."),
-            answer: z.string().min(1, "Digite a resposta frequente."),
-        })).min(1, "Você precisa adicionar pelo menos uma pergunta frequente")
     }),
     step_1: z.object({
         payment_methods: z.array(z.string()).min(2, "Informe pelo menos dois meio de pagamento!"),
-        how_to_buy: z.string().min(1, "Informe um passo a passo para seu cliente efetuar compra do seu produto"),
         order_tracking: z.string().optional(),
         tracking_link: z.string().optional(),
     }),
@@ -42,4 +40,4 @@ export const databaseSchema = z.object({
         restrictions: z.string().optional(),
         client_describe: z.string().min(1, "Descreva quem é seu publico alvo")
     })
-})
+});

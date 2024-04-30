@@ -1,10 +1,14 @@
 import { Root } from "../../../../../../components/Form/FormRoot";
 
-export function StepPaymentsAndDeliveryProduct() {
-    return (
-        <Root.Step index={1} stepTitle="MÉTODOS DE PAGAMENTO E CONDIÇÕES">
+export function StepPaymentMethodAndConditions() {
 
-            <Root.Container className="flex" title="Quais são os métodos de pagamentos aceitos?">
+    return (
+        <Root.Step index={1} stepTitle="Métodos de pagamentos e condições">
+
+          <Root.Container 
+                className="flex w-full justify-center" 
+                title="Quais são os métodos de pagamentos aceitos?"
+            >
 
                 <Root.Select
                     title="Escolha seus métodos de pagamentos"
@@ -20,11 +24,6 @@ export function StepPaymentsAndDeliveryProduct() {
                 />
 
             </Root.Container>
-
-            <Root.TextArea
-                name="step_1.how_to_buy"
-                title="Descreva o passo a passo para seu cliente efetuar compra do seu produto"
-            />
 
             <Root.Optional
                 name="step_2.order_tracking"
@@ -53,9 +52,6 @@ export function StepPaymentsAndDeliveryProduct() {
                     />
                 </Root.Optional>
             </Root.Optional>
-
-
-
 
 
         </Root.Step>

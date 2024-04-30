@@ -11,25 +11,22 @@ export function transformSchemaInText(data: DatabaseSchema) {
      Com base nas informações abaixo, responda as perguntas do "user":
 
       1. **Informações do Produto:**
-         - produtos: ${
-            data.step_0.products.map((product, index) =>
-               `Nome do produto ${index}: ${ product.name }
-               Quanto custa (valor): ${ product.value }
-               Um pouco sobre o produto e como ele funciona : ${ product.description }
-               Variáveis do produto: ${product.optional_variable?.map(variable =>
-                  `${variable.title}: ${variable.answer}, `
-               )}
-               \n\n`
-            )
-         }
-         - Perguntas Comuns:
-         ${data.step_0.questions.map((question: any, index: number) =>
+         - produtos: ${data.step_0.products.map((product) =>
+         `Nome do produto: ${product.name}
+               Quanto custa (valor) o ${product.name}: ${product.value}
+               Um pouco sobre o ${product.name} e como ele funciona : ${product.description}
+               Variáveis do ${product.name}: ${product.optional_variable?.map(variable =>
+            `${variable.title}: ${variable.answer}, `
+         )}
+               - Perguntas Comuns sobre o ${product.name}:
+               ${product.questions.map((question: any, index: number) =>
             `\n- Pergunta ${index + 1}: ${question.ask}\n- Resposta ${index + 1}: ${question.answer}`
          )}
+               \n\n`
+      )}
    
       2. **MÉTODOS DE PAGAMENTO E CONDIÇÕES:**
          - Métodos de pagamento aceitos: ${data.step_1.payment_methods}
-         - Como comprar: ${data.step_1.how_to_buy}
          - Como o produto vai ser entregue e as politicas de frete: ${data.step_1.order_tracking}
          - link para rastreamento: ${data.step_1.tracking_link}
     

@@ -51,7 +51,9 @@ export function FormOptional({ children, text, active = false, defaultField, fun
             if (prop === false) {
                 functionOffToggle && functionOffToggle();
                 setDisplay(false)
-            } else setDisplay(true);
+            } else {
+                setDisplay(true);
+            }
 
             resolve(true)
         }) as Promise<boolean>
@@ -71,12 +73,14 @@ export function FormOptional({ children, text, active = false, defaultField, fun
                 />
             </h2>
 
-            <div
-                data-display={display}
-                className={twMerge("data-[display='false']:hidden flex justify-between items-center gap-8 mt-4", props.className)}
-            >
-                {children}
-            </div>
+            {
+                display &&
+                <div
+                    className={twMerge("flex justify-between items-center gap-8 mt-4", props.className)}
+                >
+                    {children}
+                </div>
+            }
         </div>
     )
 };

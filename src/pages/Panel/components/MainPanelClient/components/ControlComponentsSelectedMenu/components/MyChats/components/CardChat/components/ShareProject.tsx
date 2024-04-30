@@ -2,17 +2,20 @@ import { RefObject, useContext, useRef } from "react";
 import { FaArrowUpRightFromSquare, FaCopy } from "react-icons/fa6";
 import { ModalContext } from "../../../../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../../../../components/modal/templates/PopOver";
+import { TipContainer } from "../../../../../../../../../../../components/TipContainer/TipContainer";
+import { TutoralContainer } from "../../../../../../../../../../../components/TutoralContainer/TutoralContainer";
 
 interface ShareProject {
     slug: string
 }
 
 export function ShareProject({ slug }: ShareProject) {
-    const { setModalContent } = useContext(ModalContext)
-    const linkRef: RefObject<HTMLInputElement> = useRef(null)    
+    const { setModalContent, clearModal } = useContext(ModalContext)
+    const linkRef: RefObject<HTMLInputElement> = useRef(null)
     const widgetRef: RefObject<HTMLInputElement> = useRef(null)
-    
+
     const handleFollowLink = () => {
+        clearModal(null, { clearAll: true })
         window.open(`https://chat.wipzee.com/${slug}`)
     }
 
@@ -59,7 +62,7 @@ export function ShareProject({ slug }: ShareProject) {
 
                 if (successful)
                     setModalContent({
-                        componentName:"modal_copy_widget",
+                        componentName: "modal_copy_widget",
                         components: <PopOver message="Widget Copiado!" type="INFORMATION" componentName="modal_copy_widget" />
                     })
 
@@ -87,8 +90,21 @@ export function ShareProject({ slug }: ShareProject) {
                         defaultValue={`https://chat.wipzee.com/${slug}`}
                     />
                     <div className="flex justify-center items-center gap-4">
-                        <FaCopy onClick={handleCopyLink} className=" text-2xl cursor-pointer" />
-                        <FaArrowUpRightFromSquare onClick={handleFollowLink} className=" text-xl cursor-pointer" />
+                        <TipContainer
+                            tip="Copie seu link"
+                        >
+                            <FaCopy onClick={handleCopyLink} className=" text-2xl cursor-pointer" />
+                        </TipContainer>
+                        <TutoralContainer 
+                            title="Vamos abrir seu chat"
+                            text="Clique no icone acima para abrir seu chat em uma nova guia para testa-lo"
+                        >
+                            <TipContainer
+                                tip="Abra seu chat"
+                            >
+                                <FaArrowUpRightFromSquare onClick={handleFollowLink} className=" text-xl cursor-pointer" />
+                            </TipContainer>
+                        </TutoralContainer>
                     </div>
                 </div>
                 <span className="w-4/5 text-center opacity-60">Esse será o link que você enviará aos usuários que irão acessar seu chat.</span>
@@ -99,7 +115,7 @@ export function ShareProject({ slug }: ShareProject) {
 
                 <div className="w-full flex justify-between">
                     <input
-                        ref={widgetRef} 
+                        ref={widgetRef}
                         className="w-4/5 border border-light/20 p-2 rounded-xl disabled"
                         disabled={true}
                         defaultValue={`<script src="https://widget.wipzee.com/${slug}" defer></script>`}

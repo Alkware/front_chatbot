@@ -252,7 +252,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                 </Root.EditStep> */}
 
                 <Root.EditStep
-                    index={3}
+                    index={2}
                     titleStep="Aparência do chat"
                 >
                     <Root.Container className="flex flex-col gap-8" >
@@ -299,7 +299,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                 </Root.EditStep>
 
                 <Root.EditStep
-                    index={4}
+                    index={3}
                     titleStep="Configuração avançadas"
                 >
                     <Root.Container className="flex flex-col" >

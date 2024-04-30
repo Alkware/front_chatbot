@@ -9,14 +9,12 @@ import { CompanyLogo } from "../../../../components/CompanyLogo/CompanyLogo";
 function NavigatePanelClient() {
     const [menuIsOpen, setMenuIsOpen] = useState(true);
 
-    // console.log("fui renderizado 01")
-
     return (
         <main
             data-menuisopen={menuIsOpen}
-            className="w-[280px] data-[menuisopen=false]:w-[70px] relative h-full bg-gradient-to-b from-primary-100 via-light to-light dark:to-primary-300 dark:via-primary-300"
+            className="w-[300px] data-[menuisopen=false]:w-[70px] relative h-full bg-gradient-to-b from-primary-100 via-light to-light dark:to-primary-300 dark:via-primary-300"
         >
-            <div className="flex flex-col">
+            <div className="flex flex-col ">
                 <CompanyLogo />
 
                 <nav

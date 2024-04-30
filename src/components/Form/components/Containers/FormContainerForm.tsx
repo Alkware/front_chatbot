@@ -61,16 +61,16 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
         <FormProvider {...form}>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="w-full h-full overflow-hidden p-8 flex flex-col gap-0 lg:gap-4 justify-start items-center"
+                className="w-full p-8 pt-0 flex flex-col gap-0 lg:gap-4 justify-start items-center"
             >
 
                 <Steps
                     numberSteps={numberChildren}
                 />
 
-                <div className="w-full h-4/5 flex justify-evenly gap-4">
+                <div className="w-full flex justify-evenly gap-4 mt-20">
                     <div
-                        className="w-full h-4/5 tall-6:h-[95%] overflow-auto flex flex-col max-w-[1200px]"
+                        className="w-full flex flex-col max-w-[1200px]"
                     >
 
                         {children}

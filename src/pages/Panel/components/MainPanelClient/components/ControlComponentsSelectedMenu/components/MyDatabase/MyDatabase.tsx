@@ -12,7 +12,8 @@ import { MdEdit } from "react-icons/md"
 import { Button } from "../../../../../../../../components/button/Button"
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver"
 import { updateDatabaseName } from "../../../../../../../../api/Prompt"
-import { Tutorial } from "../../../../../../../../components/Tutorial/Tutorial"
+import { TutoralContainer } from "../../../../../../../../components/TutoralContainer/TutoralContainer"
+import { TipContainer } from "../../../../../../../../components/TipContainer/TipContainer"
 
 export function MyDatabases() {
     const { client } = useContext(ClientContext)
@@ -76,7 +77,9 @@ export function MyDatabases() {
                                 name="database_name"
                                 defaultValue={prompts[index].prompt_name}
                             />
-                            <Button>Salvar</Button>
+                            <Button
+                                type="button"
+                            >Salvar</Button>
                         </form>
                     </div>
                 </PopUp>
@@ -116,7 +119,18 @@ export function MyDatabases() {
                                                 />
                                             </div>
                                             :
-                                            <ButtonCreateNewDatabase plan_management_id={client.plan_management.id} />
+                                            <TutoralContainer
+                                                title="Vamos criar sua primeira fonte de dados"
+                                                text="Clique em <span class='font-medium text-2xl mx-1'>+</span> para criar sua primeira fonte de dados."
+                                                position="BOTTOM"
+                                                hidden={index !== 1}
+                                            >
+                                                <TipContainer
+                                                    tip="Criar fonte de dados"
+                                                >
+                                                    <ButtonCreateNewDatabase plan_management_id={client.plan_management.id} />
+                                                </TipContainer>
+                                            </TutoralContainer>
                                     }
                                 </div>
                             )
@@ -132,8 +146,6 @@ export function MyDatabases() {
                             )
                     )
                 }
-
-                <Tutorial tutorialId="database" />
             </div >
         </Container>
     )

@@ -11,8 +11,7 @@ import { transformSchemaInText } from "../../../../../../../../../../schema/Prom
 import { FaCircleInfo, FaFaceGrinBeam } from "react-icons/fa6";
 import { FaBook, FaInfo, FaSuitcase } from "react-icons/fa";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
-import { ComomQuestions } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepProdutinformation/components/ComomQuestions/ComomQuestions";
-import { AddProducts } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepProdutinformation/components/AddProducts/AddProducts";
+import { AddProduct } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepProdutinformation/components/AddProduct/AddProduct";
 
 interface ModalEditDatabase {
     prompt: Prompt,
@@ -33,11 +32,9 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
         defaultValues: !checkPromptIsAvalible ? undefined : {
             step_0: {
                 products: promptData.step_0.products || "",
-                questions: promptData.step_0.questions,
             },
             step_1: {
                 payment_methods: promptData.step_1.payment_methods || "",
-                how_to_buy: promptData.step_1.how_to_buy || "",
                 order_tracking: promptData.step_1.order_tracking || "",
                 tracking_link: promptData.step_1.tracking_link || ""
             },
@@ -66,6 +63,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
         const promptSchema = transformSchemaInText(data);
 
         const database: CreatePrompt = {
+            prompt_name: prompt.prompt_name,
             prompt: promptSchema,
             prompt_query: convertToString,
             client_describe: data.step_4.client_describe,
@@ -144,9 +142,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     icon={<FaCircleInfo />}
                 >
 
-                    <AddProducts />
-
-                    <ComomQuestions />
+                    <AddProduct />
 
                 </Root.EditStep>
 

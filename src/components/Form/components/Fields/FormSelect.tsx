@@ -6,8 +6,8 @@ type Options = { value: string, text: string }
 
 interface FormSelect {
     options: Options[];
-    title: string;
     name: string;
+    title: string;
     isMultiple?: boolean;
     width?: number;
 }
@@ -42,7 +42,9 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
         const data = options?.filter((opt) => key?.includes(opt.value));
 
         setOptions(() => {
-            return { options: options ? options : [], selected: !!data.length ? data : [] }
+            return { 
+                options: options ? options : [], 
+                selected: !!data.length ? data : []}
         });
 
     }, [])
@@ -61,17 +63,21 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
         if (options) {
             const value = target.dataset.value;
             const text = target.textContent;
-            const removeValueList = !!isMultiple ? optionsState.options.filter(opt => opt.value !== value) : options;
+            const removeValueList = (!!isMultiple) ? 
+                optionsState.options.filter(opt => opt.value !== value) 
+                :
+                options;
+                
             const addValueListSelected = !!isMultiple ? [...optionsState.selected, { value, text }] : [{ value, text }]
 
-            registerPaymentsMethods(addValueListSelected)
+            registerField(addValueListSelected)
             setOptions({ options: removeValueList, selected: addValueListSelected });
         }
     }
 
     const handleSelectedAll = () => {
         if (options) {
-            registerPaymentsMethods(options)
+            registerField(options)
             setOptions({ options: [], selected: options });
         }
     }
@@ -83,12 +89,12 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
         const removeValueListSelected = optionsState.selected.filter(opt => opt.value !== value);
         const addValueListOptions = !!isMultiple ? [...optionsState.options, { value, text }] : optionsState.options;
 
-        registerPaymentsMethods(removeValueListSelected)
+        registerField(removeValueListSelected)
         setOptions({ options: addValueListOptions, selected: removeValueListSelected });
     }
 
 
-    const registerPaymentsMethods = (list: { value: string }[]) => {
+    const registerField = (list: { value: string }[]) => {
         unregister(name)
 
         if (list.length === 1) {
