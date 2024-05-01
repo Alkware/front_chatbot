@@ -100,13 +100,13 @@ export function OpeningHours() {
                             <Root.Select
                                 name={`step_3.support_hours.${index}.start`}
                                 options={hours}
-                                title="Selecione o a hora"
+                                title="Selecione quando começa"
                             />
                             <span>Até</span>
                             <Root.Select
                                 name={`step_3.support_hours.${index}.end`}
                                 options={hours}
-                                title="Selecione o a hora"
+                                title="Selecione quando termina"
                             />
                             <div className="w-[200px] flex gap-2">
                                 <MdAdd

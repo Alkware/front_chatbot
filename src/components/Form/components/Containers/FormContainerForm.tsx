@@ -61,7 +61,7 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
         <FormProvider {...form}>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="w-full p-8 pt-0 flex flex-col gap-0 lg:gap-4 justify-start items-center"
+                className="w-full p-8 pt-0 flex flex-col gap-0 lg:gap-4 justify-start items-center hidden-scrollbar"
             >
 
                 <Steps

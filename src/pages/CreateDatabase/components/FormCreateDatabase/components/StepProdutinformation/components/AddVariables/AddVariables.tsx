@@ -85,7 +85,7 @@ export function AddVariables({ index }: AddVariables) {
                                         >
                                             <MdAdd
                                                 onClick={handleAddNewVariable}
-                                                className="text-3xl bg-green-200 fill-green-700 rounded-full cursor-pointer"
+                                                className="text-3xl bg-primary-100 fill-primary-300 rounded-full cursor-pointer"
                                             />
                                         </TipContainer>
                                     }
