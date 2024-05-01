@@ -11,7 +11,7 @@ export function StepPersonalityIA() {
             >
                 <Root.Input
                     name="step_4.ia_name"
-                    title="Qual o nome da sua inteligência artificial?"
+                    title="Como quer que nossa IA se apresente?"
                 />
             </Root.Optional>
 
