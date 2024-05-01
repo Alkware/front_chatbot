@@ -1,0 +1,1 @@
+function i(s){const c=s?s.plan_message_manager.reduce((r,t)=>r+t.input,0):0,g=s?s.plan_message_manager.reduce((r,t)=>r+t.output,0):0,e=c+g,u=s?Number(s.plan.max_messages.default):0,o=s?Number(s.plan.max_messages.bonus):0;return{input:c,output:g,totalMessages:e,maxMessages:u,maxBonus:o,reminingMessages:u-e<0?0:u-e,reminingMessagesBonus:u-e>=0?o:o-(e-u)}}export{i as m};

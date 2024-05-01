@@ -28,13 +28,14 @@ export function FormButtonStep({ numberChildren, findErrorMessage, hiddenPreview
         const stepKey: any = `step_${currentStep}`
         const isValid = await trigger(stepKey);
 
+
         if (isValid) {
             const nextStep = Number(currentStep) + 1;
             params.set(STEP_NAME_URL, nextStep.toString())
             setParams(params)
         } else {
-            console.log(errors)
             const error = findErrorMessage(errors)
+            console.log("Erro:", error)
             setModalContent({
                 componentName: "modal_error_form_database",
                 components:

@@ -33,7 +33,7 @@ export function FormMultipleInputs({ children, update, remove, name }: FormMulti
             <div className="flex gap-4 flex-wrap">
                 {
                     !!fields && fields.map((field, index) => {
-                        const keys = Object.keys(field);
+                        const keys = Object.keys(fields[fields.length - 1]);
                         return (
                             (index < (fields.length - 1)) &&
                             <div

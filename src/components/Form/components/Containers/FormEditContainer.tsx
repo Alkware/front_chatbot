@@ -59,10 +59,10 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
     return (
         <FormProvider {...form}>
             <form
-                className="w-full flex flex-row  items-center gap-4 p-2"
+                className="w-full flex flex-row items-center gap-4 p-2"
                 onSubmit={form.handleSubmit(onSubmit)}
             >
-                <div className="w-auto h-full max-w-[300px] min-w-[250px] flex flex-col justify-between items-center border-r border-primary-100">
+                <div className="w-auto min-h-full max-w-[300px] min-w-[250px] flex flex-col justify-between items-center border-r border-primary-100 relative">
 
                     <ListMenuModal
                         children={filterStepChildren}
@@ -74,7 +74,7 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
 
                 </div>
 
-                <div className="w-full h-full flex justify-evenly gap-8">
+                <div className="w-full h-full overflow-auto hidden-scrollbar flex justify-evenly gap-8">
                     <div
                         className="w-full flex flex-col gap-12 max-w-[900px]"
                     >

@@ -17,6 +17,7 @@ export function PopOver({ message, type = "INFORMATION", functionAfterComplete, 
     const TIME_PROGRESSING = ((message?.length) / 2) + 10
 
     useEffect(() => {
+        window.scrollTo({ behavior: "smooth", top: 0 })
         const progress: HTMLDivElement | null | undefined = contentRef.current?.querySelector("div#progress")
         let counter = 0
 
@@ -46,7 +47,7 @@ export function PopOver({ message, type = "INFORMATION", functionAfterComplete, 
 
     return (
         <div
-            className="w-screen h-screen text-light flex justify-end items-start mt-12 animate-jump-screen"
+            className="w-screen h-screen text-light flex justify-end items-start mt-12 animate-jump-screen z-[999]"
             ref={contentRef}
             data-testid="modal-pop-over"
             onClick={handleCloseModal}

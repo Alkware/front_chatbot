@@ -10,7 +10,7 @@ import { StepPoliciesAndConditions } from "./components/StepPoliciesAndCondition
 import { StepAboutCompany } from "./components/StepAboutCompany/StepAboutCompany";
 import { StepPersonalityIA } from "./components/StepPersonalityIA/StepPersonalityIA";
 import { useForm } from "react-hook-form";
-import { transformSchemaInText } from "../../../../schema/PromptIA/encapsulated";
+import { transformSchemaInText } from "../../../../schema/PromptIA/transformSchemaInText";
 import { FORM_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables";
 import { PopUp } from "../../../../components/modal/templates/PopUp";
 import { Button } from "../../../../components/button/Button";
@@ -67,7 +67,6 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
                         />
                         <Button
                             onClick={async () => {
-                                console.log(prompt_name)
                                 if (prompt_name) {
                                     const prompt = transformSchemaInText(data);
                                     const client_describe = data.step_4.client_describe;

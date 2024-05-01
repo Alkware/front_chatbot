@@ -1,4 +1,8 @@
 import { Root } from "../../../../../../components/Form/FormRoot";
+import { OpeningHours } from "./components/OpeningHours/OpeningHours";
+
+
+
 
 export function StepAboutCompany() {
     return (
@@ -10,8 +14,6 @@ export function StepAboutCompany() {
                     title="Qual o nome da empresa?"
                 />
             </Root.Container>
-
-
 
             <Root.Container className="flex gap-4" >
                 <Root.Input
@@ -45,10 +47,8 @@ export function StepAboutCompany() {
                 />
             </Root.Container>
 
-            <Root.Input
-                name="step_3.support_hours"
-                title="Qual seu horário para suporte humano?"
-            />
+            <OpeningHours />       
+
             <Root.Optional
                 name="step_3.address"
                 defaultField={''}

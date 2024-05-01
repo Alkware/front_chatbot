@@ -34,12 +34,6 @@ html {
   align-items: center;
 }
 
-
-body::-webkit-scrollbar {
-  display: none;
-  /* Oculta a barra de rolagem */
-}
-
 input,
 textarea {
   background-color: #353535;
@@ -55,6 +49,11 @@ textarea {
 }
 
 /* classes prontas */
+
+.hidden-scrollbar::-webkit-scrollbar  {
+  /* Oculta a barra de rolagem */
+  display: none;
+}
 
 .element-3d {
   transform: rotate3d(1, 0, 0, 70deg);

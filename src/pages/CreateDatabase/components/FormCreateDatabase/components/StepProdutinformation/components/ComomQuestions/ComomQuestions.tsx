@@ -26,6 +26,7 @@ export function ComomQuestions({ index }: ComomQuestions) {
     const handleAddNewAsk = () => {
         const product = watch(`step_0.products.${index}.questions.${fields.length - 1}`)
 
+        console.log(product)
         if (product.ask && product.answer) {
             append({ ask: "", answer: "" })
         } else {
@@ -34,7 +35,7 @@ export function ComomQuestions({ index }: ComomQuestions) {
                 components:
                     <PopOver
                         componentName="modal_error_add_product"
-                        message="Preencha todos os dados antes de adicionar um novo produto"
+                        message="Preencha todos os dados antes de adicionar uma nova pergunta"
                         type="WARNING"
                     />
             })
@@ -48,16 +49,16 @@ export function ComomQuestions({ index }: ComomQuestions) {
             remove={remove}
         >
             {
-                fields.map((field, index) =>
+                fields.map((field, indexQuestions) =>
                     <div key={field.id} className="flex justify-center rounded-md p-4 items-center gap-4">
                         <div className="w-4/5 flex gap-6 justify-center items-center">
                             <Root.Input
-                                name={`step_0.products.${index}.questions.${index}.ask`}
+                                name={`step_0.products.${index}.questions.${indexQuestions}.ask`}
                                 title="Digite uma pergunta"
                             />
 
                             <Root.Input
-                                name={`step_0.products.${index}.questions.${index}.answer`}
+                                name={`step_0.products.${index}.questions.${indexQuestions}.answer`}
                                 title="Digite a resposta"
                             />
                         </div>
@@ -68,7 +69,7 @@ export function ComomQuestions({ index }: ComomQuestions) {
                                 className="fill-primary-200 bg-primary-100 text-3xl p-1 cursor-pointer rounded-full"
                             />
                             <MdDelete
-                                onClick={() => fields.length > 1 && remove(index)}
+                                onClick={() => fields.length > 1 && remove(indexQuestions)}
                                 className="fill-red-700 bg-red-200 text-3xl p-1 cursor-pointer rounded-full"
                             />
                         </div>

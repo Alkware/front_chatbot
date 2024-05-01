@@ -7,7 +7,7 @@ import { Root } from "../../../../../../../../../../components/Form/FormRoot";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import { DatabaseSchema, databaseSchema } from "../../../../../../../../../../schema/zod/databaseSchema";
-import { transformSchemaInText } from "../../../../../../../../../../schema/PromptIA/encapsulated";
+import { transformSchemaInText } from "../../../../../../../../../../schema/PromptIA/transformSchemaInText";
 import { FaCircleInfo, FaFaceGrinBeam } from "react-icons/fa6";
 import { FaBook, FaInfo, FaSuitcase } from "react-icons/fa";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
@@ -21,9 +21,7 @@ interface ModalEditDatabase {
 export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
     const { setModalContent, clearModal } = useContext(ModalContext);
     const { client, setClient } = useContext(ClientContext);
-    console.log(prompt)
     const promptData: DatabaseSchema = JSON.parse(prompt.prompt_query || "{}")
-    console.log(promptData)
     const checkPromptIsAvalible = !!Object.keys(promptData).length ? true : false
 
 
@@ -122,13 +120,23 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                             componentName="modal_failed_delete_database"
                         />
                 })
+            }else {
+                setModalContent({
+                    componentName: "modal_failed_delete",
+                    components:
+                        <PopOver
+                            message="Falha ao tentar excluir essa fonte de dados. Tente reiniciar a página e tentar de novo."
+                            type="ERROR"
+                            componentName="modal_failed_delete"
+                        />
+                })
             }
         }
     }
 
 
     return (
-        <div className="w-[80vw] h-[70vh] flex overflow-auto ">
+        <div className="w-[80vw] h-[70vh] flex overflow-auto hidden-scrollbar ">
 
             <Root.EditForm
                 form={updateDatabaseForm}
@@ -141,9 +149,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     titleStep="Informações do produto"
                     icon={<FaCircleInfo />}
                 >
-
                     <AddProduct />
-
                 </Root.EditStep>
 
                 <Root.EditStep

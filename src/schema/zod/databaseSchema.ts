@@ -12,14 +12,15 @@ export const databaseSchema = z.object({
                 title: z.optional(z.string()),
                 answer: z.optional(z.string())
             }))),
-            questions: z.array(z.object({
-                ask: z.string().min(1, "Digite a pergunta frequente do cliente."),
-                answer: z.string().min(1, "Digite a resposta frequente."),
-            })).min(1, "Você precisa adicionar pelo menos uma pergunta frequente"),
+            questions: z.optional(z.array(z.object({
+                ask: z.string(),
+                answer: z.string(),
+            }))),
         })).min(1, "Você precisa cadastrar pelo menos um produto"),
     }),
     step_1: z.object({
         payment_methods: z.array(z.string()).min(2, "Informe pelo menos dois meio de pagamento!"),
+        credit_card_installments: z.string().optional(),
         order_tracking: z.string().optional(),
         tracking_link: z.string().optional(),
     }),
@@ -33,7 +34,11 @@ export const databaseSchema = z.object({
         address: z.string().optional(),
         contact_email: z.string().min(1, "Informe o e-mail da sua empresa.").email("E-mail inválido"),
         contact_phone_number: z.string().min(11, "Número de telefone inválido!"),
-        support_hours: z.string().min(1, "Informe qual o horário para atendimento humano!"),
+        support_hours: z.array(z.object({
+            day: z.string().min(1, "Informe o dia que você presta suporte humano."),
+            start: z.string().min(1, "Informe a hora em que você começa a prestar suporte humano"),
+            end: z.string().min(1, "Informe a hora em que você termina a prestar suporte humano"),
+        }))
     }),
     step_4: z.object({
         ia_name: z.string().optional(),

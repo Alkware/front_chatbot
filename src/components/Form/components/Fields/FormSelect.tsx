@@ -13,7 +13,7 @@ interface FormSelect {
 }
 
 export function FormSelect({ options, title, name, isMultiple, width = 300 }: FormSelect) {
-    const { register, unregister, getValues } = useFormContext();
+    const { getValues, setValue } = useFormContext();
     const contentOptionsRef: RefObject<HTMLDivElement> = useRef(null);
     const [optionsState, setOptions] = useState<{ options: Options[], selected: Options[] }>({ options: [], selected: [] })
 
@@ -95,19 +95,8 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
 
 
     const registerField = (list: { value: string }[]) => {
-        unregister(name)
-
-        if (list.length === 1) {
-            register(name, {
-                value: list[0].value,
-            })
-        } else {
-            list.forEach((opt, index) => {
-                register(`${name}.${index}`, {
-                    value: opt.value,
-                })
-            })
-        }
+        if (list.length === 1) setValue(name, list[0].value);
+        else list.forEach((_, index) => setValue(`${name}.${index}`, list[index].value));
     }
 
     return (
@@ -152,7 +141,7 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
             </div>
 
             <ul
-                className="w-full hidden flex-col items-center absolute top-full z-50 bg-black border border-primary-100"
+                className="w-full max-h-[400px] overflow-auto hidden-scrollbar hidden flex-col items-center absolute top-full z-50 bg-black border border-primary-100"
             >
                 {
                     optionsState.options.map(opt =>

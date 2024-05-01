@@ -22,7 +22,7 @@ export function ButtonsModal({ eventDelete }: ButtonsModalTypes) {
                 <PopUp>
                     <Confirm
                         title={`Essa ação excluirá permanentemente! Você tem certeza? `}
-                        confirmFunction={handleDeleteProject}
+                        confirmFunction={eventDelete}
                         cancelFuntion={() => clearModal("modal_delete")}
                     />
                 </PopUp>
@@ -62,7 +62,7 @@ export function ButtonsModal({ eventDelete }: ButtonsModalTypes) {
 
             <div className="flex justify-center items-center w-[45px] h-[50px] border border-light rounded-full">
                 <TipContainer tip="Deletar">
-                    <button type="button" onClick={eventDelete}>
+                    <button type="button" onClick={handleDeleteProject}>
                         <FcFullTrash
                             className="text-3xl cursor-pointer"
                         />

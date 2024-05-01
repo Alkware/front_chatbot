@@ -47,20 +47,16 @@ export function FormOptional({ children, text, active = false, defaultField, fun
 
         //retorna uma promisse se o toggle será off ou on
         return new Promise((resolve) => {
-
             if (prop === false) {
                 functionOffToggle && functionOffToggle();
                 setDisplay(false)
-            } else {
-                setDisplay(true);
-            }
-
+            } else setDisplay(true);
             resolve(true)
         }) as Promise<boolean>
     }
 
     return (
-        <div className="w-full flex flex-col gap-3">
+        <div className="w-full flex flex-col gap-6">
 
             <h2
                 className="flex gap-4 items-center text-xl font-bold"
@@ -76,7 +72,7 @@ export function FormOptional({ children, text, active = false, defaultField, fun
             {
                 display &&
                 <div
-                    className={twMerge("flex justify-between items-center gap-8 mt-4", props.className)}
+                    className={twMerge("flex justify-between items-center gap-8", props.className)}
                 >
                     {children}
                 </div>
