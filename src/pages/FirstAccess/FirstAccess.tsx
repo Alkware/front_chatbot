@@ -143,13 +143,13 @@ export function FirstAccess() {
 
     return (
         access &&
-        <div className="w-screen h-screen flex flex-col items-center dark:bg-dark bg-light dark:text-light text-gray">
+        <div className="w-screen min-h-screen  flex flex-col items-center justify-center bg-[url(https://i.ibb.co/2vrnfCz/Untitled-design-8.png)] dark:bg-[url(https://i.ibb.co/vxGTSd0/Untitled-design-4.png)] bg-no-repeat bg-cover overflow-hidden">
 
             <Header />
 
             <div className="w-full h-full flex items-center justify-center">
 
-                <div className="w-full max-w-[480px] border border-primary-100 rounded-2xl flex flex-col items-center relative p-4 gap-2">
+                <div className="w-full max-w-[480px] border border-primary-100 text-primary-100 backdrop-blur-md dark:text-light rounded-2xl flex flex-col items-center relative p-4 gap-2">
                     <h1 className="text-2xl font-bold">Faça seu primeiro acesso!</h1>
                     <h3 className="opacity-80 text-center">Use o mesmo e-mail e cpf/cnpj que você utilizou para fazer o pagamento do plano.</h3>
 

@@ -15,10 +15,9 @@ export function Steps({ numberSteps }: Steps) {
         const handleScrollPage = () => {
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-            if (scrollTop > 30) containerStepRef.current?.classList.add("backdrop-blur-md", "top-0", "border-b", "border-primary-100", "shadow");
-            else containerStepRef.current?.classList.remove("backdrop-blur-md", "top-0", "border-b", "border-primary-100", "shadow");
+            if (scrollTop > 30) containerStepRef.current?.classList.add("fixed","z-[999]","backdrop-blur-md", "top-0", "border-b", "border-primary-100", "shadow");
+            else containerStepRef.current?.classList.remove("fixed","z-[999]","backdrop-blur-md", "top-0", "border-b", "border-primary-100", "shadow");
         }
-
 
         window.addEventListener("scroll", handleScrollPage);
 
@@ -35,7 +34,7 @@ export function Steps({ numberSteps }: Steps) {
         numberSteps > 1 &&
         <div
             ref={containerStepRef}
-            className="w-full h-20 flex items-center fixed z-50"
+            className="w-full h-20 flex items-center absolute"
         >
             <div className="w-full flex justify-between items-center">
                 {

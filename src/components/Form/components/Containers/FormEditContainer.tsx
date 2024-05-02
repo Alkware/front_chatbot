@@ -74,7 +74,7 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
 
                 </div>
 
-                <div className="w-full h-full overflow-auto hidden-scrollbar flex justify-evenly gap-8">
+                <div className="w-full h-full overflow-auto  flex justify-evenly gap-8">
                     <div
                         className="w-full flex flex-col gap-12 max-w-[900px]"
                     >

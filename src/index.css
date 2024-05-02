@@ -32,6 +32,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  scrollbar-width: none;
 }
 
 input,
@@ -50,11 +51,6 @@ textarea {
 
 /* classes prontas */
 
-.hidden-scrollbar::-webkit-scrollbar  {
-  /* Oculta a barra de rolagem */
-  display: none;
-}
-
 .element-3d {
   transform: rotate3d(1, 0, 0, 70deg);
 
@@ -70,11 +66,6 @@ textarea {
 
 .neon-effect {
   box-shadow: 0px 0px 1px var(--primary-100), 0px 0px 5px var(--primary-100), 0px 0px 20px var(--primary-100);
-}
-
-
-.remove-scrollbar::-webkit-scrollbar {
-  display: none;
 }
 
 .hamburger {
@@ -123,20 +114,20 @@ textarea {
   border-image: linear-gradient(to right, #7672f280, #7672f280, #7672f280);
 }
 
-@media (min-height: 750){
+@media (min-height: 750) {
   .min-h-custom-750 {
     min-height: 750px;
   }
 }
 
-@media (min-height: 650){
+@media (min-height: 650) {
   .min-h-custom-650 {
     min-height: 650px;
   }
 }
 
 
-@media (min-height: 550){
+@media (min-height: 550) {
   .min-h-custom-550 {
     min-height: 550px;
   }

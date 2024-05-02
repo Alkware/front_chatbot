@@ -61,7 +61,7 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
         <FormProvider {...form}>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="w-full p-8 pt-0 flex flex-col gap-0 lg:gap-4 justify-start items-center hidden-scrollbar"
+                className="w-full p-8 pt-0 flex flex-col gap-0 lg:gap-4 justify-start items-center relative"
             >
 
                 <Steps
@@ -70,14 +70,16 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
 
                 <div className="w-full flex justify-evenly gap-4 mt-20">
                     <div
-                        className="w-full flex flex-col max-w-[1200px]"
+                        className="w-3/5 flex flex-col max-w-[1200px]"
                     >
 
                         {children}
 
                     </div>
 
-                    <SimulatorChat active={activeSimulator} />
+                    <div className="w-2/5">
+                        <SimulatorChat active={activeSimulator} />
+                    </div>
                 </div>
 
                 <FormButtonStep

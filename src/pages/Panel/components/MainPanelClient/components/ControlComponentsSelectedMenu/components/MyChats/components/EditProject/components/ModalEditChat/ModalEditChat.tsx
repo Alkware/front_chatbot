@@ -37,13 +37,13 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
         defaultValues: {
             step_0: {
                 project_name: project.project_name,
+                chat_input_message: project.chat_input_message,
                 logo: project.logo,
                 bio: project.bio,
                 social_proof: project.social_proof,
             },
             step_1: {
                 prompt_id: project.prompt.id,
-                chat_input_message: project.chat_input_message,
                 call_to_action: project.call_to_action,
             },
             step_2: {

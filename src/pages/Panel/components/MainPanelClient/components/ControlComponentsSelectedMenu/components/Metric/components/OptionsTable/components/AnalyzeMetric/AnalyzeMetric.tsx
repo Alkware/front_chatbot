@@ -45,7 +45,6 @@ export function AnalyzeMetric() {
     const [analyze, setAnalyze] = useState<Analyze | null>();
     const containerStarRef: RefObject<HTMLDivElement> = useRef(null)
 
-
     useEffect(() => {
         (async () => {
             if (client) {
@@ -54,9 +53,10 @@ export function AnalyzeMetric() {
                 const maxAnalysisByDay = client.plan_management.plan.max_analyze_metric.default;
                 const maxAnalysisWithBonusByDay = client.plan_management.plan.max_analyze_metric.bonus;
                 const totalAnalysis = Number(maxAnalysisByDay + maxAnalysisWithBonusByDay)
+
                 if (analysis.length) setAnalyze({ status: "APRROVED", analysis });
                 else {
-                    if (analysis.length == totalAnalysis) handleAnalyzeMetric()
+                    if (totalAnalysis > 0 && analysis.length <= totalAnalysis) handleAnalyzeMetric()
                     else {
                         setModalContent({
                             componentName: "modal_limit_analysis",

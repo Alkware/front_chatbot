@@ -24,11 +24,11 @@ export function CreateChat() {
         defaultValues: {
             step_0: {
                 project_name: localStorageDatabase?.project_name,
+                chat_input_message: [localStorageDatabase?.chat_input_message],
                 logo: localStorageDatabase?.logo,
             },
             step_1: {
                 prompt_id: localStorageDatabase?.prompt_id,
-                chat_input_message: [localStorageDatabase?.chat_input_message],
                 call_to_action: localStorageDatabase?.call_to_action,
             }
         }
@@ -60,10 +60,10 @@ export function CreateChat() {
             const {
                 step_0: {
                     project_name,
+                    chat_input_message,
                     logo
                 },
                 step_1: {
-                    chat_input_message,
                     prompt_id,
                     call_to_action
                 }
@@ -101,7 +101,7 @@ export function CreateChat() {
     return (
         (plan_management_id && prompt) &&
         <div className="w-screen min-h-screen bg-gradient-to-br from-primary-100 to-light dark:via-primary-300 via-15% dark:to-dark to-30% text-light flex flex-col justify-center items-center">
-            <div className="w-4/5 p-4 min-w-[1200px] rounded-2xl flex justify-center items-start bg-primary-100 dark:bg-dark border border-primary-300">
+            <div className="w-4/5 p-4 rounded-2xl flex justify-center items-start bg-primary-100 dark:bg-dark border border-primary-300">
                 <Root.Form
                     onSubmit={handleCreateProject}
                     form={createChatForm}
@@ -109,13 +109,18 @@ export function CreateChat() {
                 >
 
                     <Root.Step index={0}>
+                        <Root.File
+                            name="step_0.logo"
+                            sizeContainer="120px"
+                        />
                         <Root.Input
                             name="step_0.project_name"
                             title="Escreva o nome do seu chat"
                         />
-                        <Root.File
-                            name="step_0.logo"
-                            sizeContainer="120px"
+                        <Root.TextArea
+                            name="step_0.chat_input_message.0"
+                            title="Digite a primeira mensagem do seu chat"
+                            limitText={100}
                         />
                     </Root.Step>
 
@@ -125,12 +130,6 @@ export function CreateChat() {
                             name="step_1.prompt_id"
                             options={prompt.map(p => Object({ value: p.id, text: p.prompt_name }))}
                         />
-
-                        <Root.TextArea
-                            name="step_1.chat_input_message.0"
-                            title="Digite a primeira mensagem do seu chat"
-                        />
-
                         <Root.Optional
                             name="step_1.call_to_action"
                             defaultField={[]}

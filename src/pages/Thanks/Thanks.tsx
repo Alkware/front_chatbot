@@ -6,7 +6,6 @@ import { useEffect } from "react";
 
 export function Thanks() {
     const isAccount = localStorage.getItem("is_account");
-    console.log(isAccount)
 
     useEffect(() => {
         (async () => {
@@ -17,7 +16,7 @@ export function Thanks() {
     }, [])
 
     return (
-        <div className="w-screen min-h-screen hidden-scrollbar flex flex-col items-center justify-center bg-[url(https://i.ibb.co/2vrnfCz/Untitled-design-8.png)] dark:bg-[url(https://i.ibb.co/vxGTSd0/Untitled-design-4.png)] bg-no-repeat bg-cover overflow-hidden">
+        <div className="w-screen min-h-screen  flex flex-col items-center justify-center bg-[url(https://i.ibb.co/2vrnfCz/Untitled-design-8.png)] dark:bg-[url(https://i.ibb.co/vxGTSd0/Untitled-design-4.png)] bg-no-repeat bg-cover">
             <Header />
             <div className="w-[95%] md:w-4/5 mt-[100px] backdrop-blur-md border border-primary-100 bg-primary-100/10 text-primary-100 dark:text-light flex flex-col justify-center items-center p-4 rounded-md">
 

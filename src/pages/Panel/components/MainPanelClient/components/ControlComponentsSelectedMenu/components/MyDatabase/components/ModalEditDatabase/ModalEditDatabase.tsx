@@ -136,7 +136,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
 
 
     return (
-        <div className="w-[80vw] h-[70vh] flex overflow-auto hidden-scrollbar ">
+        <div className="w-[80vw] h-[70vh] flex overflow-auto  ">
 
             <Root.EditForm
                 form={updateDatabaseForm}

@@ -14,6 +14,7 @@ import { Prompt } from "../../../../../../../../../../@types/prompt.types";
 import { TutoralContainer } from "../../../../../../../../../../components/TutoralContainer/TutoralContainer";
 import { updateTutorialClient } from "../../../../../../../../../../api/client";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
+import { Client } from "../../../../../../../../../../@types/Client";
 
 interface CardChat {
     project: Project,
@@ -23,16 +24,19 @@ interface CardChat {
 }
 
 export function CardChat({ project, setNewProject, prompts }: CardChat) {
-    const { client } = useContext(ClientContext);
+    const { client, setClient } = useContext(ClientContext);
     const { setModalContent } = useContext(ModalContext);
     const navigate = useNavigate();
     const [params, setParams] = useSearchParams();
 
-    const handleEditProject = () => {
+    const handleEditProject = async () => {
         if(params.get("tour") === "2"){
             params.set("tour", "0")
             setParams(params)
-            !!client && updateTutorialClient(client?.id, false);
+            if(client){
+                const clientResponse: Client = await updateTutorialClient(client.id, false);
+                setClient(clientResponse)
+            }
         }
 
         setModalContent({

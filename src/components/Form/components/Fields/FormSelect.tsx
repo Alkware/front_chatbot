@@ -141,7 +141,7 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
             </div>
 
             <ul
-                className="w-full max-h-[200px] overflow-auto hidden-scrollbar hidden flex-col items-center absolute top-full z-50 bg-black border border-primary-100"
+                className="w-full max-h-[200px] overflow-auto  hidden flex-col items-center absolute top-full z-50 bg-black border border-primary-100"
             >
                 {
                     optionsState.options.map(opt =>

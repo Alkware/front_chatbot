@@ -55,9 +55,9 @@ export function Messages() {
                                 data-isfirstmsg={index === 0}
                                 data-islastmsg={index === (self.length - 1)}
                                 className=
-                                "w-3/4 h-[12px] data-[isfirstmsg='true']:h-auto data-[islastmsg='true']:h-auto data-[isfirstmsg='true']:py-1 data-[isfirstmsg=true]:bg-white bg-zinc-300 text-dark rounded-lg my-3 p-3 flex items-center"
+                                "break-words w-3/4 min-h-[20px] data-[islastmsg='true']:h-auto data-[isfirstmsg='true']:py-1 data-[isfirstmsg=true]:bg-white bg-zinc-300 text-dark rounded-lg my-3 p-3 flex items-center"
                             >
-                                {index === 0 ? <FirstMessage /> : ""}
+                                {index === 0 ? <FirstMessage /> : <p></p>}
                             </div>
                         :
                         <div
