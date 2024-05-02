@@ -21,7 +21,6 @@ export function Thanks() {
     return (
         <div className="w-screen min-h-screen flex flex-col items-center justify-center bg-[url(https://i.ibb.co/2vrnfCz/Untitled-design-8.png)] dark:bg-[url(https://i.ibb.co/vxGTSd0/Untitled-design-4.png)] bg-no-repeat bg-cover overflow-hidden">
             <Header />
-            <h2>eai?</h2>
             <div className="w-[95%] md:w-4/5 mt-[100px] backdrop-blur-md border border-primary-100 bg-primary-100/10 text-primary-100 dark:text-light flex flex-col justify-center items-center p-4 rounded-md">
 
                 <h2 className="text-xl md:text-3xl font-bold text-center ">Obrigado por assinar nossa plataforma</h2>
