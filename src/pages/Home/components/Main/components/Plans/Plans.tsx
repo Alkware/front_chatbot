@@ -18,6 +18,11 @@ export function Plans() {
         })();
     }, [])
 
+    const handleSelectPlan = (plan: Plan) => {
+        localStorage.setItem("is_account", "0")
+        window.location.href = `${plan.payment_link}?pid=${plan.id}&cid=${client?.id}`
+    }
+
     return (
         <div className="w-screen h-auto md:min-h-screen flex gap-8 flex-col items-center relative">
             <h2 className="text-3xl md:text-5xl p-8 font-bold text-primary-100 dark:text-light">Planos</h2>
@@ -98,7 +103,7 @@ export function Plans() {
                                         Number(plan.monthly_price) > 0 ?
                                             <Button
                                                 customClass="neon-effect-hover mt-8 mb-4"
-                                                onClick={() => window.location.href = `${plan.payment_link}?pid=${plan.id}&cid=${client?.id}&account=0`}
+                                                onClick={()=> handleSelectPlan(plan)}
                                             >
                                                 Contratar agora
                                             </Button>
@@ -107,7 +112,7 @@ export function Plans() {
                                                 customClass="neon-effect-hover mt-8 mb-4"
                                                 onClick={() => window.location.href = "/register"}
                                             >
-                                               Testar agora
+                                                Testar agora
                                             </Button>
                                     }
 

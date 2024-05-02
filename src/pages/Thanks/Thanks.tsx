@@ -1,4 +1,3 @@
-import { useSearchParams } from "react-router-dom";
 import { Button } from "../../components/button/Button";
 import { Header } from "../Home/components/Header/Header";
 import { StarsAnimation } from "../Home/components/Main/components/Presentation/components/StarsAnimation";
@@ -6,9 +5,8 @@ import thanksSVG from "../../assests/thanks.svg"
 import { useEffect } from "react";
 
 export function Thanks() {
-    const [params] = useSearchParams();
-    const account = params.get("account") === "0";
-    console.log(params.get("account"), "pegou?")
+    const isAccount = localStorage.getItem("is_account");
+    console.log(isAccount)
 
     useEffect(() => {
         (async () => {
@@ -19,14 +17,14 @@ export function Thanks() {
     }, [])
 
     return (
-        <div className="w-screen min-h-screen flex flex-col items-center justify-center bg-[url(https://i.ibb.co/2vrnfCz/Untitled-design-8.png)] dark:bg-[url(https://i.ibb.co/vxGTSd0/Untitled-design-4.png)] bg-no-repeat bg-cover overflow-hidden">
+        <div className="w-screen min-h-screen hidden-scrollbar flex flex-col items-center justify-center bg-[url(https://i.ibb.co/2vrnfCz/Untitled-design-8.png)] dark:bg-[url(https://i.ibb.co/vxGTSd0/Untitled-design-4.png)] bg-no-repeat bg-cover overflow-hidden">
             <Header />
             <div className="w-[95%] md:w-4/5 mt-[100px] backdrop-blur-md border border-primary-100 bg-primary-100/10 text-primary-100 dark:text-light flex flex-col justify-center items-center p-4 rounded-md">
 
                 <h2 className="text-xl md:text-3xl font-bold text-center ">Obrigado por assinar nossa plataforma</h2>
                 <h3 className="text-base  md:text-xl text-center font-medium opacity-80">Esperamos que sua experiência seja incrível com a gente!</h3>
                 {
-                    account &&
+                    !!isAccount &&
                     <div className="bg-primary-100/50 p-4 flex flex-col items-center my-4 text-primary-200 dark:text-light rounded-md">
                         <h3 className="text-lg font-medium">Sua conta já foi criada!</h3>
                         <div className="flex gap-2 text-center">
@@ -36,7 +34,7 @@ export function Thanks() {
                 }
                 <div className="my-8">
                     {
-                        account ?
+                        !!isAccount ?
                             <Button
                                 onClick={() => window.open("https://wipzee.com/first-access")}
                                 customClass="text-2xl font-medium neon-effect"

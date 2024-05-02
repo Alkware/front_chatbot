@@ -26,7 +26,6 @@ function App() {
         <Route path="/first-access" element={<FirstAccess />} />
         <Route path="/panel" element={<Suspense fallback={<InputLoading />}><Panel /></Suspense>} />
         <Route path="/thanks" element={<Thanks />} />
-        <Route path="/obrigado" element={<Thanks />} />
         <Route path="/plans" element={<PlansPage />} />
         <Route path="/create-chat/:plan_management_id" element={<CreateChat />} />
         <Route path="/create-database/:plan_management_id" element={<CreateDatabase />} />
