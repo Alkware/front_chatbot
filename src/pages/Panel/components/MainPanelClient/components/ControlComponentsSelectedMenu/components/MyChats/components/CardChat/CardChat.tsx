@@ -8,7 +8,7 @@ import { updateIsOnlineProject } from "../../../../../../../../../../api/project
 import { PopUp } from "../../../../../../../../../../components/modal/templates/PopUp";
 import { TipContainer } from "../../../../../../../../../../components/TipContainer/TipContainer";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { ShareProject } from "./components/ShareProject";
+import { ShareProject } from "./components/ShareProject/ShareProject";
 import { ModalEditChat } from "../EditProject/components/ModalEditChat/ModalEditChat";
 import { Prompt } from "../../../../../../../../../../@types/prompt.types";
 import { TutoralContainer } from "../../../../../../../../../../components/TutoralContainer/TutoralContainer";

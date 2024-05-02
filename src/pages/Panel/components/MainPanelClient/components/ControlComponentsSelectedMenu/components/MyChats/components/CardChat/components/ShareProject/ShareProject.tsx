@@ -1,9 +1,10 @@
 import { RefObject, useContext, useRef } from "react";
 import { FaArrowUpRightFromSquare, FaCopy } from "react-icons/fa6";
-import { ModalContext } from "../../../../../../../../../../../context/ModalContext";
-import { PopOver } from "../../../../../../../../../../../components/modal/templates/PopOver";
-import { TipContainer } from "../../../../../../../../../../../components/TipContainer/TipContainer";
-import { TutoralContainer } from "../../../../../../../../../../../components/TutoralContainer/TutoralContainer";
+import { ModalContext } from "../../../../../../../../../../../../context/ModalContext";
+import { PopOver } from "../../../../../../../../../../../../components/modal/templates/PopOver";
+import { TipContainer } from "../../../../../../../../../../../../components/TipContainer/TipContainer";
+import { TutoralContainer } from "../../../../../../../../../../../../components/TutoralContainer/TutoralContainer";
+import { QrCode } from "./components/QrCode/QrCode";
 
 interface ShareProject {
     slug: string
@@ -77,6 +78,8 @@ export function ShareProject({ slug }: ShareProject) {
         }
     }
 
+
+
     return (
         <div className="w-full flex flex-col gap-8">
             <div className="w-full flex flex-col gap-2">
@@ -95,7 +98,7 @@ export function ShareProject({ slug }: ShareProject) {
                         >
                             <FaCopy onClick={handleCopyLink} className=" text-2xl cursor-pointer" />
                         </TipContainer>
-                        <TutoralContainer 
+                        <TutoralContainer
                             title="Vamos abrir seu chat"
                             text="Clique no icone acima para abrir seu chat em uma nova guia para testa-lo"
                         >
@@ -126,6 +129,19 @@ export function ShareProject({ slug }: ShareProject) {
                 </div>
                 <span className="w-4/5 text-center opacity-60">
                     Copie e cole esse código no head do html do seu site.
+                </span>
+            </div>
+
+            <div className="w-full flex flex-col gap-2">
+                <h2 className="w-4/5 text-center uppercase">QR CODE</h2>
+
+                <QrCode
+                    width={200}
+                    text={`https://chat.wipzee.com/${slug}`}
+                />
+                
+                <span className="w-4/5 text-center opacity-60">
+                    Use esse QR CODE para acessar seu site facilmente
                 </span>
             </div>
         </div>
