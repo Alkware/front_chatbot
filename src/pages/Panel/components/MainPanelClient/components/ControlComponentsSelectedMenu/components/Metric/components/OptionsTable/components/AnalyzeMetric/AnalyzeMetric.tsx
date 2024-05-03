@@ -1,5 +1,4 @@
 import { MouseEvent, RefObject, useContext, useEffect, useRef, useState } from "react"
-import { Loading } from "../../../../../../../../../../../../components/loading/Loading";
 import { ClientContext } from "../../../../../../../../../../../../context/ClientContext";
 import { eventManager } from "../../../../../../../../../../../../functions/events";
 import { formatDate } from "../../../../../../../../../../../../functions/formatDate";
@@ -208,8 +207,10 @@ export function AnalyzeMetric() {
 
 
     if (!analyze) return (
-        <div className="flex flex-col items-center gap-4">
-            <Loading />
+        <div 
+            className="flex flex-col items-center gap-4"
+            data-loading
+        >
             <h2>Analisando métricas</h2>
         </div>
     );

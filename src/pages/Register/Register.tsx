@@ -60,10 +60,10 @@ function Register() {
     }
 
     return (
-        <div className="w-screen h-screen flex flex-col justify-center items-center dark:bg-dark bg-light relative">
+        <div className="w-screen min-h-screen flex flex-col justify-center items-center dark:bg-dark bg-light relative">
             <Header />
 
-            <div className="w-full h-full flex gap-4 flex-col justify-center items-center relative p-4">
+            <div className="w-full h-full flex gap-4 flex-col justify-center items-center relative p-4 mt-[75px] md:mt-[100px]">
 
 
                 <div className="w-[95%] md:w-4/5 flex flex-col sm:flex-row items-center rounded-xl">
@@ -130,7 +130,7 @@ function Register() {
                                 <a
                                     className="underline cursor-pointer"
                                     onClick={() => navigate("/login")}
-                                >Fazer login</a>
+                                >Já possui uma conta?</a>
 
                             </div>
                         </div>

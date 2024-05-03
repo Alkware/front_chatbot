@@ -1,6 +1,6 @@
 import { RefObject, useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { MdArrowDropDown } from "react-icons/md";
+import { MdArrowDropDown, MdDelete } from "react-icons/md";
 
 type Options = { value: string, text: string }
 
@@ -9,18 +9,17 @@ interface FormSelect {
     name: string;
     title: string;
     isMultiple?: boolean;
-    width?: number;
 }
 
-export function FormSelect({ options, title, name, isMultiple, width = 300 }: FormSelect) {
-    const { getValues, setValue } = useFormContext();
+export function FormSelect({ options, title, name, isMultiple }: FormSelect) {
+    const { getValues, unregister, register } = useFormContext();
     const contentOptionsRef: RefObject<HTMLDivElement> = useRef(null);
-    const [optionsState, setOptions] = useState<{ options: Options[], selected: Options[] }>({ options: [], selected: [] })
+    const [optionsState, setOptions] = useState<{ options: Options[], selected: Options[] }>({ options: [], selected: [] });
 
 
     useEffect(() => {
         const handleClickOutsideElement = ({ target }: any) => {
-            
+
             if (contentOptionsRef.current && !contentOptionsRef.current.contains(target)) {
                 const ul = contentOptionsRef.current?.querySelector("ul")
                 const contentSelect = contentOptionsRef.current?.querySelector("div#select")
@@ -38,13 +37,13 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
 
     useEffect(() => {
         const key = getValues(name);
-
         const data = options?.filter((opt) => key?.includes(opt.value));
 
         setOptions(() => {
-            return { 
-                options: options ? options : [], 
-                selected: !!data.length ? data : []}
+            return {
+                options: options ? options : [],
+                selected: !!data.length ? data : []
+            }
         });
 
     }, [])
@@ -63,11 +62,11 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
         if (options) {
             const value = target.dataset.value;
             const text = target.textContent;
-            const removeValueList = (!!isMultiple) ? 
-                optionsState.options.filter(opt => opt.value !== value) 
+            const removeValueList = (!!isMultiple) ?
+                optionsState.options.filter(opt => opt.value !== value)
                 :
                 options;
-                
+
             const addValueListSelected = !!isMultiple ? [...optionsState.selected, { value, text }] : [{ value, text }]
 
             registerField(addValueListSelected)
@@ -95,24 +94,24 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
 
 
     const registerField = (list: { value: string }[]) => {
-        if (list.length === 1) setValue(name, list[0].value);
-        else list.forEach((_, index) => setValue(`${name}.${index}`, list[index].value));
+        unregister(name);
+
+        if (isMultiple) list.forEach((_, index) => register(`${name}.${index}`, { value: list[index].value }));
+        else register(name, { value: list[0].value });
     }
 
     return (
         <div
             ref={contentOptionsRef}
-            className="flex flex-col relative"
-
+            className="w-full flex flex-col relative"
         >
             <div
                 id="select"
                 onClick={handleDisplayOptions}
-                className="border border-primary-100 p-2 flex gap-4 justify-between items-center cursor-pointer rounded-md"
+                className="w-full border border-primary-100 p-2 flex gap-4 justify-between items-center cursor-pointer rounded-md"
             >
                 <div
-                    style={{ width }}
-                    className="text-center flex gap-x-4 gap-y-1 justify-center flex-wrap"
+                    className="w-full text-center flex gap-x-4 gap-y-1 justify-center flex-wrap"
                 >
                     {
                         optionsState.selected.length ?
@@ -123,17 +122,18 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
                                         className="flex gap-2 justify-center items-center bg-primary-300 rounded-md px-1"
                                     >
                                         <p>{opt.text}</p>
-                                        <span
+                                        <MdDelete
                                             onClick={handleRemoveSelected}
-                                            className="w-[15px] h-[15px] bg-red-500 text-white flex justify-center pb-1 items-center font-bold rounded-full cursor-pointer"
+                                            className="bg-red-200 fill-red-700 text-white font-bold rounded-full cursor-pointer"
                                             data-value={opt.value}
                                             data-text={opt.text}
-                                        >-</span>
+                                        />
+
                                     </div>
                                 )
                             ) :
                             (
-                                <h2 className="opacity-50">{title}</h2>
+                                <h2 className="opacity-60 w-full text-sm">{title}</h2>
                             )
                     }
                 </div>
@@ -141,7 +141,7 @@ export function FormSelect({ options, title, name, isMultiple, width = 300 }: Fo
             </div>
 
             <ul
-                className="w-full max-h-[200px] overflow-auto  hidden flex-col items-center absolute top-full z-50 bg-black border border-primary-100"
+                className="w-full max-h-[200px] overflow-auto hidden flex-col items-center absolute top-full z-50 bg-black border border-primary-100"
             >
                 {
                     optionsState.options.map(opt =>

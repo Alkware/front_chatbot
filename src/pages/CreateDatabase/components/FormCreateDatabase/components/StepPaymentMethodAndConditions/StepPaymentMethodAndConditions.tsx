@@ -4,7 +4,8 @@ import { Root } from "../../../../../../components/Form/FormRoot";
 export function StepPaymentMethodAndConditions() {
     const { watch } = useFormContext();
     const payments = watch("step_1.payment_methods");
-    const isCreditCard = typeof payments === "object" && payments?.find((payment: any) => payment === "Cartão de crédito")
+    const isCreditCard = typeof payments === "object" && payments?.find((payment: any) => payment === "Cartão de crédito");
+
     return (
         <Root.Step index={1} stepTitle="Métodos de pagamentos e condições">
 

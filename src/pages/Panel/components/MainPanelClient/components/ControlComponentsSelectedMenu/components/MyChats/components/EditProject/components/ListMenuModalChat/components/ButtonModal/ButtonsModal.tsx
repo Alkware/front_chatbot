@@ -1,8 +1,6 @@
 import { useContext } from "react";
 import { ModalContext } from "../../../../../../../../../../../../../../context/ModalContext";
 import { FcFile, FcFullTrash, FcUpload } from "react-icons/fc";
-import { PopUp } from "../../../../../../../../../../../../../../components/modal/templates/PopUp";
-import { Confirm } from "../../../../../../../../../../../../../../components/modal/templates/Confirm";
 import { useSearchParams } from "react-router-dom";
 import { CTA_NAME_URL } from "../../../../../../../../../../../../../../variables/variables";
 import { TipContainer } from "../../../../../../../../../../../../../../components/TipContainer/TipContainer";
@@ -12,23 +10,8 @@ interface ButtonsModalTypes {
 }
 
 export function ButtonsModal({ eventDelete }: ButtonsModalTypes) {
-    const { setModalContent, clearModal } = useContext(ModalContext);
+    const { clearModal } = useContext(ModalContext);
     const [params, setParams] = useSearchParams();
-
-    const handleDeleteProject = async () => {
-        setModalContent({
-            componentName: "modal_delete",
-            components:
-                <PopUp>
-                    <Confirm
-                        title={`Essa ação excluirá permanentemente! Você tem certeza? `}
-                        confirmFunction={eventDelete}
-                        cancelFuntion={() => clearModal("modal_delete")}
-                    />
-                </PopUp>
-        })
-    }
-
 
     const handleDiscardProject = () => {
         params.delete(CTA_NAME_URL);
@@ -62,7 +45,7 @@ export function ButtonsModal({ eventDelete }: ButtonsModalTypes) {
 
             <div className="flex justify-center items-center w-[45px] h-[50px] border border-light rounded-full">
                 <TipContainer tip="Deletar">
-                    <button type="button" onClick={handleDeleteProject}>
+                    <button type="button" onClick={eventDelete}>
                         <FcFullTrash
                             className="text-3xl cursor-pointer"
                         />

@@ -70,8 +70,7 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
                                 if (prompt_name) {
                                     const prompt = transformSchemaInText(data);
                                     const client_describe = data.step_4.client_describe;
-                                    const prompt_query = JSON.stringify(data)
-
+                                    const prompt_query = JSON.stringify(data);
                                     try {
                                         const response = await createNewDatabase({ prompt_name, prompt, client_describe, prompt_query, plan_management_id })
                                         if (response?.status === 201) {

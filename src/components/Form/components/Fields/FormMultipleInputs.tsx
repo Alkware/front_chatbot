@@ -12,7 +12,7 @@ interface FormMultipleInputs {
 
 export function FormMultipleInputs({ children, update, remove, name }: FormMultipleInputs) {
     const { watch } = useFormContext();
-    const elements = React.Children.toArray(children)
+    const elements = React.Children.toArray(children);
     const fields: [] = watch(name);
 
     const handleEdition = (index: number) => {
@@ -30,7 +30,7 @@ export function FormMultipleInputs({ children, update, remove, name }: FormMulti
     return (
         <div className="w-full flex flex-col gap-4 items-center justify-center">
 
-            <div className="flex gap-4 flex-wrap">
+            <div className="w-full flex gap-4 flex-wrap justify-center">
                 {
                     !!fields && fields.map((field, index) => {
                         const keys = Object.keys(fields[fields.length - 1]);
@@ -53,7 +53,7 @@ export function FormMultipleInputs({ children, update, remove, name }: FormMulti
                                                 data-index={index}
                                                 className="w-full flex justify-center flex-nowrap data-[index='0']:font-bold"
                                             >
-                                                <p className="px-4">
+                                                <p className="w-[300px] whitespace-nowrap text-ellipsis overflow-hidden px-4 text-center">
                                                     {field[key]}
                                                 </p>
                                             </div>

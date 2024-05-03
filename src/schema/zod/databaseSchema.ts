@@ -19,7 +19,7 @@ export const databaseSchema = z.object({
         })).min(1, "Você precisa cadastrar pelo menos um produto"),
     }),
     step_1: z.object({
-        payment_methods: z.array(z.string()).min(2, "Informe pelo menos dois meio de pagamento!"),
+        payment_methods: z.array(z.string()).min(1, "Selecione pelo menos um meio de pagamento"),
         credit_card_installments: z.string().optional(),
         order_tracking: z.string().optional(),
         tracking_link: z.string().optional(),

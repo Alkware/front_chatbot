@@ -35,7 +35,7 @@ export default {
       },
       animation:{
         "smooth_display_left": "smooth-display-left 500ms ease-in-out",
-        "loading": "loading 500ms linear infinite",
+        "loading": "loading 500ms linear infinite alternate-reverse",
         "jump-screen": "jump-screen 1s ease-out ",
         "display-screen": "display-screen 250ms ease-out ",
         "rising-10": "rising-and-disappears 10s linear 3s infinite",

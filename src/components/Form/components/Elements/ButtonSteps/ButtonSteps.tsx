@@ -21,7 +21,7 @@ export function FormButtonStep({ numberChildren, findErrorMessage, hiddenPreview
     const { trigger, formState: { errors } } = useFormContext();
     const currentStep = Number(params.get(STEP_NAME_URL))
     const isLastStep = currentStep === (numberChildren - 1);
-    const navigate =  useNavigate();
+    const navigate = useNavigate();
 
     const handleNextStep = async () => {
         const currentStep = (params.get(STEP_NAME_URL) || "0");
@@ -35,7 +35,6 @@ export function FormButtonStep({ numberChildren, findErrorMessage, hiddenPreview
             setParams(params)
         } else {
             const error = findErrorMessage(errors)
-            console.log("Erro:", error)
             setModalContent({
                 componentName: "modal_error_form_database",
                 components:
@@ -50,8 +49,8 @@ export function FormButtonStep({ numberChildren, findErrorMessage, hiddenPreview
 
     const handlePreviousStep = () => {
         const previousStep = currentStep - 1;
-        
-        if(previousStep < 0){
+
+        if (previousStep < 0) {
             navigate("/panel")
         }
 
@@ -62,34 +61,34 @@ export function FormButtonStep({ numberChildren, findErrorMessage, hiddenPreview
     }
 
     return (
-            <div className="w-full flex gap-4 lg:gap-16 xl:gap-20 justify-center items-center my-8">
+        <div className="w-full flex gap-4 lg:gap-16 xl:gap-20 justify-center items-center my-8">
 
-                <Button
-                    type="button"
-                    data-display={hiddenPreviewButton && currentStep === 0 }
-                    customClass="cursor-pointer data-[display=true]:hidden px-4 max-lg:text-sm"
-                    onClick={handlePreviousStep}
-                > <IoIosUndo /> { currentStep === 0 ? "Painel": "Anterior" }</Button>
+            <Button
+                type="button"
+                data-display={hiddenPreviewButton && currentStep === 0}
+                customClass="cursor-pointer data-[display=true]:hidden px-4 max-lg:text-sm"
+                onClick={handlePreviousStep}
+            > <IoIosUndo /> {currentStep === 0 ? "Painel" : "Anterior"}</Button>
 
-                <Button
-                    type="submit"
-                    data-islaststep={isLastStep}
-                    customClass="data-[islaststep=false]:hidden justify-center px-4 max-lg:text-sm"
-                >
-                    { titleButtonSend || "Enviar" }
-                    <IoCreate />
-                </Button>
+            <Button
+                type="submit"
+                data-islaststep={isLastStep}
+                customClass="data-[islaststep=false]:hidden justify-center px-4 max-lg:text-sm"
+            >
+                {titleButtonSend || "Enviar"}
+                <IoCreate />
+            </Button>
 
-                <Button
-                    type="button"
-                    data-islaststep={isLastStep}
-                    customClass="data-[islaststep=true]:hidden justify-center px-4 max-lg:text-sm"
-                    onClick={handleNextStep}
-                >
-                    Proximo
-                    <IoIosRedo />
-                </Button>
+            <Button
+                type="button"
+                data-islaststep={isLastStep}
+                customClass="data-[islaststep=true]:hidden justify-center px-4 max-lg:text-sm"
+                onClick={handleNextStep}
+            >
+                Proximo
+                <IoIosRedo />
+            </Button>
 
-            </div>
+        </div>
     )
 };

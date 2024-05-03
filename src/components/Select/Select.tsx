@@ -1,7 +1,7 @@
 import { ElementType } from "react";
 
 interface Select {
-    title?: string,
+    title: string,
     alternativeTitle?: string,
     Icon?: ElementType,
     options: Array<{
@@ -15,16 +15,16 @@ interface Select {
 export function Select({ options, alternativeTitle, title, Icon, defaultValue, handleSelectDatabase }: Select) {
 
     return (
-        <div className="w-full px-2 h-full bg-light dark:bg-gray border border-primary-100 font-bold rounded-lg flex gap-2 justify-center items-center">
+        <div className="w-full h-full overflow-hidden bg-light dark:bg-gray border border-primary-100 font-bold rounded-lg flex gap-2 justify-center items-center">
             {Icon && <Icon className="text-2xl fill-primary-100 dark:fill-light" />}
             <select
-                className="h-full bg-light dark:bg-gray text-primary-100 dark:text-light cursor-pointer outline-none "
+                className="w-full h-full p-2 bg-light dark:bg-gray text-primary-100 dark:text-light cursor-pointer outline-none "
                 disabled={options.length ? false : true}
                 onChange={handleSelectDatabase}
                 defaultValue={defaultValue ? defaultValue : "#"}
             >
                 {
-                    (title && alternativeTitle) &&
+                    (title) &&
                     <option disabled value="#" className="cursor-pointer">
                         {
                             options.length ? title : alternativeTitle

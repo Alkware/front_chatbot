@@ -6,7 +6,7 @@ export const chatSchema = z.object({
     step_0: z.object({
         project_name: z.string().min(1, "Você precisa definir um nome para seu chat"),
         logo: z.coerce.string().url("Faça o upload da logo do chat"),
-        chat_input_message: z.array(z.string().min(1, "Informe a primeira mensagem que será enviada ao seu cliente").max(80, "Sua primeira mensagem não pode conter no máximo 80 caracteres.")),
+        chat_input_message: z.array(z.string().min(1, "Informe a primeira mensagem que será enviada ao seu cliente").max(100, "Sua primeira mensagem pode conter no máximo 80 caracteres.")),
         bio: z.string().optional(),
         social_proof: z.array(z.object({
             person_name: z.string().min(1, "Informe o nome do cliente que avaliou."),

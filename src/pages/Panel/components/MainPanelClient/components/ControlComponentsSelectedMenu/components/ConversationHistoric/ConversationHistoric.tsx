@@ -83,6 +83,7 @@ export function ConversationHistoric() {
                 </TipContainer>
                 <TipContainer tip="Selecione um chat">
                     <Select
+                    title="Selecione um chat"
                         options={projects || []}
                         Icon={IoIosChatboxes}
                         handleSelectDatabase={handleSelectProject}

@@ -89,7 +89,7 @@ export function OpeningHours() {
                     fields.map((field, index) =>
                         <Root.Container
                             key={field.id}
-                            className="flex gap-4 items-center justify-start"
+                            className="w-full flex gap-4 items-center"
                         >
                             <Root.Select
                                 name={`step_3.support_hours.${index}.day`}
@@ -100,13 +100,13 @@ export function OpeningHours() {
                             <Root.Select
                                 name={`step_3.support_hours.${index}.start`}
                                 options={hours}
-                                title="Selecione quando começa"
+                                title="Quando começa"
                             />
                             <span>Até</span>
                             <Root.Select
                                 name={`step_3.support_hours.${index}.end`}
                                 options={hours}
-                                title="Selecione quando termina"
+                                title="Quando termina"
                             />
                             <div className="w-[200px] flex gap-2">
                                 <MdAdd

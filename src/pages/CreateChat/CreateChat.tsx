@@ -136,7 +136,7 @@ export function CreateChat() {
                             text="Deseja adicionar links ao seu chat?"
                             functionOffToggle={() => fields.forEach((_, index) => remove(index))}
                         >
-                            <CallToActionFormChat />
+                            <CallToActionFormChat prompts={prompt} />
                         </Root.Optional>
                     </Root.Step>
 

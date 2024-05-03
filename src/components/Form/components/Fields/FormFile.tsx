@@ -2,7 +2,6 @@ import { ChangeEvent, InputHTMLAttributes, RefObject, useContext, useEffect, use
 import { useFormContext } from "react-hook-form";
 import { uploadImage } from "../../../../api/uploadImages";
 import { RiUpload2Line } from "react-icons/ri";
-import { Loading } from "../../../loading/Loading";
 import { ModalContext } from "../../../../context/ModalContext";
 import { PopOver } from "../../../modal/templates/PopOver";
 
@@ -101,14 +100,12 @@ export function FormFile(props: FormFile) {
                 <span
                     className="w-full text-white bg-black bg-opacity-65 rounded-xl font-bold flex flex-col justify-center items-center"
                     id="container"
+                    data-loading
                 >
                     <RiUpload2Line
                         className="text-3xl font-bold"
                         id="icon-upload"
                     />
-                    <div className="hidden" id="loading">
-                        <Loading />
-                    </div>
                     <span className="text-xs">upload</span>
                 </span>
 

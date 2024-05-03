@@ -237,7 +237,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                         title="Digite a primeira mensagem do seu chat"
                     />
 
-                    <CallToActionFormChat />
+                    <CallToActionFormChat prompts={prompt}/>
                 </Root.EditStep>
 
                 {/* Será adicionado posteriormente na wipzee */}
