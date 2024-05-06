@@ -70,6 +70,7 @@ export function Header() {
                         onClick={() => navigate("/register")}
                     > Criar conta </li>
                 </ul>
+                
                 <div className="relative mx-4">
                     <div
                         className="hamburger"

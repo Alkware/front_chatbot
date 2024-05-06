@@ -58,7 +58,7 @@ export function ButtonCreateChat({ plan_management_id }: ButtonCreateChat) {
                                 <h2 className="text-lg text-center opacity-80">Nossa inteligência artifical vai analisar seus dados e <br /> responder as dúvidas do usuário <br />conforme as informações passadas na fonte de dados.</h2>
                                 <Button
                                     customClass="my-4"
-                                    onClick={()=> { navigate("/panel?tab=2"); clearModal("modal_create_database")}}
+                                    onClick={() => { navigate("/panel?tab=2"); clearModal("modal_create_database") }}
                                 >
                                     <MdAdd />
                                     Criar fonte de dados
@@ -82,14 +82,14 @@ export function ButtonCreateChat({ plan_management_id }: ButtonCreateChat) {
     }
 
     return (
-        <TipContainer tip="Crie um novo chat">
-            <div
-                onClick={handleClickNewProject}
-                className="border border-primary-100 rounded-full cursor-pointer"
-            >
+        <div
+            onClick={handleClickNewProject}
+            className="min-w-[250px] min-h-[250px] md:min-w-[200px] md:min-h-[220px] cursor-pointer flex justify-center items-center"
+        >
+            <TipContainer tip="Crie um novo chat">
                 <IoAddOutline className="text-4xl text-primary-100" />
-            </div>
-        </TipContainer>
+            </TipContainer>
+        </div>
     )
 
 }

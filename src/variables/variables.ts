@@ -1,3 +1,10 @@
+
+import { FaFacebookMessenger, FaTelegram } from "react-icons/fa";
+import { RiChatSmile2Fill, RiMessage2Fill, RiWhatsappFill } from "react-icons/ri";
+import { BiSolidMessageDetail } from "react-icons/bi";
+import { ElementType } from "react"
+
+
 /**
  * URL DA LOGO DA WIPZEE
  */
@@ -7,6 +14,28 @@ export const URL_LOGO = "https://i.ibb.co/6gFGb2q/wipzee-logo-1-removebg-preview
  * Esse nome da query serve para definir em qual etapa do formuláriuo o cliente está!
  */
 export const STEP_NAME_URL: string = "form-step"
+/**
+ * Nome da etapa que ficará na url do navegador.
+ * Esse nome é um controlador para verificar se o mobile menu está aberto ou fechado.
+ */
+export const MOBILE_MENU = {
+    URL_NAME: "mobile-menu",
+    DEFAULT_VALUES: {
+        OPEN: "open",
+        CLOSE: "close"
+    }
+}
+/**
+ * Nome da etapa que ficará na url do navegador.
+ * Esse nome é um controlador para verificar se o mobile menu está aberto ou fechado.
+ */
+export const RESIZE_MENU = {
+    URL_NAME: "resize-menu",
+    DEFAULT_VALUES: {
+        DEFAULT: "default",
+        RESIZED: "resized"
+    }
+}
 /**
  * Nome da atual cta que ficará na url do navegador.
  * Esse nome da query serve para definir qual é o atual button CTA exibido nos formulários.
@@ -34,14 +63,10 @@ export const ERROR_NAME_TO_SAVE_LOCALSTORAGE = "forms-error"
  * Quantidade máxima de container disponiveis para a criação de fontes de dados, esses containers
  * estão localizados em "myDatabase"
  */
-export const MAX_CONTAINER_TO_CREATE_DATABASE = 9
+export const MAX_CONTAINER_TO_CREATE_CHAT = 6
+export const MAX_CONTAINER_TO_CREATE_DATABASE = 8
 export const MAX_AMOUNT_CTA_THAT_CAN_BE_CREATED = 5
 
-
-import { FaFacebookMessenger, FaTelegram } from "react-icons/fa";
-import { RiChatSmile2Fill, RiMessage2Fill, RiWhatsappFill } from "react-icons/ri";
-import { BiSolidMessageDetail } from "react-icons/bi";
-import { ElementType } from "react"
 
 /**
  * Modelo para icone do widget do usuário

@@ -28,7 +28,7 @@ function Panel() {
             {
                 client &&
                 <div
-                    className="w-screen h-screen  flex justify-center items-start text-primary-100 dark:text-light"
+                    className="w-screen min-h-screen flex justify-start md:justify-center items-start text-primary-100 dark:text-light bg-light dark:bg-dark"
                 >
                     <NavigatePanelClient />
                     <MainPanelClient />

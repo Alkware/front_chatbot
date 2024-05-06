@@ -4,20 +4,24 @@ import { MdArrowDropDown, MdCheck } from "react-icons/md";
 
 const contents = [
     {
-        title: "PERGUNTA 1",
-        text: "RESPOSTA 1"
+        title: "O que é a Wipzee?",
+        text: "A Wipzee é uma plataforma que oferece um chat inteligente baseado em inteligência artificial para empresas. Esse chat é projetado para fornecer suporte aos produtos dos clientes de forma eficiente e humanizada."
     },
     {
-        title: "PERGUNTA 2",
-        text: "RESPOSTA 2"
+        title: "Qual a vantagem de utilizar a Wipzee no meu site?",
+        text: "A vantagem de utilizar a Wipzee no seu site é que ela oferece um chat inteligente que utiliza inteligência artificial para interagir com os usuários em qualquer horário e em qualquer dia da semana de forma natural e eficiente. Além disso, a plataforma oferece análise de métricas para otimizar o atendimento e aumentar a satisfação do cliente."
     },
     {
-        title: "PERGUNTA 3",
-        text: "RESPOSTA 3"
+        title: "Se eu precisar de ajuda terei algum suporte?",
+        text: "Claro, nossa plataforma possui uma infraestrutura completa dedicada a esclarecer todas as suas dúvidas."
     },
     {
-        title: "PERGUNTA 4",
-        text: "RESPOSTA 4"
+        title: "O chat da Wipzee precisa de um número ou WhatsApp para funcionar?",
+        text: "Não, o chat da Wipzee não precisa de um número de telefone ou WhatsApp para funcionar. Ele é uma solução independente que pode ser integrada facilmente em qualquer site."
+    },
+    {
+        title: "Por que o chat da Wipzee é melhor que os chatbots convencionais?",
+        text: "O chat da Wipzee é melhor que os chatbots convencionais porque é projetado para interagir de forma natural, humanizada e eficiente com os usuários. Além disso, oferece uma análise de métricas detalhada para otimizar o atendimento e resolver questões complexas dos clientes."
     },
 ]
 
@@ -55,7 +59,7 @@ export function FrequentlyQuestions() {
 
                 <div
                     ref={containerDropDown}
-                    className="flex flex-col w-full md:w-1/2 gap-4"
+                    className="flex flex-col w-full md:w-3/4 gap-4"
                 >
                     {
                         contents.map((content, index) =>
@@ -67,7 +71,7 @@ export function FrequentlyQuestions() {
                                 className="w-full data-[isactive=true]:h-auto h-auto group flex flex-col cursor-pointer rounded-md relative overflow-hidden"
                                 style={{ order: index }}
                             >
-                                <div className="flex gap-4 w-full justify-between p-3 bg-primary-100 dark:bg-primary-300 rounded-tr-md border border-light dark:border-dark z-20">
+                                <div className="flex gap-4 w-full justify-between items-center p-3 bg-primary-100 dark:bg-primary-300 rounded-tr-md border border-light dark:border-dark z-20">
                                     <MdCheck className="bg-light dark:bg-primary-100 rounded-full p-1 text-xl fill-primary-300" />
                                     <span className="font-medium text-base md:text-lg lg:text-xl text-light ">{content.title}</span>
                                     <MdArrowDropDown className="text-2xl fill-light dark:fill-primary-100" />

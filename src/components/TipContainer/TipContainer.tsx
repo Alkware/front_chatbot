@@ -27,7 +27,7 @@ export function TipContainer({ children, tip, position = "TOP" }: TipContainer) 
                 ref={ballonTipRef}
                 data-position={position}
                 className={
-                    `border border-light/40 bg-primary-100 p-1 rounded-xl absolute z-50 left-1/2 -translate-x-1/2 
+                    `hidden md:block border border-light/40 bg-primary-100 p-1 rounded-xl absolute z-50 left-1/2 -translate-x-1/2 
                     data-[position=TOP]:-top-full data-[position=TOP]:-translate-y-2 data-[position=BOTTOM]:-bottom-full data-[position=BOTTOM]:translate-y-2
                     text-center invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity`
                 }

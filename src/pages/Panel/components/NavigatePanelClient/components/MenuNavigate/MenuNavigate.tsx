@@ -1,10 +1,8 @@
 import { ElementType } from "react";
+import { FaHeadset } from "react-icons/fa6";
 import { IoIosChatbubbles, IoIosCloud, IoIosStats, IoLogoBuffer, IoMdCash } from "react-icons/io";
-import { useNavigate, useSearchParams } from "react-router-dom";
-
-interface containerMenuTypes {
-    menuIsOpen: boolean,
-}
+import { useSearchParams } from "react-router-dom";
+import { MOBILE_MENU, RESIZE_MENU } from "../../../../../../variables/variables";
 
 const navMenu = [
     {
@@ -27,15 +25,25 @@ const navMenu = [
         name: "Assinatura",
         Icon: IoMdCash as ElementType
     },
+    {
+        name: "Central de ajuda",
+        Icon: FaHeadset as ElementType
+    },
 ]
 
 
-function MenuNavigate({ menuIsOpen }: containerMenuTypes) {
-    const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
+function MenuNavigate() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const isMenuResized = searchParams.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.DEFAULT_VALUES.DEFAULT ? true : false;
 
     const handleSelectedTabNavigation = (index: number) => {
-        navigate(`/panel?tab=${index}`)
+        const isMobileMenu = searchParams.get(MOBILE_MENU.URL_NAME);
+
+        if (isMobileMenu) searchParams.set(MOBILE_MENU.URL_NAME, "close");
+        
+        searchParams.set("tab", index.toString());
+        
+        setSearchParams(searchParams);
     }
 
     return (
@@ -45,15 +53,17 @@ function MenuNavigate({ menuIsOpen }: containerMenuTypes) {
                     <li
                         key={menu.name}
                         data-tab={Number(searchParams.get("tab")) == index ? true : false}
-                        className="w-full py-2 tall-6:py-3 flex gap-2 justify-center items-center text-center cursor-pointer font-bold text-xl hover:text-primary-300 hover:dark:text-light hover:bg-primary-100/30 hover:dark:bg-dark data-[tab=true]:dark:bg-dark transition-colors duration-300 group"
+                        data-ismenuresize={isMenuResized}
+                        className="group w-full py-2 tall-6:py-3 flex gap-2 justify-center items-center text-center cursor-pointer font-bold text-xl hover:text-primary-300 hover:dark:text-light hover:bg-primary-100/30 hover:dark:bg-dark data-[tab=true]:dark:bg-dark transition-colors duration-300"
                         onClick={() => handleSelectedTabNavigation(index)}
                     >
                         <div
-                            data-menuisopen={menuIsOpen}
-                            className="w-full data-[menuisopen=true]:w-4/5 flex justify-center data-[menuisopen=true]:justify-start items-center gap-2"
+                            className="w-full group-data-[ismenuresize=true]:w-4/5 flex justify-center data-[ismenuresize=true]:justify-start items-center gap-2"
                         >
                             <menu.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-xl transition-colors duration-100" />
-                            <p className={`group-hover:text-primary-100 text-primary-100 dark:text-white transition-colors duration-100 whitespace-nowrap text-ellipsis ${menuIsOpen ? "block" : "hidden"}`}>{menu.name}</p>
+                            <p
+                                className="md:group-data-[ismenuresize=false]:hidden group-hover:text-primary-100 text-primary-100 dark:text-white transition-colors duration-100 whitespace-nowrap text-ellipsis"
+                            >{menu.name}</p>
                         </div>
                     </li>
                 )

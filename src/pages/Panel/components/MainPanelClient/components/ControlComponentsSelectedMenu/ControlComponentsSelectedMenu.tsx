@@ -5,6 +5,7 @@ import { MyDatabases } from "./components/MyDatabase/MyDatabase";
 import { ConversationHistoric } from "./components/ConversationHistoric/ConversationHistoric";
 import { Payments } from "./components/Payments/Payments";
 import { ConfigProfile } from "./components/ConfigProfile/ConfigProfile";
+import { HelpCenter } from "./components/HelpCenter/HelpCenter";
 
 
 export function ControlComponentsSelectedMenu() {
@@ -12,7 +13,7 @@ export function ControlComponentsSelectedMenu() {
     const tab = Number(searchParams.get("tab")) || 0;
 
     return (
-        <div className="w-full px-8">
+        <div className="w-full px-2 md:px-8">
             {
                 tab === 0 ?
                     <MyChats />
@@ -28,6 +29,9 @@ export function ControlComponentsSelectedMenu() {
                                 :
                                 tab === 4 ?
                                     <Payments />
+                                    :
+                                    tab === 5 ?
+                                    <HelpCenter />
                                     :
                                     <ConfigProfile />
 
