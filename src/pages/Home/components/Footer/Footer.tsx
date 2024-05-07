@@ -15,7 +15,9 @@ export function Footer() {
                 </div>
                 <span>@WIPZEE 2024. Todos os direitos reservados.</span>
             </div>
-            <CompanyLogo />
+            <div className="w-full md:w-auto h-16 md:h-auto relative md:static">
+                <CompanyLogo />
+            </div>
         </div>
     )
 };
