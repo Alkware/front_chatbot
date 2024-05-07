@@ -2,22 +2,24 @@ import { useContext } from "react";
 import { ClientContext } from "../../../../../../context/ClientContext";
 import { messagesEventManager } from "../../../../../../functions/messagesEventManager";
 import { FaGear, FaRightToBracket } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { TipContainer } from "../../../../../../components/TipContainer/TipContainer";
 import { UserLogo } from "./components/UserLogo/UserLogo";
 import { ClientName } from "./components/ClientName/ClientName";
 import { ModalContext } from "../../../../../../context/ModalContext";
 import { PopUp } from "../../../../../../components/modal/templates/PopUp";
 import { Confirm } from "../../../../../../components/modal/templates/Confirm";
+import { RESIZE_MENU } from "../../../../../../variables/variables";
 
 interface UserPlanTypes {
-    menuIsOpen: boolean
 }
 
-const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
+const UserPlanInfoProfile = ({ }: UserPlanTypes) => {
     const { setModalContent, clearModal } = useContext(ModalContext)
     const { client } = useContext(ClientContext)
     const navigate = useNavigate();
+    const [params] = useSearchParams();
+    const isMenuResized = params.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.DEFAULT_VALUES.DEFAULT ? true : false;
 
 
     const handleExitThePanel = () => {
@@ -54,18 +56,18 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                 <div className="w-full flex justify-center gap-2 items-end">
                     <TipContainer tip="Edite seu perfil">
                         <FaGear
-                            data-menuisopen={menuIsOpen}
-                            className="text-2xl cursor-pointer hover:animate-spin data-[menuisopen=false]:hidden fill-primary-100 dark:fill-light"
+                            data-ismenuresized={isMenuResized}
+                            className="text-2xl cursor-pointer hover:animate-spin md:data-[ismenuresized=false]:hidden fill-primary-100 dark:fill-light"
                             onClick={handleConfigProfile}
                         />
                     </TipContainer>
 
-                    <UserLogo menuIsOpen={menuIsOpen} />
+                    <UserLogo />
 
                     <TipContainer tip="Sair do seu painel">
                         <FaRightToBracket
-                            data-menuisopen={menuIsOpen}
-                            className="text-2xl cursor-pointer -scale-x-100 fill-primary-100 dark:fill-light hover:fill-red-500 transition-colors duration-200 data-[menuisopen=false]:hidden"
+                            data-ismenuresized={isMenuResized}
+                            className="text-2xl cursor-pointer -scale-x-100 fill-primary-100 dark:fill-light hover:fill-red-500 transition-colors duration-200 md:data-[ismenuresized=false]:hidden"
                             onClick={handleExitThePanel}
                         />
                     </TipContainer>
@@ -73,7 +75,8 @@ const UserPlanInfoProfile = ({ menuIsOpen }: UserPlanTypes) => {
                 </div>
 
                 <div
-                    className={`w-full flex flex-col ${menuIsOpen ? "block" : "hidden"}`}
+                    data-ismenuresized={isMenuResized}
+                    className="w-full flex flex-col md:data-[ismenuresized=false]:hidden"
                 >
                     <ClientName />
 

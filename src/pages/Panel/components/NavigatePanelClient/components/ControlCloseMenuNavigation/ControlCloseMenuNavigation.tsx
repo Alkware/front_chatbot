@@ -14,7 +14,6 @@ const ControlCloseMenuNavigation = () => {
             setSearchParams(searchParams);
         }
 
-        console.log(defaultValueMenuResize === RESIZE_MENU.DEFAULT_VALUES.DEFAULT)
         if(defaultValueMenuResize === RESIZE_MENU.DEFAULT_VALUES.DEFAULT){
             searchParams.set(RESIZE_MENU.URL_NAME, RESIZE_MENU.DEFAULT_VALUES.RESIZED);
         }else{
@@ -26,7 +25,7 @@ const ControlCloseMenuNavigation = () => {
     return (
         <div 
             data-ismenuresize={isMenuResize}
-            className="hidden md:flex w-full data-[ismenuresize=true]:absolute top-0  data-[ismenuresize=true]:justify-end justify-center"
+            className="hidden md:flex w-full data-[ismenuresize=true]:absolute top-0 data-[ismenuresize=true]:justify-end justify-center z-50"
         >
             {
                 isMenuResize ?

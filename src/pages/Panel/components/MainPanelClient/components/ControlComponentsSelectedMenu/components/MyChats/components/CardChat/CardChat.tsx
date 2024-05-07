@@ -125,7 +125,7 @@ export function CardChat({ project, setNewProject, prompts }: CardChat) {
         project &&
         <div
             key={project.slug}
-            className="w-1/4 min-w-[250px] min-h-[250px] md:min-w-[200px] md:min-h-[220px] bg-primary-100 dark:bg-gray text-light relative flex flex-col items-center gap-2 cursor-pointer rounded-xl"
+            className="w-full text-light relative flex flex-col items-center gap-2 cursor-pointer rounded-xl"
             onClick={handleDisplayMetric}
             data-metric
         >

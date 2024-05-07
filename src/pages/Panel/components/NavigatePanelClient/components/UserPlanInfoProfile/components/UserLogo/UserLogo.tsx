@@ -2,14 +2,15 @@ import { RefObject, useContext, useRef } from "react"
 import { ClientContext } from "../../../../../../../../context/ClientContext"
 import { uploadImage } from "../../../../../../../../api/uploadImages";
 import { updateClient } from "../../../../../../../../api/client";
+import { useSearchParams } from "react-router-dom";
+import { RESIZE_MENU } from "../../../../../../../../variables/variables";
 
-interface UserLogo {
-    menuIsOpen: boolean
-}
 
-export function UserLogo({ menuIsOpen }: UserLogo) {
+export function UserLogo() {
     const { client } = useContext(ClientContext)
     const refPreviewImage: RefObject<HTMLLabelElement> = useRef(null);
+    const [params] = useSearchParams();
+    const isMenuResized = params.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.DEFAULT_VALUES.DEFAULT ? true : false;
 
     const handleUploadImage = async (e: any) => {
         const files = e.target.files
@@ -44,8 +45,8 @@ export function UserLogo({ menuIsOpen }: UserLogo) {
 
     return (
         <div
-            data-menuisopen={menuIsOpen}
-            className="w-[40px] h-[40px] data-[menuisopen=true]:w-[80px] data-[menuisopen=true]:h-[80px] rounded-full overflow-hidden cursor-pointer border-4 border-primary-100 dark:border-light"
+            data-ismenuresized={isMenuResized}
+            className="w-[100px] h-[100px] md:w-[40px] md:h-[40px] md:data-[ismenuresized=true]:w-[80px] md:data-[ismenuresized=true]:h-[80px] rounded-full overflow-hidden cursor-pointer border-4 border-primary-100 dark:border-light"
         >
             <label
                 className="w-full h-full relative cursor-pointer"

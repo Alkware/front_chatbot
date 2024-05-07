@@ -26,7 +26,7 @@ export function FormTextArea({ title, size = "SMALL", help, limitText, ...props 
             const textarea = containerRef.current.querySelector("textarea");
             if (label && textarea && textarea.value.length > 0) {
                 label.classList.remove("top-0", "opacity-50", "cursor-text", "py-2")
-                label.classList.add("top-0", "-translate-y-3/4")
+                label.classList.add("top-0", "-translate-y-3/4", "text-light")
                 textLabel?.classList.add("bg-primary-100", "shadow");
                 !!help && (svgHelp?.classList.remove("hidden"))
             }
@@ -40,7 +40,7 @@ export function FormTextArea({ title, size = "SMALL", help, limitText, ...props 
         const textarea: HTMLTextAreaElement = currentTarget.querySelector("textarea");
 
         label.classList.remove("top-0", "opacity-50", "cursor-text", "py-2")
-        label.classList.add("top-0", "-translate-y-3/4")
+        label.classList.add("top-0", "-translate-y-3/4", "text-light")
         textLabel?.classList.add("bg-primary-100", "shadow");
         !!help && (svgHelp?.classList.remove("hidden"))
 
@@ -56,7 +56,7 @@ export function FormTextArea({ title, size = "SMALL", help, limitText, ...props 
 
         if (textarea && textarea.value.length <= 0) {
             label.classList.add("top-0", "opacity-50", "cursor-text", "py-2")
-            label.classList.remove("top-0", "-translate-y-3/4")
+            label.classList.remove("top-0", "-translate-y-3/4", "text-light")
             textLabel?.classList.remove("bg-primary-100", "shadow");
             svgHelp?.classList.add("hidden")
         }
@@ -91,7 +91,7 @@ export function FormTextArea({ title, size = "SMALL", help, limitText, ...props 
             onBlur={handleExitInput}
         >
             <label
-                className={`${title ? "block" : "hidden"} py-2 absolute top-0 transition-transform opacity-50 cursor-text flex gap-2 items-center`}
+                className={`${title ? "block" : "hidden"} py-2 absolute top-0 transition-transform opacity-50 cursor-text flex gap-2 items-center text-sm md:text-base text-dark dark:text-light`}
             >
                 <span className="w-full rounded-xl px-2">{title}</span>
 
@@ -109,7 +109,7 @@ export function FormTextArea({ title, size = "SMALL", help, limitText, ...props 
 
             <textarea
                 data-isbig={size === "BIG" ? true : false}
-                className="border border-primary-100 h-[80px] lg:h-[100px] data-[isbig=true]:h-[150px]"
+                className="border border-primary-100 h-[80px] lg:h-[100px] data-[isbig=true]:h-[150px] bg-light dark:bg-gray_light text-dark dark:text-light"
                 {...register(props.name, { onChange: handleOnChange })}
             >
             </textarea>

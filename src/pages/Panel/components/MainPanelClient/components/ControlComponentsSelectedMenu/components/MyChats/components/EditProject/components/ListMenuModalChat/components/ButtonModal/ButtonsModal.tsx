@@ -20,7 +20,7 @@ export function ButtonsModal({ eventDelete }: ButtonsModalTypes) {
     }
 
     return (
-        <div className="w-full flex justify-evenly mb-4">
+        <div className="w-3/4 md:w-full flex justify-evenly md:mb-4">
             <div className="flex justify-center items-center w-[45px] h-[50px] border border-light rounded-full">
                 <TipContainer tip="Salvar">
                     <button type="submit">

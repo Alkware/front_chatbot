@@ -35,10 +35,10 @@ export function HeaderDevice({ messages, size }: HeaderDevice) {
                 />
             </div>
             <div className="flex flex-col">
-                <h2 className="group-data-[size='SMALL']:text-sm">Suporte inteligente</h2>
+                <h2 className="group-data-[size='SMALL']:text-sm text-light">Suporte inteligente</h2>
                 <span
                     data-istyping={!!isTyping}
-                    className="opacity-80 text-sm data-[istyping=false]:hidden group-data-[size='SMALL']:text-xs"
+                    className="opacity-80 text-light text-sm data-[istyping=false]:hidden group-data-[size='SMALL']:text-xs"
                 >Digitando...</span>
             </div>
         </div>

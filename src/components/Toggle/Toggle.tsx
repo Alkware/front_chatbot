@@ -29,10 +29,10 @@ export function ToggleComponent({ isActive = false, cb, template }: ToggleCompon
             onClick={handleClickToggle}
             className="w-[50px] h-[25px] p-[3px] cursor-pointer data-[active=true]:bg-green-500 bg-red-500 rounded-xl flex data-[active=true]:flex-row-reverse transition-all duration-500 justify-between"
         >
-            <div className="w-[60%] h-full flex justify-center items-center text-xs font-bold">
+            <div className="w-[60px] h-full flex justify-center items-center text-xs font-bold">
                 {active ? text.positive : text.negative}
             </div>
-            <div className="w-[40%] h-full rounded-full bg-gray"></div>
+            <div className="w-[40px] h-full rounded-full bg-gray"></div>
         </div>
     )
 };

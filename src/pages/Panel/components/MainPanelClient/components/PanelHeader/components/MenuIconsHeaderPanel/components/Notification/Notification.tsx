@@ -2,7 +2,7 @@ import { FaBell } from "react-icons/fa";
 import { Button } from "../../../../../../../../../../components/button/Button";
 import { useContext, useEffect, useState } from "react";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
-import { MdNotificationImportant, MdNotifications } from "react-icons/md";
+import { MdLogout, MdNotificationImportant, MdNotifications } from "react-icons/md";
 import { formatDate } from "../../../../../../../../../../functions/formatDate";
 import { Notification_client } from "../../../../../../../../../../@types/notification_client";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
@@ -19,8 +19,8 @@ export function Notification() {
 
     useEffect(() => {
         const sortNotifications = client?.notification_client?.sort((a, b) => {
-            if(!a.read && b.read) return -1
-            else if(a.read && !b.read) return 1
+            if (!a.read && b.read) return -1
+            else if (a.read && !b.read) return 1
             else return 0
         })
         setNotifications(sortNotifications)
@@ -60,7 +60,7 @@ export function Notification() {
     return (
         <div className="relative">
             <div
-                className="bg-primary-100 rounded-full p-1"
+                className="bg-primary-100  border border-light/50 rounded-full p-1"
                 onClick={() => setDisplayNotification(v => !v)}
             >
                 <span
@@ -76,15 +76,19 @@ export function Notification() {
 
             <div
                 data-display={!!displayNotification}
-                className="data-[display=false]:hidden flex flex-col absolute z-50 rounded-md bg-primary-100 p-4 right-0 translate-x-[122px] my-2 min-w-[400px]"
+                className="w-full h-screen md:h-auto md:min-w-[400px] data-[display=false]:hidden flex flex-col fixed md:absolute z-50 md:rounded-md bg-primary-100 p-4 top-0 md:top-auto right-0 md:translate-x-[122px] md:my-2"
             >
-                <div className="w-full flex justify-between items-center border-b border-white/30">
+                <MdLogout
+                    className=" text-4xl absolute top-2 right-3"
+                    onClick={() => setDisplayNotification(v => !v)}
+                />
+                <div className="w-full flex justify-between items-center border-b border-white/30 my-8 md:my-0">
                     <h2 className="text-xl font-bold">Notificações</h2>
                     <Button>Marcar todas como lida</Button>
                 </div>
                 <div className="w-full flex flex-col">
                     {
-                        notifications?.map((notification) =>
+                        notifications?.length ? notifications?.map((notification) =>
                             <div
                                 className="flex gap-4 items-center min-h-[60px] border-b border-white/30 hover:bg-primary-200/50 transition-colors cursor-pointer"
                                 key={notification.id}
@@ -111,6 +115,8 @@ export function Notification() {
                                 </div>
                             </div>
                         )
+                            :
+                            <h2 className="w-full text-center py-4">Você ainda não recebeu nenhuma notificação!</h2>
                     }
                 </div>
             </div>

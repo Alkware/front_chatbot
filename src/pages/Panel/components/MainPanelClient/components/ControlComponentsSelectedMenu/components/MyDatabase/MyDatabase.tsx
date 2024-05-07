@@ -98,11 +98,11 @@ export function MyDatabases() {
                                 <div
                                     key={index}
                                     data-prompt={!!prompts[index]?.prompt_name}
-                                    className="flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20 z-50"
+                                    className="w-full max-w-[300px] flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20 z-50"
                                 >
                                     {
                                         prompts[index]?.prompt_name ?
-                                            <div className="w-[300px] flex gap-2 items-center justify-center">
+                                            <div className=" flex gap-2 items-center justify-center">
                                                 <h2
                                                     className="w-[200px] text-center py-4 flex justify-center items-center gap-2"
                                                     onClick={() => handleEditDatabase(index)}
@@ -139,9 +139,9 @@ export function MyDatabases() {
                                 <div
                                     key={index}
                                     data-prompt={!!prompts[index]?.prompt_name}
-                                    className="flex opacity-30 cursor-not-allowed justify-center items-center rounded-xl border border-primary-100 bg-primary-300 hover:bg-primary-200 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
+                                    className="w-full max-w-[300px] flex opacity-30 cursor-not-allowed justify-center items-center rounded-xl border border-primary-100 bg-primary-300 hover:bg-primary-200 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
                                 >
-                                    <FaLock className="w-[300px] py-3 text-5xl" />
+                                    <FaLock className="py-3 text-5xl" />
                                 </div>
                             )
                     )

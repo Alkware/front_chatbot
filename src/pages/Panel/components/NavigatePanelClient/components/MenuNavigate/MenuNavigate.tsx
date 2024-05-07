@@ -2,7 +2,7 @@ import { ElementType } from "react";
 import { FaHeadset } from "react-icons/fa6";
 import { IoIosChatbubbles, IoIosCloud, IoIosStats, IoLogoBuffer, IoMdCash } from "react-icons/io";
 import { useSearchParams } from "react-router-dom";
-import { MOBILE_MENU, RESIZE_MENU } from "../../../../../../variables/variables";
+import { RESIZE_MENU } from "../../../../../../variables/variables";
 
 const navMenu = [
     {
@@ -31,15 +31,18 @@ const navMenu = [
     },
 ]
 
+interface MenuNavigate {
+    urlParamName: string;
+}
 
-function MenuNavigate() {
+function MenuNavigate({ urlParamName }: MenuNavigate) {
     const [searchParams, setSearchParams] = useSearchParams();
     const isMenuResized = searchParams.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.DEFAULT_VALUES.DEFAULT ? true : false;
 
     const handleSelectedTabNavigation = (index: number) => {
-        const isMobileMenu = searchParams.get(MOBILE_MENU.URL_NAME);
+        const isMobileMenu = searchParams.get(urlParamName);
 
-        if (isMobileMenu) searchParams.set(MOBILE_MENU.URL_NAME, "close");
+        if (isMobileMenu) searchParams.set(urlParamName, "close");
         
         searchParams.set("tab", index.toString());
         

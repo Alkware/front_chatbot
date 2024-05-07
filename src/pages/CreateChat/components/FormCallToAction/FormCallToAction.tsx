@@ -104,11 +104,11 @@ export function CallToActionFormChat({ prompts }: CallToActionFormChat) {
     }
 
     return (
-        <div className="flex flex-col ">
+        <div className="w-full md:w-autoflex flex-col border-2 md:border-none border-primary-100 rounded-md md:rounded-none p-2 md:p-0">
             <div className="flex justify-between items-center">
                 <div className="flex flex-col text-center">
-                    <h2 className="text-xl font-bold">Adicione chamadas para ação no seu chat</h2>
-                    <span className="text-sm opacity-70">(Essas CTA serão usadas no contexto da conversa)</span>
+                    <h2 className="text-base md:text-xl font-bold">Adicione chamadas para ação no seu chat</h2>
+                    <span className="text-sm opacity-80 md:opacity-70">(Essas CTA serão usadas no contexto da conversa)</span>
                 </div>
             </div>
             <Root.MultipleInput
@@ -119,8 +119,9 @@ export function CallToActionFormChat({ prompts }: CallToActionFormChat) {
                 {
                     fields.map((field: Field, index: number) =>
                         <Root.Container className="flex gap-4" key={field.id}>
-                            <Root.Container className="flex flex-col gap-8">
-                                <Root.Container className="flex gap-4">
+
+                            <Root.Container className="flex flex-col gap-4 md:gap-8">
+                                <Root.Container className="flex flex-col md:flex-row gap-4">
                                     <Root.Input
                                         name={`step_1.call_to_action.${index}.button_text`}
                                         title={`Digite o texto do link`}
@@ -140,6 +141,7 @@ export function CallToActionFormChat({ prompts }: CallToActionFormChat) {
                                     title="Digite a descrição do link"
                                 />
                             </Root.Container>
+                            
                             <div className="flex flex-col gap-4">
                                 <MdAdd
                                     className="text-3xl p-1 fill-primary-100 bg-primary-300 rounded-full cursor-pointer"
@@ -150,6 +152,7 @@ export function CallToActionFormChat({ prompts }: CallToActionFormChat) {
                                     onClick={() => fields.length > 1 && remove(index)}
                                 />
                             </div>
+
                         </Root.Container>
                     )
                 }

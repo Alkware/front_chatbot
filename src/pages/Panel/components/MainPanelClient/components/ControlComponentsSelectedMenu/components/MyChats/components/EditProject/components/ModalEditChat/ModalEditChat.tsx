@@ -194,7 +194,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
 
     return (
         (!!prompt?.length) &&
-        <div className="w-[90vw] h-[80vh] min-h-[450px] min-w-[700px] flex overflow-hidden">
+        <div className="w-full md:w-[90vw] md:h-[80vh] md:min-h-[450px] md:min-w-[700px] flex overflow-hidden">
             <Root.EditForm
                 form={editChatForm}
                 onDelete={handleDeleteProject}
@@ -237,7 +237,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                         title="Digite a primeira mensagem do seu chat"
                     />
 
-                    <CallToActionFormChat prompts={prompt}/>
+                    <CallToActionFormChat prompts={prompt} />
                 </Root.EditStep>
 
                 {/* Será adicionado posteriormente na wipzee */}
@@ -255,11 +255,11 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                     index={2}
                     titleStep="Aparência do chat"
                 >
-                    <Root.Container className="flex flex-col gap-8" >
+                    <Root.Container className="w-full flex flex-col items-center gap-8" >
 
                         <div className="flex flex-col justify-center gap-4">
                             <h2 className="text-center text-xl">Escolha um icone para seu chat</h2>
-                            <div className="flex justify-center gap-8 text-5xl">
+                            <div className="flex justify-center gap-2 md:gap-8 text-5xl">
                                 {
                                     CHAT_ICONS_MODELS.map(({ Icon, id }, index: number) =>
                                         <Icon
@@ -279,7 +279,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                         />
 
 
-                        <Root.Container className="flex">
+                        <Root.Container className="w-full flex gap-4 justify-center items-center">
                             <Root.Color
                                 name="step_3.chat_appearance.primary_color"
                                 title="Escolha a cor primária do seu chat"
@@ -294,24 +294,28 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                         <Root.Color
                             name="step_3.chat_appearance.background"
                             title="Escolha a cor do background do seu chat"
+                            containerWidth="w-2/3"
                         />
+
                     </Root.Container>
+
                 </Root.EditStep>
 
                 <Root.EditStep
                     index={3}
                     titleStep="Configuração avançadas"
                 >
-                    <Root.Container className="flex flex-col" >
+                    <Root.Container className="flex flex-col items-center p-2" >
                         <Root.Input
                             name="step_4.slug"
                             title="Altere a slug do seu chat"
                         />
 
                         <SimulatorSlugUrl />
-                        <div className="flex flex-col">
+                        
+                        <div className="w-4/5 md:w-auto flex flex-col items-center md:items-start">
                             <span className="font-medium uppercase">Lembre-se</span>
-                            <span className="opacity-70">
+                            <span className="opacity-70 text-center md:text-right">
                                 Ao trocar a slug do seu chat, todos seus clientes que possuirem a URL antiga, podem perder acesso ao seu site utilizando a antiga URL.
                             </span>
                         </div>

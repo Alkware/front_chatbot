@@ -13,10 +13,10 @@ export function SocialProof() {
 
 
     return (
-        <Root.Container className="overflow-auto h-[400px]">
- 
-            <Root.Container className="flex justify-between items-center">
-                <div className="flex flex-col text-center">
+        <Root.Container className="overflow-auto">
+
+            <Root.Container className="flex flex-col gap-4 md:gap-0 md:flex-row justify-between items-center">
+                <div className="w-full flex flex-col text-center">
                     <h2 className="text-xl font-bold">Adicione avaliações dos seus clientes:</h2>
                     <span className="text-sm opacity-70">(Essas avaliações estarão visível na bio do chat)</span>
                 </div>
@@ -28,7 +28,7 @@ export function SocialProof() {
                 </Button>
             </Root.Container>
 
-            <Root.Container className="px-4 overflow-auto h-[300px] my-2">
+            <Root.Container className="w-full px-4 overflow-auto my-2">
                 {
                     fields.map((field: any, index: number) =>
                         <Root.Container
@@ -39,21 +39,22 @@ export function SocialProof() {
                                 className="absolute -top-3 -right-3 bg-red-800/50 fill-red-500 cursor-pointer rounded-full p-1 text-2xl"
                                 onClick={() => remove(index)}
                             />
-                            <Root.Container className="w-full flex justify-start items-center gap-4">
+                            <Root.Container className="w-full flex flex-wrap md:flex-nowrap justify-start items-center gap-4">
                                 <Root.File
                                     name={`step_0.social_proof.${index}.avatar`}
                                     sizeContainer="50px"
                                 />
                                 <Root.Input
-                                    title="Nome do cliente"
-                                    name={`step_0.social_proof.${index}.person_name`}
-                                />
-                                <Root.Input
                                     type="number"
                                     title="Nota da avaliação"
                                     name={`step_0.social_proof.${index}.rating`}
+                                    widthContainer="w-2/3"
                                     min={0}
                                     max={5}
+                                />
+                                <Root.Input
+                                    title="Nome do cliente"
+                                    name={`step_0.social_proof.${index}.person_name`}
                                 />
                             </Root.Container>
 

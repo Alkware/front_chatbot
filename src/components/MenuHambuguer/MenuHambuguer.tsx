@@ -1,30 +1,30 @@
 import { RefObject, useEffect, useRef } from "react"
 import { useSearchParams } from "react-router-dom";
-import { MOBILE_MENU } from "../../variables/variables";
 import { twMerge } from "tailwind-merge";
 
 interface MenuHambuguer {
+    urlParamName: string,
     className?: string;
 }
 
-export function MenuHambuguer({ className }: MenuHambuguer) {
+export function MenuHambuguer({ urlParamName, className }: MenuHambuguer) {
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => 
-        handleDisplayMenu(searchParams.get(MOBILE_MENU.URL_NAME) === MOBILE_MENU.DEFAULT_VALUES.OPEN ? true : false), 
-    [searchParams.get(MOBILE_MENU.URL_NAME)]);
+        handleDisplayMenu(searchParams.get(urlParamName) === "open" ? true : false), 
+    [searchParams.get(urlParamName)]);
 
     const handleClick = () => {
-        let isMobileMenu = searchParams.get(MOBILE_MENU.URL_NAME);
+        let isMobileMenu = searchParams.get(urlParamName);
 
         if (!isMobileMenu) {
-            searchParams.append(MOBILE_MENU.URL_NAME, MOBILE_MENU.DEFAULT_VALUES.OPEN)
-            isMobileMenu = MOBILE_MENU.DEFAULT_VALUES.OPEN
+            searchParams.append(urlParamName, "open")
+            isMobileMenu = "open"
             setSearchParams(searchParams)
         }
 
-        handleDisplayMenu(isMobileMenu === MOBILE_MENU.DEFAULT_VALUES.OPEN ? false : true);
+        handleDisplayMenu(isMobileMenu === "open" ? false : true);
     }
 
     const handleDisplayMenu = (isOpen: boolean) => {
@@ -39,12 +39,12 @@ export function MenuHambuguer({ className }: MenuHambuguer) {
                 tab2?.classList.add("-rotate-45", "-translate-y-[200%]");
                 tab1?.classList.add("hidden");
                 tab0?.classList.add("rotate-45", "translate-y-full");
-                searchParams.set(MOBILE_MENU.URL_NAME, MOBILE_MENU.DEFAULT_VALUES.OPEN);
+                searchParams.set(urlParamName, "open");
             } else {
                 tab2?.classList.remove("-rotate-45", "-translate-y-[200%]");
                 tab1?.classList.remove("hidden");
                 tab0?.classList.remove("rotate-45", "translate-y-full");
-                searchParams.set(MOBILE_MENU.URL_NAME, MOBILE_MENU.DEFAULT_VALUES.CLOSE);
+                searchParams.set(urlParamName, "close");
             }
 
             setSearchParams(searchParams)

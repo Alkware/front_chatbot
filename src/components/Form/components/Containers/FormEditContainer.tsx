@@ -7,6 +7,7 @@ import { FormStep } from "./FormStep";
 import { ModalContext } from "../../../../context/ModalContext";
 import { PopOver } from "../../../modal/templates/PopOver";
 import { object } from "zod";
+import { MenuHambuguer } from "../../../MenuHambuguer/MenuHambuguer";
 
 interface EditContainer {
     children: ReactElement<typeof FormStep>[] | ReactElement<typeof FormStep>;
@@ -59,10 +60,15 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
     return (
         <FormProvider {...form}>
             <form
-                className="w-full flex flex-row items-center gap-4 p-2"
+                className="w-full flex flex-col md:flex-row items-center gap-4 p-0 md:p-2"
                 onSubmit={form.handleSubmit(onSubmit)}
             >
-                <div className="w-auto min-h-full max-w-[300px] min-w-[250px] flex flex-col justify-between items-center border-r border-primary-100 relative">
+                <div className="w-full h-[10%] min-h-[60px] md:w-auto md:min-h-full md:max-w-[300px] md:min-w-[250px] fixed md:static bottom-0 z-50 flex flex-row md:flex-col justify-between items-center border-r border-primary-100 bg-primary-100 md:bg-transparent">
+                    
+                    <MenuHambuguer
+                        urlParamName="menu_modal_edit_chat"
+                        className="md:hidden"
+                    />
 
                     <ListMenuModal
                         children={filterStepChildren}
@@ -74,7 +80,7 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
 
                 </div>
 
-                <div className="w-full h-full overflow-auto  flex justify-evenly gap-8">
+                <div className="w-full h-full overflow-auto flex flex-col items-center lg:flex-row justify-evenly gap-8 pb-16 md:pb-0">
                     <div
                         className="w-full flex flex-col gap-12 max-w-[900px]"
                     >
@@ -85,7 +91,7 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
                         }
                     </div>
 
-                    <div className="h-full flex items-center">
+                    <div className="w-auto md:w-2/3 h-full flex justify-center items-center">
                         <SimulatorChat active={activeSimulator} />
                     </div>
 

@@ -1,15 +1,17 @@
 import { InputHTMLAttributes, MouseEvent, RefObject, useEffect, useRef } from "react"
 import { useFormContext } from "react-hook-form"
 import { FORM_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables";
+import { twMerge } from "tailwind-merge";
 
 interface FormInput extends InputHTMLAttributes<HTMLInputElement> {
     name: string;
     title: string;
     mask?: (e: MouseEvent<HTMLInputElement, MouseEvent>) => void;
+    widthContainer?: string;
     joinAtInput?: string;
 }
 
-export function FormInput({ title, joinAtInput, mask, ...props }: FormInput) {
+export function FormInput({ title, joinAtInput, widthContainer, mask, ...props }: FormInput) {
     const { register } = useFormContext();
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const sizeLetter = 10;
@@ -66,14 +68,14 @@ export function FormInput({ title, joinAtInput, mask, ...props }: FormInput) {
 
     return (
         <div
-            className="w-full flex flex-col gap-2 relative border border-primary-light dark:border-primary-100 rounded-md"
+            className={twMerge("w-full flex flex-col gap-2 relative border border-primary-light dark:border-primary-100 rounded-md", widthContainer)}
             ref={containerRef}
             onClick={handleClickedInput}
             onBlur={handleExitInput}
         >
             <label
                 data-isbigtitle={title.length >= inputWidth ? true : false}
-                className="data-[isbigtitle=true]:w-full whitespace-nowrap text-ellipsis text-dark dark:text-light overflow-hidden px-2 py-2 absolute top-0 transition-transform opacity-50 cursor-text rounded-md "
+                className="data-[isbigtitle=true]:w-full whitespace-nowrap text-ellipsis text-dark dark:text-light overflow-hidden px-2 py-2 absolute top-0 transition-transform opacity-50 cursor-text rounded-md text-sm md:text-base"
             >{title}</label>
 
             <div className="h-full flex gap-2 justify-center items-center bg-light dark:bg-gray_light rounded-md px-2">

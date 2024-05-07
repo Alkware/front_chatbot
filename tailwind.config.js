@@ -12,6 +12,7 @@ export default {
     extend: {
       colors: {
         primary: {
+          50: "#ADAAF5",
           100: "#7672F2",
           200: "#363473",
           300: "#222140",
@@ -21,11 +22,11 @@ export default {
         gray_light: "#353535",
         light: "#fff"
       },
-      textColor:{
+      textColor: {
         dark: "#111111",
         light: "#fff"
       },
-      screens:{
+      screens: {
         "2xs": "380px",
         "xs": "480px",
         'tall-8': { 'raw': '(min-height: 800px)' },
@@ -33,7 +34,7 @@ export default {
         'tall-6': { 'raw': '(min-height: 600px)' },
         'tall-5': { 'raw': '(min-height: 500px)' },
       },
-      animation:{
+      animation: {
         "smooth_display_left": "smooth-display-left 500ms ease-in-out",
         "loading": "loading 500ms linear infinite alternate-reverse",
         "jump-screen": "jump-screen 1s ease-out ",

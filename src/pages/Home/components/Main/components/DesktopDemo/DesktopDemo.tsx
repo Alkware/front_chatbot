@@ -124,7 +124,7 @@ export function DesktopDemo() {
       </div>
 
       <Button 
-        customClass="neon-effect-hover z-50 max-sm:my-8"
+        customClass="neon-effect-hover my-4 max-sm:my-8"
         onClick={()=> navigate("/register")}
     
       >Conhecer a plataforma</Button>

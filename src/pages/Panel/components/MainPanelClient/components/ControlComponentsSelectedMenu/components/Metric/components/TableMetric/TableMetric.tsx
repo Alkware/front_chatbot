@@ -17,7 +17,7 @@ export function TableMetric({ columns, setColumns, planManagement }: BodyTableMe
 
 
     return (
-        <div className="w-[70vw] h-[40vh] self-center rounded-xl overflow-x-auto">
+        <div className="w-[95%] md:w-[70vw] md:h-[40vh] self-center rounded-xl overflow-x-auto">
 
             <HeaderTableMetric setColumns={setColumns} columns={columns} />
 

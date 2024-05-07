@@ -39,10 +39,9 @@ export function Metric() {
     }
 
     return (
-        <div className="w-full h-full overflow-y-auto flex flex-col gap-8">
             <Container
                 title="Métricas"
-                className="flex-col items-center gap-8"
+                className="flex-col items-center gap-2 md:gap-8"
             >
                 <OptionsTable
                     client={client}
@@ -57,6 +56,5 @@ export function Metric() {
                     setColumns={setColumns}
                 />
             </Container>
-        </div>
     )
 };

@@ -84,10 +84,10 @@ export function ButtonCreateChat({ plan_management_id }: ButtonCreateChat) {
     return (
         <div
             onClick={handleClickNewProject}
-            className="min-w-[250px] min-h-[250px] md:min-w-[200px] md:min-h-[220px] cursor-pointer flex justify-center items-center"
+            className="w-4/5 xs:w-1/2 md:w-1/4 min-w-[200px] min-h-[200px] cursor-pointer flex justify-center items-center"
         >
             <TipContainer tip="Crie um novo chat">
-                <IoAddOutline className="text-4xl text-primary-100" />
+                <IoAddOutline className="text-6xl text-light dark:text-primary-100" />
             </TipContainer>
         </div>
     )

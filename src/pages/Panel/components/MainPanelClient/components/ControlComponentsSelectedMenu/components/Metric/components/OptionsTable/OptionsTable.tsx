@@ -56,25 +56,25 @@ export function OptionsTable({ client, handleRequestDataProject, setColumns, col
     }
 
     return (
-        <div className="w-[70vw] flex gap-8 justify-end items-center">
+        <div className="w-full md:w-[70vw] px-4 flex flex-row-reverse md:flex-row flex-wrap md:flex-nowrap gap-4 md:gap-8 justify-center md:justify-end items-center">
             <div
-                className="p-2 bg-light dark:bg-dark border border-primary-100 rounded-md cursor-pointer"
+                className="w-1/5 md:w-auto p-2 flex justify-center bg-light dark:bg-dark border border-primary-100 rounded-md cursor-pointer"
                 onClick={reloadMetric}
             >
                 <FaArrowRotateLeft className="text-xl fill-primary-100 dark:fill-light" />
             </div>
 
-            <div className="h-[40px]">
+            <div className="w-[74%] md:w-auto h-[40px]">
                 <SelectTime typeFilter="filter_time_metric" />
             </div>
 
             <Button
                 onClick={handleColumnOrganization}
-                customClass="bg-light dark:bg-dark text-primary-100 dark:text-light border border-primary-100 px-4"
+                customClass="w-full md:w-auto bg-light dark:bg-dark text-primary-100 dark:text-light border border-primary-100 px-4"
             > <FaBorderAll className="text-xl fill-primary-100 dark:fill-light" /> Organize as colunas</Button>
 
             <Button
-                customClass="bg-primary-100 border border-primary-100 px-4"
+                customClass="w-full md:w-auto px-0 bg-primary-100 border border-primary-100"
                 onClick={handleClickAnalyzeMetric}
             > <BsStars className="text-xl" /> Analisar métricas com IA</Button>
         </div>

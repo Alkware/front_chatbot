@@ -47,13 +47,13 @@ export function PopOver({ message, type = "INFORMATION", functionAfterComplete, 
 
     return (
         <div
-            className="w-screen h-screen text-light flex justify-end items-start mt-12 animate-jump-screen z-[999]"
+            className="w-screen h-screen text-light flex justify-end items-start md:mt-12 animate-jump-screen z-[999]"
             ref={contentRef}
             data-testid="modal-pop-over"
             onClick={handleCloseModal}
         >
             <div
-                className={`max-w-[400px] ${background} rounded-lg shadow-sm shadow-white/20`}
+                className={`w-full md:w-auto max-w-[400px] ${background} md:rounded-lg shadow-sm shadow-white/20`}
             >
                 <div className="flex justify-center items-center px-4">
                     {icon}

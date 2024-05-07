@@ -37,7 +37,7 @@ export function ModalColumnOrganization({ setColumns, columns, modalName }: Moda
     }
 
     return (
-        <div className="w-1/2 max-w-[400px] bg-zinc-800 text-light">
+        <div className="w-full md:w-1/2 max-w-[400px] bg-light dark:bg-zinc-800 text-dark dark:text-light">
             <h2 className="w-full text-center text-xl p-4">Organize suas columns</h2>
 
             <div className="w-full flex gap-2 flex-col">
@@ -47,7 +47,7 @@ export function ModalColumnOrganization({ setColumns, columns, modalName }: Moda
                             <p>{column.columnName}</p>
 
                             <div
-                                className={`w-[30px] h-[20px] bg-zinc-100 flex overflow-hidden rounded-full cursor-pointer`}
+                                className={`w-[30px] h-[20px] bg-zinc-400 dark:bg-zinc-100 flex overflow-hidden rounded-full cursor-pointer`}
                                 style={{ justifyContent: `${column.status ? "end" : "start"}` }}
                                 onClick={handleChangeStatus}
                                 data-status={column.status}

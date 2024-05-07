@@ -16,10 +16,10 @@ function MyChats() {
     const [projects, setProjects] = useState<Project[]>(client?.plan_management ? client.plan_management.project : [])
     const limitChats = Array(MAX_CONTAINER_TO_CREATE_CHAT).fill(0)
 
-    const handleLockChat = ()=>[
+    const handleLockChat = () => [
         setModalContent({
             componentName: "modal_locked_chat",
-            components: <PopOver 
+            components: <PopOver
                 componentName="modal_locked_chat"
                 message="Esse slot não está disponível, crie seu chat em um slot disponível ou contrate um plano com mais slot disponível."
                 type="WARNING"
@@ -38,46 +38,41 @@ function MyChats() {
                             (
                                 <div
                                     key={index}
-                                    className="flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20 z-50"
+                                    className="w-[90%] xs:w-1/2 md:w-1/3 lg:w-1/4 md:max-w-[300px] flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20 z-40"
                                 >
-                                    <div className="w-full flex flex-col gap-4">
-
-                                        <div className="w-full flex items-center gap-4">
-                                            {
-                                                projects[index]?.id ?
-                                                    projects.map((project: Project) =>
-                                                        <CardChat
-                                                            key={project.id}
-                                                            project={project}
-                                                            setNewProject={setProjects}
-                                                            prompts={client.plan_management?.prompt}
-                                                        />
-                                                    )
-                                                    :
-                                                    <TutoralContainer
-                                                        title="Vamos criar seu primeiro chat"
-                                                        text={`Clique em <span class="text-3xl font-medium mx-1">+</span> para criar seu primeiro chat de forma simples e fácil`}
-                                                        position="BOTTOM"
-                                                        hidden={projects.length !== 0}
-                                                    >
-                                                        <ButtonCreateChat
-                                                            plan_management_id={client?.plan_management?.id}
-                                                        />
-                                                    </TutoralContainer>
-                                            }
-                                        </div>
-                                    </div>
+                                    {
+                                        projects[index]?.id ?
+                                            projects.map((project: Project) =>
+                                                <CardChat
+                                                    key={project.id}
+                                                    project={project}
+                                                    setNewProject={setProjects}
+                                                    prompts={client.plan_management?.prompt}
+                                                />
+                                            )
+                                            :
+                                            <TutoralContainer
+                                                title="Vamos criar seu primeiro chat"
+                                                text={`Clique em <span class="text-3xl font-medium mx-1">+</span> para criar seu primeiro chat de forma simples e fácil`}
+                                                position="BOTTOM"
+                                                hidden={projects.length !== 0}
+                                            >
+                                                <ButtonCreateChat
+                                                    plan_management_id={client?.plan_management?.id}
+                                                />
+                                            </TutoralContainer>
+                                    }
                                 </div>
                             )
                             :
                             (
                                 <div
                                     key={index}
-                                    className="min-w-[250px] min-h-[250px] md:min-w-[200px] md:min-h-[220px] flex opacity-30 cursor-not-allowed justify-center items-center rounded-xl border border-primary-100 bg-primary-300 hover:bg-primary-200 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
+                                    className="w-[90%] xs:w-1/2 md:w-1/3 lg:w-1/4 min-h-[200px] md:max-w-[300px]  flex opacity-30 cursor-not-allowed justify-center items-center rounded-xl border border-primary-100 bg-primary-300 hover:bg-primary-200 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
                                     onClick={handleLockChat}
                                 >
-                                    <FaLock 
-                                        className="py-3 text-5xl" 
+                                    <FaLock
+                                        className="py-3 text-5xl"
                                     />
                                 </div>
                             )

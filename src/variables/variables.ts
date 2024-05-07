@@ -18,17 +18,6 @@ export const STEP_NAME_URL: string = "form-step"
  * Nome da etapa que ficará na url do navegador.
  * Esse nome é um controlador para verificar se o mobile menu está aberto ou fechado.
  */
-export const MOBILE_MENU = {
-    URL_NAME: "mobile-menu",
-    DEFAULT_VALUES: {
-        OPEN: "open",
-        CLOSE: "close"
-    }
-}
-/**
- * Nome da etapa que ficará na url do navegador.
- * Esse nome é um controlador para verificar se o mobile menu está aberto ou fechado.
- */
 export const RESIZE_MENU = {
     URL_NAME: "resize-menu",
     DEFAULT_VALUES: {

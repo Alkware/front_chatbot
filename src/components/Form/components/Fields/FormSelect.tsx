@@ -108,7 +108,7 @@ export function FormSelect({ options, title, name, isMultiple }: FormSelect) {
             <div
                 id="select"
                 onClick={handleDisplayOptions}
-                className="w-full border border-primary-100 p-2 flex gap-4 justify-between items-center cursor-pointer rounded-md"
+                className="w-full border bg-primary-100 dark:bg-transparent border-primary-100 p-2 flex gap-4 justify-between items-center cursor-pointer rounded-md"
             >
                 <div
                     className="w-full text-center flex gap-x-4 gap-y-1 justify-center flex-wrap"
@@ -119,7 +119,7 @@ export function FormSelect({ options, title, name, isMultiple }: FormSelect) {
                                 optionsState.selected.map((opt, index) =>
                                     <div
                                         key={index}
-                                        className="flex gap-2 justify-center items-center bg-primary-300 rounded-md px-1"
+                                        className="flex gap-2 justify-center items-center bg-light dark:bg-primary-300 text-primary-100 rounded-md px-1"
                                     >
                                         <p>{opt.text}</p>
                                         <MdDelete
@@ -133,7 +133,7 @@ export function FormSelect({ options, title, name, isMultiple }: FormSelect) {
                                 )
                             ) :
                             (
-                                <h2 className="opacity-60 w-full text-sm">{title}</h2>
+                                <h2 className="opacity-80 dark:opacity-60 w-full text-sm">{title}</h2>
                             )
                     }
                 </div>
@@ -141,7 +141,7 @@ export function FormSelect({ options, title, name, isMultiple }: FormSelect) {
             </div>
 
             <ul
-                className="w-full max-h-[200px] overflow-auto hidden flex-col items-center absolute top-full z-50 bg-black border border-primary-100"
+                className="w-full max-h-[200px] overflow-auto hidden flex-col items-center absolute top-full z-50 bg-light dark:bg-black text-primary-100 dark:text-light border border-primary-100"
             >
                 {
                     optionsState.options.map(opt =>

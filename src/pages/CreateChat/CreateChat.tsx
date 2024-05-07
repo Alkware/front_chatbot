@@ -100,8 +100,8 @@ export function CreateChat() {
 
     return (
         (plan_management_id && prompt) &&
-        <div className="w-screen min-h-screen bg-gradient-to-br from-primary-100 to-light dark:via-primary-300 via-15% dark:to-dark to-30% text-light flex flex-col justify-center items-center">
-            <div className="w-4/5 p-4 rounded-2xl flex justify-center items-start bg-primary-100 dark:bg-dark border border-primary-300">
+        <div className="w-screen min-h-screen bg-gradient-to-br from-primary-50 to-light dark:via-primary-300 via-15% dark:to-dark to-30% text-light flex flex-col justify-center items-center">
+            <div className="w-full md:w-4/5 p-4 md:rounded-2xl flex justify-center items-start bg-primary-50 dark:bg-dark dark:border border-primary-300">
                 <Root.Form
                     onSubmit={handleCreateProject}
                     form={createChatForm}
@@ -116,6 +116,7 @@ export function CreateChat() {
                         <Root.Input
                             name="step_0.project_name"
                             title="Escreva o nome do seu chat"
+                            widthContainer="w-full"
                         />
                         <Root.TextArea
                             name="step_0.chat_input_message.0"

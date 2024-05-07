@@ -39,7 +39,7 @@ export function Steps({ numberSteps }: Steps) {
             <div className="w-full flex justify-between items-center">
                 {
                     Array(numberSteps).fill(0).map((_, index) =>
-                        <div key={index} className={`w-full h-[1px] bg-transparent border border-dashed border-transparent border-t-white/30 flex justify-center items-center relative`}>
+                        <div key={index} className={`w-full h-[1px] bg-transparent border border-dashed border-transparent border-t-white dark:border-t-white/30 flex justify-center items-center relative`}>
                             <div
                                 data-index={index}
                                 className={

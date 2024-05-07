@@ -59,7 +59,7 @@ export function FormOptional({ children, text, active = false, defaultField, fun
         <div className="w-full flex flex-col gap-6">
 
             <h2
-                className="flex gap-4 items-center text-xl font-bold"
+                className="w-full md:w-auto flex gap-4 items-center text-base md:text-xl font-bold"
             >
                 {text}
                 <ToggleComponent

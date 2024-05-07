@@ -5,6 +5,7 @@ import { PopOver } from "../../../../../../../../../../../../components/modal/te
 import { TipContainer } from "../../../../../../../../../../../../components/TipContainer/TipContainer";
 import { TutoralContainer } from "../../../../../../../../../../../../components/TutoralContainer/TutoralContainer";
 import { QrCode } from "./components/QrCode/QrCode";
+import { MdLogout } from "react-icons/md";
 
 interface ShareProject {
     slug: string
@@ -81,7 +82,12 @@ export function ShareProject({ slug }: ShareProject) {
 
 
     return (
-        <div className="w-full flex flex-col gap-8">
+        <div className="w-full h-screen md:h-auto flex flex-col gap-8">
+            <MdLogout 
+                className="text-4xl rotate-180 md:hidden"
+                onClick={()=> clearModal(null, { clearLast: true})}
+            />
+
             <div className="w-full flex flex-col gap-2">
                 <h2 className="w-4/5 text-center uppercase">Link do seu chat</h2>
 

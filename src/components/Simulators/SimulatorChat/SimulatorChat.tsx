@@ -26,8 +26,8 @@ export function SimulatorChat({ active }: SimulatorChat) {
 
     return (
         (active) &&
-        <div className="w-full max-w-[350px] flex flex-col ">
-            <div className="w-full min-h-[350px] overflow-y-auto relative border border-white/20 rounded-xl">
+        <div className="w-full max-w-[300px] min-w-[250px] flex flex-col ">
+            <div className="w-full overflow-y-auto relative border border-primary-100 dark:border-white/20 rounded-xl">
                 <HeaderSimulator />
 
                 <Messages />

@@ -30,7 +30,7 @@ export function MenuIconsHeaderPanel() {
             </TipContainer>
             <TipContainer tip="Escolha entre thema light ou dark" position="BOTTOM">
                 <div
-                    className="bg-primary-100 rounded-full p-1"
+                    className="bg-primary-100 border border-light/50 rounded-full p-1"
                     onClick={handleThemeColor}
                 >
                     <FaSun

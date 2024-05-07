@@ -19,7 +19,7 @@ export function Confirm({ title, subTitle, confirmFunction, cancelFuntion }: Con
             </div>
             <div className="w-full flex gap-4 justify-evenly ">
 
-                <Button onClick={confirmFunction}>Sim</Button>
+                <Button customClass="bg-primary-50" onClick={confirmFunction}>Sim</Button>
 
                 <button
                     onClick={cancelFuntion}
