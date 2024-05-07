@@ -7,5 +7,6 @@ export interface Columns {
         "LINK_CLICKS" | "LEADS_COLLECTED" | "SERVICE_NOTE" | "RESOLUTION_RATE", 
     columnName: string,
     status: boolean,
+    size: number;
     dataType: string
 }

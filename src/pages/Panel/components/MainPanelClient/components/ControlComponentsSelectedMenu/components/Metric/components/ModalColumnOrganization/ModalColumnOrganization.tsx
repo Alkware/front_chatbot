@@ -22,7 +22,9 @@ export function ModalColumnOrganization({ setColumns, columns, modalName }: Moda
         setColumnsData(() => [
             ...columns.filter((column: any, index: number) => {
                 if (index > 1) {
-                    column.columnName === name && (column.status = !status)
+                    if (column.columnName === name) {
+                        column.status = !status
+                    }
                 }
 
                 return column
@@ -44,23 +46,27 @@ export function ModalColumnOrganization({ setColumns, columns, modalName }: Moda
                 {
                     columnsData.map((column: Columns, index: number) =>
                         <div key={column.columnName} className="w-full flex justify-between px-4">
+
                             <p>{column.columnName}</p>
 
-                            <div
-                                className={`w-[30px] h-[20px] bg-zinc-400 dark:bg-zinc-100 flex overflow-hidden rounded-full cursor-pointer`}
-                                style={{ justifyContent: `${column.status ? "end" : "start"}` }}
-                                onClick={handleChangeStatus}
-                                data-status={column.status}
-                                data-name={column.columnName}
-                            >
+                            <div className="flex gap-4">
+
                                 <div
-                                    className={`w-2/3 h-full rounded-xl flex justify-center items-center`}
-                                    style={{ background: `${column.status ? "green" : "red"}` }}
+                                    className={`w-[30px] h-[20px] bg-zinc-400 dark:bg-zinc-100 flex overflow-hidden rounded-full cursor-pointer`}
+                                    style={{ justifyContent: `${column.status ? "end" : "start"}` }}
+                                    onClick={handleChangeStatus}
+                                    data-status={column.status}
+                                    data-name={column.columnName}
                                 >
-                                    {
-                                        index < 2 &&
-                                        <FaLock className="w-[8px]" />
-                                    }
+                                    <div
+                                        className={`w-2/3 h-full rounded-xl flex justify-center items-center`}
+                                        style={{ background: `${column.status ? "green" : "red"}` }}
+                                    >
+                                        {
+                                            index < 2 &&
+                                            <FaLock className="w-[8px]" />
+                                        }
+                                    </div>
                                 </div>
                             </div>
 

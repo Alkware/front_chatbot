@@ -34,7 +34,8 @@ export function TableMetric({ columns, setColumns, planManagement }: BodyTableMe
                                         column.status &&
                                         <span
                                             key={column.columnName}
-                                            className="w-48 flex-none text-ellipsis overflow-hidden whitespace-nowrap text-center border border-primary-100/30 p-2"
+                                            style={{ width: `${column.size}px` }}
+                                            className="flex-none text-ellipsis overflow-hidden whitespace-nowrap text-center border border-primary-100/30 p-2"
                                         >
                                             {
                                                 index === 0 ?
@@ -63,7 +64,11 @@ export function TableMetric({ columns, setColumns, planManagement }: BodyTableMe
                 {
                     columns.map((column: Columns, index) =>
                         (column.status) &&
-                        <div key={column.key} className="w-48 flex-none p-2 flex justify-center items-center gap-2">
+                        <div
+                            key={column.key}
+                            style={{ width: `${column.size}px` }}
+                            className="flex-none p-2 flex justify-center items-center gap-2"
+                        >
                             {
                                 index === 1 ?
                                     <span className="w-full font-bold text-primary-100 text-xl text-center">TOTAL</span>
