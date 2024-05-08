@@ -14,7 +14,7 @@ export function FormContainer({ children, title, hiddenContainer, ...props }: Fo
         >
             <h2
                 data-istitle={!!title}
-                className="mb-3 text-xl font-bold data-[istitle='false']:hidden"
+                className="mb-3 text-xl font-bold data-[istitle='false']:hidden text-center md:text-left"
             >{title}</h2>
             <div
                 {...props}

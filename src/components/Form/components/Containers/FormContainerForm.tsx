@@ -93,9 +93,10 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
                     titleButtonSend={titleButtonSend}
                 />
 
+                {/* Esse chat foi inserido aqui para o responsivo mobile (Remover futuramente) */}
                 <div
                     data-issimulator={activeSimulator}
-                    className="w-full data-[issimulator=false]:hidden md:hidden"
+                    className="w-full data-[issimulator=false]:hidden md:hidden flex justify-center"
                 >
                     <SimulatorChat active={activeSimulator} />
                 </div>

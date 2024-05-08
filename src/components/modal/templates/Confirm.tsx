@@ -11,7 +11,7 @@ export function Confirm({ title, subTitle, confirmFunction, cancelFuntion }: Con
     return (
         <div className="flex flex-col items-center gap-8 p-4">
             <div className="flex flex-col items-center">
-                <h2 className="text-xl font-medium">{title}</h2>
+                <h2 className="text-xl font-medium text-center">{title}</h2>
                 <h3
                     data-display={!!subTitle}
                     className="opacity-80 data-[display=false]:hidden"

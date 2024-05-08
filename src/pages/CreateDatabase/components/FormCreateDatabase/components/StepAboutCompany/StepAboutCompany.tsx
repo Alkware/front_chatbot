@@ -15,7 +15,7 @@ export function StepAboutCompany() {
                 />
             </Root.Container>
 
-            <Root.Container className="flex gap-4" >
+            <Root.Container className="flex flex-col md:flex-row gap-4" >
                 <Root.Input
                     name="step_3.contact_email"
                     title="Digite um e-mail para contato"

@@ -72,7 +72,7 @@ export function FormOptional({ children, text, active = false, defaultField, fun
             {
                 display &&
                 <div
-                    className={twMerge("flex justify-between items-center gap-8", props.className)}
+                    className={twMerge("flex flex-col justify-between items-center gap-8", props.className)}
                 >
                     {children}
                 </div>

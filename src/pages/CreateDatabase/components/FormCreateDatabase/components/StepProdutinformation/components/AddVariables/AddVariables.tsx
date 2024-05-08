@@ -64,7 +64,7 @@ export function AddVariables({ index }: AddVariables) {
                     {
                         fields.map((field: any, indexVariable: number) => {
                             return <div
-                                className="flex items-center justify-between gap-3"
+                                className="flex flex-col md:flex-row items-center justify-between gap-3"
                                 key={field.id}
                             >
                                 <Root.Select

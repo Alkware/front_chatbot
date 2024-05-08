@@ -28,7 +28,7 @@ export function FormMultipleInputs({ children, update, remove, name }: FormMulti
     }
 
     return (
-        <div className="w-full flex flex-col gap-4 items-center justify-center">
+        <div className="w-full flex flex-col gap-8 md:gap-4 overflow-hidden">
 
             <div className="w-full flex gap-4 flex-wrap justify-center">
                 {
@@ -42,7 +42,7 @@ export function FormMultipleInputs({ children, update, remove, name }: FormMulti
                             >
                                 <div
                                     tabIndex={index}
-                                    className="min-w-32 bg-primary-100 rounded-l-md flex flex-col justify-between items-center cursor-pointer relative p-1"
+                                    className="min-w-20 md:min-w-32 bg-primary-100 rounded-l-md flex flex-col justify-between items-center cursor-pointer relative p-1"
                                     onClick={() => handleEdition(index)}
                                 >
                                     {
@@ -53,7 +53,7 @@ export function FormMultipleInputs({ children, update, remove, name }: FormMulti
                                                 data-index={index}
                                                 className="w-full flex justify-center flex-nowrap data-[index='0']:font-bold"
                                             >
-                                                <p className="w-[300px] whitespace-nowrap text-ellipsis overflow-hidden px-4 text-center">
+                                                <p className="w-[200px] md:w-[300px] whitespace-nowrap text-ellipsis overflow-hidden px-4 text-center">
                                                     {field[key]}
                                                 </p>
                                             </div>
@@ -76,7 +76,7 @@ export function FormMultipleInputs({ children, update, remove, name }: FormMulti
             {
                 elements.map((child, index) => {
                     return index >= (elements.length - 1) &&
-                        <div key={index} className="w-full">
+                        <div key={index} className="w-full overflow-hidden">
                             {
                                 child
                             }

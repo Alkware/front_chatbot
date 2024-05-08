@@ -41,9 +41,9 @@ export function AddProduct() {
     }
 
     return (
-        <div className="w-full flex flex-col gap-4 px-4">
+        <div className="w-full flex flex-col justify-start gap-4 px-2 md:px-4 overflow-hidden">
             <div className="w-full flex items-center justify-start my-4">
-                <h2 className="font-medium text-2xl">Cadastre seus produtos disponíveis:</h2>
+                <h2 className="font-medium text-center md:text-left text-xl md:text-2xl">Cadastre seus produtos disponíveis:</h2>
             </div>
 
             <Root.MultipleInput
@@ -54,25 +54,12 @@ export function AddProduct() {
                 {
                     fields.map((field, index) =>
                         <div
-                            className="w-full bg-primary-100/20 rounded-md py-4 flex flex-col justify-center items-center gap-6 relative"
+                            className="w-full bg-primary-100/20 rounded-md pt-4 md:py-4 flex flex-col justify-center items-center gap-6 relative"
                             tabIndex={index}
                             key={field.id}
                         >
-                            <div className="bg-primary-200 p-2 z-50 flex gap-4 justify-center items-center absolute top-0 -translate-y-1/2 right-0 rounded-md">
-                                <TipContainer tip="Adicionar novo produto">
-                                    <MdAdd
-                                        onClick={handleAddNewProduct}
-                                        className="bg-primary-100 fill-primary-300 text-3xl p-1 cursor-pointer rounded-full"
-                                    />
-                                </TipContainer>
-                                <TipContainer tip="Remover produto">
-                                    <MdDelete
-                                        onClick={() => fields.length > 1 && remove(index)}
-                                        className="fill-red-700 bg-red-200 text-3xl p-1 cursor-pointer rounded-full"
-                                    />
-                                </TipContainer>
-                            </div>
-                            <div className="w-[90%] flex gap-6 justify-center items-center relative">
+                            <div className="w-[90%] flex flex-col md:flex-row gap-6 justify-center items-center relative ">
+
                                 <Root.Input
                                     name={`step_0.products.${index}.name`}
                                     title="De um nome a esse produto:"
@@ -94,13 +81,14 @@ export function AddProduct() {
                                 />
 
                             </div>
+
                             <div className="w-[90%] flex gap-6 justify-center items-center">
                                 <Root.TextArea
                                     name={`step_0.products.${index}.description`}
                                     title="Conte um pouco sobre seu produto e como ele funciona"
                                 />
                             </div>
-                            <div className="w-[90%] flex gap-6 justify-center items-center my-8">
+                            <div className="w-[90%] flex gap-6 justify-center items-center my-0 md:my-8">
                                 <Root.Optional
                                     name={`step_0.products.${index}.optional_variable.${0}`}
                                     defaultField={{}}
@@ -113,7 +101,7 @@ export function AddProduct() {
                                 </Root.Optional>
                             </div>
 
-                            <div className="w-[90%] flex gap-6 justify-center items-center my-8">
+                            <div className="w-[90%] flex gap-6 justify-center items-center my-0 md:my-8">
                                 <Root.Optional
                                     name={`step_0.products.${index}.optional_variable.${0}`}
                                     defaultField={{}}
@@ -124,6 +112,20 @@ export function AddProduct() {
                                         index={index}
                                     />
                                 </Root.Optional>
+                            </div>
+                            <div className="w-full p-2 flex gap-4 justify-end items-center rounded-md">
+                                <TipContainer tip="Adicionar novo produto">
+                                    <MdAdd
+                                        onClick={handleAddNewProduct}
+                                        className="bg-primary-100 fill-primary-300 text-3xl p-1 cursor-pointer rounded-full"
+                                    />
+                                </TipContainer>
+                                <TipContainer tip="Remover produto">
+                                    <MdDelete
+                                        onClick={() => fields.length > 1 && remove(index)}
+                                        className="fill-red-700 bg-red-200 text-3xl p-1 cursor-pointer rounded-full"
+                                    />
+                                </TipContainer>
                             </div>
                         </div>
                     )

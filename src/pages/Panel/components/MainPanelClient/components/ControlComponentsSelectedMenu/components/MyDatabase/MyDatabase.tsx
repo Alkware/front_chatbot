@@ -65,7 +65,7 @@ export function MyDatabases() {
         setModalContent({
             componentName: "modal_edit_name",
             components:
-                <PopUp >
+                <PopUp>
                     <div className="flex flex-col justify-center items-center gap-4">
                         <h2>Digite o novo nome da sua fonte de dados:</h2>
                         <form
@@ -77,9 +77,7 @@ export function MyDatabases() {
                                 name="database_name"
                                 defaultValue={prompts[index].prompt_name}
                             />
-                            <Button
-                                type="button"
-                            >Salvar</Button>
+                            <Button>Salvar</Button>
                         </form>
                     </div>
                 </PopUp>

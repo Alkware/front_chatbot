@@ -82,13 +82,13 @@ export function ShareProject({ slug }: ShareProject) {
 
 
     return (
-        <div className="w-full h-screen md:h-auto flex flex-col gap-8">
+        <div className="w-full h-screen md:h-auto flex flex-col gap-8 relative md:static">
             <MdLogout 
-                className="text-4xl rotate-180 md:hidden"
+                className="text-4xl rotate-180 md:hidden absolute"
                 onClick={()=> clearModal(null, { clearLast: true})}
             />
 
-            <div className="w-full flex flex-col gap-2">
+            <div className="w-full flex flex-col gap-2 mt-12 md:mt-0">
                 <h2 className="w-4/5 text-center uppercase">Link do seu chat</h2>
 
                 <div className="w-full flex justify-between">

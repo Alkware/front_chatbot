@@ -26,7 +26,6 @@ export function ComomQuestions({ index }: ComomQuestions) {
     const handleAddNewAsk = () => {
         const product = watch(`step_0.products.${index}.questions.${fields.length - 1}`)
 
-        console.log(product)
         if (product.ask && product.answer) {
             append({ ask: "", answer: "" })
         } else {
@@ -50,18 +49,17 @@ export function ComomQuestions({ index }: ComomQuestions) {
         >
             {
                 fields.map((field, indexQuestions) =>
-                    <div key={field.id} className="flex justify-center rounded-md p-4 items-center gap-4">
-                        <div className="w-4/5 flex gap-6 justify-center items-center">
-                            <Root.Input
-                                name={`step_0.products.${index}.questions.${indexQuestions}.ask`}
-                                title="Digite uma pergunta"
-                            />
+                    <div key={field.id} className="flex flex-col md:flex-row justify-center rounded-md p-4 items-center gap-4">
 
-                            <Root.Input
-                                name={`step_0.products.${index}.questions.${indexQuestions}.answer`}
-                                title="Digite a resposta"
-                            />
-                        </div>
+                        <Root.Input
+                            name={`step_0.products.${index}.questions.${indexQuestions}.ask`}
+                            title="Digite uma pergunta"
+                        />
+
+                        <Root.Input
+                            name={`step_0.products.${index}.questions.${indexQuestions}.answer`}
+                            title="Digite a resposta"
+                        />
 
                         <div className="flex gap-4 justify-center items-center">
                             <MdAdd

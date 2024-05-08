@@ -89,7 +89,7 @@ export function OpeningHours() {
                     fields.map((field, index) =>
                         <Root.Container
                             key={field.id}
-                            className="w-full flex gap-4 items-center"
+                            className="w-full flex flex-col md:flex-row gap-4 items-center"
                         >
                             <Root.Select
                                 name={`step_3.support_hours.${index}.day`}
@@ -108,7 +108,7 @@ export function OpeningHours() {
                                 options={hours}
                                 title="Quando termina"
                             />
-                            <div className="w-[200px] flex gap-2">
+                            <div className="w-full md:w-[200px] flex justify-end gap-2">
                                 <MdAdd
                                     data-islast={ index === (fields.length - 1)}
                                     onClick={() => append({ day: "", start: "", end: "" })}

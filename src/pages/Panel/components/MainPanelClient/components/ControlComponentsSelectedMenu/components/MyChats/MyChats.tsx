@@ -42,14 +42,12 @@ function MyChats() {
                                 >
                                     {
                                         projects[index]?.id ?
-                                            projects.map((project: Project) =>
-                                                <CardChat
-                                                    key={project.id}
-                                                    project={project}
-                                                    setNewProject={setProjects}
-                                                    prompts={client.plan_management?.prompt}
-                                                />
-                                            )
+                                            <CardChat
+                                                key={projects[index].id}
+                                                project={projects[index]}
+                                                setNewProject={setProjects}
+                                                prompts={client.plan_management?.prompt}
+                                            />
                                             :
                                             <TutoralContainer
                                                 title="Vamos criar seu primeiro chat"

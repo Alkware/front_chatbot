@@ -136,7 +136,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
 
 
     return (
-        <div className="w-[80vw] h-[70vh] flex overflow-auto  ">
+        <div className="w-screen md:w-[80vw] h-screen md:h-[70vh] flex justify-start px-4 md:px-0">
 
             <Root.EditForm
                 form={updateDatabaseForm}
@@ -158,7 +158,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     icon={<FaInfo />}
                 >
 
-                    <Root.Container className="flex gap-4" title="Quais são os métodos de pagamentos aceitos?">
+                    <Root.Container className="w-full md:w-auto mx-auto flex gap-4" title="Quais são os métodos de pagamentos aceitos?">
                         <Root.Select
                             title="Escolha seus métodos de pagamentos"
                             isMultiple={true}
@@ -187,6 +187,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                             name="step_1.order_tracking"
                             title="Como os clientes podem rastrear seu pedido?"
                         />
+                        
                         <Root.Optional
                             defaultField={""}
                             name="step_1.tracking_link"

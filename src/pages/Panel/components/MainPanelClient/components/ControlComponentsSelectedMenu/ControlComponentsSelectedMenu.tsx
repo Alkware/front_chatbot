@@ -31,9 +31,9 @@ export function ControlComponentsSelectedMenu() {
                                     <Payments />
                                     :
                                     tab === 5 ?
-                                    <HelpCenter />
-                                    :
-                                    <ConfigProfile />
+                                        <HelpCenter />
+                                        :
+                                        <ConfigProfile />
 
             }
         </div>

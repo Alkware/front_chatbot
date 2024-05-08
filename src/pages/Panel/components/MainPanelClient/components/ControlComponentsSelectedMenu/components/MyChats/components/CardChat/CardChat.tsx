@@ -42,7 +42,7 @@ export function CardChat({ project, setNewProject, prompts }: CardChat) {
         setModalContent({
             componentName: "modal_edit_project",
             components:
-                <PopUp>
+                <PopUp positionModal="START">
                     <ModalEditChat
                         setProjects={setNewProject}
                         project={project}
@@ -108,7 +108,7 @@ export function CardChat({ project, setNewProject, prompts }: CardChat) {
         setModalContent({
             componentName: "modal_display_share_project",
             components:
-                <PopUp>
+                <PopUp positionModal="START">
                     <ShareProject
                         slug={project.slug}
                     />

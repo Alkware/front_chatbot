@@ -194,7 +194,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
 
     return (
         (!!prompt?.length) &&
-        <div className="w-full md:w-[90vw] md:h-[80vh] md:min-h-[450px] md:min-w-[700px] flex overflow-hidden">
+        <div className="w-screen px-4 md:px-0 md:w-[90vw] md:h-[80vh] md:min-h-[450px] md:min-w-[700px] flex overflow-hidden">
             <Root.EditForm
                 form={editChatForm}
                 onDelete={handleDeleteProject}

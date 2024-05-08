@@ -41,9 +41,9 @@ export function PopOver({ message, type = "INFORMATION", functionAfterComplete, 
 
     const handleCloseModal = (e: MouseEvent<HTMLDivElement>) => {
         const isModal = e.currentTarget.dataset.testid;
-
-        if(!!isModal) clearModal(componentName)
-    }   
+        functionAfterComplete && functionAfterComplete();
+        if (!!isModal) clearModal(componentName)
+    }
 
     return (
         <div
