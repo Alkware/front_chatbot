@@ -69,7 +69,7 @@ function Login() {
             <div className="w-full h-full flex gap-4 flex-col justify-center items-center relative p-4 mt-[75px] md:mt-[100px]">
                 <div className="w-[95%] md:w-4/5 flex flex-col sm:flex-row items-center rounded-xl">
 
-                    <div className="w-full nvxs:w-4/5 sm:w-3/5 py-4 flex flex-col justify-start items-center bg-primary-200 rounded-xl">
+                    <div className="w-full nvxs:w-4/5 sm:w-3/5 py-4 flex flex-col justify-start items-center bg-primary-50 dark:bg-primary-200 rounded-xl">
                         <h1 className="text-xl md:text-2xl text-light text-center font-bold">Acesse nossa plataforma</h1>
 
                         <div className="w-full flex flex-col text-light">

@@ -39,9 +39,11 @@ Com base nas informações abaixo, responda as perguntas do "user":
 4. **SOBRE A EMPRESA:**
    - Nome da empresa: ${data.step_3.company_name}
    - Endereço: ${data.step_3.address}
-   - Horário de suporte: ${data.step_3.support_hours}
    - Email de contato: ${data.step_3.contact_email}
    - Número de telefone de contato: ${data.step_3.contact_phone_number}
+   - Horário de suporte: ${data.step_3.support_hours.map(hour =>
+      `\n${hour.day} das ${hour.start} até ${hour.end}`
+   )}
 
 6. ** PERSONALIDADE DA IA:**
    - Nome da inteligência artificial que está conversando com o usuário: (Você): ${data.step_4.ia_name}

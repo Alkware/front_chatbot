@@ -161,7 +161,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     <Root.Container className="w-full md:w-auto mx-auto flex gap-4" title="Quais são os métodos de pagamentos aceitos?">
                         <Root.Select
                             title="Escolha seus métodos de pagamentos"
-                            isMultiple={true}
+                            multipleSelect={true}
                             name="step_1.payment_methods"
                             options={[
                                 { value: "Pix", text: "Pix" },

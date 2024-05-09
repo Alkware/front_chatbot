@@ -15,7 +15,7 @@ export function StepPaymentMethodAndConditions() {
             >
                 <Root.Select
                     title="Escolha seus métodos de pagamentos"
-                    isMultiple={true}
+                    multipleSelect={true}
                     name="step_1.payment_methods"
                     options={[
                         { value: "Pix", text: "Pix" },
