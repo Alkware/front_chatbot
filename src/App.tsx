@@ -13,6 +13,7 @@ import { Police } from "./pages/Police/Police"
 import { Terms } from "./pages/Terms/Terms"
 import { Cookies } from "./pages/Cookies/Cookies"
 import { FirstAccess } from "./pages/FirstAccess/FirstAccess"
+import { ConfirmEmail } from "./pages/ConfirmEmail/ConfirmEmail"
 
 const Panel = lazy(() => import("./pages/Panel/Panel"));
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/polices" element={<Police />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/cookies" element={<Cookies />} />
+        <Route path="/confirm-email" element={<ConfirmEmail />} />
         <Route path="/*" element={<h1>Page not found</h1>} />
       </Routes>
 

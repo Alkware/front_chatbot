@@ -17,6 +17,7 @@ export const databaseSchema = z.object({
                 answer: z.string(),
             }))),
         })).min(1, "Você precisa cadastrar pelo menos um produto"),
+        observation: z.optional(z.string()),
     }),
     step_1: z.object({
         payment_methods: z.array(z.string()).min(1, "Selecione pelo menos um meio de pagamento"),

@@ -13,7 +13,7 @@ import { updateReadNotification } from "../../../../../../../../../../api/notifi
 export function Notification() {
     const { client } = useContext(ClientContext);
     const { setModalContent } = useContext(ModalContext)
-    const [displayNotification, setDisplayNotification] = useState<Boolean>();
+    const [displayNotification, setDisplayNotification] = useState<boolean>();
     const [notifications, setNotifications] = useState<Notification_client[]>();
     const notification_number = notifications?.filter(notification => !notification.read)
 
@@ -50,6 +50,7 @@ export function Notification() {
                     <PopUp>
                         <DisplayNotification
                             notification={notification}
+                            setDisplayNotification={setDisplayNotification}
                         />
                     </PopUp>
             })
@@ -79,7 +80,7 @@ export function Notification() {
                 className="w-full h-screen md:h-auto md:min-w-[400px] data-[display=false]:hidden flex flex-col fixed md:absolute z-50 md:rounded-md bg-primary-100 p-4 top-0 md:top-auto right-0 md:translate-x-[122px] md:my-2"
             >
                 <MdLogout
-                    className=" text-4xl absolute top-2 right-3"
+                    className=" text-4xl absolute top-2 right-3  md:hidden"
                     onClick={() => setDisplayNotification(v => !v)}
                 />
                 <div className="w-full flex justify-between items-center border-b border-white/30 my-8 md:my-0">
@@ -109,7 +110,7 @@ export function Notification() {
                                 >
                                     <h2 className="font-medium text-lg">{notification.notification.title}</h2>
                                     <div className="flex gap-2 items-end px-2">
-                                        <p className="w-2/3 line-clamp-1 opacity-90">{notification.notification.describe}</p>
+                                        <p className="w-2/3 line-clamp-1 opacity-90" dangerouslySetInnerHTML={{ __html: notification.notification.describe }}></p>
                                         <span className="text-xs opacity-70">{formatDate(notification.notification.created_at).dateFormat_A}</span>
                                     </div>
                                 </div>

@@ -12,7 +12,6 @@ export async function registerClient({ email, password, fullname }: clientRegist
 
     const client = await axios.post(`${API_URL}/client/create`, { email, password, fullname })
         .catch(error => console.log(error))
-
     return client
 }
 

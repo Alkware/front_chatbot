@@ -1,7 +1,6 @@
 import { Project } from "../../../../../../../../../../@types/Project";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
-import { FaGear, FaLink } from "react-icons/fa6";
 import { ToggleComponent } from "../../../../../../../../../../components/Toggle/Toggle";
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
 import { updateIsOnlineProject } from "../../../../../../../../../../api/project";
@@ -15,6 +14,7 @@ import { TutoralContainer } from "../../../../../../../../../../components/Tutor
 import { updateTutorialClient } from "../../../../../../../../../../api/client";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
 import { Client } from "../../../../../../../../../../@types/Client";
+import { FaChartColumn, FaGear, FaLink } from "react-icons/fa6";
 
 interface CardChat {
     project: Project,
@@ -30,10 +30,10 @@ export function CardChat({ project, setNewProject, prompts }: CardChat) {
     const [params, setParams] = useSearchParams();
 
     const handleEditProject = async () => {
-        if(params.get("tour") === "2"){
+        if (params.get("tour") === "2") {
             params.set("tour", "0")
             setParams(params)
-            if(client){
+            if (client) {
                 const clientResponse: Client = await updateTutorialClient(client.id, false);
                 setClient(clientResponse)
             }
@@ -116,18 +116,11 @@ export function CardChat({ project, setNewProject, prompts }: CardChat) {
         })
     }
 
-
-    const handleDisplayMetric = ({ target }: any) => {
-        if (target.dataset.metric) navigate("/panel?tab=1")
-    }
-
     return (
         project &&
         <div
             key={project.slug}
             className="w-full text-light relative flex flex-col items-center gap-2 cursor-pointer rounded-xl"
-            onClick={handleDisplayMetric}
-            data-metric
         >
             <div
                 className="w-full flex justify-between items-center gap-2 p-2"
@@ -173,15 +166,21 @@ export function CardChat({ project, setNewProject, prompts }: CardChat) {
 
             <div
                 className="w-[150px] h-[110px] rounded-xl overflow-hidden"
-                data-metric
             >
                 <img
                     src={project.logo || "https://via.placeholder.com/100"}
                     alt="imagem do projeto"
                     className="w-full h-full object-cover"
+                    onClick={()=> window.open(`https://chat.wipzee.com/${project.slug}`)}
                 />
             </div>
-            <h2 className="text-center py-4 font-bold text-lg" data-metric>{project.project_name}</h2>
+            <h2
+                className="text-center py-4 font-bold text-xl flex gap-2 items-center "
+                onClick={()=> navigate("/panel?tab=1")}
+            >
+                <FaChartColumn />
+                {project.project_name}
+            </h2>
         </div>
     )
 };

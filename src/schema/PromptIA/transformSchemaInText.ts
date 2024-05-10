@@ -11,7 +11,7 @@ ${data.step_4.ia_name ?
 Com base nas informações abaixo, responda as perguntas do "user":
 
 1. **Informações do Produto:**
-   - produtos: 
+   - Produtos: 
    ${data.step_0.products.map((product, index) => `
          ------------------PRODUTO ${index + 1}------------------
          Nome do produto: ${product.name}
@@ -24,6 +24,7 @@ Com base nas informações abaixo, responda as perguntas do "user":
             - ${index + 1}. Resposta: ${question.answer}`
       )}`
       )}
+   - Observação: ${data.step_0.observation}
    
 2. **MÉTODOS DE PAGAMENTO E CONDIÇÕES:**
    - Métodos de pagamento aceitos: ${data.step_1.payment_methods}

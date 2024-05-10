@@ -1,21 +1,36 @@
+import { Dispatch, SetStateAction } from "react";
 import { Notification_client } from "../../../../../../../../../../../../@types/notification_client";
 import { Button } from "../../../../../../../../../../../../components/button/Button";
 
-export function DisplayNotification({ notification }: { notification: Notification_client }) {
+interface DisplayNotification {
+    notification: Notification_client;
+    setDisplayNotification: Dispatch<SetStateAction<boolean | undefined>>
+}
+
+export function DisplayNotification({ notification, setDisplayNotification }: DisplayNotification) {
+
+    const handleClickAction = () => {
+        eval(notification.notification.code)
+        setDisplayNotification(false)
+    }
+
+
+
     return (
-        <div className="flex flex-col justify-center items-center gap-4 min-w-[500px]">
+        <div className="flex flex-col justify-center items-center gap-4 min-w-[500px] max-w-[80vw] relative">
             <h2 className="w-full text-2xl text-center font-bold">{notification.notification.title}</h2>
             <p
                 dangerouslySetInnerHTML={{ __html: notification.notification.describe }}
             ></p>
+
             <div className="flex p-4">
                 {
-                    !!Object.keys(notification.notification.call_to_action).length &&
+                    !!notification.notification.code &&
                     (
                         <Button
-                            onClick={()=> window.open(notification.notification.call_to_action.link)}
+                            onClick={handleClickAction}
                         >
-                            {notification.notification.call_to_action.text}
+                            {notification.notification.cta_text}
                         </Button>
                     )
                 }

@@ -92,7 +92,7 @@ export function AddProduct() {
                                 <Root.Optional
                                     name={`step_0.products.${index}.optional_variable.${0}`}
                                     defaultField={{}}
-                                    text="Esse produto possui alguma variável?"
+                                    text="Esse produto possui alguma característica?"
                                     active={!!watch(`step_0.products.${index}.optional_variable.${0}.title`)}
                                 >
                                     <AddVariables

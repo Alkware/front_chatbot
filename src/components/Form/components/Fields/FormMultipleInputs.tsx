@@ -28,7 +28,7 @@ export function FormMultipleInputs({ children, update, remove, name }: FormMulti
     }
 
     return (
-        <div className="w-full flex flex-col gap-8 md:gap-4 overflow-hidden">
+        <div className="w-full flex flex-col gap-8 md:gap-4">
 
             <div className="w-full flex gap-4 flex-wrap justify-center">
                 {
@@ -76,7 +76,7 @@ export function FormMultipleInputs({ children, update, remove, name }: FormMulti
             {
                 elements.map((child, index) => {
                     return index >= (elements.length - 1) &&
-                        <div key={index} className="w-full overflow-hidden">
+                        <div key={index} className="w-full">
                             {
                                 child
                             }

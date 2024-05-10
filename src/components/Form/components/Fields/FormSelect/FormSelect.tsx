@@ -88,9 +88,11 @@ export function FormSelect({ options, title, name, multipleSelect }: FormSelect)
 
     // // Função responsável por registrar o campo no formulário.
     const registerField = (list: { value: string }[]) => {
-        unregister(name);
-        if (multipleSelect) list.forEach((_, index) => register(`${name}.${index}`, { value: list[index].value }));
-        else register(name, { value: list[0].value });
+        if(list.length){
+            unregister(name);
+            if (multipleSelect) list.forEach((_, index) => register(`${name}.${index}`, { value: list[index].value }));
+            else register(name, { value: list[0].value });
+        }
     }
 
 

@@ -18,6 +18,7 @@ const options = [
     { text: "PESO", value: "PESO" },
     { text: "MODELO", value: "MODELO" },
     { text: "MATERIAL", value: "MATERIAL" },
+    { text: "INGREDIENTES", value: "INGREDIENTES" },
     { text: "QUANTIDADE EM ESTOQUE", value: "QUANTIDADE EM ESTOQUE" },
     { text: "DIMENSÕES DE ENVIO", value: "DIMENSÕES DE ENVIO" },
 ];
@@ -68,7 +69,7 @@ export function AddVariables({ index }: AddVariables) {
                                 key={field.id}
                             >
                                 <Root.Select
-                                    title="Variável"
+                                    title="Característica"
                                     name={`step_0.products.${index}.optional_variable.${indexVariable}.title`}
                                     options={options}
                                 />

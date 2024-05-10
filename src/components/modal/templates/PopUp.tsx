@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { ModalContext } from "../../../context/ModalContext"
+import { MdClose } from "react-icons/md"
 
 interface PopUp {
     children: any
@@ -23,8 +24,13 @@ export function PopUp({ children, noBackground, positionModal }: PopUp) {
         >
             <div
                 data-nobackground={!!noBackground}
-                className="p-4 bg-primary-100 text-light dark:bg-primary-300 border border-primary-100 md:rounded-md data-[nobackground=true]:bg-transparent dark:data-[nobackground=true]:bg-transparent data-[nobackground=true]:border-none "
+                className="p-4 bg-primary-100 text-light dark:bg-primary-300 border border-primary-100 md:rounded-md data-[nobackground=true]:bg-transparent dark:data-[nobackground=true]:bg-transparent data-[nobackground=true]:border-none relative "
             >
+                <MdClose
+                    className="bg-zinc-500 rounded-full cursor-pointer absolute top-2 right-2"
+                    onClick={handleCloseModal}
+                    data-close
+                />
                 {children}
             </div>
         </div>

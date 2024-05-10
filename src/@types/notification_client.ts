@@ -9,14 +9,11 @@ export interface Notification_client {
 
 export interface NotificationType {
     id: string;
-    call_to_action: Notification_call_to_action;
     describe: string;
     title: string;
+    code: string;
+    is_global: string;
+    cta_text: string;
     created_at: string;
     updated_at: string;
-}
-
-export interface Notification_call_to_action{
-    text: string,
-    link: string,
 }
