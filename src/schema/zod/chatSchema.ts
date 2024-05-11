@@ -7,7 +7,6 @@ export const chatSchema = z.object({
         project_name: z.string().min(1, "Você precisa definir um nome para seu chat"),
         logo: z.coerce.string().url("Faça o upload da logo do chat"),
         chat_input_message: z.array(z.string().min(1, "Informe a primeira mensagem que será enviada ao seu cliente").max(100, "Sua primeira mensagem pode conter no máximo 80 caracteres.")),
-        bio: z.string().optional(),
         social_proof: z.array(z.object({
             person_name: z.string().min(1, "Informe o nome do cliente que avaliou."),
             avatar: z.string().url("Informe um avatar valído."),
@@ -18,6 +17,7 @@ export const chatSchema = z.object({
     }),
     step_1: z.object({
         prompt_id: z.coerce.string().min(1, "Informe uma fonte de dados"),
+        bio: z.string().optional(),
         call_to_action: z.optional(z.array(z.object({
             button_text: z.string().min(1, "Você precisa definir um texto para seu link.").refine(text => {
                 return (text.includes("(") || text.includes(")")) ? false : true

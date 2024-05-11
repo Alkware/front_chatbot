@@ -81,7 +81,7 @@ function Register() {
                     <div className="w-full nvxs:w-4/5 sm:w-3/5 py-4 flex flex-col justify-start items-center gap-4 bg-primary-200 rounded-xl">
                         <h1 className="text-xl md:text-2xl text-light text-center font-bold">Registre em nossa plataforma</h1>
 
-                        <div className="w-full flex flex-col text-light">
+                        <div className="w-full flex flex-col text-light px-4">
                             <Root.Form
                                 form={formRegister}
                                 onSubmit={formRegister.handleSubmit(createUser)}

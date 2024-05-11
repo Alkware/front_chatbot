@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { TransactionHistoric } from "./components/TransactionHistoric";
+import { TransactionHistoric } from "./components/TransactionHistoric/TransactionHistoric";
 import { CardPlan } from "./components/CardPlan";
 import { CardRefund } from "./components/CardRefund/CardRefund";
 import { ClientContext } from "../../../../../../../../context/ClientContext";

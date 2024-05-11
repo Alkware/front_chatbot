@@ -133,7 +133,6 @@ export function CreateChat() {
                         />
                         <Root.Optional
                             name="step_1.call_to_action"
-                            defaultField={[]}
                             text="Deseja adicionar links ao seu chat?"
                             functionOffToggle={() => fields.forEach((_, index) => remove(index))}
                         >

@@ -8,7 +8,6 @@ export function StepProdutinformation() {
             <Root.Optional
                 text="Deseja adicionar alguma observação sobre seus produtos?"
                 name="step_0.observation"
-                defaultField={""}
             >
                 <Root.TextArea
                     name="step_0.observation"

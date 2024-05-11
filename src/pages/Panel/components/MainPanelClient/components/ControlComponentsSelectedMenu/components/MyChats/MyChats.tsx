@@ -4,7 +4,6 @@ import { ClientContext } from "../../../../../../../../context/ClientContext";
 import { Project } from "../../../../../../../../@types/Project";
 import { Container } from "../../../../../../../../components/Container/Container";
 import { CardChat } from "./components/CardChat/CardChat";
-import { TutoralContainer } from "../../../../../../../../components/TutoralContainer/TutoralContainer";
 import { MAX_CONTAINER_TO_CREATE_CHAT } from "../../../../../../../../variables/variables";
 import { FaLock } from "react-icons/fa";
 import { ModalContext } from "../../../../../../../../context/ModalContext";
@@ -38,7 +37,7 @@ function MyChats() {
                             (
                                 <div
                                     key={index}
-                                    className="w-[90%] xs:w-1/2 md:w-1/3 lg:w-1/4 md:max-w-[300px] flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20 z-40"
+                                    className="w-[90%] xs:w-1/2 md:w-1/3 lg:w-1/4 md:max-w-[300px] flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
                                 >
                                     {
                                         projects[index]?.id ?
@@ -49,16 +48,11 @@ function MyChats() {
                                                 prompts={client.plan_management?.prompt}
                                             />
                                             :
-                                            <TutoralContainer
-                                                title="Vamos criar seu primeiro chat"
-                                                text={`Clique em <span class="text-3xl font-medium mx-1">+</span> para criar seu primeiro chat de forma simples e fácil`}
-                                                position="BOTTOM"
-                                                hidden={projects.length !== 0}
-                                            >
-                                                <ButtonCreateChat
-                                                    plan_management_id={client?.plan_management?.id}
-                                                />
-                                            </TutoralContainer>
+                                            <ButtonCreateChat
+                                                plan_management_id={client?.plan_management?.id}
+                                                projects={projects}
+                                                index={index}
+                                            />
                                     }
                                 </div>
                             )

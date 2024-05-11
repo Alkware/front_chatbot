@@ -51,7 +51,6 @@ export function StepAboutCompany() {
 
             <Root.Optional
                 name="step_3.address"
-                defaultField={''}
                 text="Sua empresa possui um endereço físico?"
             >
                 <Root.Input

@@ -55,25 +55,22 @@ export function StepPaymentMethodAndConditions() {
             </Root.Container>
 
             <Root.Optional
-                name="step_2.order_tracking"
-                defaultField={""}
+                name="step_1.order_tracking"
                 text="Você está entregando um produto físico?"
                 className="w-full flex flex-col gap-6 "
             >
                 <Root.TextArea
-                    name="step_2.order_tracking"
+                    name="step_1.order_tracking"
                     title="Descreva como seu produto vai ser entregue e as politicas de frete?"
                 />
 
                 <Root.Optional
-                    name="step_2.tracking_link"
-                    defaultField={""}
-                    active={false}
+                    name="step_1.tracking_link"
                     text="Você possui link para rastrear pedido?"
                 >
                     <Root.Input
                         title="Digite a url do site:"
-                        name="step_2.tracking_link"
+                        name="step_1.tracking_link"
                         onChange={({ target }) => {
                             if (!target.value.toLowerCase().includes("http"))
                                 target.value = `https://${target.value.replace("http", "")}`

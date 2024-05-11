@@ -39,11 +39,11 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                 project_name: project.project_name,
                 chat_input_message: project.chat_input_message,
                 logo: project.logo,
-                bio: project.bio,
                 social_proof: project.social_proof,
             },
             step_1: {
                 prompt_id: project.prompt.id,
+                bio: project.bio,
                 call_to_action: project.call_to_action,
             },
             step_2: {
@@ -215,10 +215,12 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                             title="Escreva o nome do seu chat"
                         />
                     </Root.Container>
+
                     <Root.TextArea
-                        name="step_0.bio"
-                        title="Escreva uma descrição para seu chat"
+                        name="step_0.chat_input_message.0"
+                        title="Digite a primeira mensagem do seu chat"
                     />
+
 
                     <SocialProof />
                 </Root.EditStep>
@@ -232,9 +234,10 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                         options={prompt.map((prompt: Prompt) => Object({ value: prompt.id, text: prompt.prompt_name }))}
                         title="Selecione sua fonte de dados"
                     />
+
                     <Root.TextArea
-                        name="step_1.chat_input_message.0"
-                        title="Digite a primeira mensagem do seu chat"
+                        name="step_1.bio"
+                        title="Escreva uma descrição para seu chat"
                     />
 
                     <CallToActionFormChat prompts={prompt} />
@@ -259,7 +262,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
 
                         <div className="flex flex-col justify-center gap-4">
                             <h2 className="text-center text-xl">Escolha um icone para seu chat</h2>
-                            <div className="flex justify-center gap-2 md:gap-8 text-5xl">
+                            <div className="flex justify-center gap-2 md:gap-4 text-5xl">
                                 {
                                     CHAT_ICONS_MODELS.map(({ Icon, id }, index: number) =>
                                         <Icon
@@ -312,10 +315,10 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                         />
 
                         <SimulatorSlugUrl />
-                        
+
                         <div className="w-4/5 md:w-auto flex flex-col items-center md:items-start">
                             <span className="font-medium uppercase">Lembre-se</span>
-                            <span className="opacity-70 text-center md:text-right">
+                            <span className="opacity-70 text-center md:text-left">
                                 Ao trocar a slug do seu chat, todos seus clientes que possuirem a URL antiga, podem perder acesso ao seu site utilizando a antiga URL.
                             </span>
                         </div>

@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
 import { Chat } from "../../../../../../../../../../@types/Chat"
 import { formatDate } from "../../../../../../../../../../functions/formatDate"
+import { useSearchParams } from "react-router-dom";
 
 
 interface ListChats {
@@ -9,16 +10,24 @@ interface ListChats {
 }
 
 export function ListChats({ chats, setIndex }: ListChats) {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const isOpen = searchParams.get("mobile_modal_select_chat") === "open" ? true : false;
+
 
     const handleSelectConversation = (indexConversation: number) => {
+        searchParams.delete("mobile_modal_select_chat");
+        setSearchParams(searchParams)
         setIndex(indexConversation)
     }
 
     return (
-        <div className="w-[300px] h-full overflow-auto flex flex-col border-r border-light/40">
+        <div
+            data-isopen={window.innerWidth < 768 ? !!isOpen : true}
+            className="w-full md:w-[400px] md:max-h-[400px] fixed md:static top-0 bg-dark md:bg-transparent left-0 h-full overflow-auto flex flex-col border-r border-light/40 data-[isopen=false]:hidden"
+        >
             {
                 chats?.map((chat, index) =>
-                    !!chat.messages.length &&
+                    chat.messages.length > 1 &&
                     <div
                         key={chat.id}
                         className="w-full cursor-pointer hover:bg-primary-200 transition-colors p-4 border border-primary-100/20"

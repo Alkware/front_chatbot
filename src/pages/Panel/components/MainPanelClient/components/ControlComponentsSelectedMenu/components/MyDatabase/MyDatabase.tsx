@@ -96,7 +96,7 @@ export function MyDatabases() {
                                 <div
                                     key={index}
                                     data-prompt={!!prompts[index]?.prompt_name}
-                                    className="w-full max-w-[300px] flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20 z-50"
+                                    className="w-full max-w-[300px] flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
                                 >
                                     {
                                         prompts[index]?.prompt_name ?
@@ -121,7 +121,7 @@ export function MyDatabases() {
                                                 title="Vamos criar sua primeira fonte de dados"
                                                 text="Clique em <span class='font-medium text-2xl mx-1'>+</span> para criar sua primeira fonte de dados."
                                                 position="BOTTOM"
-                                                hidden={index !== 1}
+                                                hidden={index !== 0}
                                             >
                                                 <TipContainer
                                                     tip="Criar fonte de dados"

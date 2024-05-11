@@ -7,7 +7,7 @@ export function TitleSelect({ title, hide }: TitleSelect) {
     return (
         <h2
             data-hide={hide}
-            className="opacity-80 dark:opacity-60 w-full text-sm data-[hide=true]:hidden"
+            className="opacity-80 dark:opacity-60 w-full text-sm data-[hide=true]:hidden whitespace-nowrap text-ellipsis overflow-hidden"
         >
             {title}
         </h2>

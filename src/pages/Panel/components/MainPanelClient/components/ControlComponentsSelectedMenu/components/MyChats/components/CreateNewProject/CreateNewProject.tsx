@@ -9,12 +9,16 @@ import { TipContainer } from "../../../../../../../../../../components/TipContai
 import { PopUp } from "../../../../../../../../../../components/modal/templates/PopUp";
 import { Button } from "../../../../../../../../../../components/button/Button";
 import { MdAdd } from "react-icons/md";
+import { TutoralContainer } from "../../../../../../../../../../components/TutoralContainer/TutoralContainer";
+import { Project } from "../../../../../../../../../../@types/Project";
 
 interface ButtonCreateChat {
     plan_management_id: string,
+    projects: Project[],
+    index: number
 }
 
-export function ButtonCreateChat({ plan_management_id }: ButtonCreateChat) {
+export function ButtonCreateChat({ plan_management_id, projects, index }: ButtonCreateChat) {
     const { client } = useContext(ClientContext)
     const { setModalContent, clearModal } = useContext(ModalContext)
     const navigate = useNavigate();
@@ -86,10 +90,18 @@ export function ButtonCreateChat({ plan_management_id }: ButtonCreateChat) {
             onClick={handleClickNewProject}
             className="w-4/5 xs:w-1/2 md:w-1/4 min-w-[200px] min-h-[200px] cursor-pointer flex justify-center items-center"
         >
-            <TipContainer tip="Crie um novo chat">
-                <IoAddOutline className="text-6xl text-light dark:text-primary-100" />
-            </TipContainer>
-        </div>
+            <TutoralContainer
+                title="Vamos criar seu primeiro chat"
+                text={`Clique em <span class="text-3xl font-medium mx-1">+</span> para criar seu primeiro chat de forma simples e fácil`}
+                position="BOTTOM"
+                hidden={index !== 0 || projects.length !== 0}
+            >
+                <TipContainer tip="Crie um novo chat">
+                    <IoAddOutline className="text-6xl text-light dark:text-primary-100" />
+                </TipContainer>
+            </TutoralContainer>
+
+        </div >
     )
 
 }

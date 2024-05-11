@@ -74,9 +74,9 @@ export function ConfirmEmail() {
         <div
             className="w-screen min-h-screen flex flex-col items-center justify-center relative bg-[url(https://i.ibb.co/2vrnfCz/Untitled-design-8.png)] dark:bg-[url(https://i.ibb.co/vxGTSd0/Untitled-design-4.png)] bg-no-repeat bg-cover"
         >
-            <div className="bg-primary-50 dark:bg-primary-200 max-w-[60vw] text-dark dark:text-light flex flex-col items-center gap-4 p-4 rounded-md">
-                <h2>Confirme seu e-mail</h2>
-                <p>Enviaremos um código para o email {client.email}</p>
+            <div className="max-w-[95vw] md:max-w-[60vw] bg-primary-50 dark:bg-primary-200 text-dark dark:text-light flex flex-col items-center gap-4 p-4 rounded-md">
+                <h2 className="text-xl md:text-2xl">Confirme seu e-mail</h2>
+                <p className="text-center">Enviaremos um código para o email {client.email}</p>
                 <div
                     className="flex gap-2"
                     ref={containerInputRef}

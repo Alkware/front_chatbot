@@ -12,6 +12,7 @@ import { FaCircleInfo, FaFaceGrinBeam } from "react-icons/fa6";
 import { FaBook, FaInfo, FaSuitcase } from "react-icons/fa";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
 import { AddProduct } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepProdutinformation/components/AddProduct/AddProduct";
+import { OpeningHours } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepAboutCompany/components/OpeningHours/OpeningHours";
 
 interface ModalEditDatabase {
     prompt: Prompt,
@@ -23,6 +24,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
     const { client, setClient } = useContext(ClientContext);
     const promptData: DatabaseSchema = JSON.parse(prompt.prompt_query || "{}")
     const checkPromptIsAvalible = !!Object.keys(promptData).length ? true : false
+    console.log(promptData)
 
 
     const updateDatabaseForm = useForm<DatabaseSchema>({
@@ -30,6 +32,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
         defaultValues: !checkPromptIsAvalible ? undefined : {
             step_0: {
                 products: promptData.step_0.products || "",
+                observation: promptData.step_0.observation,
             },
             step_1: {
                 payment_methods: promptData.step_1.payment_methods || "",
@@ -120,7 +123,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                             componentName="modal_failed_delete_database"
                         />
                 })
-            }else {
+            } else {
                 setModalContent({
                     componentName: "modal_failed_delete",
                     components:
@@ -136,8 +139,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
 
 
     return (
-        <div className="w-screen md:w-[80vw] h-screen md:h-[70vh] flex justify-start px-4 md:px-0">
-
+        <div className="w-screen px-4 md:px-0 md:w-[90vw] md:h-[80vh] md:min-h-[450px] md:min-w-[700px] flex overflow-hidden">
             <Root.EditForm
                 form={updateDatabaseForm}
                 onDelete={handleDeleteDatabase}
@@ -150,6 +152,17 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     icon={<FaCircleInfo />}
                 >
                     <AddProduct />
+
+                    <Root.Optional
+                        text="Deseja adicionar alguma observação sobre seus produtos?"
+                        name="step_0.observation"
+                    >
+                        <Root.TextArea
+                            name="step_0.observation"
+                            title="Deixe uma observação sobre seus produtos"
+
+                        />
+                    </Root.Optional>
                 </Root.EditStep>
 
                 <Root.EditStep
@@ -173,23 +186,44 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                         />
                     </Root.Container>
 
-                    <Root.TextArea
-                        name="step_1.how_to_buy"
-                        title="como comprar seu produto?"
-                    />
+                    <Root.Container
+                        title="Quantas vezes o cliente pode parcelar?"
+                        hiddenContainer={!!false ? false : true}
+                        className="max-w-[200px]"
+                    >
+                        <Root.Select
+                            title="Quantas parcelas?"
+                            name="step_1.credit_card_installments"
+                            options={[
+                                { value: "1x", text: "1x" },
+                                { value: "2x", text: "2x" },
+                                { value: "3x", text: "3x" },
+                                { value: "4x", text: "4x" },
+                                { value: "5x", text: "5x" },
+                                { value: "6x", text: "6x" },
+                                { value: "7x", text: "7x" },
+                                { value: "8x", text: "8x" },
+                                { value: "9x", text: "9x" },
+                                { value: "10x", text: "10x" },
+                                { value: "11x", text: "11x" },
+                                { value: "12x", text: "12x" },
+                                { value: "18x", text: "18x" },
+                                { value: "24x", text: "24x" },
+                            ]}
+                        />
+                    </Root.Container>
 
                     <Root.Optional
-                        defaultField={""}
                         name="step_1.order_tracking"
                         text="Você está entregando um produto físico?"
+                        className="w-full flex flex-col gap-6 "
                     >
                         <Root.TextArea
                             name="step_1.order_tracking"
-                            title="Como os clientes podem rastrear seu pedido?"
+                            title="Descreva como seu produto vai ser entregue e as politicas de frete?"
                         />
-                        
+
                         <Root.Optional
-                            defaultField={""}
                             name="step_1.tracking_link"
                             text="Você possui link para rastrear pedido?"
                         >
@@ -221,10 +255,10 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                         name="step_2.how_guarantee_work"
                         title="Como funciona a garantia?"
                     />
+
                     <Root.Optional
-                        defaultField={""}
                         name="step_2.how_exchanges_work_and_returns"
-                        text="Esse produto/serviço possui troca ou devolução?"
+                        text="Esse produto/serviço possui trocas e devoluções?"
                     >
                         <Root.TextArea
                             name="step_2.how_exchanges_work_and_returns"
@@ -245,12 +279,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                         />
                     </Root.Container>
 
-                    <Root.Input
-                        name="step_3.address"
-                        title="Qual o endereço da sua empresa?"
-                    />
-
-                    <Root.Container className="flex gap-4" >
+                    <Root.Container className="flex flex-col md:flex-row gap-4" >
                         <Root.Input
                             name="step_3.contact_email"
                             title="Digite um e-mail para contato"
@@ -282,11 +311,17 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                         />
                     </Root.Container>
 
-                    <Root.Input
-                        name="step_3.support_hours"
-                        title="Qual seu horário para suporte humano?"
-                    />
+                    <OpeningHours />
 
+                    <Root.Optional
+                        name="step_3.address"
+                        text="Sua empresa possui um endereço físico?"
+                    >
+                        <Root.Input
+                            name="step_3.address"
+                            title="Qual o endereço da sua empresa?"
+                        />
+                    </Root.Optional>
                 </Root.EditStep>
 
                 <Root.EditStep
@@ -296,7 +331,6 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 >
 
                     <Root.Optional
-                        defaultField={""}
                         name="step_4.ia_name"
                         text="Deseja dar um nome a sua inteligência artificial?"
                     >
@@ -307,7 +341,6 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     </Root.Optional>
 
                     <Root.Optional
-                        defaultField={""}
                         text="Deseja adicionar restrições de palavras ou frase?"
                         name="step_4.restrictions"
                     >

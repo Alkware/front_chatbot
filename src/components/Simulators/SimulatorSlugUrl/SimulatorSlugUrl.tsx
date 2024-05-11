@@ -22,7 +22,7 @@ export function SimulatorSlugUrl() {
             <FaCircleNotch className="fill-zinc-600" />
             <div className="w-4/5 md:w-full bg-zinc-600 rounded-xl p-3 flex gap-2 items-center">
                 <FaLock className="fill-green-600" />
-                <h2 className="w-[90%] md:w-full text-sm md:text-base opacity-80">https://chat.wipzee.com/{slug}</h2>
+                <h2 className="w-[90%] md:w-full text-sm xl:text-base opacity-80">https://chat.wipzee.com/{slug}</h2>
             </div>
         </div>
     )

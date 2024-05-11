@@ -91,9 +91,7 @@ export function AddProduct() {
                             <div className="w-[90%] flex gap-6 justify-center items-center my-0 md:my-8">
                                 <Root.Optional
                                     name={`step_0.products.${index}.optional_variable.${0}`}
-                                    defaultField={{}}
                                     text="Esse produto possui alguma característica?"
-                                    active={!!watch(`step_0.products.${index}.optional_variable.${0}.title`)}
                                 >
                                     <AddVariables
                                         index={index}
@@ -104,9 +102,7 @@ export function AddProduct() {
                             <div className="w-[90%] flex gap-6 justify-center items-center my-0 md:my-8">
                                 <Root.Optional
                                     name={`step_0.products.${index}.optional_variable.${0}`}
-                                    defaultField={{}}
                                     text="Esse produto possui perguntas frequentes?"
-                                    active={!!watch(`step_0.products.${index}.questions.${0}.ask`)}
                                 >
                                     <ComomQuestions
                                         index={index}

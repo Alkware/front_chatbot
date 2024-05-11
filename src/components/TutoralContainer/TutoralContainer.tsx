@@ -45,11 +45,11 @@ export function TutoralContainer({ children, title, text, position = "BOTTOM", h
             >
 
                 <div
-                    className=" bg-primary-100 rounded-md flex flex-col justify-center items-center px-4"
+                    className="bg-primary-100 rounded-md flex flex-col justify-center items-center px-4"
                 >
                     <h2 className="text-center py-2 font-bold text-xl text-light">{title}</h2>
                     <p
-                        className="w-[400px] px-4 text-center text-light text-lg"
+                        className="w-[70vw] md:w-[400px] px-4 text-center text-light text-lg"
                         dangerouslySetInnerHTML={{ __html: text }}
                     ></p>
 

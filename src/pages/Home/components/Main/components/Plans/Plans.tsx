@@ -19,7 +19,8 @@ export function Plans() {
     }, [])
 
     const handleSelectPlan = (plan: Plan) => {
-        localStorage.setItem("is_account", "0")
+        const isLogged = localStorage.token;
+        if(!isLogged) localStorage.setItem("is_account", "0")
         window.location.href = `${plan.payment_link}?pid=${plan.id}&cid=${client?.id}`
     }
 

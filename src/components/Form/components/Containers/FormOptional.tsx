@@ -1,16 +1,14 @@
-import { HTMLAttributes, ReactElement, useEffect, useState } from "react"
+import { HTMLAttributes, ReactElement, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import { STEP_NAME_URL } from "../../../../variables/variables";
 import { ToggleComponent } from "../../../Toggle/Toggle";
-import { useFormContext } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
+import { useFormContext } from "react-hook-form";
 
 interface FormOptional extends HTMLAttributes<HTMLDivElement> {
     children: ReactElement | ReactElement[];
     text: string;
-    defaultField: [] | "''" | {};
     name: string,
-    active?: boolean;
     functionOffToggle?: () => void;
 }
 
@@ -23,17 +21,11 @@ interface FormOptional extends HTMLAttributes<HTMLDivElement> {
  * @param active Define se o toggle vai iniciar ativado ou desativado.
  * @returns 
  */
-export function FormOptional({ children, text, active = false, defaultField, functionOffToggle, ...props }: FormOptional) {
-    const { unregister, register } = useFormContext();
-    const [display, setDisplay] = useState(active ? true : false);
+export function FormOptional({ children, text, functionOffToggle, name, ...props }: FormOptional) {
+    const { watch } = useFormContext();
+    const active = watch(name);
+    const [display, setDisplay] = useState(!!active ? true : false);
     const [params, setParams] = useSearchParams();
-
-    useEffect(() => {
-        if (!display && props?.name) {
-            unregister(props.name)
-            register(props.name, { value: defaultField })
-        }
-    }, [])
 
     const handleActiveCTA = (prop: any) => {
         // busca a atual step do formulario

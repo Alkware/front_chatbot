@@ -12,6 +12,7 @@ import { Container } from "../../../../../../../../components/Container/Containe
 import { TipContainer } from "../../../../../../../../components/TipContainer/TipContainer";
 import { SelectTime } from "../../../../../../../../components/SelectTime/SelectTime";
 import { Select } from "../../../../../../../../components/Select/Select";
+import { Button } from "../../../../../../../../components/button/Button";
 
 
 export function ConversationHistoric() {
@@ -73,33 +74,51 @@ export function ConversationHistoric() {
         }
     }
 
+    // função que só estará disponível no mobile
+    const handleOpenModalSelectChatOnMobile = () => {
+        searchParams.append("mobile_modal_select_chat", "open");
+        setSearchParams(searchParams)
+    }
 
     return (
-        <Container title="Registros" className="px-8">
+        <Container title="Registros" className="px-0 md:px-8">
 
-            <div className="w-full flex gap-8 h-[40px]">
-                <TipContainer tip="Selecione uma data  como filtro">
-                    <SelectTime typeFilter="filter_time_chats" />
-                </TipContainer>
+            <div className="w-full flex flex-col-reverse md:flex-row gap-2 md:gap-8 md:h-[40px]  px-4 md:px-0">
                 <TipContainer tip="Selecione um chat">
                     <Select
-                    title="Selecione um chat"
+                        title="Selecione um chat"
                         options={projects || []}
                         Icon={IoIosChatboxes}
                         handleSelectDatabase={handleSelectProject}
                     />
                 </TipContainer>
-                <TipContainer tip="Atualize seus chats">
-                    <div
-                        className="p-2 bg-light dark:bg-gray border border-primary-100 rounded-md cursor-pointer"
-                        onClick={reloadMetric}
-                    >
-                        <FaArrowRotateLeft className="text-xl" />
-                    </div>
-                </TipContainer>
+
+                <div className="flex gap-8 justify-between">
+                    <TipContainer tip="Selecione uma data  como filtro">
+                        <SelectTime typeFilter="filter_time_chats" />
+                    </TipContainer>
+
+
+                    <TipContainer tip="Atualize seus chats">
+                        <div
+                            className="p-2 bg-light dark:bg-gray border border-primary-100 rounded-md cursor-pointer"
+                            onClick={reloadMetric}
+                        >
+                            <FaArrowRotateLeft className="text-xl" />
+                        </div>
+                    </TipContainer>
+                </div>
             </div>
 
-            <div className="w-full h-3/4 flex bg-light dark:bg-gray my-4 overflow-hidden">
+            <div className="w-full h-3/4 flex gap-4 flex-col md:flex-row md:bg-light md:dark:bg-gray my-4 overflow-hidden px-2">
+                {/* Esse botão só será exibido no mobile */}
+                <Button
+                    customClass="bg-primary-100 dark:bg-primary-200 md:hidden"
+                    onClick={handleOpenModalSelectChatOnMobile}
+
+                >Selecione um chat </Button>
+
+
                 <ListChats
                     chats={chats}
                     setIndex={setIndex}
