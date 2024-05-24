@@ -1,5 +1,5 @@
 import { MouseEvent, RefObject, useEffect, useRef, useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { UseFormReturn, useFormContext } from "react-hook-form";
 import { ContainerHeaderSelect } from "./components/ContainerHeaderSelect/ContainerHeaderSelect";
 import { ListSelected } from "./components/ContainerHeaderSelect/components/ListSelected";
 import { TitleSelect } from "./components/ContainerHeaderSelect/components/TitleSelect";
@@ -13,7 +13,7 @@ interface FormSelect {
     name: string;
     title: string;
     multipleSelect?: boolean;
-
+    useFormReturn?: UseFormReturn;
 }
 export interface OptionsState {
     value: string,
@@ -21,8 +21,10 @@ export interface OptionsState {
     selected: boolean
 }
 
-export function FormSelect({ options, title, name, multipleSelect }: FormSelect) {
-    const { getValues, unregister, register } = useFormContext();
+export function FormSelect({ options, title, name, multipleSelect, useFormReturn }: FormSelect) {
+    const useFormContextReturn = useFormContext();
+    const { getValues, unregister, register }  = useFormContextReturn || useFormReturn;
+    
     const contentOptionsRef: RefObject<HTMLDivElement> = useRef(null);
     const addSelectParamToOptions: OptionsState[] = options?.map(option => Object({ ...option, selected: false }) as OptionsState);
     const [optionsState, setOptions] = useState<OptionsState[]>(addSelectParamToOptions);

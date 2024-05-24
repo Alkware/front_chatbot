@@ -9,17 +9,17 @@ interface TipContainer {
 
 export function TipContainer({ children, tip, position = "TOP" }: TipContainer) {
     const ballonTipRef: RefObject<HTMLDivElement> = useRef(null);
-    const CARACTERES_MAX = 40
+    const CARACTERES_MAX = 40;
 
-    if(tip.length > CARACTERES_MAX) throw new Error(`A tip não pode conter um nome maior que ${CARACTERES_MAX} caracteres.`)
+    if(tip.length > CARACTERES_MAX) throw new Error(`A tip não pode conter um nome maior que ${CARACTERES_MAX} caracteres.`);
 
     useEffect(() => {
         if (ballonTipRef.current?.style) {
             const tipSize = tip.length
             const ballonSize = tipSize < 15 ? "120px" : tipSize < 20 ? "160px": tipSize < 25 ? "200px": "250px";
-            ballonTipRef.current.setAttribute("style", `width: ${ballonSize}; font-size: ${tipSize > 30 ? ".8rem": ".9rem"};`)
+            ballonTipRef.current.setAttribute("style", `width: ${ballonSize}; font-size: ${tipSize > 30 ? ".8rem": ".9rem"};`);
         }
-    }, [])
+    }, []);
 
     return (
         <div className="min-h-[30px] flex items-center relative group">

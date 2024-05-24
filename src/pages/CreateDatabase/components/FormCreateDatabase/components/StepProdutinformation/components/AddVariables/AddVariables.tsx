@@ -24,12 +24,12 @@ const options = [
 ];
 
 export function AddVariables({ index }: AddVariables) {
-    const { control, watch } = useFormContext();
     const { setModalContent } = useContext(ModalContext);
+    const { control, watch } = useFormContext();
 
     const { fields, append, remove, update } = useFieldArray({
-        name: `step_0.products.${index}.optional_variable`,
-        control,
+        name: `optional_variable`,
+        control: control,
     })
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export function AddVariables({ index }: AddVariables) {
     }, [])
 
     const handleAddNewVariable = () => {
-        const product = watch(`step_0.products.${index}.optional_variable.${fields.length - 1}`)
+        const product = watch(`optional_variable.${fields.length - 1}`)
 
         if (product.title && product.answer) {
             append({ title: "", answer: "" })
@@ -70,12 +70,12 @@ export function AddVariables({ index }: AddVariables) {
                             >
                                 <Root.Select
                                     title="Característica"
-                                    name={`step_0.products.${index}.optional_variable.${indexVariable}.title`}
+                                    name={`optional_variable.${indexVariable}.title`}
                                     options={options}
                                 />
 
                                 <Root.Input
-                                    name={`step_0.products.${index}.optional_variable.${indexVariable}.answer`}
+                                    name={`optional_variable.${indexVariable}.answer`}
                                     title="Digite a variável: (ex: ROSA ou ROSA, AZUL, PRETO)"
                                 />
                                 <div className="flex gap-4 justify-center items-center">

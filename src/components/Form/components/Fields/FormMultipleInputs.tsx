@@ -1,17 +1,20 @@
 import React from "react";
-import { UseFieldArrayUpdate, useFormContext } from "react-hook-form";
+import { UseFieldArrayUpdate, UseFormReturn, useFormContext } from "react-hook-form";
 import { MdDelete } from "react-icons/md";
 
 
 interface FormMultipleInputs {
     children: any;
     name: string
+    useFormReturn?: UseFormReturn;
     update: UseFieldArrayUpdate<any, any>;
     remove: (index: number) => void;
 }
 
-export function FormMultipleInputs({ children, update, remove, name }: FormMultipleInputs) {
-    const { watch } = useFormContext();
+export function FormMultipleInputs({ children, useFormReturn, update, remove, name }: FormMultipleInputs) {
+    const useFormContextReturn = useFormContext();
+    const { watch } = useFormContextReturn || useFormReturn;
+
     const elements = React.Children.toArray(children);
     const fields: [] = watch(name);
 
@@ -48,7 +51,7 @@ export function FormMultipleInputs({ children, update, remove, name }: FormMulti
                                     {
                                         keys.map((key, index) =>
                                             (key !== "id" && index < 2) &&
-                                            <div 
+                                            <div
                                                 key={index}
                                                 data-index={index}
                                                 className="w-full flex justify-center flex-nowrap data-[index='0']:font-bold"

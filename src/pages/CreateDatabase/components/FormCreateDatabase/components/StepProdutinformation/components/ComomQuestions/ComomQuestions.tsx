@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { UseFormReturn, useFieldArray } from "react-hook-form";
 import { MdAdd, MdDelete } from "react-icons/md";
 import { Root } from "../../../../../../../../components/Form/FormRoot";
 import { ModalContext } from "../../../../../../../../context/ModalContext";
@@ -8,13 +8,14 @@ import { PopOver } from "../../../../../../../../components/modal/templates/PopO
 
 interface ComomQuestions {
     index: number
+    useFormReturn: UseFormReturn
 }
-export function ComomQuestions({ index }: ComomQuestions) {
+
+export function ComomQuestions({ index, useFormReturn }: ComomQuestions) {
     const { setModalContent } = useContext(ModalContext);
-    const { control, watch } = useFormContext();
 
     const { fields, append, remove, update } = useFieldArray({
-        control,
+        control: useFormReturn.control,
         name: `step_0.products.${index}.questions`
     });
 
@@ -24,7 +25,7 @@ export function ComomQuestions({ index }: ComomQuestions) {
     }, [])
 
     const handleAddNewAsk = () => {
-        const product = watch(`step_0.products.${index}.questions.${fields.length - 1}`)
+        const product = useFormReturn.watch(`step_0.products.${index}.questions.${fields.length - 1}`)
 
         if (product.ask && product.answer) {
             append({ ask: "", answer: "" })
@@ -43,7 +44,7 @@ export function ComomQuestions({ index }: ComomQuestions) {
 
     return (
         <Root.MultipleInput
-            name={`step_0.products.${index}.questions`}
+            name={`questions`}
             update={update}
             remove={remove}
         >
@@ -52,12 +53,12 @@ export function ComomQuestions({ index }: ComomQuestions) {
                     <div key={field.id} className="flex flex-col md:flex-row justify-center rounded-md p-4 items-center gap-4">
 
                         <Root.Input
-                            name={`step_0.products.${index}.questions.${indexQuestions}.ask`}
+                            name={`questions.${indexQuestions}.ask`}
                             title="Digite uma pergunta"
                         />
 
                         <Root.Input
-                            name={`step_0.products.${index}.questions.${indexQuestions}.answer`}
+                            name={`questions.${indexQuestions}.answer`}
                             title="Digite a resposta"
                         />
 

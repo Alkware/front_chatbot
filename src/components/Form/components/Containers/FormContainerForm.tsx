@@ -68,7 +68,7 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
                     numberSteps={numberChildren}
                 />
 
-                <div className="w-full flex justify-center gap-4 mt-20 ">
+                <div className="w-full flex justify-center gap-4 mt-20">
                     <div
                         data-issimulator={activeSimulator}
                         className="w-full md:data-[issimulator=true]:w-3/5 flex flex-col max-w-[1200px]"
