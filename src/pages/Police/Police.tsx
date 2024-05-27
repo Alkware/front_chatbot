@@ -8,8 +8,6 @@ export function Police() {
             <div className="my-[100px] space-y-16">
                 <div className="my-8">
                     <h1 className="text-center text-2xl font-bold">POLÍTICAS DE PRIVACIDADE</h1>
-                    <h3 className="text-center w-full">Última atualização: 12 de dezembro de 2023</h3>
-                    <h3 className="text-center w-full">Controladora dos dados: WIPZEE.COM.</h3>
                 </div>
 
                 <div className="mx-auto flex flex-col gap-6 w-4/5">

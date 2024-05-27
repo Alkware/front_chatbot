@@ -44,26 +44,32 @@ export function AnalyzeMetric() {
     const [analyze, setAnalyze] = useState<Analyze | null>();
     const containerStarRef: RefObject<HTMLDivElement> = useRef(null)
 
+
+
     useEffect(() => {
         (async () => {
             if (client) {
-                const allAnalysis = await getMetricAnalysis(client.plan_management.id);
-                const analysis = allAnalysis.data.response;
+                console.log(client)
+                const allAnalysis = await getMetricAnalysis(client.plan_management?.id);
+                 const analysis = allAnalysis.data.response;
                 const maxAnalysisByDay = client.plan_management.plan.max_analyze_metric.default;
                 const maxAnalysisWithBonusByDay = client.plan_management.plan.max_analyze_metric.bonus;
-                const totalAnalysis = Number(maxAnalysisByDay + maxAnalysisWithBonusByDay)
+                const totalAnalysis = Number(maxAnalysisByDay + maxAnalysisWithBonusByDay);
 
                 if (analysis.length) setAnalyze({ status: "APRROVED", analysis });
                 else {
                     if (totalAnalysis > 0 && analysis.length <= totalAnalysis) handleAnalyzeMetric()
                     else {
+                        const msgToFreeUser = "Não é possivel analisar métricas no plano gratuito, mude de plano ou entre em contato com o suporte."
+                        const msgToPaymentUser = "O limite de analises no seu plano foi atingido. Aguarde até amanhã ou mude de plano para fazer uma nova análise."
+
                         setModalContent({
                             componentName: "modal_limit_analysis",
                             components:
                                 <PopOver
                                     componentName="modal_limit_analysis"
-                                    message="O limite de analises no seu plano foi atingido. Aguarde até amanhã ou mude de plano para fazer uma nova análise."
-                                    functionAfterComplete={()=> clearModal(null, { clearAll: true }) }
+                                    message={ Number(client.plan_management.plan.monthly_price) > 0 ? msgToPaymentUser : msgToFreeUser}
+                                    functionAfterComplete={() => clearModal(null, { clearAll: true })}
                                 />
                         })
                     }
@@ -178,7 +184,7 @@ export function AnalyzeMetric() {
             const spanReview = e.currentTarget.querySelector("span")?.textContent || "Regular";
             const stars = containerStarRef.current?.querySelectorAll("div > svg");
             stars?.forEach(star => star.classList.remove("fill-primary-100"));
-            stars?.forEach((star, indexStar) => (indexStar+1) <= index && star.classList.add("fill-primary-100"));
+            stars?.forEach((star, indexStar) => (indexStar + 1) <= index && star.classList.add("fill-primary-100"));
             setModalContent({
                 componentName: "modal_show_feedback_analyze",
                 components:
@@ -207,11 +213,12 @@ export function AnalyzeMetric() {
 
 
     if (!analyze) return (
-        <div 
-            className="flex flex-col items-center gap-4"
+        <div
+            className="flex flex-col items-center gap-4 p-4"
             data-loading
         >
             <h2>Analisando métricas</h2>
+            <span>Carregando...</span>
         </div>
     );
 

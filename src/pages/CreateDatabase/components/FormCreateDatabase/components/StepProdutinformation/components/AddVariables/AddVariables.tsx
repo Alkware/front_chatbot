@@ -6,11 +6,6 @@ import { PopOver } from "../../../../../../../../components/modal/templates/PopO
 import { Root } from "../../../../../../../../components/Form/FormRoot";
 import { TipContainer } from "../../../../../../../../components/TipContainer/TipContainer";
 
-
-interface AddVariables {
-    index: number;
-}
-
 const options = [
     { text: "COR", value: "COR" },
     { text: "TAMANHO", value: "TAMANHO" },
@@ -23,7 +18,7 @@ const options = [
     { text: "DIMENSÕES DE ENVIO", value: "DIMENSÕES DE ENVIO" },
 ];
 
-export function AddVariables({ index }: AddVariables) {
+export function AddVariables() {
     const { setModalContent } = useContext(ModalContext);
     const { control, watch } = useFormContext();
 
@@ -37,7 +32,7 @@ export function AddVariables({ index }: AddVariables) {
     }, [])
 
     const handleAddNewVariable = () => {
-        const product = watch(`optional_variable.${fields.length - 1}`)
+        const product = watch(`optional_variable.${fields.length - 1}`);
 
         if (product.title && product.answer) {
             append({ title: "", answer: "" })
@@ -58,7 +53,7 @@ export function AddVariables({ index }: AddVariables) {
         <div className="w-full flex flex-col gap-4">
             {
                 <Root.MultipleInput
-                    name={`step_0.products.${index}.optional_variable`}
+                    name={`optional_variable`}
                     update={update}
                     remove={remove}
                 >
@@ -83,6 +78,7 @@ export function AddVariables({ index }: AddVariables) {
                                         indexVariable === (fields.length - 1) &&
                                         <TipContainer
                                             tip="Adicionar nova varável"
+                                            positionX="LEFT"
                                         >
                                             <MdAdd
                                                 onClick={handleAddNewVariable}
@@ -90,7 +86,7 @@ export function AddVariables({ index }: AddVariables) {
                                             />
                                         </TipContainer>
                                     }
-                                    <TipContainer tip="Remove varável">
+                                    <TipContainer tip="Remove varável" positionX="LEFT">
                                         <MdDelete
                                             className="text-3xl bg-red-200 fill-red-700 rounded-full cursor-pointer"
                                             onClick={() => fields.length > 1 && remove(indexVariable)}

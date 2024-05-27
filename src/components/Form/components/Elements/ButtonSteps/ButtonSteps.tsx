@@ -72,6 +72,7 @@ export function FormButtonStep({ numberChildren, findErrorMessage, hiddenPreview
 
             <Button
                 type="submit"
+                data-loading
                 data-islaststep={isLastStep}
                 customClass="data-[islaststep=false]:hidden justify-center px-4 max-lg:text-sm"
             >

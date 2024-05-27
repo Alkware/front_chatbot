@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { ModalContext } from "../../../../../../../../../../../../../../context/ModalContext";
-import { FcFile, FcFullTrash, FcUpload } from "react-icons/fc";
 import { useSearchParams } from "react-router-dom";
 import { CTA_NAME_URL } from "../../../../../../../../../../../../../../variables/variables";
 import { TipContainer } from "../../../../../../../../../../../../../../components/TipContainer/TipContainer";
+import { FaUpload } from "react-icons/fa6";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 interface ButtonsModalTypes {
     eventDelete: () => Promise<void>
@@ -21,33 +22,38 @@ export function ButtonsModal({ eventDelete }: ButtonsModalTypes) {
 
     return (
         <div className="w-3/4 md:w-full flex justify-evenly md:mb-4">
-            <div className="flex justify-center items-center w-[45px] h-[50px] border border-light rounded-full">
+            <div className="group flex justify-center items-center w-[45px] h-[50px] border border-light hover:border-primary-100 rounded-full cursor-pointer">
                 <TipContainer tip="Salvar">
                     <button type="submit">
-                        <FcUpload
-                            className="text-3xl cursor-pointer rotate-180"
+                        <FaUpload
+                            className="size-4 group-hover:fill-primary-100"
                         />
                     </button>
                 </TipContainer>
             </div>
 
-            <div className="flex justify-center items-center w-[45px] h-[50px] border border-light rounded-full">
+            <div
+                onClick={handleDiscardProject}
+                className="group flex justify-center items-center w-[45px] h-[50px] border border-light hover:border-primary-100 rounded-full cursor-pointer"
+            >
                 <TipContainer tip="Descartar">
-                    <button type="button" onClick={handleDiscardProject}>
-                        <FcFile
-                            className="text-3xl cursor-pointer"
-
+                    <button type="button" >
+                        <FaEdit
+                            className="size-4 group-hover:fill-primary-100"
                         />
                     </button>
                 </TipContainer>
             </div>
 
 
-            <div className="flex justify-center items-center w-[45px] h-[50px] border border-light rounded-full">
+            <div
+                onClick={eventDelete}
+                className="group flex justify-center items-center w-[45px] h-[50px] border border-light hover:border-primary-100 rounded-full cursor-pointer"
+            >
                 <TipContainer tip="Deletar">
-                    <button type="button" onClick={eventDelete}>
-                        <FcFullTrash
-                            className="text-3xl cursor-pointer"
+                    <button type="button">
+                        <FaTrash
+                            className="size-4 group-hover:fill-primary-100"
                         />
                     </button>
                 </TipContainer>

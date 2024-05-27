@@ -85,7 +85,11 @@ export function ModalCreateProduct({ useFieldArray, useFormReturn, index }: Moda
         >
             <h2 className="text-2xl font-bold">Cadastre seus produtos</h2>
             <div className="w-full p-2 flex gap-4 justify-end items-center rounded-md absolute top-0 right-2">
-                <TipContainer tip="Sair" position="BOTTOM">
+                <TipContainer 
+                    tip="Sair" 
+                    positionY="BOTTOM"
+                    positionX="LEFT"
+                >
                     <MdClose
                         onClick={handleExitModal}
                         className="bg-zinc-500/40 text-3xl p-1 cursor-pointer rounded-full"
@@ -139,9 +143,7 @@ export function ModalCreateProduct({ useFieldArray, useFormReturn, index }: Moda
                             name={`optional_variable`}
                             text="Esse produto possui alguma caracteristica?"
                         >
-                            <AddVariables
-                                index={index}
-                            />
+                            <AddVariables />
                         </Root.Optional>
                     </div>
 

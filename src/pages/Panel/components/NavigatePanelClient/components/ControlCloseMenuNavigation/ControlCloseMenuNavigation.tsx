@@ -25,7 +25,7 @@ const ControlCloseMenuNavigation = () => {
     return (
         <div 
             data-ismenuresize={isMenuResize}
-            className="hidden md:flex w-full data-[ismenuresize=true]:absolute top-0 data-[ismenuresize=true]:justify-end justify-center z-50"
+            className="hidden md:flex w-full data-[ismenuresize=true]:justify-end justify-center"
         >
             {
                 isMenuResize ?

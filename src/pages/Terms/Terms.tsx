@@ -9,7 +9,6 @@ export function Terms() {
                 <div className="w-full flex flex-col items-center">
                     <h2>TERMOS DE USO</h2>
                     <h3>Termos e condições de uso</h3>
-                    <span>Última atualização: 12 de dezembro de 2023</span>
                 </div>
 
                 <p className="w-4/5 text-center mx-auto">

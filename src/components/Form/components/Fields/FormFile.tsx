@@ -4,6 +4,7 @@ import { uploadImage } from "../../../../api/uploadImages";
 import { RiUpload2Line } from "react-icons/ri";
 import { ModalContext } from "../../../../context/ModalContext";
 import { PopOver } from "../../../modal/templates/PopOver";
+import { loading } from "../../../../functions/loading";
 
 interface FormFile extends InputHTMLAttributes<HTMLInputElement> {
     name: string
@@ -14,6 +15,7 @@ export function FormFile(props: FormFile) {
     const { setModalContent } = useContext(ModalContext)
     const { register, watch, unregister } = useFormContext();
     const refUploadImg: RefObject<HTMLDivElement> = useRef(null);
+    const loadingRef: RefObject<HTMLLabelElement> = useRef(null);
 
     useEffect(() => {
         const preview = refUploadImg.current?.querySelector("div#preview-img");
@@ -31,22 +33,18 @@ export function FormFile(props: FormFile) {
     }, [watch()])
 
     const handleUploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
-        const containerUpload = e.currentTarget.closest(`div[data-id='${props.name}']`);
+        loading(loadingRef?.current, true, { blur: "sm" });
+
+        const containerUpload = refUploadImg.current;
         const preview = containerUpload?.querySelector("div#preview-img");
         const img = preview?.querySelector("img");
         const files = e.target.files
 
         // Antes de fazer o upload
         const containerLoading = refUploadImg.current?.querySelector("span#container");
-        const loading = containerLoading?.querySelector("div#loading")
         const iconUpload = containerLoading?.querySelector("#icon-upload")
         const text = containerLoading?.querySelector("span")
-        if (text) {
-            text.textContent = "Carregando..."
-            iconUpload?.classList.add("hidden")
-            loading?.classList.remove("hidden");
-            loading?.classList.add("flex")
-        }
+        iconUpload?.classList.add("hidden")
 
         if (files?.length) {
             let reader = new FileReader();
@@ -60,6 +58,7 @@ export function FormFile(props: FormFile) {
             if (response && response?.status === 200) {
                 unregister(props.name);
                 register(props.name, { value: response.data.url })
+                loading(loadingRef?.current, false);
             } else {
                 setModalContent({
                     componentName: "modal_error_upload_img",
@@ -74,8 +73,7 @@ export function FormFile(props: FormFile) {
                 if (text) {
                     text.textContent = "upload"
                     iconUpload?.classList.remove("hidden")
-                    loading?.classList.add("hidden");
-                    loading?.classList.remove("flex")
+                    loading(loadingRef?.current, false);
                 }
 
             }
@@ -92,15 +90,15 @@ export function FormFile(props: FormFile) {
             ref={refUploadImg}
         >
             <label
+                ref={loadingRef}
                 htmlFor={props.name}
                 className=
-                "w-[120px] h-[120px] relative overflow-hidden border border-dashed border-primary-100 bg-zinc-600/40 rounded-full p-2 cursor-pointer text-center flex jsutify-center items-center bg-[url(https://i.ibb.co/6gFGb2q/wipzee-logo-1-removebg-preview.png)] bg-no-repeat bg-cover bg-opacity-15 filter grayscale"
+                "w-[120px] h-[120px] relative overflow-hidden border border-dashed border-primary-100 bg-zinc-600/40 rounded-full p-2 cursor-pointer text-center flex justify-center items-center bg-[url(https://i.ibb.co/6gFGb2q/wipzee-logo-1-removebg-preview.png)] bg-no-repeat bg-cover bg-opacity-15 filter grayscale"
                 style={{ width: props.sizeContainer, height: props.sizeContainer }}
             >
                 <span
                     className="w-full text-white bg-black bg-opacity-65 rounded-xl font-bold flex flex-col justify-center items-center"
                     id="container"
-                    data-loading
                 >
                     <RiUpload2Line
                         className="text-3xl font-bold"
@@ -117,7 +115,7 @@ export function FormFile(props: FormFile) {
                     onChange={handleUploadImage}
                 />
 
-                <div id="preview-img" className="absolute left-0 top-0 hidden">
+                <div id="preview-img" className="w-full h-full absolute left-0 top-0 hidden">
                     <img
                         className="w-full h-full object-cover"
                     />

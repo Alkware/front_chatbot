@@ -25,9 +25,7 @@ export function Loading({ children }: Loading) {
                 <div 
                     data-container="loading"
                     className="relative bg-primary-100 rounded-full border-2 animate-loading effect-neon"
-                >
-
-                </div>
+                ></div>
             </div>
             {children}
         </div>

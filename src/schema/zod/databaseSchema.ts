@@ -26,7 +26,10 @@ export const databaseSchema = z.object({
         tracking_link: z.string().optional(),
     }),
     step_2: z.object({
-        days_of_warranty: z.coerce.number().min(1, "Informe pelo menos 1 dia de garantia para seus clientes").max(1000, "Você pode definir no máximo 1000 dias de garantia"),
+        warranty_time: z.object({
+            type: z.string().min(1, "Defina o formato de tempo da garantia"),
+            time: z.string().min(1, "Defina o tempo de garantia"),
+        }),
         how_guarantee_work: z.string().min(1, "Informe como funciona a garantia!"),
         how_exchanges_work_and_returns: z.string().optional(),
     }),

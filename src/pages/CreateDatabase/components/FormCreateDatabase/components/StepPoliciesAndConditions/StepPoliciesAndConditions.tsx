@@ -7,11 +7,25 @@ export function StepPoliciesAndConditions() {
 
         <Root.Step index={2} stepTitle="Politicas e condições">
 
-            <Root.Input
-                type="number"
-                name="step_2.days_of_warranty"
-                title="Quantos dias o cliente tem de garantia?"
-            />
+            <Root.Container className="flex gap-4" >
+
+                <Root.Select 
+                    name="step_2.warranty_time.type"
+                    title="Tipo de data"
+                    options={[
+                        { text: "Dia(s)", value: "dia" },
+                        { text: "Mês(s)", value: "mes" },
+                        { text: "Ano(s)", value: "ano" },
+                    ]}
+                />
+
+                <Root.Input
+                    type="number"
+                    name="step_2.warranty_time.time"
+                    title="Tempo de garantia?"
+                />
+
+            </Root.Container>
 
             <Root.TextArea
                 name="step_2.how_guarantee_work"

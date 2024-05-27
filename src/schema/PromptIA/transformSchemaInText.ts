@@ -33,7 +33,7 @@ Com base nas informações abaixo, responda as perguntas do "user":
    - link para rastreamento: ${data.step_1.tracking_link}
     
 3. **POLITICAS E CONDIÇÕES:**
-   - Dias de garantia: ${data.step_2.days_of_warranty}
+   - Dias de garantia: ${data.step_2.warranty_time.time} ${data.step_2.warranty_time.type}(s)
    - Como funciona a garantia: ${data.step_2.how_guarantee_work}
    - Trocas e devoluções: ${data.step_2.how_exchanges_work_and_returns}
     

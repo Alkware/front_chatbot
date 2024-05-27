@@ -13,7 +13,6 @@ import { Button } from "../../../../../../../../components/button/Button"
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver"
 import { updateDatabaseName } from "../../../../../../../../api/Prompt"
 import { TutoralContainer } from "../../../../../../../../components/TutoralContainer/TutoralContainer"
-import { TipContainer } from "../../../../../../../../components/TipContainer/TipContainer"
 
 export function MyDatabases() {
     const { client } = useContext(ClientContext)
@@ -123,11 +122,7 @@ export function MyDatabases() {
                                                 position="BOTTOM"
                                                 hidden={index !== 0}
                                             >
-                                                <TipContainer
-                                                    tip="Criar fonte de dados"
-                                                >
-                                                    <ButtonCreateNewDatabase plan_management_id={client.plan_management.id} />
-                                                </TipContainer>
+                                                <ButtonCreateNewDatabase plan_management_id={client.plan_management.id} />
                                             </TutoralContainer>
                                     }
                                 </div>

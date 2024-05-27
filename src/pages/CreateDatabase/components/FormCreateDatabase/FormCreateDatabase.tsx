@@ -1,6 +1,6 @@
 import { Root } from "../../../../components/Form/FormRoot";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react";
+import { RefObject, useContext, useRef } from "react";
 import { createNewDatabase } from "../../../../api/Prompt";
 import { ModalContext } from "../../../../context/ModalContext";
 import { PopOver } from "../../../../components/modal/templates/PopOver";
@@ -15,9 +15,11 @@ import { FORM_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables"
 import { PopUp } from "../../../../components/modal/templates/PopUp";
 import { Button } from "../../../../components/button/Button";
 import { StepPaymentMethodAndConditions } from "./components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";
+import { loading } from "../../../../functions/loading";
 
 export function FormCreateDatabase({ plan_management_id }: { plan_management_id: string }) {
     const { setModalContent } = useContext(ModalContext);
+    const containerCreateDatabaseRef: RefObject<HTMLDivElement> = useRef(null);
     const localStorageDatabase = JSON.parse(localStorage.getItem(FORM_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
     const createDatabaseForm = useForm<DatabaseSchema>({
         resolver: zodResolver(databaseSchema),
@@ -31,7 +33,7 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
                 tracking_link: localStorageDatabase.tracking_link || ""
             },
             step_2: {
-                days_of_warranty: localStorageDatabase.days_of_warranty || 0,
+                warranty_time: localStorageDatabase.days_of_warranty || 0,
                 how_exchanges_work_and_returns: localStorageDatabase.how_exchanges_work_and_returns || "",
                 how_guarantee_work: localStorageDatabase.how_guarantee_work || ""
             },
@@ -58,16 +60,21 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
             componentName: "modal_create_name",
             components:
                 <PopUp>
-                    <div className="flex flex-col gap-4">
+                    <div
+                        ref={containerCreateDatabaseRef}
+                        className="flex flex-col gap-4 p-4"
+                    >
                         <h2>De um nome a essa fonte de dados:</h2>
-                        <input 
+                        <input
                             type="text"
                             placeholder="Ex: Minha fonte de dados"
-                            onChange={(e)=> { prompt_name = e.target.value } }
+                            onChange={(e) => { prompt_name = e.target.value }}
                         />
                         <Button
                             onClick={async () => {
                                 if (prompt_name) {
+                                    const button = containerCreateDatabaseRef.current?.querySelector("button");
+                                    loading(button, true)
                                     const prompt = transformSchemaInText(data);
                                     const client_describe = data.step_4.client_describe;
                                     const prompt_query = JSON.stringify(data);
@@ -76,7 +83,7 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
                                         const response = await createNewDatabase({ prompt_name, prompt, client_describe, prompt_query, plan_management_id })
                                         if (response?.status === 201) {
                                             localStorage.removeItem(FORM_NAME_TO_SAVE_LOCALSTORAGE)
-
+                                            loading(button, false)
                                             setModalContent({
                                                 componentName: "modal_created_database",
                                                 components:

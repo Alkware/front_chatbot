@@ -25,10 +25,18 @@ export function MenuIconsHeaderPanel() {
     return (
 
         <div className="flex gap-3 px-8">
-            <TipContainer tip="Notificações" position="BOTTOM">
+            <TipContainer
+                tip="Notificações"
+                positionY="BOTTOM"
+                positionX="LEFT"
+            >
                 <Notification />
             </TipContainer>
-            <TipContainer tip="Escolha entre thema light ou dark" position="BOTTOM">
+            <TipContainer
+                tip="Escolha entre thema light ou dark"
+                positionY="BOTTOM"
+                positionX="LEFT"
+            >
                 <div
                     className="bg-primary-100 border border-light/50 rounded-full p-1"
                     onClick={handleThemeColor}

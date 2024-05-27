@@ -3,12 +3,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authenticateClient, loginClient } from "../../api/client";
-import { useContext, useEffect, useState } from "react";
+import { RefObject, useContext, useEffect, useRef, useState } from "react";
 import { Header } from "../Home/components/Header/Header";
 import { Root } from "../../components/Form/FormRoot";
 import { ModalContext } from "../../context/ModalContext";
 import { PopOver } from "../../components/modal/templates/PopOver";
-import { loadingController } from "../../functions/loading";
+import { loading } from "../../functions/loading";
 
 
 const createClientFormSchema = z.object({
@@ -22,6 +22,7 @@ function Login() {
     const { setModalContent } = useContext(ModalContext)
     const navigate = useNavigate();
     const [access, setAccess] = useState<boolean>();
+    const containerFormRef: RefObject<HTMLDivElement> = useRef(null);
     const formLogin = useForm<createClientFormTypes>({
         resolver: zodResolver(createClientFormSchema)
     });
@@ -41,24 +42,29 @@ function Login() {
     }, [])
 
     const handleLogin = async (data: any) => {
-        loadingController(true);
+        // Adiciona loading no botão
+        const button = containerFormRef.current?.querySelector('[data-loading]');
+        loading(button, true)
+
+        // Verifica os dados do cliente
         const client = await loginClient(data)
 
         if (client) {
             const { token } = client.data
             localStorage.setItem("token", token);
+            loading(button, false)
             navigate("/panel")
         } else {
+            loading(button, false)
             setModalContent({
                 componentName: "modal_error_authenticate",
-                components: <PopOver 
+                components: <PopOver
                     componentName="modal_error_authenticate"
                     message="E-mail ou senha incorreto!"
                     type="WARNING"
                 />
             })
         }
-        loadingController(false);
     }
 
     return (
@@ -72,7 +78,10 @@ function Login() {
                     <div className="w-full nvxs:w-4/5 sm:w-3/5 py-4 flex flex-col justify-start items-center bg-primary-50 dark:bg-primary-200 rounded-xl">
                         <h1 className="text-xl md:text-2xl text-light text-center font-bold">Acesse nossa plataforma</h1>
 
-                        <div className="w-full flex flex-col text-light px-4">
+                        <div
+                            ref={containerFormRef}
+                            className="w-full flex flex-col text-light px-4"
+                        >
                             <Root.Form
                                 form={formLogin}
                                 onSubmit={formLogin.handleSubmit(handleLogin)}
@@ -91,7 +100,6 @@ function Login() {
                                     />
 
                                 </Root.Step>
-
                             </Root.Form>
 
                             <div className="w-full flex flex-col justify-evenly items-center ">
@@ -108,7 +116,7 @@ function Login() {
                             </div>
                         </div>
 
-                        </div>
+                    </div>
                     <div
                         className="w-1/2"
                     >

@@ -40,7 +40,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 tracking_link: promptData.step_1.tracking_link || ""
             },
             step_2: {
-                days_of_warranty: promptData.step_2.days_of_warranty || 0,
+                warranty_time: promptData.step_2.warranty_time || 0,
                 how_exchanges_work_and_returns: promptData.step_2.how_exchanges_work_and_returns || "",
                 how_guarantee_work: promptData.step_2.how_guarantee_work || ""
             },

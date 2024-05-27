@@ -63,7 +63,7 @@ export function SelectTime({ typeFilter }: SelectTime) {
         <Select
             handleSelectDatabase={handleSelectTime}
             Icon={IoCalendar}
-            title="Todas as datas"
+            title="Datas"
             options={[
                 { id: "today", name: "Hoje" },
                 { id: "yesterday", name: "Ontem" },

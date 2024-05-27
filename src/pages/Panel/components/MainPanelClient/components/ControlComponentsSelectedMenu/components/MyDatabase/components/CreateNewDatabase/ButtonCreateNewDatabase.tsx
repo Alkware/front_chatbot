@@ -4,6 +4,7 @@ import { FaPlus } from "react-icons/fa";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
+import { TipContainer } from "../../../../../../../../../../components/TipContainer/TipContainer";
 
 export function ButtonCreateNewDatabase({ plan_management_id }: { plan_management_id: string }) {
     const { client } = useContext(ClientContext)
@@ -52,7 +53,13 @@ export function ButtonCreateNewDatabase({ plan_management_id }: { plan_managemen
         }
     }
 
-    return <FaPlus className="w-[300px] text-5xl py-3 fill-primary-100" onClick={handleClickNewDatabases} />
+    return (
+        <TipContainer
+            tip="Criar fonte de dados"
+        >
+            <FaPlus className="text-5xl py-3 fill-primary-100" onClick={handleClickNewDatabases} />
+        </TipContainer>
+    )
 
 }
 

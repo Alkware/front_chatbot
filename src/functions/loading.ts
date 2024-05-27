@@ -1,45 +1,45 @@
-export function loadingController(loading: boolean) {
-    const components = document.querySelectorAll("[data-loading]");
+interface Options {
+    blur?: "sm" | "md" | "lg" | "xl"
+}
+
+
+export function loading(container: Element | null | undefined, loading: boolean, options?: Options) {
+
+    if (!container) return null;
 
     if (loading) {
         //Create Loading 
-        const container = document.createElement("div");
-        container.dataset.container = "loading"
-        container.classList.add("w-full", "h-full", "bg-dark/20", "backdrop-blur-xl", "absolute", "top-0", "flex", "justify-center", "items-center")
+        const containerLoading = document.createElement("div");
+        containerLoading.dataset.container = "loading"
+        containerLoading.classList.add("w-full", "h-full", "bg-dark/20", `backdrop-blur-${options?.blur || "md"}`, "absolute", "top-0", "flex", "justify-center", "items-center", "z-50")
 
 
         const loadingElement = document.createElement("div");
         loadingElement.classList.add("w-[20px]", "h-[20px]", "rounded-full", "bg-primary-200", "border-2", "neon-effect", "animate-loading");
 
-        container.appendChild(loadingElement);
+        containerLoading.appendChild(loadingElement);
 
-        components.forEach(component => {
-            const isLoading = component.querySelector("div[data-container='loading']");
-            if (!isLoading) {
-                const containRelative = component.classList.contains("relative")
-                const containOverflow = component.classList.contains("overflow")
-                if (!containRelative) component.classList.add("relative")
-                if (!containOverflow) component.classList.add("overflow-hidden")
-                component.appendChild(container)
-            }
-        })
+        const containRelative = container.classList.contains("relative")
+        const containOverflow = container.classList.contains("overflow")
+        if (!containRelative) container.classList.add("relative")
+        if (!containOverflow) container.classList.add("overflow-hidden");
+
+        container.appendChild(containerLoading);
+
     } else {
-        components.forEach(component =>{
-            const loading = component.querySelector("div[data-container='loading']");
-            if(loading) {
-                loading.classList.add("transition-opacity", "duration-500");
-                const removeFirstTimeOut = setTimeout(()=>{
-                    loading.classList.add("opacity-0")
-                    const removeTimeout = setTimeout(() => {
-                        component.removeChild(loading);
-                        clearTimeout(removeTimeout)
-                    }, 2000);
+        const loading = container.querySelector("div[data-container='loading']");
+        if (loading) {
+            loading.classList.add("transition-opacity", "duration-500");
+            const removeFirstTimeOut = setTimeout(() => {
+                loading.classList.add("opacity-0")
+                const removeTimeout = setTimeout(() => {
+                    container.removeChild(loading);
+                    clearTimeout(removeTimeout)
+                }, 2000);
 
-                    clearTimeout(removeFirstTimeOut)
-                }, 500);
+                clearTimeout(removeFirstTimeOut)
+            }, 500);
 
-            }
-            
-        })
+        }
     }
 }
