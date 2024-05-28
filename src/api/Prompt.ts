@@ -7,20 +7,20 @@ interface NewCreatePrompt extends CreatePrompt {
 }
 
 export async function createNewDatabase(data: NewCreatePrompt) {
-    const project = await axios.post(`${API_URL}/create/database`, data).catch(err => console.log(err))
+    const project = await axios.post(`${API_URL}/create/database`, data).catch(err => console.warn(err))
 
     return project
 }
 
 
 export async function updateDatabase(data: CreatePrompt, prompt_id: string) {
-    const project = await axios.put(`${API_URL}/update/database/${prompt_id}`, data).catch(err => console.log(err))
+    const project = await axios.put(`${API_URL}/update/database/${prompt_id}`, data).catch(err => console.warn(err))
 
     return project
 }
 
 export async function updateDatabaseName(prompt_name: string, prompt_id: string) {
-    const project = await axios.put(`${API_URL}/update/database_name/${prompt_id}`, { prompt_name }).catch(err => console.log(err))
+    const project = await axios.put(`${API_URL}/update/database_name/${prompt_id}`, { prompt_name }).catch(err => console.warn(err))
 
     return project
 }

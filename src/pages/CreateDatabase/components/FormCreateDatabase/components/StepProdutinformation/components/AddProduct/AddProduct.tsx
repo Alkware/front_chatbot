@@ -1,9 +1,10 @@
 import { MdAdd } from "react-icons/md";
 import { ModalCreateProduct } from "./components/ModalCreateProduct/ModalCreateProduct";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UseFieldArrayReturn, useFieldArray, useFormContext } from "react-hook-form";
 import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { PopUp } from "../../../../../../../../components/modal/templates/PopUp";
+import { DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../../../variables/variables";
 
 export function AddProduct() {
     const { setModalContent } = useContext(ModalContext)
@@ -14,7 +15,15 @@ export function AddProduct() {
         control: useFormReturn.control,
     });
 
+    // UseEffect: Toda vez que os fields mudarem será chamada a função saveAllProductsInLocalStorage
+    useEffect(() => saveAllProductsInLocalStorage(), [useFieldArrayData.fields])
 
+    // Responsavél por salvar o produto no localStorage e manter a consistencia de dados...
+    const saveAllProductsInLocalStorage = () => {
+        localStorage.setItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE, JSON.stringify({ products: useFieldArrayData.fields }));
+    }
+
+    // Abre o modal para ser criado um novo produto...
     const handleClickAddProduct = (index: number) => {
         setModalContent({
             componentName: "modal_add_product",

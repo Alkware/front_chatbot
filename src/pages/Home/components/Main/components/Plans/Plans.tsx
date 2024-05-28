@@ -24,6 +24,7 @@ export function Plans() {
         window.location.href = `${plan.payment_link}?pid=${plan.id}&cid=${client?.id}`
     }
 
+
     return (
         <div className="w-screen h-auto md:min-h-screen flex gap-8 flex-col items-center relative">
             <h2 className="text-3xl md:text-5xl p-8 font-bold text-primary-100 dark:text-light">Planos</h2>

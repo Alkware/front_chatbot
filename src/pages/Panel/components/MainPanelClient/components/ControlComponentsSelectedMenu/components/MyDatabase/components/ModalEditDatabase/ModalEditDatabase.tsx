@@ -24,9 +24,6 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
     const { client, setClient } = useContext(ClientContext);
     const promptData: DatabaseSchema = JSON.parse(prompt.prompt_query || "{}")
     const checkPromptIsAvalible = !!Object.keys(promptData).length ? true : false
-    console.log(promptData)
-
-
     const updateDatabaseForm = useForm<DatabaseSchema>({
         resolver: zodResolver(databaseSchema),
         defaultValues: !checkPromptIsAvalible ? undefined : {
@@ -35,12 +32,12 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 observation: promptData.step_0.observation,
             },
             step_1: {
-                payment_methods: promptData.step_1.payment_methods || "",
+                payment_methods: promptData.step_1.payment_methods || [],
                 order_tracking: promptData.step_1.order_tracking || "",
                 tracking_link: promptData.step_1.tracking_link || ""
             },
             step_2: {
-                warranty_time: promptData.step_2.warranty_time || 0,
+                warranty_time: promptData.step_2.warranty_time || { time: 0, type: "" },
                 how_exchanges_work_and_returns: promptData.step_2.how_exchanges_work_and_returns || "",
                 how_guarantee_work: promptData.step_2.how_guarantee_work || ""
             },
@@ -99,7 +96,8 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 const findIndex = client?.plan_management.prompt.findIndex(p => p.id === prompt.id)
                 // Prompt removido para que seja atualizado de maneira ficticia a quantidade de prompts,
                 // assim possibilita a criação de novos prompts mesmo que a lista não seja atualizada
-                if (client && findIndex) {
+                
+                if (client && typeof findIndex === "number") {
                     client.plan_management.prompt.splice(findIndex, 1)
                     setClient(client)
                 }

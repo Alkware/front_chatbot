@@ -152,10 +152,7 @@ export function ModalCreateProduct({ useFieldArray, useFormReturn, index }: Moda
                             name="questions"
                             text="Esse produto possui perguntas frequentes?"
                         >
-                            <ComomQuestions
-                                useFormReturn={useFormReturn}
-                                index={index}
-                            />
+                            <ComomQuestions />
                         </Root.Optional>
                     </div>
 

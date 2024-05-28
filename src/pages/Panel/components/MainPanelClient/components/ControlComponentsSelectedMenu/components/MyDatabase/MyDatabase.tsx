@@ -12,7 +12,6 @@ import { MdEdit } from "react-icons/md"
 import { Button } from "../../../../../../../../components/button/Button"
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver"
 import { updateDatabaseName } from "../../../../../../../../api/Prompt"
-import { TutoralContainer } from "../../../../../../../../components/TutoralContainer/TutoralContainer"
 
 export function MyDatabases() {
     const { client } = useContext(ClientContext)
@@ -65,7 +64,7 @@ export function MyDatabases() {
             componentName: "modal_edit_name",
             components:
                 <PopUp>
-                    <div className="flex flex-col justify-center items-center gap-4">
+                    <div className="flex flex-col justify-center items-center gap-4 p-4">
                         <h2>Digite o novo nome da sua fonte de dados:</h2>
                         <form
                             onSubmit={saveNewNameDatabase}
@@ -95,11 +94,11 @@ export function MyDatabases() {
                                 <div
                                     key={index}
                                     data-prompt={!!prompts[index]?.prompt_name}
-                                    className="w-full max-w-[300px] flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
+                                    className="w-full max-w-[300px] flex justify-center items-center  cursor-pointer"
                                 >
                                     {
                                         prompts[index]?.prompt_name ?
-                                            <div className=" flex gap-2 items-center justify-center">
+                                            <div className="w-full flex gap-2 items-center justify-center rounded-xl border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20">
                                                 <h2
                                                     className="w-[200px] text-center py-4 flex justify-center items-center gap-2"
                                                     onClick={() => handleEditDatabase(index)}
@@ -116,14 +115,10 @@ export function MyDatabases() {
                                                 />
                                             </div>
                                             :
-                                            <TutoralContainer
-                                                title="Vamos criar sua primeira fonte de dados"
-                                                text="Clique em <span class='font-medium text-2xl mx-1'>+</span> para criar sua primeira fonte de dados."
-                                                position="BOTTOM"
-                                                hidden={index !== 0}
-                                            >
-                                                <ButtonCreateNewDatabase plan_management_id={client.plan_management.id} />
-                                            </TutoralContainer>
+                                            <ButtonCreateNewDatabase
+                                                plan_management_id={client.plan_management.id}
+                                                index={index}
+                                            />
                                     }
                                 </div>
                             )

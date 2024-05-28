@@ -10,7 +10,7 @@ import { Root } from "../../components/Form/FormRoot";
 import { useFieldArray, useForm } from "react-hook-form";
 import { chatSchema, ChatSchema } from "../../schema/zod/chatSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FORM_NAME_TO_SAVE_LOCALSTORAGE } from "../../variables/variables";
+import { CHAT_NAME_TO_SAVE_LOCALSTORAGE } from "../../variables/variables";
 import { CallToActionFormChat } from "./components/FormCallToAction/FormCallToAction";
 
 export function CreateChat() {
@@ -18,7 +18,7 @@ export function CreateChat() {
     const { plan_management_id } = useParams();
     const { setModalContent } = useContext(ModalContext)
     const navigate = useNavigate();
-    const localStorageDatabase = JSON.parse(localStorage.getItem(FORM_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
+    const localStorageDatabase = JSON.parse(localStorage.getItem(CHAT_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
     const createChatForm = useForm<ChatSchema>({
         resolver: zodResolver(chatSchema),
         defaultValues: {
@@ -80,7 +80,7 @@ export function CreateChat() {
             });
 
             if (project?.status === 201) {
-                localStorage.removeItem(FORM_NAME_TO_SAVE_LOCALSTORAGE)
+                localStorage.removeItem(CHAT_NAME_TO_SAVE_LOCALSTORAGE)
 
                 setModalContent({
                     componentName: "modal_created_chat",

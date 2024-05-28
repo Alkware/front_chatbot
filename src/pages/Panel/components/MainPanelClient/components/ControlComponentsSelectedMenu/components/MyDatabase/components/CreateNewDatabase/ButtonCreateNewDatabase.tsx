@@ -5,8 +5,9 @@ import { ClientContext } from "../../../../../../../../../../context/ClientConte
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
 import { TipContainer } from "../../../../../../../../../../components/TipContainer/TipContainer";
+import { TutoralContainer } from "../../../../../../../../../../components/TutoralContainer/TutoralContainer";
 
-export function ButtonCreateNewDatabase({ plan_management_id }: { plan_management_id: string }) {
+export function ButtonCreateNewDatabase({ plan_management_id, index }: { plan_management_id: string, index: number }) {
     const { client } = useContext(ClientContext)
     const { setModalContent } = useContext(ModalContext)
     const navigate = useNavigate();
@@ -54,11 +55,23 @@ export function ButtonCreateNewDatabase({ plan_management_id }: { plan_managemen
     }
 
     return (
-        <TipContainer
-            tip="Criar fonte de dados"
+        <div
+            className="w-full rounded-xl border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20 flex justify-center"
+            onClick={handleClickNewDatabases}
         >
-            <FaPlus className="text-5xl py-3 fill-primary-100" onClick={handleClickNewDatabases} />
-        </TipContainer>
+            <TutoralContainer
+                title="Vamos criar sua primeira fonte de dados"
+                text="Clique em <span class='font-medium text-2xl mx-1'>+</span> para criar sua primeira fonte de dados."
+                position="BOTTOM"
+                hidden={index !== 0}
+            >
+                <TipContainer
+                    tip="Criar fonte de dados"
+                >
+                    <FaPlus className="text-5xl py-3 fill-primary-100" />
+                </TipContainer>
+            </TutoralContainer>
+        </div>
     )
 
 }

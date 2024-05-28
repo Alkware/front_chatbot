@@ -49,7 +49,6 @@ export function AnalyzeMetric() {
     useEffect(() => {
         (async () => {
             if (client) {
-                console.log(client)
                 const allAnalysis = await getMetricAnalysis(client.plan_management?.id);
                  const analysis = allAnalysis.data.response;
                 const maxAnalysisByDay = client.plan_management.plan.max_analyze_metric.default;

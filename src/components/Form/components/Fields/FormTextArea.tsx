@@ -1,6 +1,5 @@
 import { RefObject, TextareaHTMLAttributes, useRef } from "react";
 import { useFormContext } from "react-hook-form";
-import { FORM_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables";
 import { TextArea } from "../../../TextArea/TextArea";
 
 interface FormTextArea extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -22,14 +21,6 @@ export function FormTextArea({ title, size = "SMALL", help, limitText, ...props 
             //Atualiza a quantidade de string que já foi usada, caso tenha sido definido um limite de string;
             if (spanLimitTextRef.current) spanLimitTextRef.current.textContent = (limitCaracteres - e.target.value.length).toString();
 
-            // Registra os dados no localStorage.
-            const databaseData = JSON.parse(localStorage.getItem(FORM_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
-            const fieldNameArray = e.target.name.split(".");
-            const lastIndex = (fieldNameArray.length - 1)
-            const fieldName = /\d/.test(fieldNameArray[lastIndex]) ? fieldNameArray[fieldNameArray.length - 2] : fieldNameArray[fieldNameArray.length - 1];
-            const value = e.target.value;
-            databaseData[fieldName] = value
-            localStorage.setItem(FORM_NAME_TO_SAVE_LOCALSTORAGE, JSON.stringify(databaseData))
             // Executa função onChange passada no Form Input.
             props.onChange && (props.onChange(e));
         } else {

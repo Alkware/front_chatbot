@@ -11,7 +11,7 @@ import { StepAboutCompany } from "./components/StepAboutCompany/StepAboutCompany
 import { StepPersonalityIA } from "./components/StepPersonalityIA/StepPersonalityIA";
 import { useForm } from "react-hook-form";
 import { transformSchemaInText } from "../../../../schema/PromptIA/transformSchemaInText";
-import { FORM_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables";
+import { DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables";
 import { PopUp } from "../../../../components/modal/templates/PopUp";
 import { Button } from "../../../../components/button/Button";
 import { StepPaymentMethodAndConditions } from "./components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";
@@ -20,20 +20,24 @@ import { loading } from "../../../../functions/loading";
 export function FormCreateDatabase({ plan_management_id }: { plan_management_id: string }) {
     const { setModalContent } = useContext(ModalContext);
     const containerCreateDatabaseRef: RefObject<HTMLDivElement> = useRef(null);
-    const localStorageDatabase = JSON.parse(localStorage.getItem(FORM_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
+    const localStorageDatabase = JSON.parse(localStorage.getItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
+
     const createDatabaseForm = useForm<DatabaseSchema>({
         resolver: zodResolver(databaseSchema),
         defaultValues: {
             step_0: {
-                products: localStorageDatabase.products || "",
+                products: localStorageDatabase.products || [],
             },
             step_1: {
-                payment_methods: localStorageDatabase.payment_methods || "",
+                payment_methods: localStorageDatabase.payment_methods || [],
                 order_tracking: localStorageDatabase.order_tracking || "",
                 tracking_link: localStorageDatabase.tracking_link || ""
             },
             step_2: {
-                warranty_time: localStorageDatabase.days_of_warranty || 0,
+                warranty_time: {
+                    time: localStorageDatabase.warranty_time?.time || 0,
+                    type: localStorageDatabase.warranty_time?.type || "",
+                },
                 how_exchanges_work_and_returns: localStorageDatabase.how_exchanges_work_and_returns || "",
                 how_guarantee_work: localStorageDatabase.how_guarantee_work || ""
             },
@@ -82,7 +86,7 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
                                     try {
                                         const response = await createNewDatabase({ prompt_name, prompt, client_describe, prompt_query, plan_management_id })
                                         if (response?.status === 201) {
-                                            localStorage.removeItem(FORM_NAME_TO_SAVE_LOCALSTORAGE)
+                                            localStorage.removeItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE)
                                             loading(button, false)
                                             setModalContent({
                                                 componentName: "modal_created_database",

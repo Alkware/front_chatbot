@@ -7,14 +7,14 @@ interface UpdatePromptSystem {
 }
 
 export async function updatePromptsSystem({seller, support}: UpdatePromptSystem) {
-    const response = await axios.post(`${API_URL}/system/create/prompt`, { seller, support }).catch(error => console.log(error))
+    const response = await axios.post(`${API_URL}/system/create/prompt`, { seller, support }).catch(error => console.warn(error))
 
     return response
 }
 
 
 export async function getPromptSystem(){
-    const response = await axios.get(`${API_URL}/system`).catch(err => console.log(err));
+    const response = await axios.get(`${API_URL}/system`).catch(err => console.warn(err));
 
     return response
 }

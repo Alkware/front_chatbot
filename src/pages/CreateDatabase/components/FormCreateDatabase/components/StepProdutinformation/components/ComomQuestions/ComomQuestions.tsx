@@ -1,31 +1,25 @@
 import { useContext, useEffect } from "react";
-import { UseFormReturn, useFieldArray } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import { MdAdd, MdDelete } from "react-icons/md";
 import { Root } from "../../../../../../../../components/Form/FormRoot";
 import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver";
 
-
-interface ComomQuestions {
-    index: number
-    useFormReturn: UseFormReturn
-}
-
-export function ComomQuestions({ index, useFormReturn }: ComomQuestions) {
+export function ComomQuestions() {
     const { setModalContent } = useContext(ModalContext);
+    const { control, watch } = useFormContext();
 
     const { fields, append, remove, update } = useFieldArray({
-        control: useFormReturn.control,
-        name: `step_0.products.${index}.questions`
+        control: control,
+        name: `questions`
     });
 
     useEffect(() => {
-        !fields.length &&
-            append({ ask: "", answer: "" })
+        !fields.length && append({ ask: "", answer: "" });
     }, [])
 
     const handleAddNewAsk = () => {
-        const product = useFormReturn.watch(`step_0.products.${index}.questions.${fields.length - 1}`)
+        const product = watch(`questions.${fields.length - 1}`);
 
         if (product.ask && product.answer) {
             append({ ask: "", answer: "" })

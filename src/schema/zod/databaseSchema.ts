@@ -20,7 +20,7 @@ export const databaseSchema = z.object({
         observation: z.optional(z.string()),
     }),
     step_1: z.object({
-        payment_methods: z.array(z.string()).min(1, "Selecione pelo menos um meio de pagamento"),
+        payment_methods: z.array(z.string()).min(1, "Informe pelo menos um método de pagamento."),
         credit_card_installments: z.string().optional(),
         order_tracking: z.string().optional(),
         tracking_link: z.string().optional(),

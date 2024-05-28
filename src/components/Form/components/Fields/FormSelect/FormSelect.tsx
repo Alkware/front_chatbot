@@ -23,17 +23,21 @@ export interface OptionsState {
 
 export function FormSelect({ options, title, name, multipleSelect, useFormReturn }: FormSelect) {
     const useFormContextReturn = useFormContext();
-    const { getValues, unregister, register }  = useFormContextReturn || useFormReturn;
-    
+    const { getValues, unregister, register } = useFormContextReturn || useFormReturn;
+
     const contentOptionsRef: RefObject<HTMLDivElement> = useRef(null);
     const addSelectParamToOptions: OptionsState[] = options?.map(option => Object({ ...option, selected: false }) as OptionsState);
     const [optionsState, setOptions] = useState<OptionsState[]>(addSelectParamToOptions);
 
-    // UseEffect responsável por selecionar as opções automaticamente caso já estejam salvas.
+
     useEffect(() => {
+        // Registra o campo no formulário com valores default
+        register(name, { value: multipleSelect ? [] : "" })
+
+        // Seleciona as opções automaticamente caso já estejam salvas.
         const key = getValues(name);
-        const data = options?.filter((opt) => key?.includes(opt.value));
-        if(!!data.length){
+        const data = options?.filter((opt) => key === opt.value);
+        if (!!data.length) {
             const addSelectParamToOptions: OptionsState[] = data?.map(option => Object({ ...option, selected: true }) as OptionsState);
             setOptions(addSelectParamToOptions);
         }
@@ -90,7 +94,7 @@ export function FormSelect({ options, title, name, multipleSelect, useFormReturn
 
     // // Função responsável por registrar o campo no formulário.
     const registerField = (list: { value: string }[]) => {
-        if(list.length){
+        if (list.length) {
             unregister(name);
             if (multipleSelect) list.forEach((_, index) => register(`${name}.${index}`, { value: list[index].value }));
             else register(name, { value: list[0].value });

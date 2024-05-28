@@ -34,9 +34,12 @@ export function FrequentlyQuestions() {
     useEffect(() => {
         (async () => {
             const response = await getPlanMessageManagerByProjectId(PROJECT_ID_WIPZEE);
-            const { available } = response?.data.response;
-            if (available) setDisplayChat(available);
-            else setDisplayChat(false);
+            if(response){
+                const { available } = response?.data.response;
+                console.log(available)
+                if (available) setDisplayChat(available);
+                else setDisplayChat(false);
+            }
         })()
     }, [])
 
