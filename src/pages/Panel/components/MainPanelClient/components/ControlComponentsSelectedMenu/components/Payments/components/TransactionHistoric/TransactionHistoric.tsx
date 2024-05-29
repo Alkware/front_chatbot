@@ -3,7 +3,6 @@ import { formatDate } from "../../../../../../../../../../functions/formatDate";
 
 
 export function TransactionHistoric({ plan_management }: { plan_management?: PlanManagement }) {
-
     return (
         <div className="w-full flex flex-col items-center">
             <h2 className="text-xl p-2">Historico de transações</h2>
@@ -25,7 +24,7 @@ export function TransactionHistoric({ plan_management }: { plan_management?: Pla
                                         <span className="w-32 md:w-40 flex-none whitespace-nowrap text-center">{plan_management.plan.plan_name}</span>
                                         <span className="w-32 md:w-40 flex-none whitespace-nowrap text-center">{payment.transaction_describe === "PAYMENT" ? "Pagamento" : payment.transaction_describe === "REFUND_REQUEST" ? "Reembolso solicitado": payment.transaction_describe === "SUBSCRIPTION_CANCELLATION" ? "Plano cancelado": "Reembolso cancelado"}</span>
                                         <span className="w-32 md:w-40 flex-none whitespace-nowrap text-center">{formatDate(payment.created_at).dateFormat_A}</span>
-                                        <span className="w-32 md:w-40 flex-none whitespace-nowrap text-center">R${Number(payment.amount_paid).toFixed(2).replace(".", ",")}</span>
+                                        <span className="w-32 md:w-40 flex-none whitespace-nowrap text-center">R$ {payment.amount_paid}</span>
                                         <span className="w-32 md:w-40 flex-none whitespace-nowrap text-center">{payment.payment_method}</span>
                                         <span className="w-32 md:w-40 flex-none whitespace-nowrap text-center">{payment.status === "APPROVED" ? "Aprovado" : payment.status === "REJECT" ? "Recusado" : "Pendente"}</span>
                                     </div>

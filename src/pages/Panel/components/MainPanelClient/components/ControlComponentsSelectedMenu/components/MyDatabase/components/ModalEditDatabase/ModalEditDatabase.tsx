@@ -96,7 +96,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                 const findIndex = client?.plan_management.prompt.findIndex(p => p.id === prompt.id)
                 // Prompt removido para que seja atualizado de maneira ficticia a quantidade de prompts,
                 // assim possibilita a criação de novos prompts mesmo que a lista não seja atualizada
-                
+
                 if (client && typeof findIndex === "number") {
                     client.plan_management.prompt.splice(findIndex, 1)
                     setClient(client)
@@ -243,12 +243,25 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     titleStep="Politicas e condições"
                     icon={<FaBook />}
                 >
-                    <Root.Input
-                        type="number"
-                        name="step_2.days_of_warranty"
-                        title="Quantos dias o cliente tem de garantia?"
-                    />
+                    <Root.Container className="flex gap-4" >
+                        <Root.Select
+                            name="step_2.warranty_time.type"
+                            title="Tipo de data"
+                            options={[
+                                { text: "Dia(s)", value: "dia" },
+                                { text: "Mês(s)", value: "mes" },
+                                { text: "Ano(s)", value: "ano" },
+                            ]}
+                        />
 
+                        <Root.Input
+                            type="number"
+                            name="step_2.warranty_time.time"
+                            title="Tempo de garantia?"
+                        />
+
+                    </Root.Container>
+                    
                     <Root.TextArea
                         name="step_2.how_guarantee_work"
                         title="Como funciona a garantia?"

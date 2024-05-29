@@ -36,7 +36,7 @@ function Login() {
             //verifica se o usuário já está authenticado, se estiver ele já vai direto para o painel
             const token = localStorage.getItem("token");
             const clientIsLogged = token && await authenticateClient(token)
-            if (clientIsLogged) navigate("/panel")
+            if (clientIsLogged) window.location.href = "/panel"
             else setAccess(true)
         })();
     }, [])
@@ -53,7 +53,7 @@ function Login() {
             const { token } = client.data
             localStorage.setItem("token", token);
             loading(button, false)
-            navigate("/panel")
+            window.location.href = "/panel"
         } else {
             loading(button, false)
             setModalContent({

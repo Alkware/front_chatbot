@@ -50,7 +50,6 @@ export function ModalProvider({ children }: { children: ReactElement | ReactElem
         else throw new Error("ComponentName cannot be empty.")
     }
 
-
     return (
         <ModalContext.Provider value={{ modalContent, setModalContent, clearModal }}>
             {children}

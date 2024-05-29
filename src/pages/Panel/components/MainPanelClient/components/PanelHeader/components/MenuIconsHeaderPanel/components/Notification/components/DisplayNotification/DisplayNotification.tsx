@@ -17,7 +17,7 @@ export function DisplayNotification({ notification, setDisplayNotification }: Di
 
 
     return (
-        <div className="flex flex-col justify-center items-center gap-4 min-w-full md:min-w-[500px] md:max-w-[80vw] relative">
+        <div className="flex flex-col justify-center items-center gap-4 min-w-full md:min-w-[500px] md:max-w-[80vw] relative p-4">
             <h2 className="w-full text-2xl text-center font-bold">{notification.notification.title}</h2>
             <p
                 dangerouslySetInnerHTML={{ __html: notification.notification.describe }}
