@@ -18,7 +18,7 @@ function NavigatePanelClient() {
         <div
             data-isresizemenu={isMenuResized}
             data-isopenmobilemenu={isOpenMobileOpen}
-            className="w-full md:w-[300px] fixed z-[999] md:relative data-[isopenmobilemenu=false]:w-auto md:data-[isresizemenu=false]:w-[70px] bg-primary-100 rounded-b-md md:rounded-none"
+            className="w-full md:w-[250px] fixed z-[999] md:relative md:data-[isresizemenu=false]:w-[70px] bg-primary-100 rounded-b-md md:rounded-none"
         >
 
             <div
@@ -37,7 +37,7 @@ function NavigatePanelClient() {
                 >
                     <UserPlanInfoProfile />
 
-                    <MenuNavigate urlParamName={MENU_MOBILE} />
+                    <MenuNavigate />
 
                 </nav>
                 <ControlCloseMenuNavigation />

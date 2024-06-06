@@ -10,9 +10,6 @@ export function PlanInformation({ plan_management }: { plan_management?: PlanMan
         else return 0
     }
 
-
-
-
     return (
         (plan_management && plan_management.status !== "DISABLED") &&
         <div className="w-full flex flex-col items-center">

@@ -4,6 +4,8 @@ import { formatDate } from "./formatDate";
 
 export function eventManager(project: Project, time: number = 0) {
 
+
+    // Obtem o número de chats abertos...
     function getNumberChat() {
         const openChats = project.metric.chat_event.reduce((total, ev) => {
 
@@ -18,6 +20,7 @@ export function eventManager(project: Project, time: number = 0) {
         return openChats
     }
 
+    // Obtem o número de chats unicos abertos, ou seja chats abertos por dispositivos diferentes
     function getNumberUniqueChat() {
         const filterTimeChats = project.metric.chat_event.filter((chat) => {
             const hoursDifference = convertDateInHour(chat.created_at)
@@ -32,30 +35,43 @@ export function eventManager(project: Project, time: number = 0) {
         return removeDuplicateGuest.length
     }
 
+    // Obtem a quantidade de mensagem enviadas para IA...
     function getInputMessages() {
-        const messages = project.plan_message_manager.filter((msg) => {
-            const hoursDifference = convertDateInHour(msg.created_at)
-            return time > 0 ? hoursDifference <= time : true
-        }, 0)
+        // Filtra todas as mensagens baseado no tempo
+        const messages = project.plan_message_manager.map((manager) => {
+            const filteredMessage = manager.messages.filter(msg => {
+                const hoursDifference = convertDateInHour(msg.time)
+                return time > 0 ? hoursDifference <= time : true
+            })
+            return filteredMessage
+        })
 
-        return messages.reduce((total: number, msg) => total + msg.input, 0)
+        return messages.flat().filter(msg => msg.player === 1).length
     }
 
+    // Obtem a quantidade de mensagem enviadas pela IA...
     function getOutputMessages() {
-        const messages = project.plan_message_manager.filter((msg) => {
-            const hoursDifference = convertDateInHour(msg.created_at)
-            return time > 0 ? hoursDifference <= time : true
-        }, 0)
+        // Filtra todas as mensagens baseado no tempo
+        const messages = project.plan_message_manager.map((manager) => {
+            const filteredMessage = manager.messages.filter(msg => {
+                const hoursDifference = convertDateInHour(msg.time)
+                return time > 0 ? hoursDifference <= time : true
+            })
+            return filteredMessage
+        })
 
-        return messages.reduce((total: number, msg) => total + msg.output, 0)
+
+        return messages.flat().filter(msg => msg.player === 2 || msg.player === 0).length
     }
 
+    // Obtem a média de mensagem enviada por chat...
     function getMediaMessagesByChat() {
         const totalMessages = getInputMessages() + getOutputMessages();
         const mediaMessagesByChat = getNumberUniqueChat() > 0 ? (totalMessages / getNumberUniqueChat()) : 0
         return mediaMessagesByChat % 1 === 0 ? mediaMessagesByChat : Number(mediaMessagesByChat.toFixed(1))
     }
 
+    // Obtem o tempo de uso do chat...
     function getUsageTime() {
 
         const milliseconds = project.metric.chat_event.reduce((total, ev) => {
@@ -82,6 +98,7 @@ export function eventManager(project: Project, time: number = 0) {
         return formattedTime
     }
 
+    // Obtem a média de tempo de uso por chat...
     function getMediaUsageTime() {
         const totalMilliseconds = project.metric.chat_event.reduce((total, ev) => {
             const chatsFiltered = ev.chat_time.filter(chat => {
@@ -107,6 +124,7 @@ export function eventManager(project: Project, time: number = 0) {
         return hours !== Infinity ? formattedTime : "00:00:00"
     }
 
+    // Obtem a quantidade de cliques no link...
     function getClicksLink() {
         const buttons = project.metric.button_event.filter((ev: any) => {
             const hoursDifference = convertDateInHour(ev)
@@ -116,6 +134,22 @@ export function eventManager(project: Project, time: number = 0) {
         return buttons.reduce((total: number, btn) => total + btn.clicked_button.length, 0)
     }
 
+    // Obtem a quantidade de cliques no link...
+    function getLeadsCollected() {
+        // Filtra todas as mensagens baseado no tempo
+        const messages = project.plan_message_manager.map((manager) => {
+            // const filteredMessage = manager.lead_collected.filter(lead => {
+            //     const hoursDifference = convertDateInHour(lead.time)
+
+            //     return time > 0 ? hoursDifference <= time : true
+            // })
+            return manager.lead_collected
+        })
+
+        return messages.flat().length
+    }
+
+    // Obtem a data que o chat foi criado...
     function getCreatedAt() {
         return formatDate(project.created_at).dateFormat_A
     }
@@ -133,14 +167,9 @@ export function eventManager(project: Project, time: number = 0) {
         MEDIA_USAGE_TIME: getMediaUsageTime(),
         CREATED_AT: getCreatedAt(),
         LINK_CLICKS: getClicksLink(),
-        LEADS_COLLECTED: 0,
+        LEADS_COLLECTED: getLeadsCollected(),
         SERVICE_NOTE: 0,
         RESOLUTION_RATE: 0,
-        TOKEN_INPUT: "0",
-        TOKEN_OUTPUT: "0",
-        TOKEN_TOTAL: "0",
-        USED_REAL: "0"
-
     }
 }
 

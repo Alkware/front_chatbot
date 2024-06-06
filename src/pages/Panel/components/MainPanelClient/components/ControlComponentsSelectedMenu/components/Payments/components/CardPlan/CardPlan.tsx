@@ -6,10 +6,10 @@ import { Client } from "../../../../../../../../../../@types/Client"
 
 export function CardPlan({ client }: { client?: Client }) {
     return (
-        <div className="w-1/2 min-w-[300px] max-w-[400px] border border-zinc-600 p-2 rounded-md z-50">
-            <h2 className="w-full text-center">Plano atual:</h2>
+        <div className="w-1/2 min-w-[300px] max-w-[400px] border border-zinc-600 p-2 rounded-md z-20">
 
-            <div className="w-full flex justify-center">
+            <div className="w-full flex justify-center gap-2">
+                <h2 className="text-center">Plano atual:</h2>
                 <PlanName plan_management={client?.plan_management} />
             </div>
 
@@ -18,7 +18,7 @@ export function CardPlan({ client }: { client?: Client }) {
             </div>
 
             <ButtonChangeAndAddPlan client={client} />
-            <ButtonRequestRefund  client={client}/>
+            <ButtonRequestRefund client={client} />
         </div>
     )
 };

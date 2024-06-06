@@ -1,6 +1,6 @@
-import { Chat } from "./Chat";
 import { Metric } from "./metric.types";
-import { Prompt } from "./prompt.types";
+import { PlanMessageManager } from "./planMessageManager.types";
+import { Database } from "./Database.types";
 
 
 export interface Project {
@@ -18,20 +18,10 @@ export interface Project {
     is_online?: boolean,
     metric: Metric,
     created_at: string | Date,
-    prompt: Prompt,
+    prompt: Database,
     call_to_action: Call_to_action[],
     social_proof: Social_proof[];
-    plan_message_manager: Array<{
-        input: number,
-        output: number,
-        last_messages_manager: Array<{
-            time: string,
-            player: number,
-            tokens: {},
-            message: string
-        }>,
-        created_at: string | Date
-    }>,
+    plan_message_manager: PlanMessageManager[];
     chat_appearance: {
         id: string,
         can_update: boolean,
@@ -41,7 +31,6 @@ export interface Project {
         second_color: string,
         background: string,
     };
-    chat: Chat[]
 }
 
 export type Call_to_action = {   

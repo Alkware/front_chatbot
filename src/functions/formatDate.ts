@@ -49,7 +49,7 @@ const months = [
     },
 ]
 
-export function formatDate(data: string | Date) {
+export function formatDate(data: string | Date = new Date()) {
     const date = new Date(data)
     date.toLocaleTimeString("pt-BR", { hour12: false })
     const fusoDifference = date.getTimezoneOffset();

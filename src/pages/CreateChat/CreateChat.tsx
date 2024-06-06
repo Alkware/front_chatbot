@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPlanManagementById } from "../../api/planManagement";
 import { AxiosResponse } from "axios";
-import { Prompt } from "../../@types/prompt.types";
+import { Database } from "../../@types/Database.types";
 import { PopOver } from "../../components/modal/templates/PopOver";
 import { ModalContext } from "../../context/ModalContext";
 import { createNewProject } from "../../api/project";
@@ -14,7 +14,7 @@ import { CHAT_NAME_TO_SAVE_LOCALSTORAGE } from "../../variables/variables";
 import { CallToActionFormChat } from "./components/FormCallToAction/FormCallToAction";
 
 export function CreateChat() {
-    const [prompt, setPrompt] = useState<Prompt[]>()
+    const [prompt, setPrompt] = useState<Database[]>()
     const { plan_management_id } = useParams();
     const { setModalContent } = useContext(ModalContext)
     const navigate = useNavigate();
@@ -46,7 +46,7 @@ export function CreateChat() {
             document.documentElement.classList.toggle("dark", !!isDark)
 
             // Busca os dados do prompt no gerenciamento do plano do usuário, caso não houver, ele será redirecionado para o panel.
-            const planManagement = await getPlanManagementById(plan_management_id) as AxiosResponse<{ status: string, prompt: Prompt[] }>
+            const planManagement = await getPlanManagementById(plan_management_id) as AxiosResponse<{ status: string, prompt: Database[] }>
             if (!planManagement.data) navigate("/panel")
             setPrompt(planManagement.data.prompt)
         })()

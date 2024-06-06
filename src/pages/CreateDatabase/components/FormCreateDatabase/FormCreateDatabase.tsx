@@ -16,6 +16,9 @@ import { PopUp } from "../../../../components/modal/templates/PopUp";
 import { Button } from "../../../../components/button/Button";
 import { StepPaymentMethodAndConditions } from "./components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";
 import { loading } from "../../../../functions/loading";
+import { saveImage } from "../../../../api/images";
+import { AxiosResponse } from "axios";
+import { Database } from "../../../../@types/Database.types";
 
 export function FormCreateDatabase({ plan_management_id }: { plan_management_id: string }) {
     const { setModalContent } = useContext(ModalContext);
@@ -77,17 +80,37 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
                         <Button
                             onClick={async () => {
                                 if (prompt_name) {
+                                    // Busca o botão para ser adicionado o loading...
                                     const button = containerCreateDatabaseRef.current?.querySelector("button");
-                                    loading(button, true)
+                                    // Adiciona o loading no botão...
+                                    loading(button, true);
+                                    // Transforma os dados do cliente em um prompt para ser enviado para IA...
                                     const prompt = transformSchemaInText(data);
+                                    // Obtem a descrição do cliente
                                     const client_describe = data.step_4.client_describe;
+                                    // Transforma em um json  stringfy para que futuramente possa ser transformado em objeto novamente...
                                     const prompt_query = JSON.stringify(data);
-
+                                    
                                     try {
-                                        const response = await createNewDatabase({ prompt_name, prompt, client_describe, prompt_query, plan_management_id })
+                                        // Cria a fonte de dados...
+                                        const response: void | AxiosResponse<Database, any> = await createNewDatabase({ prompt_name, prompt, client_describe, prompt_query, plan_management_id });
+                                        
                                         if (response?.status === 201) {
+
+                                            // Salva as imagens dos produtos no banco de dados...
+                                            data.step_0.products.forEach(async (product) =>{
+                                                await saveImage({
+                                                    client_id: response.data.plan_management.client_id,
+                                                    prompt_id: response.data.id,
+                                                    url: product.image.url,
+                                                    description: product.image.description
+                                                });
+                                            })
+                                            // Remove os dados salvos no localstorage...
                                             localStorage.removeItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE)
+                                            // Desativa o loading...
                                             loading(button, false)
+                                            // Envia uma mensagem que a fonte de dados foi criada com sucesso...
                                             setModalContent({
                                                 componentName: "modal_created_database",
                                                 components:

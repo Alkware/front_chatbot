@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react";
 import { UseFieldArrayReturn, useFieldArray, useFormContext } from "react-hook-form";
 import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { PopUp } from "../../../../../../../../components/modal/templates/PopUp";
-import { DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../../../variables/variables";
+import { DATABASE_NAME_TO_SAVE_LOCALSTORAGE, PREVIEW_IMAGE } from "../../../../../../../../variables/variables";
 
 export function AddProduct() {
     const { setModalContent } = useContext(ModalContext)
@@ -50,10 +50,17 @@ export function AddProduct() {
                     <div
                         key={field.id}
                         onClick={() => handleClickAddProduct(index)}
-                        className="w-36 h-24 flex flex-col items-center justify-center text-primary-100 border border-primary-100 bg-primary-200 rounded-md cursor-pointer hover:scale-105 transition-transform"
+                        className="w-36 h-24 flex flex-col items-center justify-center overflow-hidden text-primary-100 border border-primary-100 bg-primary-200 rounded-md cursor-pointer hover:scale-105 transition-transform"
                     >
-                        <h2 className="font-bold w-full text-center whitespace-nowrap text-ellipsis overflow-hidden">{field.name}</h2>
-                        <p>{field.value}</p>
+                        <div className="w-full h-full relative">
+                            <div className="bg-black/50 absolute top-0 left-0 w-full h-full"></div>
+                            <h3 className="w-full text-center absolute bottom-0 bg-dark font-bold">{field.name}</h3>
+                            <img
+                                src={field?.image?.url || PREVIEW_IMAGE}
+                                alt={`Imagem do produto: ${field.name}`}
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
                     </div>
                 )}
 

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { TransactionHistoric } from "./components/TransactionHistoric/TransactionHistoric";
-import { CardPlan } from "./components/CardPlan";
+import { CardPlan } from "./components/CardPlan/CardPlan";
 import { CardRefund } from "./components/CardRefund/CardRefund";
 import { ClientContext } from "../../../../../../../../context/ClientContext";
 import { Container } from "../../../../../../../../components/Container/Container";
@@ -10,8 +10,8 @@ export function Payments() {
 
 
     return (
-        <Container title="Assinatura" className="flex-col">
-            <div className="w-full flex justify-center">
+        <Container title="Assinatura" className="flex-col items-center">
+            <div className="w-[95%] flex gap-2 justify-center">
                 <CardPlan client={client} />
 
                 <CardRefund client={client} />

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useContext } from "react";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
-import { CreatePrompt, Prompt } from "../../../../../../../../../../@types/prompt.types";
+import { CreateDatabase, Database } from "../../../../../../../../../../@types/Database.types";
 import { daleteDatabase, updateDatabase } from "../../../../../../../../../../api/Prompt";
 import { Root } from "../../../../../../../../../../components/Form/FormRoot";
 import { useForm } from "react-hook-form";
@@ -15,8 +15,8 @@ import { AddProduct } from "../../../../../../../../../CreateDatabase/components
 import { OpeningHours } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepAboutCompany/components/OpeningHours/OpeningHours";
 
 interface ModalEditDatabase {
-    prompt: Prompt,
-    setPrompts: Dispatch<SetStateAction<Prompt[]>>,
+    prompt: Database,
+    setPrompts: Dispatch<SetStateAction<Database[]>>,
 }
 
 export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
@@ -60,7 +60,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
         const convertToString = JSON.stringify(data);
         const promptSchema = transformSchemaInText(data);
 
-        const database: CreatePrompt = {
+        const database: CreateDatabase = {
             prompt_name: prompt.prompt_name,
             prompt: promptSchema,
             prompt_query: convertToString,

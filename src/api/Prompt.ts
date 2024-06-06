@@ -1,8 +1,8 @@
 import axios from "axios"
 import { API_URL } from "./url-api"
-import { CreatePrompt } from "../@types/prompt.types"
+import { CreateDatabase } from "../@types/Database.types"
 
-interface NewCreatePrompt extends CreatePrompt {
+interface NewCreatePrompt extends CreateDatabase {
     plan_management_id: string
 }
 
@@ -13,7 +13,7 @@ export async function createNewDatabase(data: NewCreatePrompt) {
 }
 
 
-export async function updateDatabase(data: CreatePrompt, prompt_id: string) {
+export async function updateDatabase(data: CreateDatabase, prompt_id: string) {
     const project = await axios.put(`${API_URL}/update/database/${prompt_id}`, data).catch(err => console.warn(err))
 
     return project

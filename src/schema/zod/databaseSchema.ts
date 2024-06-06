@@ -7,7 +7,11 @@ export const databaseSchema = z.object({
         products: z.array(z.object({
             name: z.string().min(1, "Você precisa definir o nome do produto"),
             value: z.string().min(1, "Informe o valor do produto!"),
-            description: z.string().min(1, "Informe como seu produto funciona"),
+            description: z.string().min(50, "Informe como seu produto funciona"),
+            image: z.object({
+                url: z.string().min(1, "Faça o upload da imagem do seu produto"),
+                description: z.string().min(50, "Informa a descrição da imagem do seu produto"),
+            }),
             optional_variable: z.optional(z.array(z.object({
                 title: z.optional(z.string()),
                 answer: z.optional(z.string())

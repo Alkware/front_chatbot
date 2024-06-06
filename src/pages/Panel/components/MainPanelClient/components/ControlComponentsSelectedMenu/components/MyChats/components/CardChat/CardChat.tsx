@@ -9,7 +9,7 @@ import { TipContainer } from "../../../../../../../../../../components/TipContai
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ShareProject } from "./components/ShareProject/ShareProject";
 import { ModalEditChat } from "../EditProject/components/ModalEditChat/ModalEditChat";
-import { Prompt } from "../../../../../../../../../../@types/prompt.types";
+import { Database } from "../../../../../../../../../../@types/Database.types";
 import { TutoralContainer } from "../../../../../../../../../../components/TutoralContainer/TutoralContainer";
 import { updateTutorialClient } from "../../../../../../../../../../api/client";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
@@ -19,7 +19,7 @@ import { FaChartColumn, FaGear, FaLink } from "react-icons/fa6";
 interface CardChat {
     project: Project,
     setNewProject: Dispatch<SetStateAction<any>>
-    prompts: Prompt[]
+    prompts: Database[]
 
 }
 

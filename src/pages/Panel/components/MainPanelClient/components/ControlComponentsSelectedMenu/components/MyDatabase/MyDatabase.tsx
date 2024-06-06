@@ -7,7 +7,7 @@ import { ModalEditDatabase } from "./components/ModalEditDatabase/ModalEditDatab
 import { Container } from "../../../../../../../../components/Container/Container"
 import { FaDatabase, FaLock } from "react-icons/fa"
 import { MAX_CONTAINER_TO_CREATE_DATABASE } from "../../../../../../../../variables/variables"
-import { Prompt } from "../../../../../../../../@types/prompt.types"
+import { Database } from "../../../../../../../../@types/Database.types"
 import { MdEdit } from "react-icons/md"
 import { Button } from "../../../../../../../../components/button/Button"
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver"
@@ -17,7 +17,7 @@ export function MyDatabases() {
     const { client } = useContext(ClientContext)
     const { setModalContent, clearModal } = useContext(ModalContext)
     const limitPromps = Array(MAX_CONTAINER_TO_CREATE_DATABASE).fill(0)
-    const [prompts, setPrompts] = useState<Prompt[]>(client?.plan_management?.prompt || [])
+    const [prompts, setPrompts] = useState<Database[]>(client?.plan_management?.prompt || [])
 
 
     const handleEditDatabase = (index: number) => {

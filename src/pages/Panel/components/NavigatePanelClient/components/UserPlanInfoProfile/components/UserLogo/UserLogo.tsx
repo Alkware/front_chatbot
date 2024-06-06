@@ -1,6 +1,6 @@
 import { RefObject, useContext, useRef } from "react"
 import { ClientContext } from "../../../../../../../../context/ClientContext"
-import { uploadImage } from "../../../../../../../../api/uploadImages";
+import { uploadImage } from "../../../../../../../../api/images";
 import { updateClient } from "../../../../../../../../api/client";
 import { useSearchParams } from "react-router-dom";
 import { RESIZE_MENU } from "../../../../../../../../variables/variables";

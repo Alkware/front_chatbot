@@ -3,15 +3,17 @@ import { PlanManagement } from "../@types/planManagement";
 export function messagesEventManager(plan_management: PlanManagement) {
 
     const input = plan_management ? (
-        plan_management.plan_message_manager
-            .reduce((total, message) => total + message.input, 0)
+        plan_management.project
+            .reduce((total, project) => total + project.plan_message_manager
+                .reduce((total, message) => total + message.input, 0), 0)
     ) : 0
 
 
     const output = plan_management ? (
-        plan_management.plan_message_manager
-            .reduce((total, message) => total + message.output, 0)
-    ) : 0
+        plan_management.project
+        .reduce((total, project) => total + project.plan_message_manager
+            .reduce((total, message) => total + message.output, 0), 0)
+) : 0
 
     const totalMessages = input + output
 

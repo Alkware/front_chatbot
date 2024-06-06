@@ -1,6 +1,6 @@
 import { ChangeEvent, InputHTMLAttributes, RefObject, useContext, useEffect, useRef } from "react";
-import { useFormContext } from "react-hook-form";
-import { uploadImage } from "../../../../api/uploadImages";
+import { FieldValues, UseFormReturn, useFormContext } from "react-hook-form";
+import { uploadImage } from "../../../../api/images";
 import { RiUpload2Line } from "react-icons/ri";
 import { ModalContext } from "../../../../context/ModalContext";
 import { PopOver } from "../../../modal/templates/PopOver";
@@ -9,11 +9,14 @@ import { loading } from "../../../../functions/loading";
 interface FormFile extends InputHTMLAttributes<HTMLInputElement> {
     name: string
     sizeContainer: `${string}px`,
+    formContext?: UseFormReturn<FieldValues>;
 }
 
-export function FormFile(props: FormFile) {
+export function FormFile({ name, sizeContainer, formContext }: FormFile) {
     const { setModalContent } = useContext(ModalContext)
-    const { register, watch, unregister } = useFormContext();
+    const context = formContext || useFormContext();
+    const { watch, unregister, register } = context;
+
     const refUploadImg: RefObject<HTMLDivElement> = useRef(null);
     const loadingRef: RefObject<HTMLLabelElement> = useRef(null);
 
@@ -21,7 +24,7 @@ export function FormFile(props: FormFile) {
         const preview = refUploadImg.current?.querySelector("div#preview-img");
         const label = refUploadImg.current?.querySelector("label");
         const img = preview?.querySelector("img");
-        const logo = watch(props.name);
+        const logo = watch(name);
 
         if (logo) {
             preview?.classList.remove("hidden")
@@ -56,8 +59,8 @@ export function FormFile(props: FormFile) {
             const response = await uploadImage(files[0]);
 
             if (response && response?.status === 200) {
-                unregister(props.name);
-                register(props.name, { value: response.data.url })
+                unregister(name);
+                register(name, { value: response.data.url })
                 loading(loadingRef?.current, false);
             } else {
                 setModalContent({
@@ -86,15 +89,15 @@ export function FormFile(props: FormFile) {
     return (
         <div
             className="flex justify-evenly items-center"
-            data-id={props.name}
+            data-id={name}
             ref={refUploadImg}
         >
             <label
                 ref={loadingRef}
-                htmlFor={props.name}
+                htmlFor={name}
                 className=
                 "w-[120px] h-[120px] relative overflow-hidden border border-dashed border-primary-100 bg-zinc-600/40 rounded-full p-2 cursor-pointer text-center flex justify-center items-center bg-[url(https://i.ibb.co/6gFGb2q/wipzee-logo-1-removebg-preview.png)] bg-no-repeat bg-cover bg-opacity-15 filter grayscale"
-                style={{ width: props.sizeContainer, height: props.sizeContainer }}
+                style={{ width: sizeContainer, height: sizeContainer }}
             >
                 <span
                     className="w-full text-white bg-black bg-opacity-65 rounded-xl font-bold flex flex-col justify-center items-center"
@@ -108,7 +111,7 @@ export function FormFile(props: FormFile) {
                 </span>
 
                 <input
-                    id={props.name}
+                    id={name}
                     type="file"
                     className="hidden"
                     accept=".png, .jpg, .jpeg, .webp"

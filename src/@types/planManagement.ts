@@ -1,9 +1,10 @@
 import { Plan } from "./Plan";
 import { Project } from "./Project"
-import { Prompt } from "./prompt.types"
+import { Database } from "./Database.types"
 
 export interface PlanManagement {
     id: string,
+    client_id: string;
     free_trial: Date,
     last_pyament: string,
     next_payment: string,
@@ -20,7 +21,7 @@ export interface PlanManagement {
     }>,
     project: Project[],
     plan: Plan,
-    prompt: Prompt[]
+    prompt: Database[]
     plan_message_manager: Array<{
         input: number,
         output: number, 

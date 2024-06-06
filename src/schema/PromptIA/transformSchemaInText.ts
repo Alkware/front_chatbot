@@ -1,6 +1,7 @@
 import { DatabaseSchema } from "../zod/databaseSchema";
 
 export function transformSchemaInText(data: DatabaseSchema) {
+
    return `
 Você é uma assistente virtual e você deve se aprensetar como 
 ${data.step_4.ia_name ?
@@ -28,7 +29,7 @@ Com base nas informações abaixo, responda as perguntas do "user":
    
 2. **MÉTODOS DE PAGAMENTO E CONDIÇÕES:**
    - Métodos de pagamento aceitos: ${data.step_1.payment_methods}
-   - Quantas vezes o cliente pode parcelar: ${data.step_1.credit_card_installments ? data.step_1.credit_card_installments  : "Nenhuma" }
+   - Quantas vezes o cliente pode parcelar: ${data.step_1.credit_card_installments ? data.step_1.credit_card_installments : "Nenhuma"}
    - Como o produto vai ser entregue e as politicas de frete: ${data.step_1.order_tracking}
    - link para rastreamento: ${data.step_1.tracking_link}
     
@@ -43,8 +44,8 @@ Com base nas informações abaixo, responda as perguntas do "user":
    - Email de contato: ${data.step_3.contact_email}
    - Número de telefone de contato: ${data.step_3.contact_phone_number}
    - Horário de suporte: ${data.step_3.support_hours.map(hour =>
-      `\n${hour.day} das ${hour.start} até ${hour.end}`
-   )}
+         `\n${hour.day} das ${hour.start} até ${hour.end}`
+      )}
 
 6. ** PERSONALIDADE DA IA:**
    - Nome da inteligência artificial que está conversando com o usuário: (Você): ${data.step_4.ia_name}

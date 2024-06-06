@@ -32,7 +32,7 @@ export function ModalCreateProduct({ useFieldArray, useFormReturn, index }: Moda
 
     useEffect(() => {
         const hasDataProduct = products[index];
-        if (!hasDataProduct) append({ name: "", value: "", description: "" })
+        if (!hasDataProduct) append({ name: "", value: "", description: "", image: { url: "", description: "" } })
     }, [])
 
     // Função para salvar o produto...
@@ -41,7 +41,7 @@ export function ModalCreateProduct({ useFieldArray, useFormReturn, index }: Moda
             update(index, data);
             clearModal("modal_add_product");
         } else {
-            const emptyField = !data?.name  ? "nome do produto" : !data?.value  ? "valor do produto" : "descrição do produto"
+            const emptyField = !data?.name ? "nome do produto" : !data?.value ? "valor do produto" : "descrição do produto"
 
             setModalContent({
                 componentName: "modal_error_save_product",
@@ -85,8 +85,8 @@ export function ModalCreateProduct({ useFieldArray, useFormReturn, index }: Moda
         >
             <h2 className="text-2xl font-bold">Cadastre seus produtos</h2>
             <div className="w-full p-2 flex gap-4 justify-end items-center rounded-md absolute top-0 right-2">
-                <TipContainer 
-                    tip="Sair" 
+                <TipContainer
+                    tip="Sair"
                     positionY="BOTTOM"
                     positionX="LEFT"
                 >
@@ -98,10 +98,27 @@ export function ModalCreateProduct({ useFieldArray, useFormReturn, index }: Moda
             </div>
 
             <FormProvider {...form}>
-                <form 
+                <form
                     onSubmit={form.handleSubmit(handleSaveProduct)}
                     className="w-full flex flex-col justify-start md:justify-center items-center gap-6"
                 >
+                    <div className="w-[90%] flex justify-center items-end">
+                        <div className="flex flex-col gap-2">
+                            <h3 className="text-center">Faça o upload da imagem do produto</h3>
+                            <Root.File
+                                name="image.url"
+                                sizeContainer="100px"
+                                formContext={form}
+                            />
+                        </div>
+                        <TextArea
+                            name={`image.description`}
+                            title="Faça um descrição detalhada da imagem"
+                            minText={50}
+                            help="Essa descrição é muito importante para que a inteligencia artificial posso entender em qual contexto da conversa utilizar."
+                            register={form.register}
+                        />
+                    </div>
                     <div
                         className="w-[90%] flex flex-col md:flex-row gap-6 justify-center items-center relative "
                     >
@@ -133,10 +150,10 @@ export function ModalCreateProduct({ useFieldArray, useFormReturn, index }: Moda
                         <TextArea
                             name={`description`}
                             title="Conte um pouco sobre seu produto e como ele funciona"
+                            minText={50}
                             register={form.register}
                         />
                     </div>
-
 
                     <div className="w-[90%] flex justify-center items-center">
                         <Root.Optional

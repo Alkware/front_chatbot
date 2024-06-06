@@ -5,7 +5,6 @@ import { IoIosChatboxes } from "react-icons/io";
 import { FaArrowRotateLeft } from "react-icons/fa6";
 import { useSearchParams } from "react-router-dom";
 import { ClientContext } from "../../../../../../../../context/ClientContext";
-import { Chat } from "../../../../../../../../@types/Chat";
 import { Project } from "../../../../../../../../@types/Project";
 import { convertDateInHour } from "../../../../../../../../functions/convertDateInHour";
 import { Container } from "../../../../../../../../components/Container/Container";
@@ -13,41 +12,41 @@ import { TipContainer } from "../../../../../../../../components/TipContainer/Ti
 import { SelectTime } from "../../../../../../../../components/SelectTime/SelectTime";
 import { Select } from "../../../../../../../../components/Select/Select";
 import { Button } from "../../../../../../../../components/button/Button";
+import { PlanMessageManager } from "../../../../../../../../@types/planMessageManager.types";
 
 
 export function ConversationHistoric() {
     const { client } = useContext(ClientContext);
     const [searchParams, setSearchParams] = useSearchParams();
     const [index, setIndex] = useState<number>(0);
-    const [chats, setChats] = useState<Chat[]>([]);
+    const [chats, setChats] = useState<PlanMessageManager[]>([]);
 
+    // Cria uma lista de objeto para ser usado em um select...
     const projects = client?.plan_management?.project.map((project: Project) => Object({ id: project.project_name.replace(" ", "_"), name: project.project_name }))
 
+    // Assim que o componente é montado é feito um filtro nos chats...
     useEffect(() => {
+        // Obtem o filtro de tempo dos chats...
         const time = searchParams.get("filter_time_chats")
+        // Obtem o projeto selecionado...
         const projectParam = searchParams.get("project")
+
         if (client) {
-
             if (projects?.length) {
-
                 let projectsFiltered;
-                if (projectParam) {
-                    projectsFiltered = client.plan_management.project.filter((project) => project.project_name.replace(" ", "_") === projectParam && project);
-                } else {
-                    projectsFiltered = client.plan_management.project;
-                }
+                // Filtra por projeto...
+                if (projectParam) projectsFiltered = client.plan_management.project.filter((project) => project.project_name.replace(" ", "_") === projectParam && project);
+                else projectsFiltered = client.plan_management.project;
 
-
+                // Filtra por tempo...
                 const chats = projectsFiltered.map((project: Project) => {
-                    const chat = project.chat.filter(chat => Number(time) ? convertDateInHour(chat.created_at) <= Number(time) : true)
-                    return chat
+                    const chats = project.plan_message_manager.filter(chat => Number(time) ? convertDateInHour(chat.created_at) <= Number(time) : true)
+                    return chats;
                 }).flat();
-
 
                 setChats(chats)
             }
         }
-
     }, [searchParams])
 
 
@@ -110,7 +109,7 @@ export function ConversationHistoric() {
                 </div>
             </div>
 
-            <div className="w-full h-3/4 flex gap-4 flex-col md:flex-row md:bg-light md:dark:bg-gray my-4 overflow-hidden px-2">
+            <div className="w-full h-3/4 flex gap-4 flex-col md:flex-row md:bg-light md:dark:bg-gray my-4 px-2">
                 {/* Esse botão só será exibido no mobile */}
                 <Button
                     customClass="bg-primary-100 dark:bg-primary-200 md:hidden"
@@ -126,7 +125,7 @@ export function ConversationHistoric() {
                 {
                     !!chats.length &&
                     <ContentChats
-                        chats={chats}
+                        planMessageManager={chats}
                         index={index}
                     />
                 }

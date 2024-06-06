@@ -1,20 +1,21 @@
-import { RefObject, TextareaHTMLAttributes, useEffect, useRef } from "react";
+import { ChangeEventHandler, RefObject, useEffect, useRef } from "react";
 import { UseFormRegister } from "react-hook-form";
 import { MdHelpOutline } from "react-icons/md";
 
-interface TextArea extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextArea {
     title: string;
     name: string;
     size?: "SMALL" | "BIG";
     help?: string;
-    limitText?: number;
+    maxText?: number;
+    minText?: number;
     register?: UseFormRegister<any>;
+    onChange?: ChangeEventHandler<HTMLTextAreaElement>;
 }
 
-export function TextArea({ title, limitText, size, help, register, ...props }: TextArea) {
+export function TextArea({ title, maxText, minText, name, size, help, register, onChange }: TextArea) {
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const spanLimitTextRef: RefObject<HTMLSpanElement> = useRef(null);
-    const limitCaracteres = limitText ? limitText : 999999;
 
     useEffect(() => {
         if (containerRef.current) {
@@ -60,6 +61,38 @@ export function TextArea({ title, limitText, size, help, register, ...props }: T
         }
     }
 
+    // Lida com o limite do texto inserido pelo usuário...
+    const handleLimitText = () => {
+        const limitTextRef = spanLimitTextRef.current;
+        const textarea = containerRef.current?.querySelector("textarea");
+        if (limitTextRef && textarea) {
+            const valueTextArea = textarea?.value.length;
+
+            if (minText) {
+                const calculation = -minText + valueTextArea;
+                limitTextRef.textContent = (calculation).toString();
+                (minText > valueTextArea) ?
+                    limitTextRef.classList.add("text-red-500")
+                    :
+                    limitTextRef.classList.remove("text-red-500")
+            }
+            else if (maxText) {
+                const calculation = maxText - valueTextArea;
+                limitTextRef.textContent = (calculation).toString();
+                (maxText > valueTextArea) ?
+                    limitTextRef.classList.add("text-red-500")
+                    :
+                    limitTextRef.classList.remove("text-red-500")
+            }
+
+        }
+    }
+
+    const onChangeEvent: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+        handleLimitText();
+        onChange && onChange(e);
+    }
+
     return (
         <div
             className="w-full flex flex-col gap-2 relative"
@@ -89,21 +122,20 @@ export function TextArea({ title, limitText, size, help, register, ...props }: T
                     <textarea
                         data-isbig={size === "BIG" ? true : false}
                         className="border border-primary-100 h-[80px] lg:h-[100px] data-[isbig=true]:h-[150px] bg-light dark:bg-gray_light text-dark dark:text-light"
-                        {...register(props.name, { onChange: props.onChange })}
+                        {...register(name, { onChange: onChangeEvent })}
                     />
                     :
                     <textarea
                         className=" bg-light dark:bg-gray_light text-dark dark:text-light"
-                        onChange={props.onChange}
-                        {...props}
+                        onChange={onChangeEvent}
                     />
             }
 
             <span
                 ref={spanLimitTextRef}
-                data-islimittext={!!limitText}
+                data-islimittext={!!maxText || !!minText}
                 className="absolute bottom-0 right-1 data-[islimittext=false]:hidden"
-            >{limitCaracteres}</span>
+            >{maxText || minText}</span>
         </div>
     )
 };

@@ -6,14 +6,14 @@ import { ChatSchema } from "../../../../schema/zod/chatSchema";
 import { Call_to_action } from "../../../../@types/Project";
 import { ModalContext } from "../../../../context/ModalContext";
 import { PopOver } from "../../../../components/modal/templates/PopOver";
-import { Prompt } from "../../../../@types/prompt.types";
+import { Database } from "../../../../@types/Database.types";
 import { DatabaseSchema } from "../../../../schema/zod/databaseSchema";
 import { PopUp } from "../../../../components/modal/templates/PopUp";
 import { Select } from "../../../../components/Select/Select";
 import { Button } from "../../../../components/button/Button";
 
 interface CallToActionFormChat {
-    prompts: Prompt[]
+    prompts: Database[]
 }
 
 interface Field extends Call_to_action {

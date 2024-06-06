@@ -8,7 +8,8 @@ import { ElementType } from "react"
 /**
  * URL DA LOGO DA WIPZEE
  */
-export const URL_LOGO = "https://i.ibb.co/6gFGb2q/wipzee-logo-1-removebg-preview.png"
+export const URL_LOGO = "https://i.ibb.co/6gFGb2q/wipzee-logo-1-removebg-preview.png";
+export const PREVIEW_IMAGE = "https://i.ibb.co/6gFGb2q/wipzee-logo-1-removebg-preview.png"
 /**
  * Nome da etapa que ficará na url do navegador.
  * Esse nome da query serve para definir em qual etapa do formuláriuo o cliente está!

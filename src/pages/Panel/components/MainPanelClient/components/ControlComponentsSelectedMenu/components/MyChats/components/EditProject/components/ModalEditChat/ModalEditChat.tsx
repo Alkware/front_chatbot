@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react"
 import { Project } from "../../../../../../../../../../../../@types/Project";
-import { Prompt } from "../../../../../../../../../../../../@types/prompt.types";
+import { Database } from "../../../../../../../../../../../../@types/Database.types";
 import { checkSlugIsAvailable, deleteProject, updateProject } from "../../../../../../../../../../../../api/project";
 import { PopOver } from "../../../../../../../../../../../../components/modal/templates/PopOver";
 import { ModalContext } from "../../../../../../../../../../../../context/ModalContext";
@@ -22,7 +22,7 @@ import { Confirm } from "../../../../../../../../../../../../components/modal/te
 
 interface ModalEditChat {
     project: Project,
-    prompts: Prompt[],
+    prompts: Database[],
     setProjects: Dispatch<SetStateAction<Project[]>>
 }
 
@@ -231,7 +231,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                 >
                     <Root.Select
                         name="step_1.prompt_id"
-                        options={prompt.map((prompt: Prompt) => Object({ value: prompt.id, text: prompt.prompt_name }))}
+                        options={prompt.map((prompt: Database) => Object({ value: prompt.id, text: prompt.prompt_name }))}
                         title="Selecione sua fonte de dados"
                     />
 

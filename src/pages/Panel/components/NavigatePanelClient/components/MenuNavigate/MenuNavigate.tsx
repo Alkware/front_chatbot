@@ -1,72 +1,154 @@
-import { ElementType } from "react";
+import { ElementType, MouseEvent, RefObject, useRef } from "react";
 import { FaHeadset } from "react-icons/fa6";
-import { IoIosChatbubbles, IoIosCloud, IoIosStats, IoLogoBuffer, IoMdCash } from "react-icons/io";
+import { IoIosChatbubbles, IoIosCloud, IoIosStats, IoLogoBuffer, IoMdArrowDropdown, IoMdCash } from "react-icons/io";
 import { useSearchParams } from "react-router-dom";
 import { RESIZE_MENU } from "../../../../../../variables/variables";
+import { IoArchiveSharp, IoDiamond } from "react-icons/io5";
 
-const navMenu = [
+export type Tab = "my_chats" | "metrics" | "database" | "records" | "leads" | "conversations" | "payment" | "help_center" | "config";
+
+interface Menu {
+    tab: Tab;
+    name: string;
+    Icon: ElementType;
+}
+
+interface NavMenu extends Menu {
+    topics?: Menu[];
+}
+
+const navMenu: NavMenu[] = [
     {
+        tab: "my_chats",
         name: "Meus chats",
-        Icon: IoLogoBuffer as ElementType
+        Icon: IoLogoBuffer,
     },
     {
+        tab: "metrics",
         name: "Métricas",
-        Icon: IoIosStats as ElementType
+        Icon: IoIosStats,
     },
     {
+        tab: "database",
         name: "Fonte de dados",
-        Icon: IoIosCloud as ElementType
+        Icon: IoIosCloud,
     },
     {
+        tab: "records",
         name: "Registros",
-        Icon: IoIosChatbubbles as ElementType
+        Icon: IoArchiveSharp,
+        topics: [
+            { tab: "conversations", name: "Conversas", Icon: IoIosChatbubbles, },
+            { tab: "leads", name: "Leads", Icon: IoDiamond, }
+        ]
     },
     {
+        tab: "payment",
         name: "Assinatura",
-        Icon: IoMdCash as ElementType
+        Icon: IoMdCash,
     },
     {
+        tab: "help_center",
         name: "Central de ajuda",
-        Icon: FaHeadset as ElementType
+        Icon: FaHeadset,
     },
 ]
 
-interface MenuNavigate {
-    urlParamName: string;
-}
 
-function MenuNavigate({ urlParamName }: MenuNavigate) {
+
+function MenuNavigate() {
     const [searchParams, setSearchParams] = useSearchParams();
+    const ulRef: RefObject<HTMLUListElement> = useRef(null);
     const isMenuResized = searchParams.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.DEFAULT_VALUES.DEFAULT ? true : false;
 
-    const handleSelectedTabNavigation = (index: number) => {
-        const isMobileMenu = searchParams.get(urlParamName);
+    const handleSelectedTabNavigation = (e: MouseEvent<HTMLDivElement>) => {
+        const currentMenu = e.currentTarget;
+        const tab = currentMenu.dataset.tab;
+        const topics: HTMLDivElement[] = ulRef.current?.querySelectorAll("div[data-container='topic']") as unknown as HTMLDivElement[];
 
-        if (isMobileMenu) searchParams.set(urlParamName, "close");
-        
-        searchParams.set("tab", index.toString());
-        
-        setSearchParams(searchParams);
+        if (!tab) return;
+
+        const menu = navMenu.find(menu => (menu.tab === tab));
+
+        if (!menu?.topics) {
+            callTabContainer(tab);
+
+            // Verifica se é um sub topic...
+            const isSubTopic = currentMenu.dataset.container === "sub_topic";
+            // Caso ele for um sub topic, não será fechado o container topic...
+            !isSubTopic && handleDisplayTopic(tab);
+        } else handleDisplayTopic(tab)
+
+        // Lista com a exibição dos topicos...
+        function handleDisplayTopic(tab: string) {
+            // Fecha todos os topicos abertos...
+            topics?.forEach(topic => {
+                topic.classList.remove("hidden")
+                topic.classList.add("hidden")
+            });
+
+            // Abre ou fecha o atual topico...
+            topics?.forEach((topic) => {
+                if (topic.dataset.tab === tab) {
+                    topic.classList.toggle("hidden")
+                }
+            });
+        }
+
+        // chama o container atual da tab...
+        function callTabContainer(tab: string) {
+            searchParams.set("tab", tab);
+            setSearchParams(searchParams);
+        }
+
+
     }
 
     return (
-        <ul className="w-full flex flex-col items-end">
+        <ul
+            ref={ulRef}
+            className="w-full"
+        >
             {
                 navMenu.map((menu, index) =>
                     <li
                         key={menu.name}
                         data-tab={Number(searchParams.get("tab")) == index ? true : false}
                         data-ismenuresize={isMenuResized}
-                        className="group w-full py-2 tall-6:py-3 flex gap-2 justify-center items-center text-center cursor-pointer font-bold text-xl hover:text-primary-300 hover:dark:text-light hover:bg-primary-100/30 hover:dark:bg-dark data-[tab=true]:dark:bg-dark transition-colors duration-300"
-                        onClick={() => handleSelectedTabNavigation(index)}
+                        className="w-full flex flex-col justify-center items-end cursor-pointer text-xl"
                     >
                         <div
-                            className="w-full group-data-[ismenuresize=true]:w-4/5 flex justify-center data-[ismenuresize=true]:justify-start items-center gap-2"
+                            data-tab={menu.tab}
+                            data-ismenuresize={isMenuResized}
+                            className="w-full p-2 pl-2 flex gap-2 items-center justify-between data-[ismenuresize=false]:justify-center group"
+                            onClick={handleSelectedTabNavigation}
                         >
-                            <menu.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-xl transition-colors duration-100" />
-                            <p
-                                className="md:group-data-[ismenuresize=false]:hidden group-hover:text-primary-100 text-primary-100 dark:text-white transition-colors duration-100 whitespace-nowrap text-ellipsis"
-                            >{menu.name}</p>
+                            <div className="flex gap-2 items-center">
+                                <menu.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-xl transition-colors duration-100" />
+                                <h2 className="group-data-[ismenuresize=false]:hidden group-hover:text-primary-100">{menu.name}</h2>
+                            </div>
+                            <IoMdArrowDropdown
+                                data-hastopic={!!menu?.topics?.length}
+                                className="group-data-[ismenuresize=false]:hidden data-[hastopic=false]:hidden self-center"
+                            />
+                        </div>
+                        <div
+                            data-container="topic"
+                            data-tab={menu.tab}
+                            className="w-[90%] flex-col hidden"
+                        >
+                            {menu.topics && menu.topics.map(topic =>
+                                <div
+                                    key={topic.tab}
+                                    data-container="sub_topic"
+                                    data-tab={topic.tab}
+                                    data-ismenuresize={isMenuResized}
+                                    className="w-full flex items-center gap-2 group data-[ismenuresize=false]:hidden"
+                                    onClick={handleSelectedTabNavigation}
+                                >
+                                    <topic.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-base transition-colors duration-100" />
+                                    <h2 className="text-base group-hover:text-primary-100">{topic.name}</h2>
+                                </div>)}
                         </div>
                     </li>
                 )
