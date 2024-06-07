@@ -80,7 +80,7 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
 
                 </div>
 
-                <div className="w-full h-full flex flex-col justify-start items-start lg:flex-row gap-8 overflow-auto pb-16 md:pb-0">
+                <div className="w-full h-full flex flex-col justify-start items-center lg:flex-row gap-8 overflow-auto pb-16 md:pb-0">
                     <div
                         className="w-full flex flex-col gap-12 md:max-w-[900px] p-4"
                     >

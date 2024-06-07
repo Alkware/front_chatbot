@@ -45,20 +45,20 @@ export function AddProduct() {
                 <h2 className="w-full font-medium text-center text-lg md:text-xl">Cadastre seus produtos/serviços disponíveis</h2>
             </div>
 
-            <div className="w-full min-h-40 flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-4 ">
+            <div className="w-full min-h-40 flex flex-nowrap md:flex-wrap overflow-auto justify-start md:justify-center gap-4 ">
                 {useFieldArrayData.fields.map((field: any, index) =>
                     <div
                         key={field.id}
                         onClick={() => handleClickAddProduct(index)}
-                        className="w-36 h-24 flex flex-col items-center justify-center overflow-hidden text-primary-100 border border-primary-100 bg-primary-200 rounded-md cursor-pointer hover:scale-105 transition-transform"
+                        className="w-36 min-w-[100px] h-24  flex flex-col items-center justify-center overflow-hidden text-primary-100 border border-primary-100 bg-primary-200 rounded-md cursor-pointer hover:scale-105 transition-transform"
                     >
                         <div className="w-full h-full relative">
                             <div className="bg-black/50 absolute top-0 left-0 w-full h-full"></div>
-                            <h3 className="w-full text-center absolute bottom-0 bg-dark font-bold">{field.name}</h3>
+                            <h3 className="w-full overflow-hidden whitespace-nowrap text-ellipsis px-1 text-center absolute bottom-0 bg-dark font-bold">{field.name}</h3>
                             <img
                                 src={field?.image?.url || PREVIEW_IMAGE}
                                 alt={`Imagem do produto: ${field.name}`}
-                                className="w-full h-full object-cover"
+                                className="w-full h-fullobject-cover"
                             />
                         </div>
                     </div>
@@ -66,7 +66,7 @@ export function AddProduct() {
 
                 <div
                     onClick={() => handleClickAddProduct(useFieldArrayData.fields.length)}
-                    className="w-36 h-24 flex flex-col items-center justify-center text-primary-100 border border-primary-100 rounded-md bg-primary-200 cursor-pointer hover:scale-105 transition-transform">
+                    className="w-36 min-w-[100px] h-24 flex flex-col items-center justify-center text-primary-100 border border-primary-100 rounded-md bg-primary-200 cursor-pointer hover:scale-105 transition-transform">
                     <MdAdd className="size-10" />
                 </div>
             </div>
