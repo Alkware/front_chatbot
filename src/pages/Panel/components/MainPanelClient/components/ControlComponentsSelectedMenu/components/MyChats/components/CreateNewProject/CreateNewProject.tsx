@@ -62,7 +62,7 @@ export function ButtonCreateChat({ plan_management_id, projects, index }: Button
                                 <h2 className="text-lg text-center opacity-80">Nossa inteligência artifical vai analisar seus dados e <br /> responder as dúvidas do usuário <br />conforme as informações passadas na fonte de dados.</h2>
                                 <Button
                                     customClass="my-4"
-                                    onClick={() => { navigate("/panel?tab=2"); clearModal("modal_create_database") }}
+                                    onClick={() => { navigate("/panel?tab=database"); clearModal("modal_create_database") }}
                                 >
                                     <MdAdd />
                                     Criar fonte de dados
