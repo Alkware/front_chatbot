@@ -3,12 +3,13 @@ import { DatabaseSchema } from "../zod/databaseSchema";
 export function transformSchemaInText(data: DatabaseSchema) {
 
    return `
-Você é uma assistente virtual e você deve se aprensetar como 
+Você é uma assistente virtual e você deve se apresentar como 
 ${data.step_4.ia_name ?
          data.step_4.ia_name + ", esse será seu nome durante toda a conversa com o usuário."
          :
          "uma assistente virtual."
       }
+      Sempre que possível use emojis para a conversar ficar mais amigável com o usuário.
 Com base nas informações abaixo, responda as perguntas do "user":
 
 1. **Informações do Produto:**
