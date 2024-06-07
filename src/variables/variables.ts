@@ -26,6 +26,18 @@ export const RESIZE_MENU = {
         RESIZED: "resized"
     }
 }
+
+/**
+ * Nome da etapa que ficará na url do navegador.
+ * Esse nome é um controlador para verificar se o mobile menu está aberto ou fechado.
+ */
+export const PARAM_MENU_MOBILE = {
+    url_name: "menu_mobile",
+    default_values: {
+        open: "open",
+        close: "close"
+    }
+}
 /**
  * Nome da atual cta que ficará na url do navegador.
  * Esse nome da query serve para definir qual é o atual button CTA exibido nos formulários.

@@ -29,7 +29,7 @@ export function TipContainer({ children, tip, positionY = "TOP", positionX = "RI
                 data-positiony={positionY}
                 data-positionx={positionX}
                 className={
-                    `hidden md:block border border-light/40 bg-primary-100 p-1 rounded-xl absolute z-50 
+                    `hidden md:block border border-light/40 bg-primary-100 p-1 rounded-xl absolute z-40 
                     data-[positiony=TOP]:-top-full data-[positiony=TOP]:-translate-y-3 data-[positiony=BOTTOM]:-bottom-full data-[positiony=BOTTOM]:translate-y-2
                     data-[positionx=RIGHT]:left-4/5 data-[positionx=LEFT]:right-0
                     text-center invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity`

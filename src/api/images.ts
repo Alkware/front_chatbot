@@ -21,12 +21,8 @@ export async function uploadImage(file: any) {
 
 export async function saveImage(data: { url: string, description: string, client_id: string, prompt_id?: string }) {
 
-    console.log(data)
-
     const response = await axios.post(`${API_URL}/save_image`, data)
         .catch(err => console.warn("ERRO:", err));
-
-    console.log(response)
 
     return response
 

@@ -6,13 +6,12 @@ import ControlCloseMenuNavigation from "./components/ControlCloseMenuNavigation/
 import { CompanyLogo } from "../../../../components/CompanyLogo/CompanyLogo";
 import { MenuHambuguer } from "../../../../components/MenuHambuguer/MenuHambuguer";
 import { useSearchParams } from "react-router-dom";
-import { RESIZE_MENU } from "../../../../variables/variables";
+import { PARAM_MENU_MOBILE, RESIZE_MENU } from "../../../../variables/variables";
 
 function NavigatePanelClient() {
     const [params] = useSearchParams();
-    const MENU_MOBILE = "menu_mobile"
-    const isMenuResized = params.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.DEFAULT_VALUES.DEFAULT ? true : false;
-    const isOpenMobileOpen = params.get(MENU_MOBILE) === "open" ? true : false;
+    const isMenuResized = params.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.DEFAULT_VALUES.DEFAULT;
+    const isOpenMobileOpen = params.get(PARAM_MENU_MOBILE.url_name) === PARAM_MENU_MOBILE.default_values.open;
 
     return (
         <div
@@ -26,7 +25,7 @@ function NavigatePanelClient() {
                 className="flex flex-col min-h-screen py-4 md:py-0 data-[isopenmobilemenu='false']:hidden md:data-[isopenmobilemenu='false']:flex bg-gradient-to-b from-primary-100 via-light to-light dark:to-primary-300 dark:via-primary-300"
             >
                 <MenuHambuguer
-                    urlParamName={MENU_MOBILE}
+                urlParamName={PARAM_MENU_MOBILE.url_name}
                     className="md:hidden"
                 />
 

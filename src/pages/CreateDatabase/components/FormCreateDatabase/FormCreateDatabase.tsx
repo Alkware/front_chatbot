@@ -90,15 +90,15 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
                                     const client_describe = data.step_4.client_describe;
                                     // Transforma em um json  stringfy para que futuramente possa ser transformado em objeto novamente...
                                     const prompt_query = JSON.stringify(data);
-                                    
+
                                     try {
                                         // Cria a fonte de dados...
                                         const response: void | AxiosResponse<Database, any> = await createNewDatabase({ prompt_name, prompt, client_describe, prompt_query, plan_management_id });
-                                        
+
                                         if (response?.status === 201) {
 
                                             // Salva as imagens dos produtos no banco de dados...
-                                            data.step_0.products.forEach(async (product) =>{
+                                            data.step_0.products.forEach(async (product) => {
                                                 await saveImage({
                                                     client_id: response.data.plan_management.client_id,
                                                     prompt_id: response.data.id,
@@ -118,7 +118,7 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
                                                         componentName="modal_created_database"
                                                         message="Fonte de dados criada com sucesso!"
                                                         type="INFORMATION"
-                                                        functionAfterComplete={() => window.location.href = "/panel?tab=0"}
+                                                        functionAfterComplete={() => window.location.href = "/panel?tab=my_chats"}
                                                     />
                                             })
                                         }
@@ -140,7 +140,9 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
         >
             <StepProdutinformation />
 
-            <StepPaymentMethodAndConditions />
+            <Root.Step index={1} stepTitle="Métodos de pagamentos e condições">
+                <StepPaymentMethodAndConditions />
+            </Root.Step>
 
             <StepPoliciesAndConditions />
 

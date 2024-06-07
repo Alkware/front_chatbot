@@ -79,10 +79,8 @@ export function ShareProject({ slug }: ShareProject) {
         }
     }
 
-
-
     return (
-        <div className="w-full h-screen md:h-auto flex flex-col gap-8 relative md:static">
+        <div className="w-full h-screen md:h-auto flex flex-col gap-8 relative md:static p-4">
             <MdLogout 
                 className="text-4xl rotate-180 md:hidden absolute"
                 onClick={()=> clearModal(null, { clearLast: true})}

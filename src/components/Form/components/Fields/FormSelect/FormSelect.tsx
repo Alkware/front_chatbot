@@ -36,7 +36,7 @@ export function FormSelect({ options, title, name, multipleSelect, useFormReturn
 
         // Seleciona as opções automaticamente caso já estejam salvas.
         const key = getValues(name);
-        const data = options?.filter((opt) => key === opt.value);
+        const data = options?.filter((opt) => typeof key === "object" ? key.find((key: string) => key === opt.value) : key === opt.value);
         if (!!data.length) {
             const addSelectParamToOptions: OptionsState[] = data?.map(option => Object({ ...option, selected: true }) as OptionsState);
             setOptions(addSelectParamToOptions);
@@ -146,9 +146,6 @@ export function FormSelect({ options, title, name, multipleSelect, useFormReturn
                     Selecionar tudo
                 </li>
             </ContainerListSelect>
-
-
-
         </div >
     )
 };

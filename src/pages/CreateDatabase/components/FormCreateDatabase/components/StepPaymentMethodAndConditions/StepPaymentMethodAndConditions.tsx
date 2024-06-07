@@ -7,8 +7,7 @@ export function StepPaymentMethodAndConditions() {
     const isCreditCard = typeof payments === "object" && payments?.find((payment: any) => payment === "Cartão de crédito");
 
     return (
-        <Root.Step index={1} stepTitle="Métodos de pagamentos e condições">
-
+        <>
             <Root.Container
                 className="flex w-full"
                 title="Quais são os métodos de pagamentos aceitos?"
@@ -78,8 +77,6 @@ export function StepPaymentMethodAndConditions() {
                     />
                 </Root.Optional>
             </Root.Optional>
-
-
-        </Root.Step>
+        </>
     )
 };

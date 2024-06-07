@@ -2,7 +2,7 @@ import { ElementType, MouseEvent, RefObject, useRef } from "react";
 import { FaHeadset } from "react-icons/fa6";
 import { IoIosChatbubbles, IoIosCloud, IoIosStats, IoLogoBuffer, IoMdArrowDropdown, IoMdCash } from "react-icons/io";
 import { useSearchParams } from "react-router-dom";
-import { RESIZE_MENU } from "../../../../../../variables/variables";
+import { PARAM_MENU_MOBILE, RESIZE_MENU } from "../../../../../../variables/variables";
 import { IoArchiveSharp, IoDiamond } from "react-icons/io5";
 
 export type Tab = "my_chats" | "metrics" | "database" | "records" | "leads" | "conversations" | "payment" | "help_center" | "config";
@@ -59,7 +59,8 @@ const navMenu: NavMenu[] = [
 function MenuNavigate() {
     const [searchParams, setSearchParams] = useSearchParams();
     const ulRef: RefObject<HTMLUListElement> = useRef(null);
-    const isMenuResized = searchParams.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.DEFAULT_VALUES.DEFAULT ? true : false;
+    const isMenuResized = searchParams.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.DEFAULT_VALUES.DEFAULT;
+    const menuMobile = searchParams.get(PARAM_MENU_MOBILE.url_name) === PARAM_MENU_MOBILE.default_values.open;
 
     const handleSelectedTabNavigation = (e: MouseEvent<HTMLDivElement>) => {
         const currentMenu = e.currentTarget;
@@ -98,10 +99,9 @@ function MenuNavigate() {
         // chama o container atual da tab...
         function callTabContainer(tab: string) {
             searchParams.set("tab", tab);
+            (menuMobile && searchParams.set(PARAM_MENU_MOBILE.url_name, PARAM_MENU_MOBILE.default_values.close))
             setSearchParams(searchParams);
         }
-
-
     }
 
     return (
@@ -120,16 +120,16 @@ function MenuNavigate() {
                         <div
                             data-tab={menu.tab}
                             data-ismenuresize={isMenuResized}
-                            className="w-full p-2 pl-2 flex gap-2 items-center justify-between data-[ismenuresize=false]:justify-center group"
+                            className="w-full p-2 pl-2 flex gap-2 items-center justify-between md:data-[ismenuresize=false]:justify-center group"
                             onClick={handleSelectedTabNavigation}
                         >
                             <div className="flex gap-2 items-center">
                                 <menu.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-xl transition-colors duration-100" />
-                                <h2 className="group-data-[ismenuresize=false]:hidden group-hover:text-primary-100">{menu.name}</h2>
+                                <h2 className="md:group-data-[ismenuresize=false]:hidden group-hover:text-primary-100">{menu.name}</h2>
                             </div>
                             <IoMdArrowDropdown
                                 data-hastopic={!!menu?.topics?.length}
-                                className="group-data-[ismenuresize=false]:hidden data-[hastopic=false]:hidden self-center"
+                                className="md:group-data-[ismenuresize=false]:hidden data-[hastopic=false]:hidden self-center"
                             />
                         </div>
                         <div
@@ -143,7 +143,7 @@ function MenuNavigate() {
                                     data-container="sub_topic"
                                     data-tab={topic.tab}
                                     data-ismenuresize={isMenuResized}
-                                    className="w-full flex items-center gap-2 group data-[ismenuresize=false]:hidden"
+                                    className="w-full flex items-center gap-2 group md:data-[ismenuresize=false]:hidden"
                                     onClick={handleSelectedTabNavigation}
                                 >
                                     <topic.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-base transition-colors duration-100" />

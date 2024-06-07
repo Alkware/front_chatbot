@@ -30,7 +30,7 @@ export function TutoralContainer({ children, title, text, position = "BOTTOM", h
             <div
                 data-active={client.tutorial}
                 data-hidden={hidden}
-                className="data-[hidden=true]:hidden data-[active=false]:hidden w-screen h-screen backdrop-blur-sm fixed top-0 left-0 z-50"
+                className="data-[hidden=true]:hidden data-[active=false]:hidden w-screen h-screen backdrop-blur-sm fixed top-0 left-0 z-40"
             ></div>
             <div
                 data-active={client.tutorial}
@@ -38,7 +38,7 @@ export function TutoralContainer({ children, title, text, position = "BOTTOM", h
                 data-position={position}
                 data-hidden={hidden}
                 className={
-                    `border border-light/40 bg-primary-100 p-1 rounded-xl absolute z-50 left-1/2 -translate-x-1/2 
+                    `border border-light/40 bg-primary-100 p-1 rounded-xl absolute z-40 left-1/2 -translate-x-1/2 
                     data-[position=TOP]:-top-full data-[position=TOP]:-translate-y-full data-[position=BOTTOM]:-bottom-full data-[position=BOTTOM]:translate-y-full
                     text-center transition-opacity  data-[hidden=true]:hidden data-[active=false]:hidden`
                 }
@@ -69,7 +69,7 @@ export function TutoralContainer({ children, title, text, position = "BOTTOM", h
             </div>
             <div
                 data-hidden={hidden}
-                className="z-50 data-[hidden=true]:z-0"
+                className="z-40 data-[hidden=true]:z-0"
             >
                 {children}
             </div>

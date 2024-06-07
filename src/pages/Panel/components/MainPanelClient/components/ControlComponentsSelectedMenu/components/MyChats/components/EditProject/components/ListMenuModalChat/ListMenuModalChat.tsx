@@ -23,7 +23,7 @@ export const ListMenuModal = ({ children }: ListMenuModal) => {
     return (
         <div
             data-isopenmobileopen={isOpenMobileOpen}
-            className="w-full h-[90%] flex flex-col fixed md:static top-0 left-0 z-40 bg-primary-100 md:bg-transparent data-[isopenmobileopen=false]:hidden md:data-[isopenmobileopen]:block" 
+            className="w-full h-[90%] flex flex-col fixed md:static top-0 left-0 z-40 bg-primary-300 md:bg-transparent data-[isopenmobileopen=false]:hidden md:data-[isopenmobileopen]:block" 
         >
             <ul className="w-full flex flex-col uppercase">
                 {
@@ -31,7 +31,7 @@ export const ListMenuModal = ({ children }: ListMenuModal) => {
                         <div
                             key={child.props.index}
                             data-isactive={index === Number(params.get(STEP_NAME_URL)) ? true : false}
-                            className="w-full text-center data-[isactive=true]:bg-primary-200 hover:bg-primary-200 overflow-hidden px-2 flex justify-start items-center text-sm"
+                            className="w-full text-center data-[isactive=true]:bg-primary-200 hover:bg-primary-200 overflow-hidden px-2 flex justify-start items-center text-base"
                         >
                             <Li
                                 text={child.props.titleStep}

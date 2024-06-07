@@ -60,10 +60,10 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
     return (
         <FormProvider {...form}>
             <form
-                className="w-full flex flex-col md:flex-row items-center gap-4 overflow-hidden "
+                className="w-full h-full flex flex-col md:flex-row gap-4 overflow-hidden "
                 onSubmit={form.handleSubmit(onSubmit)}
             >
-                <div className="w-full h-[10%] min-h-[60px] md:w-auto md:min-h-full md:max-w-[220px] fixed md:static bottom-0 z-50 flex flex-row md:flex-col justify-between items-center border-r border-primary-100 md:bg-transparent">
+                <div className="w-full h-[10%] min-h-[60px] md:w-auto md:min-h-full md:max-w-[220px] bg-primary-300 fixed md:static bottom-0 z-50 flex flex-row md:flex-col justify-between items-center border-r border-primary-100 md:bg-transparent">
                     
                     <MenuHambuguer
                         urlParamName="menu_modal_edit_chat"
@@ -80,7 +80,7 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
 
                 </div>
 
-                <div className="w-full h-full flex flex-col items-start lg:flex-row justify-evenly gap-8 overflow-auto pb-16 md:pb-0">
+                <div className="w-full h-full flex flex-col justify-start items-start lg:flex-row gap-8 overflow-auto pb-16 md:pb-0">
                     <div
                         className="w-full flex flex-col gap-12 md:max-w-[900px] p-4"
                     >

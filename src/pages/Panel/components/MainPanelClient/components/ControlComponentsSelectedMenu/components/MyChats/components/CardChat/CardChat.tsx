@@ -133,7 +133,7 @@ export function CardChat({ project, setNewProject, prompts }: CardChat) {
                     >
                         <TipContainer tip="Veja todos os seus links">
                             <FaLink
-                                className=" text-xl"
+                                className="text-xl"
                                 onClick={handleGetLinks}
                             />
                         </TipContainer>

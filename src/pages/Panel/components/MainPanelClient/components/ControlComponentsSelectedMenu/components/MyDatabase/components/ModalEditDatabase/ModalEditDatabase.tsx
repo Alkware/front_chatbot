@@ -13,6 +13,8 @@ import { FaBook, FaInfo, FaSuitcase } from "react-icons/fa";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
 import { AddProduct } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepProdutinformation/components/AddProduct/AddProduct";
 import { OpeningHours } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepAboutCompany/components/OpeningHours/OpeningHours";
+import { saveImage } from "../../../../../../../../../../api/images";
+import { StepPaymentMethodAndConditions } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";
 
 interface ModalEditDatabase {
     prompt: Database,
@@ -23,7 +25,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
     const { setModalContent, clearModal } = useContext(ModalContext);
     const { client, setClient } = useContext(ClientContext);
     const promptData: DatabaseSchema = JSON.parse(prompt.prompt_query || "{}")
-    const checkPromptIsAvalible = !!Object.keys(promptData).length ? true : false
+    const checkPromptIsAvalible = !!Object.keys(promptData).length ? true : false;
     const updateDatabaseForm = useForm<DatabaseSchema>({
         resolver: zodResolver(databaseSchema),
         defaultValues: !checkPromptIsAvalible ? undefined : {
@@ -68,9 +70,18 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
         };
 
         if (database) {
-            const projectUpdate = await updateDatabase(database, prompt.id);
-            if (projectUpdate && projectUpdate.status === 200) {
-                setPrompts(prompts => [...prompts.filter(p => p.id !== projectUpdate.data.id), projectUpdate.data])
+            const databaseUpdated = await updateDatabase(database, prompt.id);
+            if (databaseUpdated && client && databaseUpdated.status === 200) {
+                // Salva as imagens dos produtos no banco de dados...
+                data.step_0.products.forEach(async (product) => {
+                    await saveImage({
+                        client_id: client.id,
+                        prompt_id: prompt.id,
+                        url: product.image.url,
+                        description: product.image.description
+                    });
+                })
+                setPrompts(prompts => [...prompts.filter(p => p.id !== databaseUpdated.data.id), databaseUpdated.data])
                 setModalContent({
                     componentName: "modal_updated_database",
                     components:
@@ -137,7 +148,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
 
 
     return (
-        <div className="w-screen px-4 md:px-0 md:w-[90vw] md:h-[80vh] md:min-h-[450px] md:min-w-[700px] flex overflow-hidden">
+        <div className="w-screen h-screen px-4 md:px-0 md:w-[90vw] md:h-[80vh] md:min-h-[450px] md:min-w-[700px] flex items-start overflow-hidden">
             <Root.EditForm
                 form={updateDatabaseForm}
                 onDelete={handleDeleteDatabase}
@@ -168,74 +179,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                     titleStep="Métodos de pagamento"
                     icon={<FaInfo />}
                 >
-
-                    <Root.Container className="w-full md:w-auto mx-auto flex gap-4" title="Quais são os métodos de pagamentos aceitos?">
-                        <Root.Select
-                            title="Escolha seus métodos de pagamentos"
-                            multipleSelect={true}
-                            name="step_1.payment_methods"
-                            options={[
-                                { value: "Pix", text: "Pix" },
-                                { value: "Boleto", text: "Boleto" },
-                                { value: "Cartão de débito", text: "Cartão de débito" },
-                                { value: "Cartão de crédito", text: "Cartão de crédito" },
-                                { value: "Pagamentos em aplicativo", text: "Pagamentos em aplicativo" },
-                            ]}
-                        />
-                    </Root.Container>
-
-                    <Root.Container
-                        title="Quantas vezes o cliente pode parcelar?"
-                        hiddenContainer={!!false ? false : true}
-                        className="max-w-[200px]"
-                    >
-                        <Root.Select
-                            title="Quantas parcelas?"
-                            name="step_1.credit_card_installments"
-                            options={[
-                                { value: "1x", text: "1x" },
-                                { value: "2x", text: "2x" },
-                                { value: "3x", text: "3x" },
-                                { value: "4x", text: "4x" },
-                                { value: "5x", text: "5x" },
-                                { value: "6x", text: "6x" },
-                                { value: "7x", text: "7x" },
-                                { value: "8x", text: "8x" },
-                                { value: "9x", text: "9x" },
-                                { value: "10x", text: "10x" },
-                                { value: "11x", text: "11x" },
-                                { value: "12x", text: "12x" },
-                                { value: "18x", text: "18x" },
-                                { value: "24x", text: "24x" },
-                            ]}
-                        />
-                    </Root.Container>
-
-                    <Root.Optional
-                        name="step_1.order_tracking"
-                        text="Você está entregando um produto físico?"
-                        className="w-full flex flex-col gap-6 "
-                    >
-                        <Root.TextArea
-                            name="step_1.order_tracking"
-                            title="Descreva como seu produto vai ser entregue e as politicas de frete?"
-                        />
-
-                        <Root.Optional
-                            name="step_1.tracking_link"
-                            text="Você possui link para rastrear pedido?"
-                        >
-                            <Root.Input
-                                title="Digite a url do site:"
-                                name="step_1.tracking_link"
-                                onChange={({ target }) => {
-                                    if (!target.value.toLowerCase().includes("http"))
-                                        target.value = `https://${target.value.replace("http", "")}`
-                                }}
-                            />
-                        </Root.Optional>
-                    </Root.Optional>
-
+                   <StepPaymentMethodAndConditions />
                 </Root.EditStep>
 
                 <Root.EditStep
@@ -261,7 +205,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
                         />
 
                     </Root.Container>
-                    
+
                     <Root.TextArea
                         name="step_2.how_guarantee_work"
                         title="Como funciona a garantia?"

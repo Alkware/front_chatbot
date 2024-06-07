@@ -3,8 +3,8 @@ import { useSearchParams } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
 interface MenuHambuguer {
-    urlParamName: string,
     className?: string;
+    urlParamName: string;
 }
 
 export function MenuHambuguer({ urlParamName, className }: MenuHambuguer) {

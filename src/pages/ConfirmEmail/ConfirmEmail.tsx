@@ -34,7 +34,7 @@ export function ConfirmEmail() {
                             componentName="modal_success_already_check_email"
                             message="Seu e-mail já foi verificado!"
                             type="WARNING"
-                            functionAfterComplete={() => navigate("/panel?tab=0")}
+                            functionAfterComplete={() => navigate("/panel?tab=my_chats")}
                         />
                     });
                 }
@@ -63,7 +63,7 @@ export function ConfirmEmail() {
             components: <PopOver
                 componentName="modal_success_confirm_email"
                 message="E-mail confirmado com sucesso!"
-                functionAfterComplete={() => navigate("/panel?tab=0")}
+                functionAfterComplete={() => navigate("/panel?tab=my_chats")}
             />
         });
     }
