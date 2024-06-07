@@ -18,7 +18,7 @@ export interface Lead_collected {
 }
 
 export interface Message {
-    player: 0 | 1 | 2;
+    player: "assistant" | "user";
     message: string;
     time: string;
 }

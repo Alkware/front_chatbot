@@ -46,7 +46,7 @@ export function eventManager(project: Project, time: number = 0) {
             return filteredMessage
         })
 
-        return messages.flat().filter(msg => msg.player === 1).length
+        return messages.flat().filter(msg => msg.player === "user").length
     }
 
     // Obtem a quantidade de mensagem enviadas pela IA...
@@ -61,7 +61,7 @@ export function eventManager(project: Project, time: number = 0) {
         })
 
 
-        return messages.flat().filter(msg => msg.player === 2 || msg.player === 0).length
+        return messages.flat().filter(msg => msg.player === "assistant").length
     }
 
     // Obtem a média de mensagem enviada por chat...

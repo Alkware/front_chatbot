@@ -76,11 +76,11 @@ export function ContentChats({ planMessageManager, index }: ContentChats) {
                             <div
                                 key={index}
                                 data-player={msg.player}
-                                className="w-full flex data-[player='1']:justify-end justify-start"
+                                className="w-full flex data-[player='user']:justify-end justify-start"
                             >
                                 <div
                                     data-player={msg.player}
-                                    className="max-w-[80%] bg-primary-100/50 dark:bg-light text-black/80 data-[player='1']:bg-primary-100 dark:data-[player='1']:bg-primary-200 data-[player='1']:text-light p-2 rounded-xl"
+                                    className="max-w-[80%] bg-primary-100/50 dark:bg-light text-black/80 data-[player='user']:bg-primary-100 dark:data-[player='user']:bg-primary-200 data-[player='user']:text-light p-2 rounded-xl"
                                 >
                                     <h2
                                         dangerouslySetInnerHTML={{ __html: msg.message }}
