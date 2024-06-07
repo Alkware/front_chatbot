@@ -103,7 +103,7 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
                                                     client_id: response.data.plan_management.client_id,
                                                     prompt_id: response.data.id,
                                                     url: product.image.url,
-                                                    description: product.image.description
+                                                    description: `Imagem/Imagens/foto/fotos de ${product.image.description}`
                                                 });
                                             })
                                             // Remove os dados salvos no localstorage...
