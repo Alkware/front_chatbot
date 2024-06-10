@@ -44,19 +44,19 @@ export function ComomQuestions() {
         >
             {
                 fields.map((field, indexQuestions) =>
-                    <div key={field.id} className="flex flex-col md:flex-row justify-center rounded-md p-4 items-center gap-4">
+                    <div key={field.id} className="flex flex-col justify-center rounded-md p-4 items-start gap-4">
 
                         <Root.Input
                             name={`questions.${indexQuestions}.ask`}
                             title="Digite uma pergunta"
                         />
 
-                        <Root.Input
+                        <Root.TextArea
                             name={`questions.${indexQuestions}.answer`}
                             title="Digite a resposta"
                         />
 
-                        <div className="flex gap-4 justify-center items-center">
+                        <div className="w-full flex gap-4 justify-end items-center">
                             <MdAdd
                                 onClick={handleAddNewAsk}
                                 className="fill-primary-200 bg-primary-100 text-3xl p-1 cursor-pointer rounded-full"

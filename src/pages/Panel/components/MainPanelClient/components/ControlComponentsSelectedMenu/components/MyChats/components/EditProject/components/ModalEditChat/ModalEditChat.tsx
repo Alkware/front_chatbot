@@ -281,8 +281,10 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                             title="Digite o texto que será exibido ao lado do icon"
                         />
 
-
-                        <Root.Container className="w-full flex gap-4 justify-center items-center">
+                        <Root.Container
+                            className="w-full flex"
+                            title="Defina as cores do seu chat"
+                        >
                             <Root.Color
                                 name="step_3.chat_appearance.primary_color"
                                 title="Escolha a cor primária do seu chat"
@@ -292,13 +294,14 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                                 name="step_3.chat_appearance.second_color"
                                 title="Escolha a cor secundária do seu chat"
                             />
+
+                            <Root.Color
+                                name="step_3.chat_appearance.background"
+                                title="Escolha a cor do background do seu chat"
+                            />
+
                         </Root.Container>
 
-                        <Root.Color
-                            name="step_3.chat_appearance.background"
-                            title="Escolha a cor do background do seu chat"
-                            containerWidth="w-2/3"
-                        />
 
                     </Root.Container>
 

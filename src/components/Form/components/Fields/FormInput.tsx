@@ -24,7 +24,6 @@ export function FormInput({ title, joinAtInput, widthContainer, mask, useFormRet
 
     return (
         <Input
-            className=" bg-light dark:bg-gray_light text-dark dark:text-light"
             title={title}
             register={register}
             onChange={handleOnChange}

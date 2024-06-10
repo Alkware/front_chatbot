@@ -56,7 +56,7 @@ export function ButtonCreateNewDatabase({ plan_management_id, index }: { plan_ma
 
     return (
         <div
-            className="w-full rounded-xl border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20 flex justify-center"
+            className="w-full rounded-xl border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-white dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20 flex justify-center"
             onClick={handleClickNewDatabases}
         >
             <TutoralContainer
@@ -68,7 +68,7 @@ export function ButtonCreateNewDatabase({ plan_management_id, index }: { plan_ma
                 <TipContainer
                     tip="Criar fonte de dados"
                 >
-                    <FaPlus className="text-5xl py-3 fill-primary-100" />
+                    <FaPlus className="text-5xl py-3 fill-light dark:fill-primary-100" />
                 </TipContainer>
             </TutoralContainer>
         </div>

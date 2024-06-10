@@ -15,7 +15,7 @@ interface Select {
 export function Select({ options, alternativeTitle, title, Icon, defaultValue, handleSelectDatabase }: Select) {
 
     return (
-        <div className="w-auto h-full overflow-hidden bg-light dark:bg-gray border border-primary-100 font-bold rounded-lg flex px-2 justify-center items-center">
+        <div className="w-auto h-full overflow-hidden bg-light dark:bg-gray border border-primary-100 font-bold rounded-lg flex px-2 justify-center items-center p-3">
             {Icon && <Icon className="text-2xl fill-primary-100 dark:fill-light" />}
             <select
                 className="w-auto h-full bg-light dark:bg-gray text-primary-100 dark:text-light cursor-pointer outline-none "

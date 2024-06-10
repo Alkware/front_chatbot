@@ -10,13 +10,21 @@ export function Steps({ numberSteps }: Steps) {
     const [params, setParams] = useSearchParams();
     const currentIndex = Number(params.get(STEP_NAME_URL)) || 0;
     const containerStepRef: RefObject<HTMLDivElement> = useRef(null);
-
+    
     useEffect(() => {
+        const getBoundingClientRectTop = containerStepRef.current?.getBoundingClientRect().top || 0;
+        
+        
         const handleScrollPage = () => {
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-            if (scrollTop > 30) containerStepRef.current?.classList.add("fixed","z-[999]","backdrop-blur-md", "top-0", "border-b", "border-primary-100", "shadow");
-            else containerStepRef.current?.classList.remove("fixed","z-[999]","backdrop-blur-md", "top-0", "border-b", "border-primary-100", "shadow");
+            if (scrollTop > getBoundingClientRectTop) {
+                containerStepRef.current?.classList.add("fixed", "z-[999]", "backdrop-blur-md", "top-0", "shadow");
+                containerStepRef.current?.classList.remove("absolute");
+            }
+            else {
+                containerStepRef.current?.classList.add("absolute");
+                containerStepRef.current?.classList.remove("fixed", "z-[999]", "backdrop-blur-md", "top-0", "shadow");
+            }
         }
 
         window.addEventListener("scroll", handleScrollPage);
@@ -34,7 +42,7 @@ export function Steps({ numberSteps }: Steps) {
         numberSteps > 1 &&
         <div
             ref={containerStepRef}
-            className="w-full h-20 flex items-center absolute"
+            className="w-full h-16 md:h-20 flex items-center absolute"
         >
             <div className="w-full flex justify-between items-center">
                 {

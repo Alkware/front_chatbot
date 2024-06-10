@@ -23,7 +23,7 @@ export function PopUp({ children, noBackground, positionModal }: PopUp) {
         >
             <div
                 data-nobackground={!!noBackground}
-                className=" bg-primary-100 text-light dark:bg-primary-300 border border-primary-100 md:rounded-md data-[nobackground=true]:bg-transparent dark:data-[nobackground=true]:bg-transparent data-[nobackground=true]:border-none relative "
+                className=" bg-light text-primary-100 dark:text-white dark:bg-primary-300 border border-primary-100 md:rounded-md data-[nobackground=true]:bg-transparent dark:data-[nobackground=true]:bg-transparent data-[nobackground=true]:border-none relative "
             >
                 {children}
             </div>

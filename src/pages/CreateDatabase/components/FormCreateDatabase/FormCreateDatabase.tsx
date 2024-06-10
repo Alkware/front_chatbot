@@ -75,6 +75,7 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
                         <input
                             type="text"
                             placeholder="Ex: Minha fonte de dados"
+                            className="bg-primary-100/30 dark:bg-zinc-800"
                             onChange={(e) => { prompt_name = e.target.value }}
                         />
                         <Button

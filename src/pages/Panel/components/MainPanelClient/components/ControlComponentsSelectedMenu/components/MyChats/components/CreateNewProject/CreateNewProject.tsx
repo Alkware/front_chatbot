@@ -57,7 +57,7 @@ export function ButtonCreateChat({ plan_management_id, projects, index }: Button
                     componentName: "modal_create_database",
                     components:
                         <PopUp>
-                            <div className="flex flex-col items-center justify-center gap-4">
+                            <div className="flex flex-col items-center justify-center gap-4 p-4">
                                 <h2 className="text-xl text-center">Para criar um novo chat, antes é necessário <br />  criar uma fonte de dados.</h2>
                                 <h2 className="text-lg text-center opacity-80">Nossa inteligência artifical vai analisar seus dados e <br /> responder as dúvidas do usuário <br />conforme as informações passadas na fonte de dados.</h2>
                                 <Button

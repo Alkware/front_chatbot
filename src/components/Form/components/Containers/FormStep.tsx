@@ -21,7 +21,7 @@ export function FormStep({ children, index, stepTitle }: FormStep) {
         >
             <h2
                 data-isvisible={stepTitle ? true : false}
-                className="data-[isvisible='false']:hidden w-full my-2 lg:my-4 text-center font-bold text-2xl"
+                className="data-[isvisible='false']:hidden w-full my-2 lg:my-4 text-center font-bold text-2xl text-primary-100 dark:text-light"
             >{stepTitle}</h2>
 
             {children}

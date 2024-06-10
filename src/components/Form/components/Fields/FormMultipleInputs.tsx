@@ -45,7 +45,7 @@ export function FormMultipleInputs({ children, useFormReturn, update, remove, na
                             >
                                 <div
                                     tabIndex={index}
-                                    className="min-w-20 md:min-w-32 bg-primary-100 rounded-l-md flex flex-col justify-between items-center cursor-pointer relative p-1"
+                                    className="min-w-20 md:min-w-32 bg-primary-100 text-light rounded-l-md flex flex-col justify-between items-center cursor-pointer relative p-1"
                                     onClick={() => handleEdition(index)}
                                 >
                                     {

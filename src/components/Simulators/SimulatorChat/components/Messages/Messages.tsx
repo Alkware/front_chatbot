@@ -62,9 +62,10 @@ export function Messages() {
                         :
                         <div
                             key={index}
-                            className="w-3/4 h-[12px] bg-primary-100/80 rounded-lg p-3 self-end"
+                            className="w-3/4 h-6 bg-primary-100/80 rounded-lg self-end flex justify-end"
                             style={{ background: `${secundaryColor}` }}
-                        ></div >
+                        >
+                        </div >
                 })
             }
         </div>

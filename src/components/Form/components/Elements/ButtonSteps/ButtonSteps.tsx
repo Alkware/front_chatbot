@@ -1,5 +1,5 @@
 import { IoIosRedo, IoIosUndo } from "react-icons/io";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { STEP_NAME_URL } from "../../../../../variables/variables";
 import { Button } from "../../../../button/Button";
 import { IoCreate } from "react-icons/io5";
@@ -21,7 +21,6 @@ export function FormButtonStep({ numberChildren, findErrorMessage, hiddenPreview
     const { trigger, formState: { errors } } = useFormContext();
     const currentStep = Number(params.get(STEP_NAME_URL))
     const isLastStep = currentStep === (numberChildren - 1);
-    const navigate = useNavigate();
 
     const handleNextStep = async () => {
         const currentStep = (params.get(STEP_NAME_URL) || "0");
@@ -50,9 +49,8 @@ export function FormButtonStep({ numberChildren, findErrorMessage, hiddenPreview
     const handlePreviousStep = () => {
         const previousStep = currentStep - 1;
 
-        if (previousStep < 0) {
-            navigate("/panel")
-        }
+        if (previousStep < 0) window.location.href = "/panel"
+        
 
         if (previousStep >= 0) {
             params.set(STEP_NAME_URL, previousStep.toString())

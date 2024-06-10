@@ -40,12 +40,18 @@ export function AddProduct() {
 
 
     return (
-        <div className="w-full flex flex-col justify-start gap-4 px-2 md:px-4 overflow-hidden">
+        <div className="w-full flex flex-col justify-start gap-4 px-2 md:px-4 overflow-hidden text-primary-100 dark:text-light">
             <div className="w-full flex items-center justify-between my-4">
                 <h2 className="w-full font-medium text-center text-lg md:text-xl">Cadastre seus produtos/serviços disponíveis</h2>
             </div>
 
             <div className="w-full min-h-40 flex flex-nowrap md:flex-wrap overflow-auto justify-start md:justify-center gap-4 ">
+                <div
+                    onClick={() => handleClickAddProduct(useFieldArrayData.fields.length)}
+                    className="w-36 min-w-[100px] h-24 flex flex-col items-center justify-center text-primary-100 border border-primary-100 rounded-md bg-primary-200 cursor-pointer hover:scale-105 transition-transform">
+                    <MdAdd className="size-10" />
+                </div>
+
                 {useFieldArrayData.fields.map((field: any, index) =>
                     <div
                         key={field.id}
@@ -62,13 +68,9 @@ export function AddProduct() {
                             />
                         </div>
                     </div>
-                )}
+                ).reverse()}
 
-                <div
-                    onClick={() => handleClickAddProduct(useFieldArrayData.fields.length)}
-                    className="w-36 min-w-[100px] h-24 flex flex-col items-center justify-center text-primary-100 border border-primary-100 rounded-md bg-primary-200 cursor-pointer hover:scale-105 transition-transform">
-                    <MdAdd className="size-10" />
-                </div>
+
             </div>
         </div>
     )

@@ -36,6 +36,20 @@ export function CallToActionFormChat({ prompts }: CallToActionFormChat) {
         const callToActions: { button_text: string, button_link: string, button_describe: string }[] | undefined = watch(`step_1.call_to_action`);
         const cta = callToActions && callToActions[fields.length - 1];
         const prompt_id = watch(`step_1.prompt_id`);
+
+        if(!prompt_id) {
+            setModalContent({
+                componentName: "modal_error_not_selected_db",
+                components: 
+                    <PopOver 
+                        componentName="modal_error_not_selected_db"
+                        message="Selecione primeiro uma fonte de dados, antes de adicionar uma CTA."
+                    />
+            });
+            return;
+        }
+
+
         const promptSelected = prompts.find(prompt => prompt.id === prompt_id);
         const convertObject: DatabaseSchema = promptSelected && JSON.parse(promptSelected.prompt_query);
         const products = convertObject.step_0.products.map((product, index) => Object({ id: index, name: product.name }));
@@ -55,7 +69,7 @@ export function CallToActionFormChat({ prompts }: CallToActionFormChat) {
                         componentName: "modal_show_select_products",
                         components:
                             <PopUp>
-                                <div className="max-w-[500px] space-y-8">
+                                <div className="max-w-[95vw] md:max-w-[500px] space-y-8 p-4">
                                     <div>
                                         <h2 className="text-2xl text-center font-medium">Criar CTA para seus produtos</h2>
                                         <p className="w-full text-center opacity-80 ">

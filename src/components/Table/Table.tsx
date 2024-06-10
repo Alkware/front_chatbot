@@ -50,10 +50,10 @@ export function Table({ titleColumn, rows, maxPerPage = 10 }: Table) {
     return (
         !!pagination.length &&
         <div className="w-full">
-            <table className="w-full rounded-md overflow-hidden">
+            <table className="block mx-auto overflow-x-auto whitespace-nowrap">
                 <thead className="w-full bg-primary-100/30 border-2 border-primary-100/60">
-                    <tr>
-                    {titleColumn.map((title) => <th key={v4()} className="uppercase py-2">{title}</th>)}
+                    <tr className="">
+                    {titleColumn.map((title) => <th key={v4()} className="uppercase p-2 px-3 border-r border-primary-100/40">{title}</th>)}
                     </tr>
                 </thead>
                 <tbody className="w-full divide-y divide-gray_light">
