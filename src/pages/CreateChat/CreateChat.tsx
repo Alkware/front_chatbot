@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { RefObject, useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPlanManagementById } from "../../api/planManagement";
 import { AxiosResponse } from "axios";
@@ -12,12 +12,14 @@ import { chatSchema, ChatSchema } from "../../schema/zod/chatSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CHAT_NAME_TO_SAVE_LOCALSTORAGE } from "../../variables/variables";
 import { CallToActionFormChat } from "./components/FormCallToAction/FormCallToAction";
+import { loading } from "../../functions/loading";
 
 export function CreateChat() {
     const [prompt, setPrompt] = useState<Database[]>()
     const { plan_management_id } = useParams();
     const { setModalContent } = useContext(ModalContext)
     const navigate = useNavigate();
+    const containerFormRef: RefObject<HTMLDivElement> = useRef(null);
     const localStorageDatabase = JSON.parse(localStorage.getItem(CHAT_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
     const createChatForm = useForm<ChatSchema>({
         resolver: zodResolver(chatSchema),
@@ -53,10 +55,11 @@ export function CreateChat() {
     }, []);
 
     const handleCreateProject = async (data: ChatSchema) => {
+        loading(containerFormRef.current?.querySelector("button[data-loading]"), true)
         try {
             if (!plan_management_id) throw new Error("plan management id is missing!")
 
-
+            // Extrai as informções para criar o chat...
             const {
                 step_0: {
                     project_name,
@@ -69,7 +72,7 @@ export function CreateChat() {
                 }
             } = data
 
-
+            // Cria o chat no banco de dados...
             const project = await createNewProject({
                 project_name,
                 logo,
@@ -79,33 +82,43 @@ export function CreateChat() {
                 chat_input_message: chat_input_message,
             });
 
+            // Verifica se o chat foi criado no banco de dados...
             if (project?.status === 201) {
+                // Remove a consistencia de dados...
                 localStorage.removeItem(CHAT_NAME_TO_SAVE_LOCALSTORAGE)
 
+                // Informa o usuário que o chat foi criado....
                 setModalContent({
                     componentName: "modal_created_chat",
-                    components: <PopOver message="Chat criado com sucesso" componentName="modal_created_chat" />
+                    components:
+                        <PopOver
+                            message="Chat criado com sucesso"
+                            componentName="modal_created_chat"
+                            functionAfterComplete={() => {
+                                window.location.href = "/panel"
+                            }}
+                        />
                 })
-
-                const timeout = setTimeout(() => {
-                    window.location.href = "/panel"
-                    clearTimeout(timeout)
-                }, 2000);
-
             }
         } catch (error: any) {
             throw new Error(error)
+        } finally {
+            loading(containerFormRef.current?.querySelector("button[data-loading]"), false)
         }
     };
 
     return (
         (plan_management_id && prompt) &&
         <div className="w-screen min-h-screen bg-gradient-to-br from-primary-50 to-light dark:via-primary-300 via-15% dark:to-dark to-30% text-light flex flex-col justify-center items-center">
-            <div className="w-full md:w-4/5 p-4 md:rounded-2xl flex justify-center items-start bg-primary-50 dark:bg-dark dark:border border-primary-300">
+            <div
+                ref={containerFormRef}
+                className="w-full md:w-4/5 p-4 md:rounded-2xl flex justify-center items-start bg-primary-50 dark:bg-dark dark:border border-primary-300"
+            >
                 <Root.Form
                     onSubmit={handleCreateProject}
                     form={createChatForm}
                     activeSimulator={true}
+                    titleButtonSend="Criar chat"
                 >
 
                     <Root.Step index={0}>
@@ -139,7 +152,6 @@ export function CreateChat() {
                             <CallToActionFormChat prompts={prompt} />
                         </Root.Optional>
                     </Root.Step>
-
                 </Root.Form>
             </div>
         </div >

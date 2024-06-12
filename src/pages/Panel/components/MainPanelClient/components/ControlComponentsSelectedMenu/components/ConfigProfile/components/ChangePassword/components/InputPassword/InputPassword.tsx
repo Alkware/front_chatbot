@@ -7,18 +7,26 @@ interface InputPassword {
 }
 
 export function InputPassword({ name }: InputPassword) {
-    const { register } = useFormContext();
+    const formContext = useFormContext();
     const [isOpen, setIsOpen] = useState<Boolean>(false);
 
-    const handleDisplayPassword = ()=> setIsOpen(v => !v)
+    const handleDisplayPassword = () => setIsOpen(v => !v)
 
     return (
-        <div className="w-3/5 px-2 rounded-md flex justify-center items-center gap-2 bg-gray_light">
-            <input
-                className=""
-                type={isOpen ? "text" : "password"}
-                {...register(name)}
-            />
+        <div className="w-full px-2 rounded-md flex justify-center items-center gap-2 bg-gray_light">
+            {
+                formContext ?
+                    <input
+                        className=""
+                        type={isOpen ? "text" : "password"}
+                        {...formContext.register(name)}
+                    />
+                    :
+                    <input
+                        className=""
+                        type={isOpen ? "text" : "password"}
+                    />
+            }
             <FaEye
                 data-isopen={!!isOpen}
                 className="text-2xl data-[isopen=false]:hidden"

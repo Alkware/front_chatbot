@@ -103,7 +103,12 @@ function Login() {
                             </Root.Form>
 
                             <div className="w-full flex flex-col justify-evenly items-center ">
-                                <div className="w-full flex gap-2 items-center mb-8">
+                                <a
+                                    className="underline cursor-pointer"
+                                    onClick={() => navigate("/forgot-password")}
+                                >Esqueci minha senha</a>
+
+                                <div className="w-full flex gap-2 items-center my-4">
                                     <div className="w-full h-1 bg-gradient-to-r from-transparent to-primary-100 rounded-xl"></div>
                                     <span className="font-bold text-sm">OU</span>
                                     <div className="w-full h-1 bg-gradient-to-r from-primary-100 to-transparent rounded-xl"></div>
@@ -112,6 +117,7 @@ function Login() {
                                     className="underline cursor-pointer"
                                     onClick={() => navigate("/register")}
                                 >Cadastre-se</a>
+
 
                             </div>
                         </div>

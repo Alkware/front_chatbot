@@ -132,10 +132,10 @@ export function ConfigProfile() {
             <FormProvider {...formEditUser}>
                 <form
                     onSubmit={handleSubmit(handleSaveDataUser)}
-                    className="w-2/3 mx-auto p-4 px-8 flex flex-col gap-6"
+                    className="w-full md:w-2/3 mx-auto p-4 px-8 flex flex-col gap-6"
                 >
 
-                    <Root.Container className="flex items-center gap-4">
+                    <Root.Container className="w-full flex flex-col md:flex-row items-center gap-4">
                         <Root.Input
                             name="fullname"
                             title="Nome completo"
@@ -148,7 +148,7 @@ export function ConfigProfile() {
                     </Root.Container>
 
                     <Root.Container
-                        className="flex gap-4 justify-center items-center"
+                        className="flex flex-col md:flex-row gap-4 justify-center items-center"
                     >
                         <Root.Container >
                             <Root.Input
@@ -170,7 +170,7 @@ export function ConfigProfile() {
                     </Root.Container>
 
                     <Root.Container
-                        className="flex gap-4 justify-center items-center"
+                        className="flex flex-col md:flex-row gap-4 justify-center items-center"
                     >
                         <Root.Container >
                             <Root.Input

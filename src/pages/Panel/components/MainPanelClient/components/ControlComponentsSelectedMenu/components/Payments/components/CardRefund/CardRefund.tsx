@@ -26,7 +26,7 @@ export function CardRefund({ client }: { client?: Client }) {
 
     return (
         (!!client?.refund_requested.length && client.refund_requested[0].status !== "CANCEL") &&
-        <div className="w-4/5 md:w-1/2 min-w-[150px] max-w-[400px] border border-zinc-600 p-2 rounded-md">
+        <div className="w-4/5 md:w-1/2 min-w-[150px] max-w-[400px] min-h-[200px] border border-zinc-600 p-2 rounded-md">
             <h2 className="w-full text-center pb-4 text-xl">Reembolso solicitado:</h2>
             <span className="flex gap-2 text-zinc-400">
                 Reembolso solicidado em:

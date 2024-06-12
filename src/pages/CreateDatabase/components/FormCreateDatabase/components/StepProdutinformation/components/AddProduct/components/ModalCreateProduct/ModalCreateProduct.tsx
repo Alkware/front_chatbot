@@ -81,7 +81,7 @@ export function ModalCreateProduct({ useFieldArray, useFormReturn, index }: Moda
     return (
         <div
             ref={containerRef}
-            className="w-full h-screen overflow-hidden overflow-y-auto fixed top-0 left-0 z-[999] bg-primary-50 dark:bg-primary-200 rounded-md pt-4 md:py-4 flex flex-col justify-start md:justify-center items-center gap-6"
+            className="w-full  h-screen overflow-hidden overflow-y-auto fixed top-0 left-0 z-[999] bg-primary-50 dark:bg-primary-200 rounded-md pt-4 md:py-4 flex flex-col justify-start md:justify-center items-center gap-6"
         >
             <h2 className="text-2xl font-bold">Cadastre seus produtos</h2>
             <div className="w-full p-2 flex gap-4 justify-end items-center rounded-md absolute top-0 right-2">
@@ -100,7 +100,7 @@ export function ModalCreateProduct({ useFieldArray, useFormReturn, index }: Moda
             <FormProvider {...form}>
                 <form
                     onSubmit={form.handleSubmit(handleSaveProduct)}
-                    className="w-full flex flex-col justify-start md:justify-center items-center gap-6"
+                    className="w-full max-w-[1200px] h-full flex flex-col justify-start items-center gap-6"
                 >
                     <div className="w-[90%] flex justify-center items-end">
                         <div className="flex flex-col gap-2">

@@ -74,7 +74,7 @@ export function ChangePassword() {
     return (
         <FormProvider {...formPassword}>
             <form
-                className="flex min-w-[200px] flex-col gap-8"
+                className="flex min-w-[200px] flex-col gap-8 p-4"
                 onSubmit={handleSubmit(handleChangePassword)}
             >
                 <div className="w-full flex gap-4 justify-between items-center">

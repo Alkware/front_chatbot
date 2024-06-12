@@ -33,6 +33,7 @@ function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/cookies" element={<Cookies />} />
         <Route path="/confirm-email" element={<ConfirmEmail />} />
+        <Route path="/forgot-password" element={<h1>Página em contrução.</h1>} />
         <Route path="/*" element={<h1>Page not found</h1>} />
       </Routes>
 

@@ -105,6 +105,7 @@ export function ShareProject({ slug }: ShareProject) {
                         <TutoralContainer
                             title="Vamos abrir seu chat"
                             text="Clique no icone acima para abrir seu chat em uma nova guia para testa-lo"
+                            positionX="LEFT"
                         >
                             <TipContainer
                                 tip="Abra seu chat"

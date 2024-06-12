@@ -62,7 +62,7 @@ export function ButtonCreateNewDatabase({ plan_management_id, index }: { plan_ma
             <TutoralContainer
                 title="Vamos criar sua primeira fonte de dados"
                 text="Clique em <span class='font-medium text-2xl mx-1'>+</span> para criar sua primeira fonte de dados."
-                position="BOTTOM"
+                positionX={window.innerWidth > 680 ? "RIGHT" : "CENTER" }
                 hidden={index !== 0}
             >
                 <TipContainer

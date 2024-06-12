@@ -103,7 +103,7 @@ export function ConversationHistoric() {
                             className="p-2 bg-light dark:bg-gray border border-primary-100 rounded-md cursor-pointer"
                             onClick={reloadMetric}
                         >
-                            <FaArrowRotateLeft className="text-xl" />
+                            <FaArrowRotateLeft className="text-nxl" />
                         </div>
                     </TipContainer>
                 </div>
@@ -114,7 +114,6 @@ export function ConversationHistoric() {
                 <Button
                     customClass="bg-primary-100 dark:bg-primary-200 md:hidden"
                     onClick={handleOpenModalSelectChatOnMobile}
-
                 >Selecione um chat </Button>
 
 
@@ -123,11 +122,13 @@ export function ConversationHistoric() {
                     setIndex={setIndex}
                 />
                 {
-                    !!chats.length &&
+                    !!chats.length ?
                     <ContentChats
                         planMessageManager={chats}
                         index={index}
                     />
+                    :
+                    <h2 className="p-4 text-center w-full">Você ainda não teve acessos no seu chat</h2>
                 }
             </div>
         </Container>

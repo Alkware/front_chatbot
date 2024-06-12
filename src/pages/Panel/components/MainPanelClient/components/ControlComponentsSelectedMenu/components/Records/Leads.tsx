@@ -13,7 +13,6 @@ export function Leads({ }: Leads) {
             manager.lead_collected.map(lead => [lead.name || "-", lead.email || "-", lead.cell_phone || "-"])))
 
     return (
-        !!rows?.length &&
         <Container title="Leads coletados">
             <div className="w-[90%] mx-auto">
                 <Table

@@ -93,7 +93,7 @@ export function ButtonCreateChat({ plan_management_id, projects, index }: Button
             <TutoralContainer
                 title="Vamos criar seu primeiro chat"
                 text={`Clique em <span class="text-3xl font-medium mx-1">+</span> para criar seu primeiro chat de forma simples e fácil`}
-                position="BOTTOM"
+                positionX={window.innerWidth >= 800 ? "RIGHT" : "CENTER"}
                 hidden={index !== 0 || projects.length !== 0}
             >
                 <TipContainer tip="Crie um novo chat">

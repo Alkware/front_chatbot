@@ -129,6 +129,7 @@ export function CardChat({ project, setNewProject, prompts }: CardChat) {
                     <TutoralContainer
                         title="Vamos acessar seu chat"
                         text="Clique aqui em cima para obter seu link ou para pegar o código do widget"
+                        positionX="RIGHT"
                         hidden={params.get("tour") === "2" || params.get("tour") === "0"}
                     >
                         <TipContainer tip="Veja todos os seus links">
@@ -142,6 +143,7 @@ export function CardChat({ project, setNewProject, prompts }: CardChat) {
                     <TutoralContainer
                         title="Vamos personalizar seu chat"
                         text="Agora que já viu como funciona, vamos conhecer como podemos deixar ele de acordo com a sua marca!"
+                        positionX={window.innerWidth >= 768 ? "RIGHT" : window.innerWidth <= 480 ? "RIGHT" : "CENTER"}
                         hidden={params.get("tour") !== "2"}
                     >
                         <TipContainer tip="Edite seu chat">

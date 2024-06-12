@@ -7,11 +7,12 @@ interface TutorialContainer {
     children: any,
     title: string,
     text: string,
-    position?: "BOTTOM" | "TOP",
     hidden?: boolean;
+    positionY?: "BOTTOM" | "TOP";
+    positionX?: "LEFT" | "CENTER" | "RIGHT";
 }
 
-export function TutoralContainer({ children, title, text, position = "BOTTOM", hidden }: TutorialContainer) {
+export function TutoralContainer({ children, title, text, positionY = "BOTTOM", positionX = "CENTER", hidden }: TutorialContainer) {
     const ballonTutorialRef: RefObject<HTMLDivElement> = useRef(null);
     const { client, setClient } = useContext(ClientContext)
 
@@ -35,12 +36,14 @@ export function TutoralContainer({ children, title, text, position = "BOTTOM", h
             <div
                 data-active={client.tutorial}
                 ref={ballonTutorialRef}
-                data-position={position}
+                data-positiony={positionY}
+                data-positionx={positionX}
                 data-hidden={hidden}
                 className={
-                    `border border-light/40 bg-primary-100 p-1 rounded-xl absolute z-40 left-1/2 -translate-x-1/2 
-                    data-[position=TOP]:-top-full data-[position=TOP]:-translate-y-full data-[position=BOTTOM]:-bottom-full data-[position=BOTTOM]:translate-y-full
-                    text-center transition-opacity  data-[hidden=true]:hidden data-[active=false]:hidden`
+                    `max-w-[70vw] border border-light/40 bg-primary-100 p-1 rounded-xl absolute z-40 
+                    data-[positiony=TOP]:-top-full data-[positiony=TOP]:-translate-y-3 data-[positiony=BOTTOM]:-bottom-full data-[positiony=BOTTOM]:translate-y-[90%]
+                    data-[positionx=RIGHT]:left-4/5 data-[positionx=CENTER]:left-1/2 data-[positionx=CENTER]:-translate-x-1/2 data-[positionx=LEFT]:right-0
+                    text-center transition-opacity data-[hidden=true]:hidden data-[active=false]:hidden`
                 }
             >
 
@@ -61,10 +64,15 @@ export function TutoralContainer({ children, title, text, position = "BOTTOM", h
                     </div>
                 </div>
 
-
                 <IoCaretDownOutline
-                    data-position={position}
-                    className="border-light/40 fill-primary-100 absolute left-1/2 -translate-x-1/2 data-[position='BOTTOM']:top-0 data-[position='BOTTOM']:-translate-y-[78%] data-[position='BOTTOM']:rotate-180"
+                    data-positiony={positionY}
+                    data-positionx={positionX}
+                    className={
+                        `border-light/40 fill-primary-100 absolute 
+                        data-[positiony='BOTTOM']:top-0 data-[positiony='BOTTOM']:-translate-y-[78%] data-[positiony='BOTTOM']:rotate-180
+                        data-[positionx='LEFT']:right-2 data-[positionx='CENTER']:left-1/2 data-[positionx=CENTER]:-translate-x-1/2
+                        `
+                    }
                 />
             </div>
             <div

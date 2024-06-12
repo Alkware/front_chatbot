@@ -57,7 +57,6 @@ export function OptionsTable({ client, handleRequestDataProject, setColumns, col
 
     return (
         <div className="w-full md:w-[70vw] px-4 flex flex-row-reverse md:flex-row flex-wrap lg:flex-nowrap gap-4 lg:gap-8 justify-center lg:justify-end items-center">
-           
             <div
                 className="w-1/5 md:w-auto p-2 flex justify-center bg-light dark:bg-dark border border-primary-100 rounded-md cursor-pointer"
                 onClick={reloadMetric}

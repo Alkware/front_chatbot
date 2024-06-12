@@ -10,6 +10,8 @@ import { ModalContext } from "../../context/ModalContext";
 import { PopUp } from "../../components/modal/templates/PopUp";
 import { Button } from "../../components/button/Button";
 import { PopOver } from "../../components/modal/templates/PopOver";
+import { loading } from "../../functions/loading";
+import { InputPassword } from "../Panel/components/MainPanelClient/components/ControlComponentsSelectedMenu/components/ConfigProfile/components/ChangePassword/components/InputPassword/InputPassword";
 
 
 const createClientFormSchema = z.object({
@@ -48,7 +50,9 @@ export function FirstAccess() {
             const { token } = client.data
 
             const createPassowordAndRedirectToPanel = async (event: FormEvent<HTMLFormElement>) => {
+                loading(event.currentTarget.querySelector("button"), true);
                 event.preventDefault();
+
                 const containerInputs: any = event.currentTarget;
                 if (!containerInputs) return;
 
@@ -58,7 +62,8 @@ export function FirstAccess() {
 
                 if (password.length > 6) {
                     if (password === confirm) {
-                        const clientIsLogged = token && await authenticateClient(token)
+                        const clientIsLogged = token && await authenticateClient(token);
+
                         const response = await changePasswordClient({
                             client_id: clientIsLogged.data.client.id,
                             current_password: "wipzee",
@@ -72,13 +77,22 @@ export function FirstAccess() {
                                     <PopOver
                                         componentName="modal_show_success_password"
                                         message="Senha criada com sucesso!"
-                                        functionAfterComplete={()=>{
+                                        functionAfterComplete={() => {
                                             localStorage.setItem("token", token);
                                             navigate("/panel");
                                         }}
                                     />
                             })
-                        }
+                        } else setModalContent({
+                            componentName: "modal_show_failed_password",
+                            components:
+                                <PopOver
+                                    componentName="modal_show_failed_password"
+                                    type="WARNING"
+                                    message='Sua senha já foi criada, tente redefini-la em "Esqueci minha senha"'
+                                />
+                        })
+
                     } else setModalContent({
                         componentName: "modal_pass_not_equal",
                         components:
@@ -99,30 +113,31 @@ export function FirstAccess() {
                 })
 
                 clearModal("modal_create_password")
+
+
+                loading(event.currentTarget.querySelector("button"), false);
             }
 
             setModalContent({
                 componentName: "modal_create_password",
                 components:
                     <PopUp>
-                        <h2 className="text-center text-xl font-bold mb-8">Crie uma nova senha:</h2>
-                        <form onSubmit={createPassowordAndRedirectToPanel}>
-                            <div className="flex flex-col gap-4">
-                                <input
-                                    type="password"
-                                    name="password"
-                                    placeholder="Digite sua nova senha"
-                                />
-                                <input
-                                    type="password"
-                                    name="confirm"
-                                    placeholder="Confirme sua senha"
-                                />
-                            </div>
-                            <Button
-                                customClass="mx-auto mt-8"
-                            >Criar senha</Button>
-                        </form>
+                        <div className="p-4">
+                            <h2 className="text-center text-xl font-bold mb-8">Crie uma nova senha:</h2>
+                            <form onSubmit={createPassowordAndRedirectToPanel}>
+                                <div className="flex flex-col gap-4">
+                                    <InputPassword
+                                        name="password"
+                                    />
+                                    <InputPassword
+                                        name="confirm"
+                                    />
+                                </div>
+                                <Button
+                                    customClass="mx-auto mt-8"
+                                >Criar senha</Button>
+                            </form>
+                        </div>
                     </PopUp>
             })
 

@@ -44,7 +44,7 @@ const UserPlanInfoProfile = ({ }: UserPlanTypes) => {
     }
 
     const handleConfigProfile = () => {
-        navigate("/panel?tab=6")
+        navigate("/panel?tab=config")
     }
 
     return (

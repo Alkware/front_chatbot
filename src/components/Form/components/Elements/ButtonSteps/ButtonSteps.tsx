@@ -59,7 +59,7 @@ export function FormButtonStep({ numberChildren, findErrorMessage, hiddenPreview
     }
 
     return (
-        <div className="w-full flex gap-4 lg:gap-16 xl:gap-20 justify-center items-center my-8">
+        <div className="w-full flex gap-4 lg:gap-16 xl:gap-20 justify-center items-center my-4">
 
             <Button
                 type="button"

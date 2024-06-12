@@ -38,22 +38,22 @@ export function Metric() {
     }
 
     return (
-            <Container
-                title="Métricas"
-                className="flex-col items-center gap-2 md:gap-8"
-            >
-                <OptionsTable
-                    client={client}
-                    columns={columns}
-                    handleRequestDataProject={handleRequestDataProject}
-                    setColumns={setColumns}
-                />
+        <Container
+            title="Métricas"
+            className="flex-col items-center gap-2 md:gap-8"
+        >
+            <OptionsTable
+                client={client}
+                columns={columns}
+                handleRequestDataProject={handleRequestDataProject}
+                setColumns={setColumns}
+            />
 
-                <TableMetric
-                    columns={columns}
-                    planManagement={planManagement}
-                    setColumns={setColumns}
-                />
-            </Container>
+            <TableMetric
+                columns={columns}
+                planManagement={planManagement}
+                setColumns={setColumns}
+            />
+        </Container>
     )
 };

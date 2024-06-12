@@ -23,7 +23,7 @@ export function TableMetric({ columns, setColumns, planManagement }: BodyTableMe
 
             <div className="flex flex-col">
                 {
-                    planManagement?.project ?
+                    !!planManagement?.project.length ?
                         planManagement.project.map((project: any) =>
                             <div
                                 key={project.id}
@@ -55,11 +55,12 @@ export function TableMetric({ columns, setColumns, planManagement }: BodyTableMe
                         )
 
                         :
-                        <h2 className="text-center p-4">Você ainda não criou nenhum chat, clique em "Meus chats" , depois criar "Novo chat".</h2>
+                        <h2 className="text-center p-4 text-xs">Você não tem nenhuma chat criado, clique em "Meus chats" , depois criar "Novo chat".</h2>
                 }
             </div>
             < div
-                className="flex-none flex "
+                data-hasproject={!!planManagement?.project.length}
+                className="flex-none flex data-[hasproject]:hidden"
             >
                 {
                     columns.map((column: Columns, index) =>
