@@ -24,7 +24,7 @@ export function ListChats({ chats, setIndex }: ListChats) {
         !!chats.length &&
         <div
             data-isopen={window.innerWidth < 768 ? !!isOpen : true}
-            className="w-full md:w-[400px] md:max-h-[400px] fixed md:static top-0 bg-dark md:bg-transparent left-0 h-full overflow-auto flex flex-col border-r border-light/40 data-[isopen=false]:hidden"
+            className="w-full md:w-[400px] md:max-h-[400px] fixed md:static top-0 md:bg-transparent left-0 h-full overflow-auto flex flex-col border-r border-light/40 data-[isopen=false]:hidden"
         >
             {
                 chats.map((chat, index) =>

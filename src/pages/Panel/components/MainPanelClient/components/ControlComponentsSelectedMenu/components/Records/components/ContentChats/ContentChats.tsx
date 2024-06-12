@@ -16,7 +16,7 @@ interface ContentChats {
 interface InfoChat {
     logoChat: string;
     projectName: string;
-    leads: Lead_collected[];
+    leads?: Lead_collected[];
 }
 
 export function ContentChats({ planMessageManager, index }: ContentChats) {
@@ -32,8 +32,8 @@ export function ContentChats({ planMessageManager, index }: ContentChats) {
             const projectName = projects?.project_name
             const leads = projects?.plan_message_manager.map(msg => msg.lead_collected).flat();
 
-            if (logoChat && projectName && leads?.length) {
-                setInfoChat({ logoChat, projectName, leads })
+            if (logoChat && projectName) {
+                setInfoChat({ logoChat, projectName, leads})
             }
         }
     }, [])
@@ -45,7 +45,6 @@ export function ContentChats({ planMessageManager, index }: ContentChats) {
     }
 
     return (
-        infoChat &&
         <div className="w-full h-full flex flex-col mb-8 md:mb-0" >
             <div className="w-full h-full flex flex-col gap-4">
                 <div className="w-full h-[60px] flex justify-between items-center px-4 bg-primary-100">
@@ -65,7 +64,7 @@ export function ContentChats({ planMessageManager, index }: ContentChats) {
                             onClick={handleDisplayLeadsCollected}
                         >
                             <MdLeaderboard />
-                            {infoChat.leads.filter(lead => lead.email || lead.name || lead.cell_phone && lead).length}
+                            {infoChat?.leads?.filter(lead => lead.email || lead.name || lead.cell_phone && lead).length}
                         </div>
                     </TipContainer>
                 </div>
