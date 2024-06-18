@@ -47,7 +47,6 @@ export function FormInputColor({ title, joinAtInput, containerWidth, ...props }:
     }
 
     return (
-
         <div
             className={twMerge("w-full flex items-center gap-2 mt-8", containerWidth)}
             ref={containerRef}

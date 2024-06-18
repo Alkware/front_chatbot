@@ -106,9 +106,7 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                 return;
             }
 
-
-            newData.chat_appearance.can_update = project.chat_appearance.can_update
-            newData.chat_appearance.id = project.chat_appearance.id
+            newData.chat_appearance.id = project.chat_appearance?.id
             const projectUpdate: AxiosResponse<Project, Project> | void = await updateProject(newData, project.slug)
             if (projectUpdate && projectUpdate.status === 200) {
                 setProjects(projects => {
