@@ -49,29 +49,37 @@ export function FirstAccess() {
         if (client?.status === 200) {
             const { token } = client.data
 
+            // Cria nova senha para o cliente e redireciona para o painel...
             const createPassowordAndRedirectToPanel = async (event: any) => {
+                // Busca o componente form...
                 const containerForm = event.target || event.currentTarget;
                 if (!containerForm) return;
 
-                console.log(containerForm)
+                // Adiciona loading ao botão submit...
                 loading(containerForm.querySelector("button"), true);
 
-
+                // Previne o comportamento padrão do form...
                 event.preventDefault();
 
+                // Extrai a nova senha do usuário...
                 const password = containerForm.querySelector("input[name=password]").value;
                 const confirm = containerForm.querySelector("input[name=confirm]").value;
 
+                // Verifica se ela é maior que 6 caracteres
                 if (password.length > 6) {
+                    // Verifica se ela é igual a confirmação de senha...
                     if (password === confirm) {
+                        // Faz o login do cliente com os dados atuais...
                         const clientIsLogged = token && await authenticateClient(token);
 
+                        // Muda a senha do usuário. (Só funciona para novos usuários, por isso a atual senha é 'wipzee')...
                         const response = await changePasswordClient({
                             client_id: clientIsLogged.data.client.id,
                             current_password: "wipzee",
                             new_password: confirm
                         });
 
+                        // Informa o usuário que a senha foi alterada com sucesso...
                         if (response?.status === 200) {
                             setModalContent({
                                 componentName: "modal_show_success_password",
@@ -85,6 +93,7 @@ export function FirstAccess() {
                                         }}
                                     />
                             })
+                            //Informa que a senha não foi alterada...
                         } else setModalContent({
                             componentName: "modal_show_failed_password",
                             components:
@@ -94,7 +103,7 @@ export function FirstAccess() {
                                     message='Sua senha já foi criada, tente redefini-la em "Esqueci minha senha"'
                                 />
                         })
-
+                        // Informa que as senhas não são iguais...
                     } else setModalContent({
                         componentName: "modal_pass_not_equal",
                         components:
@@ -104,6 +113,7 @@ export function FirstAccess() {
                                 type="WARNING"
                             />
                     })
+                    // Informa que  a senha é fraca...
                 } else setModalContent({
                     componentName: "modal_pass_is_small",
                     components:

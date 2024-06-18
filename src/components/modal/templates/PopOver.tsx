@@ -6,7 +6,7 @@ interface PopOver {
     message: string,
     type?: "INFORMATION" | "WARNING" | "ERROR",
     functionAfterComplete?: () => void,
-    componentName: `modal_${string}`
+    componentName: `modal_${string}`;
 }
 
 export function PopOver({ message, type = "INFORMATION", functionAfterComplete, componentName }: PopOver) {

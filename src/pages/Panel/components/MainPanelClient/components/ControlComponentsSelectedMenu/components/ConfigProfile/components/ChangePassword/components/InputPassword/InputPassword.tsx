@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { UseFormReturn, useFormContext } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 interface InputPassword {
-    name: string
+    name: string;
+    form?: UseFormReturn;
 }
 
-export function InputPassword({ name }: InputPassword) {
-    const formContext = useFormContext();
+export function InputPassword({ name, form }: InputPassword) {
+    const formContext = useFormContext() || form;
     const [isOpen, setIsOpen] = useState<Boolean>(false);
 
     const handleDisplayPassword = () => setIsOpen(v => !v)

@@ -13,6 +13,7 @@ import { Terms } from "./pages/Terms/Terms"
 import { Cookies } from "./pages/Cookies/Cookies"
 import { FirstAccess } from "./pages/FirstAccess/FirstAccess"
 import { ConfirmEmail } from "./pages/ConfirmEmail/ConfirmEmail"
+import { ForgotPassword } from "./pages/ForgotPassword/ForgotPassword"
 
 const Panel = lazy(() => import("./pages/Panel/Panel"));
 
@@ -33,7 +34,7 @@ function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/cookies" element={<Cookies />} />
         <Route path="/confirm-email" element={<ConfirmEmail />} />
-        <Route path="/forgot-password" element={<h1>Página em contrução.</h1>} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/*" element={<h1>Page not found</h1>} />
       </Routes>
 

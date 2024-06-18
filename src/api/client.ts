@@ -50,7 +50,7 @@ export async function updateClient(data: { client_id: string, fullname?: string,
 }
 
 
-export async function changePasswordClient(data: { client_id: string, current_password: string, new_password: string }) {
+export async function changePasswordClient(data: { client_id: string, current_password?: string, new_password: string }) {
 
     const client = await axios.put(`${API_URL}/client/change_password/${data.client_id}`, data)
         .catch(err => {
@@ -58,6 +58,17 @@ export async function changePasswordClient(data: { client_id: string, current_pa
         })
 
     return client
+}
+
+// função com rota para recuperar a senha do usuário...
+export async function recoverPassword(data: { email: string, fullname: string, cpf_cnpj: string }) {
+
+    const response = await axios.patch(`${API_URL}/client/recover_password`, data)
+        .catch(err => {
+            console.error(err)
+        })
+
+    return response
 }
 
 export async function checkUserIsAvailable(user: string) {
