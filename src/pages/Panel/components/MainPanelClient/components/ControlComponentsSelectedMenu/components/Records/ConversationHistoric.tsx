@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { ListChats } from "./components/ListChats/ListChats";
 import { ContentChats } from "./components/ContentChats/ContentChats";
-import { IoIosChatboxes } from "react-icons/io";
 import { FaArrowRotateLeft } from "react-icons/fa6";
 import { useSearchParams } from "react-router-dom";
 import { ClientContext } from "../../../../../../../../context/ClientContext";
@@ -10,7 +9,7 @@ import { convertDateInHour } from "../../../../../../../../functions/convertDate
 import { Container } from "../../../../../../../../components/Container/Container";
 import { TipContainer } from "../../../../../../../../components/TipContainer/TipContainer";
 import { SelectTime } from "../../../../../../../../components/SelectTime/SelectTime";
-import { Select } from "../../../../../../../../components/Select/Select";
+import { Options, Select } from "../../../../../../../../components/Select/Select";
 import { Button } from "../../../../../../../../components/button/Button";
 import { PlanMessageManager } from "../../../../../../../../@types/planMessageManager.types";
 
@@ -22,7 +21,14 @@ export function ConversationHistoric() {
     const [chats, setChats] = useState<PlanMessageManager[]>([]);
 
     // Cria uma lista de objeto para ser usado em um select...
-    const projects = client?.plan_management?.project.map((project: Project) => Object({ id: project.project_name.replace(" ", "_"), name: project.project_name }))
+    const projects: Options[] | undefined = client?.plan_management?.project.map((project: Project) => {
+        return {
+            id: project.project_name.replace(" ", "_"),
+            value: project.project_name,
+            text: project.project_name
+        }
+    });
+
 
     // Assim que o componente é montado é feito um filtro nos chats...
     useEffect(() => {
@@ -50,11 +56,9 @@ export function ConversationHistoric() {
     }, [searchParams])
 
 
-    const handleSelectProject = ({ target }: any) => {
-        const index = target.selectedIndex
-        const selected = target.options[index].value
+    const handleSelectProject = (id: string) => {
         const newUrlParams = new URLSearchParams(searchParams)
-        newUrlParams.set("project", selected)
+        newUrlParams.set("project", id)
         setSearchParams(newUrlParams)
     }
 
@@ -85,10 +89,10 @@ export function ConversationHistoric() {
             <div className="w-full flex flex-col-reverse md:flex-row gap-2 md:gap-8 md:h-[40px]  px-4 md:px-0">
                 <TipContainer tip="Selecione um chat">
                     <Select
+                        name="select_chat"
                         title="Selecione um chat"
                         options={projects || []}
-                        Icon={IoIosChatboxes}
-                        handleSelectDatabase={handleSelectProject}
+                        onSelected={handleSelectProject}
                     />
                 </TipContainer>
 
@@ -123,12 +127,12 @@ export function ConversationHistoric() {
                 />
                 {
                     !!chats.length ?
-                    <ContentChats
-                        planMessageManager={chats}
-                        index={index}
-                    />
-                    :
-                    <h2 className="p-4 text-center w-full">Você ainda não teve acessos no seu chat</h2>
+                        <ContentChats
+                            planMessageManager={chats}
+                            index={index}
+                        />
+                        :
+                        <h2 className="p-4 text-center w-full">Você ainda não teve acessos no seu chat</h2>
                 }
             </div>
         </Container>

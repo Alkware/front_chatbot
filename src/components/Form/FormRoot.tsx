@@ -5,7 +5,7 @@ import { FormTextArea } from "./components/Fields/FormTextArea";
 import { FormOptional } from "./components/Containers/FormOptional";
 import { FormContainer } from "./components/Containers/FormContainer";
 import { FormCheckBox } from "./components/Fields/FormCheckBox";
-import { FormSelect } from "./components/Fields/FormSelect/FormSelect";
+import { FormSelect } from "./components/Fields/FormSelect";
 import { FormFile } from "./components/Fields/FormFile";
 import { FormEditContainer } from "./components/Containers/FormEditContainer";
 import { FormEditStep } from "./components/Containers/FormEditStep";

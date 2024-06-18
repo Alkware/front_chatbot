@@ -7,7 +7,7 @@ export function eventManager(project: Project, time: number = 0) {
 
     // Obtem o número de chats abertos...
     function getNumberChat() {
-        const openChats = project.metric.chat_event.reduce((total, ev) => {
+        const openChats = project.metric?.chat_event.reduce((total, ev) => {
 
             const chatsFiltered = ev.open_chat.filter(chat => {
                 const hoursDifference = convertDateInHour(chat.created_at)
@@ -17,12 +17,12 @@ export function eventManager(project: Project, time: number = 0) {
             return total + chatsFiltered.length
         }, 0)
 
-        return openChats
+        return openChats || 0;
     }
 
     // Obtem o número de chats unicos abertos, ou seja chats abertos por dispositivos diferentes
     function getNumberUniqueChat() {
-        const filterTimeChats = project.metric.chat_event.filter((chat) => {
+        const filterTimeChats = project.metric?.chat_event.filter((chat) => {
             const hoursDifference = convertDateInHour(chat.created_at)
             return time > 0 ? hoursDifference <= time : true
         }) || [];
@@ -74,7 +74,7 @@ export function eventManager(project: Project, time: number = 0) {
     // Obtem o tempo de uso do chat...
     function getUsageTime() {
 
-        const milliseconds = project.metric.chat_event.reduce((total, ev) => {
+        const milliseconds = project.metric?.chat_event.reduce((total, ev) => {
 
             const chatsFiltered = ev.chat_time.filter(chat => {
                 const hoursDifference = convertDateInHour(chat.created_at)
@@ -100,7 +100,7 @@ export function eventManager(project: Project, time: number = 0) {
 
     // Obtem a média de tempo de uso por chat...
     function getMediaUsageTime() {
-        const totalMilliseconds = project.metric.chat_event.reduce((total, ev) => {
+        const totalMilliseconds = project.metric?.chat_event.reduce((total, ev) => {
             const chatsFiltered = ev.chat_time.filter(chat => {
                 const hoursDifference = convertDateInHour(chat.created_at)
                 return time > 0 ? hoursDifference <= time : true
@@ -126,12 +126,12 @@ export function eventManager(project: Project, time: number = 0) {
 
     // Obtem a quantidade de cliques no link...
     function getClicksLink() {
-        const buttons = project.metric.button_event.filter((ev: any) => {
+        const buttons = project.metric?.button_event.filter((ev: any) => {
             const hoursDifference = convertDateInHour(ev)
             return time > 0 ? hoursDifference <= time : true
         }, 0)
 
-        return buttons.reduce((total: number, btn) => total + btn.clicked_button.length, 0)
+        return buttons?.reduce((total: number, btn) => total + btn.clicked_button.length, 0) || 0;
     }
 
     // Obtem a quantidade de cliques no link...

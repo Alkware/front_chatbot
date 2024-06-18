@@ -25,7 +25,7 @@ export const ListMenuModal = ({ children }: ListMenuModal) => {
             data-isopenmobileopen={isOpenMobileOpen}
             className="w-full h-[90%] flex flex-col fixed md:static top-0 left-0 z-40 bg-primary-300 md:bg-transparent data-[isopenmobileopen=false]:hidden md:data-[isopenmobileopen]:block" 
         >
-            <ul className="w-full flex flex-col uppercase">
+            <ul className="w-full flex flex-col">
                 {
                     children.map((child: any, index: number) =>
                         <div

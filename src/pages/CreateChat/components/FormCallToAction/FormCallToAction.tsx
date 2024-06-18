@@ -37,11 +37,11 @@ export function CallToActionFormChat({ prompts }: CallToActionFormChat) {
         const cta = callToActions && callToActions[fields.length - 1];
         const prompt_id = watch(`step_1.prompt_id`);
 
-        if(!prompt_id) {
+        if (!prompt_id) {
             setModalContent({
                 componentName: "modal_error_not_selected_db",
-                components: 
-                    <PopOver 
+                components:
+                    <PopOver
                         componentName="modal_error_not_selected_db"
                         message="Selecione primeiro uma fonte de dados, antes de adicionar uma CTA."
                     />
@@ -55,10 +55,8 @@ export function CallToActionFormChat({ prompts }: CallToActionFormChat) {
         const products = convertObject.step_0.products.map((product, index) => Object({ id: index, name: product.name }));
         const removeProductsSelected = products.filter((product) => !callToActions?.find(cta => cta.button_text === product.name) && product);
 
-        const handleSelectDatabase = (e: any) => {
-            const index = e.target.value;
-            const selected = products[index]
-            append({ button_text: selected.name, button_link: "", button_describe: "", })
+        const handleSelectDatabase = (id: string) => {
+            append({ button_text: id, button_link: "", button_describe: "", })
             clearModal("modal_show_select_products");
         }
 
@@ -77,9 +75,10 @@ export function CallToActionFormChat({ prompts }: CallToActionFormChat) {
                                         </p>
                                     </div>
                                     <Select
+                                        name="selected_product"
                                         options={removeProductsSelected}
                                         title="Selecionar produto"
-                                        handleSelectDatabase={handleSelectDatabase}
+                                        onSelected={handleSelectDatabase}
                                     />
                                     <div className="flex justify-evenly">
                                         <Button
@@ -155,7 +154,7 @@ export function CallToActionFormChat({ prompts }: CallToActionFormChat) {
                                     title="Digite a descrição do link"
                                 />
                             </Root.Container>
-                            
+
                             <div className="flex flex-col gap-4">
                                 <MdAdd
                                     className="text-3xl p-1 fill-primary-100 bg-primary-300 rounded-full cursor-pointer"
