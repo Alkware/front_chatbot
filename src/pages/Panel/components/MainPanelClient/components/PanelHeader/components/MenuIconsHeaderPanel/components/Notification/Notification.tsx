@@ -75,6 +75,7 @@ export function Notification() {
                 />
             </div>
 
+            {/* Modal que mostra todas as notificação do usuário  */}
             <div
                 data-display={!!displayNotification}
                 className="w-full h-screen md:h-auto md:min-w-[400px] data-[display=false]:hidden flex flex-col fixed md:absolute z-50 md:rounded-md bg-primary-100 p-4 top-0 md:top-auto right-0 md:translate-x-[122px] md:my-2"
@@ -87,7 +88,7 @@ export function Notification() {
                     <h2 className="text-xl font-bold">Notificações</h2>
                     <Button>Marcar todas como lida</Button>
                 </div>
-                <div className="w-full flex flex-col">
+                <div className="w-full flex flex-col  md:max-h-[300px] overflow-auto">
                     {
                         notifications?.length ? notifications?.map((notification) =>
                             <div
