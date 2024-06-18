@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authenticateClient, changePasswordClient, loginClientFirstAccess } from "../../api/client";
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Header } from "../Home/components/Header/Header";
 import { Root } from "../../components/Form/FormRoot";
 import { ModalContext } from "../../context/ModalContext";
@@ -49,16 +49,18 @@ export function FirstAccess() {
         if (client?.status === 200) {
             const { token } = client.data
 
-            const createPassowordAndRedirectToPanel = async (event: FormEvent<HTMLFormElement>) => {
-                loading(event.currentTarget.querySelector("button"), true);
+            const createPassowordAndRedirectToPanel = async (event: any) => {
+                const containerForm = event.target || event.currentTarget;
+                if (!containerForm) return;
+
+                console.log(containerForm)
+                loading(containerForm.querySelector("button"), true);
+
+
                 event.preventDefault();
 
-                const containerInputs: any = event.currentTarget;
-                if (!containerInputs) return;
-
-                const password = containerInputs.querySelector("input[name=password]").value;
-                const confirm = containerInputs.querySelector("input[name=confirm]").value;
-
+                const password = containerForm.querySelector("input[name=password]").value;
+                const confirm = containerForm.querySelector("input[name=confirm]").value;
 
                 if (password.length > 6) {
                     if (password === confirm) {

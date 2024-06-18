@@ -17,13 +17,12 @@ export function InputPassword({ name }: InputPassword) {
             {
                 formContext ?
                     <input
-                        className=""
                         type={isOpen ? "text" : "password"}
                         {...formContext.register(name)}
                     />
                     :
                     <input
-                        className=""
+                        name={name}
                         type={isOpen ? "text" : "password"}
                     />
             }
