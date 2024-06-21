@@ -31,7 +31,7 @@ export const ListMenuModal = ({ children }: ListMenuModal) => {
                         <div
                             key={child.props.index}
                             data-isactive={index === Number(params.get(STEP_NAME_URL)) ? true : false}
-                            className="w-full text-center data-[isactive=true]:bg-primary-200 hover:bg-primary-200 overflow-hidden px-2 flex justify-start items-center text-base"
+                            className="w-full text-center data-[isactive=true]:text-light data-[isactive=true]:bg-primary-100 dark:data-[isactive=true]:bg-primary-200 hover:bg-primary-100 hover:text-light dark:hover:bg-primary-200 overflow-hidden px-2 flex justify-start items-center text-base"
                         >
                             <Li
                                 text={child.props.titleStep}

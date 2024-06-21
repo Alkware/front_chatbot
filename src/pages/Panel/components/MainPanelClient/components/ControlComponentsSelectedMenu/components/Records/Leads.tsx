@@ -9,7 +9,7 @@ export function Leads({ }: Leads) {
     const { client } = useContext(ClientContext);
     const titles = ["nome", "e-mail", "Telefone"]
     const rows = client?.plan_management.project.flatMap(project =>
-        project.plan_message_manager.flatMap(manager =>
+        project.message_manager.flatMap(manager =>
             manager.lead_collected.map(lead => [lead.name || "-", lead.email || "-", lead.cell_phone || "-"])))
 
     return (

@@ -38,7 +38,7 @@ export function eventManager(project: Project, time: number = 0) {
     // Obtem a quantidade de mensagem enviadas para IA...
     function getInputMessages() {
         // Filtra todas as mensagens baseado no tempo
-        const messages = project.plan_message_manager.map((manager) => {
+        const messages = project.message_manager.map((manager) => {
             const filteredMessage = manager.messages.filter(msg => {
                 const hoursDifference = convertDateInHour(msg.time)
                 return time > 0 ? hoursDifference <= time : true
@@ -52,7 +52,7 @@ export function eventManager(project: Project, time: number = 0) {
     // Obtem a quantidade de mensagem enviadas pela IA...
     function getOutputMessages() {
         // Filtra todas as mensagens baseado no tempo
-        const messages = project.plan_message_manager.map((manager) => {
+        const messages = project.message_manager.map((manager) => {
             const filteredMessage = manager.messages.filter(msg => {
                 const hoursDifference = convertDateInHour(msg.time)
                 return time > 0 ? hoursDifference <= time : true
@@ -137,7 +137,7 @@ export function eventManager(project: Project, time: number = 0) {
     // Obtem a quantidade de cliques no link...
     function getLeadsCollected() {
         // Filtra todas as mensagens baseado no tempo
-        const messages = project.plan_message_manager.map((manager) => {
+        const messages = project.message_manager.map((manager) => {
             // const filteredMessage = manager.lead_collected.filter(lead => {
             //     const hoursDifference = convertDateInHour(lead.time)
 

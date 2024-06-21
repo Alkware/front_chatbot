@@ -53,7 +53,7 @@ export function Table({ titleColumn, rows = [[]], maxPerPage = 10 }: Table) {
                 <>
                     <table className="max-w-full block overflow-x-auto whitespace-nowrap">
                         <thead className="w-full bg-primary-100/30 border-2 border-primary-100/60">
-                            <tr className="">
+                            <tr className="w-full">
                                 {titleColumn.map((title) => <th key={v4()} className="uppercase p-2 px-3 border-r border-primary-100/40">{title}</th>)}
                             </tr>
                         </thead>

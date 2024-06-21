@@ -1,5 +1,5 @@
 import { MouseEvent, RefObject, useEffect, useRef, useState } from "react"
-import { getPlanMessageManagerByProjectId } from "../../../../../../api/planMessageManager";
+import { getMessageManagerByProjectId } from "../../../../../../api/messageManager";
 import { MdArrowDropDown, MdCheck } from "react-icons/md";
 
 const contents = [
@@ -33,7 +33,7 @@ export function FrequentlyQuestions() {
 
     useEffect(() => {
         (async () => {
-            const response = await getPlanMessageManagerByProjectId(PROJECT_ID_WIPZEE);
+            const response = await getMessageManagerByProjectId(PROJECT_ID_WIPZEE);
             if(response){
                 const { available } = response?.data.response;
                 console.log(available)

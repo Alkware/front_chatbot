@@ -11,14 +11,14 @@ import { TipContainer } from "../../../../../../../../components/TipContainer/Ti
 import { SelectTime } from "../../../../../../../../components/SelectTime/SelectTime";
 import { Options, Select } from "../../../../../../../../components/Select/Select";
 import { Button } from "../../../../../../../../components/button/Button";
-import { PlanMessageManager } from "../../../../../../../../@types/planMessageManager.types";
+import { MessageManager } from "../../../../../../../../@types/messageManager.types";
 
 
 export function ConversationHistoric() {
     const { client } = useContext(ClientContext);
     const [searchParams, setSearchParams] = useSearchParams();
     const [index, setIndex] = useState<number>(0);
-    const [chats, setChats] = useState<PlanMessageManager[]>([]);
+    const [chats, setChats] = useState<MessageManager[]>([]);
 
     // Cria uma lista de objeto para ser usado em um select...
     const projects: Options[] | undefined = client?.plan_management?.project.map((project: Project) => {
@@ -46,7 +46,9 @@ export function ConversationHistoric() {
 
                 // Filtra por tempo...
                 const chats = projectsFiltered.map((project: Project) => {
-                    const chats = project.plan_message_manager.filter(chat => Number(time) ? convertDateInHour(chat.created_at) <= Number(time) : true)
+                    const chats = project.message_manager.filter(chat => {
+                        return Number(time) ? convertDateInHour(chat.created_at) <= Number(time) : true
+                    })
                     return chats;
                 }).flat();
 
@@ -56,19 +58,18 @@ export function ConversationHistoric() {
     }, [searchParams])
 
 
+    // Função que seleciona um chat...
     const handleSelectProject = (id: string) => {
-        const newUrlParams = new URLSearchParams(searchParams)
-        newUrlParams.set("project", id)
-        setSearchParams(newUrlParams)
+        searchParams.set("project", id.replaceAll(" ", "_"))
+        setSearchParams(searchParams)
     }
 
+    // Função responsavél por buscar novos dados da api...
     const reloadMetric = async ({ currentTarget }: any) => {
 
         if (client?.plan_management) {
             const icon: SVGAElement = currentTarget.querySelector("svg")
             icon.classList.add("rotate-[-360deg]", "transition-transform", "duration-1000")
-
-
 
             const timeout = setTimeout(() => {
                 icon.classList.remove("rotate-[-360deg]", "transition-transform", "duration-1000")
@@ -128,7 +129,7 @@ export function ConversationHistoric() {
                 {
                     !!chats.length ?
                         <ContentChats
-                            planMessageManager={chats}
+                            messageManager={chats}
                             index={index}
                         />
                         :

@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction } from "react"
 import { formatDate } from "../../../../../../../../../../functions/formatDate"
 import { useSearchParams } from "react-router-dom";
-import { PlanMessageManager } from "../../../../../../../../../../@types/planMessageManager.types";
+import { MessageManager } from "../../../../../../../../../../@types/messageManager.types";
 
 
 interface ListChats {
-    chats: PlanMessageManager[] | [],
+    chats: MessageManager[] | [],
     setIndex: Dispatch<SetStateAction<number>>
 }
 

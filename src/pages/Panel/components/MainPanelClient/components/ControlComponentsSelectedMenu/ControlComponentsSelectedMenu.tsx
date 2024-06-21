@@ -42,6 +42,5 @@ export function ControlComponentsSelectedMenu() {
             {handleDisplayContainer()}
         </div>
 
-
     )
 }

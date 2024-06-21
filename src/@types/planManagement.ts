@@ -1,6 +1,7 @@
 import { Plan } from "./Plan";
 import { Project } from "./Project"
 import { Database } from "./Database.types"
+import { MessageManager } from "./messageManager.types";
 
 export interface PlanManagement {
     id: string,
@@ -11,6 +12,10 @@ export interface PlanManagement {
     status: "DISABLED" | "ACTIVE",
     created_at: string,
     metric_analysis: Array<{}>;
+    project: Project[],
+    plan: Plan,
+    prompt: Database[]
+    message_manager: MessageManager
     trasaction: Array<{
         payment_method: string,
         amount_paid: number,
@@ -19,13 +24,5 @@ export interface PlanManagement {
         status: "APPROVED" | "REJECT" | "PENDING"
         transaction_describe : | "PAYMENT" | "REFUND_REQUEST" | "REFUND_CANCELLATION" | "SUBSCRIPTION_CANCELLATION" | "UNKNOWN"
     }>,
-    project: Project[],
-    plan: Plan,
-    prompt: Database[]
-    plan_message_manager: Array<{
-        input: number,
-        output: number, 
-        last_messages_send: any
-    }>
 }
 

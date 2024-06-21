@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
 import { Project } from "../../../../../../../../../../@types/Project";
 import { formatDate } from "../../../../../../../../../../functions/formatDate";
-import { Lead_collected, Message, PlanMessageManager } from "../../../../../../../../../../@types/planMessageManager.types";
+import { Lead_collected, Message, MessageManager } from "../../../../../../../../../../@types/messageManager.types";
 import { MdLeaderboard } from "react-icons/md";
 import { TipContainer } from "../../../../../../../../../../components/TipContainer/TipContainer";
 import { useSearchParams } from "react-router-dom";
 
 
 interface ContentChats {
-    planMessageManager: PlanMessageManager[],
+    messageManager: MessageManager[],
     index: number
 }
 
@@ -19,18 +19,18 @@ interface InfoChat {
     leads?: Lead_collected[];
 }
 
-export function ContentChats({ planMessageManager, index }: ContentChats) {
+export function ContentChats({ messageManager, index }: ContentChats) {
     const { client } = useContext(ClientContext);
     const [infoChat, setInfoChat] = useState<InfoChat>();
     const [param, setParam] = useSearchParams();
 
 
     useEffect(() => {
-        if (planMessageManager.length) {
-            const logoChat = client?.plan_management.project.find((project: Project) => planMessageManager && project.id === project.id)?.logo
-            const projects = client?.plan_management.project.find((project: any) => planMessageManager && project.id === project.id);
+        if (messageManager.length) {
+            const logoChat = client?.plan_management.project.find((project: Project) => messageManager && project.id === project.id)?.logo
+            const projects = client?.plan_management.project.find((project: any) => messageManager && project.id === project.id);
             const projectName = projects?.project_name
-            const leads = projects?.plan_message_manager.map(msg => msg.lead_collected).flat();
+            const leads = projects?.message_manager.map(msg => msg.lead_collected).flat();
 
             if (logoChat && projectName) {
                 setInfoChat({ logoChat, projectName, leads})
@@ -43,6 +43,7 @@ export function ContentChats({ planMessageManager, index }: ContentChats) {
         param.set("tab", "leads");
         setParam(param);
     }
+
 
     return (
         <div className="w-full h-full flex flex-col mb-8 md:mb-0" >
@@ -71,7 +72,7 @@ export function ContentChats({ planMessageManager, index }: ContentChats) {
 
                 <div className="w-full h-full max-h-[400px] p-4 flex flex-col gap-4 overflow-auto">
                     {
-                        planMessageManager[index]?.messages ? planMessageManager[index].messages.map((msg: Message, index) =>
+                        messageManager[index]?.messages ? messageManager[index].messages.map((msg: Message, index) =>
                             <div
                                 key={index}
                                 data-player={msg.player}

@@ -1,8 +1,6 @@
-export interface PlanMessageManager {
+export interface MessageManager {
     id: string
 
-    input: number;
-    output: number;
     lead_collected: Lead_collected[];
     messages: Message[];
     historic_messages: Message[];
@@ -21,4 +19,8 @@ export interface Message {
     player: "assistant" | "user";
     message: string;
     time: string;
+    tokens: {
+        input: number, 
+        output: number, 
+    }
 }

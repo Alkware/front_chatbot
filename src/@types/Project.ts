@@ -1,5 +1,5 @@
 import { Metric } from "./metric.types";
-import { PlanMessageManager } from "./planMessageManager.types";
+import { MessageManager } from "./messageManager.types";
 import { Database } from "./Database.types";
 
 
@@ -21,7 +21,7 @@ export interface Project {
     prompt: Database,
     call_to_action: Call_to_action[],
     social_proof: Social_proof[];
-    plan_message_manager: PlanMessageManager[];
+    message_manager: MessageManager[];
     chat_appearance: {
         id: string,
         can_update: boolean,

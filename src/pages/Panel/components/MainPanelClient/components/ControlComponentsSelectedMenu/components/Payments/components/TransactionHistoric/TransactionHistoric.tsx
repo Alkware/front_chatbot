@@ -8,9 +8,14 @@ export function TransactionHistoric({ plan_management }: { plan_management?: Pla
     const [rows, setRows] = useState<Array<any[]>>();
 
 
-    useEffect(()=>{
-        const rows = plan_management?.trasaction.map(transaction => [plan_management.plan.plan_name, formatDate(transaction.updated_at).dateFormat_A, `${transaction.amount_paid} reais`, transaction.payment_method, transaction.status]);
-        setRows(rows)
+    useEffect(() => {
+        const rows = plan_management?.trasaction.map(transaction => [
+            plan_management.plan.plan_name,
+            formatDate(transaction.updated_at).dateFormat_A,
+            `${transaction.amount_paid} reais`, transaction.payment_method,
+            transaction.status === "APPROVED" ? "Aprovado" : "Pendente"
+        ]);
+        setRows(rows);
     }, [])
 
 
