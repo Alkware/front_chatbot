@@ -43,7 +43,7 @@ export function ModalFeedbackAnalyze({ index, spanReview, metric_analysis_id }: 
     }
 
     return (
-        <div className="w-[300px] flex flex-col items-center gap-2">
+        <div className="w-[300px] flex flex-col items-center gap-2 p-4">
             <h2 className="text-center font-bold text-lg">Sua avaliação foi "{spanReview}".</h2>
             <p className="text-center opacity-80">Gostaria de deixar um feedback em algo poderia melhorar?</p>
             <textarea ref={feedbackRef}></textarea>

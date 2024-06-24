@@ -76,7 +76,7 @@ export function OptionsTable({ client, handleRequestDataProject, setColumns, col
             <Button
                 customClass="w-full md:w-auto px-2 bg-primary-100 border border-primary-100"
                 onClick={handleClickAnalyzeMetric}
-            > <BsStars className="text-xl" /> Analisar métricas com IA</Button>
+            > <BsStars className="text-xl" /> Análise de métrica com IA</Button>
         </div>
     )
 };

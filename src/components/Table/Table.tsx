@@ -51,24 +51,33 @@ export function Table({ titleColumn, rows = [[]], maxPerPage = 10 }: Table) {
         <div className="w-full mx-auto flex flex-col items-center">
             {!!pagination[currentPage] ?
                 <>
-                    <table className="max-w-full block overflow-x-auto whitespace-nowrap">
-                        <thead className="w-full bg-primary-100/30 border-2 border-primary-100/60">
-                            <tr className="w-full">
-                                {titleColumn.map((title) => <th key={v4()} className="uppercase p-2 px-3 border-r border-primary-100/40">{title}</th>)}
-                            </tr>
-                        </thead>
-                        <tbody className="w-full divide-y divide-gray_light">
-                            {pagination[currentPage].map((data, index) =>
-                                <tr
-                                    key={v4()}
-                                    data-color={index % 2 === 0}
-                                    className="w-full data-[color=true]:bg-primary-50/10 h-[30px] table-auto"
-                                >
-                                    {data.map(d => <td key={v4()} className="text-center lowercase">{d}</td>)}
+                    <div className="w-full overflow-auto">
+                        {/* Tabela  */}
+                        <table className="w-full table-auto">
+                            <thead className="w-full bg-primary-100/30 border-2 border-primary-100/60">
+                                <tr className="w-full">
+                                    {titleColumn.map((title) =>
+                                        <th
+                                            key={v4()}
+                                            className="min-w-20 whitespace-nowrap overflow-hidden text-ellipsis uppercase p-2 px-3 border-r border-primary-100/40"
+                                        >{title}</th>)}
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="w-full divide-y divide-gray_light">
+                                {pagination[currentPage].map((data, index) =>
+                                    <tr
+                                        key={v4()}
+                                        data-color={index % 2 === 0}
+                                        className="data-[color=true]:bg-primary-50/10 h-[30px]"
+                                    >
+                                        {data.map(d => <td key={v4()} className="text-center lowercase">{d}</td>)}
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* Controles da tabela */}
                     <div
                         data-pagination={pagination.length > 1}
                         className="w-full flex gap-4 items-center justify-center p-4 data-[pagination=false]:hidden"
@@ -87,7 +96,7 @@ export function Table({ titleColumn, rows = [[]], maxPerPage = 10 }: Table) {
                     </div>
                 </>
                 :
-                <h2>Você ainda não coletou nenhum lead</h2>}
+                <h2>Você ainda não recebeu nenhum dado para ser exibido na tabela</h2>}
         </div>
     )
 };

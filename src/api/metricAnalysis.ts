@@ -13,6 +13,8 @@ export async function createMetricAnalysis(plan_management_id: string, result: s
         result
     });
 
+
+
     if(response.data.error) throw new Error("Unable to create the Metric Analysis.");
 
     return response;

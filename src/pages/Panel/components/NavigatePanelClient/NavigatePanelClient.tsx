@@ -25,7 +25,7 @@ function NavigatePanelClient() {
                 className="flex flex-col min-h-screen py-4 md:py-0 data-[isopenmobilemenu='false']:hidden md:data-[isopenmobilemenu='false']:flex bg-gradient-to-b from-primary-100 via-light to-light dark:to-primary-300 dark:via-primary-300"
             >
                 <MenuHambuguer
-                urlParamName={PARAM_MENU_MOBILE.url_name}
+                    urlParamName={PARAM_MENU_MOBILE.url_name}
                     className="md:hidden"
                 />
 

@@ -219,7 +219,6 @@ export function ModalEditChat({ project, setProjects }: ModalEditChat) {
                         title="Digite a primeira mensagem do seu chat"
                     />
 
-
                     <SocialProof />
                 </Root.EditStep>
 

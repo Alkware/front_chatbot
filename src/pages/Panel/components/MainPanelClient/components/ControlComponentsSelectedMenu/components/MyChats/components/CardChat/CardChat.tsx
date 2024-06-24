@@ -178,7 +178,7 @@ export function CardChat({ project, setNewProject, prompts }: CardChat) {
             </div>
             <h2
                 className="text-center py-4 font-bold text-xl flex gap-2 items-center "
-                onClick={()=> navigate("/panel?tab=1")}
+                onClick={()=> navigate("/panel?tab=metrics")}
             >
                 <FaChartColumn />
                 {project.project_name}

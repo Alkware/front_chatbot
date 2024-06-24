@@ -35,6 +35,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
             },
             step_1: {
                 payment_methods: promptData.step_1.payment_methods || [],
+                credit_card_installments: promptData.step_1.credit_card_installments || "",
                 order_tracking: promptData.step_1.order_tracking || "",
                 tracking_link: promptData.step_1.tracking_link || ""
             },

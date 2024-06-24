@@ -31,11 +31,15 @@ interface ResponseAI {
 
 var prompt = `
  A wipzee é uma empresa que fornece um chatbot com inteligencia artificial, promovendo uma experiência completa ao usuário.
- Desda personalização do chat até o consumo de dados (Métricas), abaixo será informado as minhas métricas, quero que você faça uma analise
- completa e sugira melhorias ou me de feedbacks positivos sobre as métricas.
+ Desda personalização do chat até o consumo de dados (Métricas), abaixo será informado as métricas do usuário, quero que você faça uma analise
+ completa e sugira melhorias ou de feedbacks positivos sobre as métricas.
 
- exemplo 1: se tiver muitos chats abertos e nenhum clique no link, significa que o cliente não está sendo influenciado a clicar no link. Sugestão: "Mudar o texto do link e deixar mais atrativo ou melhorar sua fonte de dados."
- exemplo 2: se tiver muitos chats abertos e nenhuma ou poucas mensagens, significa que o cliente não está sentindo avontade de conversar com a IA ou não está conseguindo conversar com ela. SOLUÇÃO: Melhorar a primeira mensagem do chat ou ver se existe algum problema tecnico nas trocas de mengens."
+ exemplo 1: 
+    se tiver muitos chats abertos e nenhum clique no link, significa que o cliente não está sendo influenciado a clicar no link. 
+    Sugestão: "Mudar o texto do link e deixar mais atrativo ou melhorar sua fonte de dados."
+ exemplo 2: 
+    se tiver muitos chats abertos e nenhuma ou poucas mensagens, significa que o cliente não está sentindo avontade de conversar com a IA ou não está conseguindo conversar com ela. 
+    Sugestão: Melhorar a primeira mensagem do chat ou ver se existe algum problema tecnico nas trocas de mensagens."
 `
 
 export function AnalyzeMetric() {
@@ -162,6 +166,7 @@ export function AnalyzeMetric() {
 
         (async () => {
             const response: AxiosResponse<ResponseAI> | void = await analizyDataWithArtifialIntelligence(prompt);
+
             if (response?.status === 200 && !!response.data) {
                 const { text } = response.data.choices[0];
                 const createData = await createMetricAnalysis(client?.plan_management.id, text);
@@ -222,7 +227,7 @@ export function AnalyzeMetric() {
     );
 
     return (
-        <div className="max-w-[500px] flex flex-col items-center gap-4">
+        <div className="w-full md:max-w-[600px] min-w-[400px] flex flex-col items-center gap-4 p-4">
             <div className="flex flex-col items-center">
                 <h2 className="text-2xl font-bold">Relatório da análise</h2>
                 <span className="opacity-70">{analyze.analysis.length}/{Number(client?.plan_management.plan.max_analyze_metric.default)} Análises restantes de hoje</span>
