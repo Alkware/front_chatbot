@@ -28,7 +28,7 @@ export function MainDevice({ messages, size }:MainDevice) {
     return (
         <div 
             ref={containerMessagesRef}
-            className="h-[75%] flex flex-col gap-2 w-full p-2 overflow-y-auto "
+            className="h-[72%] flex flex-col gap-2 w-full p-2 overflow-y-auto "
             >
             {
                 messages.map((msg, index) => {
