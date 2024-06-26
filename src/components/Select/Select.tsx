@@ -15,6 +15,7 @@ interface Select {
     multipleSelect?: boolean;
     useFormContext?: UseFormReturn;
     onSelected?: (id: string) => void;
+    onDelete?: ()=> void;
 }
 
 export interface OptionsState {
@@ -23,7 +24,7 @@ export interface OptionsState {
     selected: boolean
 }
 
-export function Select({ options, name, title, multipleSelect, useFormContext, onSelected }: Select) {
+export function Select({ options, name, title, multipleSelect, useFormContext, onSelected, onDelete }: Select) {
     const contentOptionsRef: RefObject<HTMLDivElement> = useRef(null);
     const addSelectParamToOptions: OptionsState[] = options?.map(option => Object({ ...option, selected: false }) as OptionsState);
     const [optionsState, setOptions] = useState<OptionsState[]>(addSelectParamToOptions);
@@ -78,6 +79,7 @@ export function Select({ options, name, title, multipleSelect, useFormContext, o
 
         registerField(removeValueListSelected.filter(opt => opt.selected))
         setOptions(removeValueListSelected);
+        (onDelete && onDelete());
     }
 
     // Função responsável por selecionar todas as opções disponíveis

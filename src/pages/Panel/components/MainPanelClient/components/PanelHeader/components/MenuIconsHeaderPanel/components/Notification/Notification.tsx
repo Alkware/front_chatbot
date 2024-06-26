@@ -8,7 +8,8 @@ import { Notification_client } from "../../../../../../../../../../@types/notifi
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { PopUp } from "../../../../../../../../../../components/modal/templates/PopUp";
 import { DisplayNotification } from "./components/DisplayNotification/DisplayNotification";
-import { updateReadNotification } from "../../../../../../../../../../api/notification";
+import { updateReadAllNotifications, updateReadNotification } from "../../../../../../../../../../api/notification";
+import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
 
 export function Notification() {
     const { client } = useContext(ClientContext);
@@ -27,11 +28,12 @@ export function Notification() {
     }, [])
 
 
+    // Função responsável por lidar com o clique do usuário na notificação...
     const handleClickNotification = async (notification: Notification_client) => {
         // Atualiza a notificação como lida.
         const response = await updateReadNotification(notification.id);
         if (response?.status === 200) {
-            // Atualiza a quantidade de nootificação no icone de notificação.
+            // Atualiza a quantidade de notificação no icone de notificação.
             setNotifications(values => {
                 if (values) {
                     const filterNotification = values.filter(v => v.id !== notification.id);
@@ -44,6 +46,7 @@ export function Notification() {
                 }
             })
 
+            // Exibi o modal com o conteúdo da notificação...
             setModalContent({
                 componentName: "modal_display_notification",
                 components:
@@ -55,13 +58,43 @@ export function Notification() {
                     </PopUp>
             })
         }
+    }
+
+    // Função responsável por marcar todas as notificações como lidas
+    const handleAllNotificationsMarkedAsRead = async () => {
+        if (!client) return;
+
+        const response = await updateReadAllNotifications(client.id);
+
+        if (response) {
+            // Atualiza a quantidade de notificação no icone de notificação.
+            setNotifications(values => {
+                if (values) {
+                    return values.map(value => {
+                        value.read = true;
+                        return value
+                    })
+
+                }
+            })
+        } else  // Exibi o modal informando que não foi possivel marcar como lida todas as notificações...
+            setModalContent({
+                componentName: "modal_failed_marked_read_notification",
+                components:
+                    <PopOver
+                        componentName="modal_failed_marked_read_notification"
+                        type="WARNING"
+                        message="Não foi possível marcar todas as notificações como lida, por favor tente mais tarde!"
+                    />
+            })
+
 
     }
 
     return (
         <div className="relative">
             <div
-                className="bg-primary-100  border border-light/50 rounded-full p-1"
+                className="bg-primary-100 border border-light/50 rounded-full p-1"
                 onClick={() => setDisplayNotification(v => !v)}
             >
                 <span
@@ -85,8 +118,8 @@ export function Notification() {
                     onClick={() => setDisplayNotification(v => !v)}
                 />
                 <div className="w-full flex justify-between items-center border-b border-white/30 my-8 md:my-0">
-                    <h2 className="text-xl font-bold">Notificações</h2>
-                    <Button>Marcar todas como lida</Button>
+                    <h2 className="text-xl font-bold text-light">Notificações</h2>
+                    <Button onClick={handleAllNotificationsMarkedAsRead}>Marcar todas como lida</Button>
                 </div>
                 <div className="w-full flex flex-col  md:max-h-[300px] overflow-auto">
                     {
@@ -107,7 +140,7 @@ export function Notification() {
 
                                 <div
                                     data-isread={!!notification.read}
-                                    className="flex flex-col data-[isread=true]:opacity-60"
+                                    className="flex flex-col data-[isread=true]:opacity-60 text-light"
                                 >
                                     <h2 className="font-medium text-lg">{notification.notification.title}</h2>
                                     <div className="flex gap-2 items-end px-2">

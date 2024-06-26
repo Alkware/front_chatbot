@@ -16,7 +16,7 @@ export function ModalColumnOrganization({ setColumns, columns, modalName }: Moda
     const [columnsData, setColumnsData] = useState(columns)
 
     const handleChangeStatus = (e: any) => {
-        const status = e.currentTarget.dataset.status == "true" ? true : false;
+        const status = e.currentTarget.dataset.status == "true";
         const name = e.currentTarget.dataset.name;
 
         setColumnsData(() => [
@@ -39,7 +39,7 @@ export function ModalColumnOrganization({ setColumns, columns, modalName }: Moda
     }
 
     return (
-        <div className="w-full md:w-1/2 max-w-[400px] bg-light dark:bg-zinc-800 text-dark dark:text-light">
+        <div className="w-full md:w-1/2 bg-light dark:bg-zinc-800 text-dark dark:text-light">
             <h2 className="w-full text-center text-xl p-4">Organize suas columns</h2>
 
             <div className="w-full flex gap-2 flex-col">
@@ -74,7 +74,8 @@ export function ModalColumnOrganization({ setColumns, columns, modalName }: Moda
                     )
                 }
             </div>
-            <div className="w-full flex mt-12 justify-center">
+            <div className="w-full flex mt-12 justify-evenly items-center">
+                <span className="underline opacity-80 cursor-pointer" onClick={()=> clearModal(modalName)}>Fechar</span>
                 <Button onClick={handleSaveColumnOrganization}>Salvar</Button>
             </div>
         </div>

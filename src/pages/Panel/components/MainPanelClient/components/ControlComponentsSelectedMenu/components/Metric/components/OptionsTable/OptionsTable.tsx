@@ -41,7 +41,8 @@ export function OptionsTable({ client, handleRequestDataProject, setColumns, col
     const handleColumnOrganization = () => {
         setModalContent({
             componentName: "modal_organization_column",
-            components: <ModalColumnOrganization modalName="modal_organization_column" setColumns={setColumns} columns={columns} />
+            components:
+                <ModalColumnOrganization modalName="modal_organization_column" setColumns={setColumns} columns={columns} />
         })
     }
 
@@ -65,7 +66,7 @@ export function OptionsTable({ client, handleRequestDataProject, setColumns, col
             </div>
 
             <div className="w-[74%] md:w-auto h-[40px]">
-                <SelectTime typeFilter="filter_time_metric" />
+                <SelectTime />
             </div>
 
             <Button

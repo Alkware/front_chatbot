@@ -1,10 +1,29 @@
+import { useFormContext } from "react-hook-form";
 import { Root } from "../../../../../../components/Form/FormRoot";
 import { OpeningHours } from "./components/OpeningHours/OpeningHours";
+import { useEffect } from "react";
+import { COMPANY_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../variables/variables";
 
 
 
 
 export function StepAboutCompany() {
+    const { watch } = useFormContext();
+    const company_name = watch("step_3.company_name");
+    const contact_email = watch("step_3.contact_email");
+    const contact_phone_number = watch("step_3.contact_phone_number");
+    const address = watch("step_3.address");
+
+    // UseEffect responsável por salvar os dados digitados pelo usuário no localstorage para manter a consistencia de dados até que a fonte de dados seja criada...
+    useEffect(() => {
+        localStorage.setItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE, JSON.stringify({
+            company_name,
+            contact_email,
+            contact_phone_number,
+            address
+        }));
+    }, [company_name, contact_email, contact_phone_number, address]);
+
     return (
         <Root.Step index={3} stepTitle="Sobre a empresa">
 

@@ -19,6 +19,8 @@ export interface Client {
         status: "PENDING" | "APPROVED" | "CANCEL",
     }>,
 
+    created_at: string;
+
 }
 
 

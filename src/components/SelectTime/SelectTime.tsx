@@ -2,12 +2,10 @@ import { useSearchParams } from "react-router-dom";
 import { formatDate } from "../../functions/formatDate";
 import { Select } from "../Select/Select";
 
-interface SelectTime {
-    typeFilter: "filter_time_metric" | "filter_time_chats"
-}
+interface SelectTime { }
 
-export function SelectTime({ typeFilter }: SelectTime) {
-    const [searchParams, setSearchParams] =useSearchParams();
+export function SelectTime({ }: SelectTime) {
+    const [searchParams, setSearchParams] = useSearchParams();
 
 
     const handleSelectTime = (id: string) => {
@@ -40,20 +38,24 @@ export function SelectTime({ typeFilter }: SelectTime) {
                 valueInHour = currentHour + (364 * 24) // 364 dias * 24 horas 
                 break;
             default:
-                valueInHour = 0 
+                valueInHour = 0
                 break;
         }
 
-        const newUrlParams = new URLSearchParams(searchParams)
-        newUrlParams.set(typeFilter, valueInHour.toString())
-        setSearchParams(newUrlParams)
+        searchParams.set("filter_time", valueInHour.toString())
+        setSearchParams(searchParams)
+    }
 
+    const onDelete = () => {
+        searchParams.delete("filter_time")
+        setSearchParams(searchParams)
     }
 
 
     return (
         <Select
             onSelected={handleSelectTime}
+            onDelete={onDelete}
             title="Selecione uma data"
             name="datetime"
             options={[

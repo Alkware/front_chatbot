@@ -1,10 +1,27 @@
 import { useFormContext } from "react-hook-form";
 import { Root } from "../../../../../../components/Form/FormRoot";
+import { useEffect } from "react";
+import { DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../variables/variables";
 
 export function StepPaymentMethodAndConditions() {
     const { watch } = useFormContext();
     const payments = watch("step_1.payment_methods");
+    const installments = watch("step_1.credit_card_installments");
+    const order_tracking =   watch("step_1.order_tracking");
+    const tracking_link =   watch("step_1.tracking_link");
     const isCreditCard = typeof payments === "object" && payments?.find((payment: any) => payment === "Cartão de crédito");
+
+    // UseEffect responsável por salvar os dados digitados pelo usuário no localstorage para manter a consistencia de dados até que a fonte de dados seja criada...
+    useEffect(() => {
+        const database = JSON.parse(localStorage.getItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
+        localStorage.setItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE, JSON.stringify({
+            ...database,
+            payment_methods: payments,
+            credit_card_installments: installments,
+            order_tracking,
+            tracking_link
+        }));
+    }, [payments, installments, order_tracking]);
 
     return (
         <>

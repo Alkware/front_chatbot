@@ -3,12 +3,19 @@ import { authenticateClient } from "../../api/client";
 import { useNavigate } from "react-router-dom";
 import { ClientContext } from "../../context/ClientContext";
 import { Loading } from "../../components/Loading/Loading";
+import { AxiosResponse } from "axios";
+import { Client } from "../../@types/Client";
+import { ModalContext } from "../../context/ModalContext";
+import { PopUp } from "../../components/modal/templates/PopUp";
+import { ModalSaveCpfOrCnpj } from "./components/ModalSaveCpfOrCnpj/ModalSaveCpfOrCnpj";
+import { convertDateInHour } from "../../functions/convertDateInHour";
 
 const MainPanelClient = lazy(() => import("./components/MainPanelClient/MainPanelClient"));
 const NavigatePanelClient = lazy(() => import("./components/NavigatePanelClient/NavigatePanelClient"));
 
 function Panel() {
     const { setClient, client } = useContext(ClientContext)
+    const { setModalContent } = useContext(ModalContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -18,12 +25,27 @@ function Panel() {
             const isDark = localStorage.theme === "dark"
             document.documentElement.classList.toggle("dark", !!isDark)
 
-
             // Busca os dados do cliente;
             const token = localStorage.getItem("token");
-            const clientIsLogged = token && await authenticateClient(token);
+
+            if(!token) return;
+
+            const clientIsLogged: AxiosResponse<{ client: Client, message: string }> | void = await authenticateClient(token);
+
             if (clientIsLogged) {
-                setClient(clientIsLogged.data.client)
+                // Verifica se o cliente já possui um CPF OU CNPJ cadastrado, caso não possu-a será enviado um aviso para que ele inserira seus dados
+                if(!clientIsLogged.data.client.cpf_cnpj && convertDateInHour(clientIsLogged.data.client.created_at) > 24){
+                    setModalContent({
+                        componentName: "modal_save_cpf_cnpj",
+                        components: 
+                        <PopUp
+                        >
+                            <ModalSaveCpfOrCnpj modalName="modal_save_cpf_cnpj" />
+                        </PopUp>
+                    })
+                };
+
+                setClient(clientIsLogged.data.client);
             }
             else navigate("/login")
         })();

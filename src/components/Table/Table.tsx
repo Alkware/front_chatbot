@@ -8,11 +8,13 @@ interface Table {
     maxPerPage?: number;
 }
 
-export function Table({ titleColumn, rows = [[]], maxPerPage = 10 }: Table) {
+export function Table({ titleColumn, rows, maxPerPage = 10 }: Table) {
     const [currentPage, setCurrentPage] = useState(0);
     const [pagination, setPagination] = useState<Array<Array<any[]>>>([])
 
     useEffect(() => {
+        if(!rows) return;
+
         const howManyPagination = Math.floor(rows.length / maxPerPage);
         const restPagination = rows.length % maxPerPage;
         const newPagination: any[] = [];
@@ -28,7 +30,7 @@ export function Table({ titleColumn, rows = [[]], maxPerPage = 10 }: Table) {
         }
 
         setPagination(newPagination)
-    }, [])
+    }, [rows])
 
     // Lida com o clique no botão proxima página e página anterior...
     const handleNextAndPreviousPage = (e: MouseEvent<HTMLOrSVGElement>) => {

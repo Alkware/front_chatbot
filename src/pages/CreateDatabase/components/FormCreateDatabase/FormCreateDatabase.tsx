@@ -11,7 +11,7 @@ import { StepAboutCompany } from "./components/StepAboutCompany/StepAboutCompany
 import { StepPersonalityIA } from "./components/StepPersonalityIA/StepPersonalityIA";
 import { useForm } from "react-hook-form";
 import { transformSchemaInText } from "../../../../schema/PromptIA/transformSchemaInText";
-import { DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables";
+import { COMPANY_NAME_TO_SAVE_LOCALSTORAGE, DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables";
 import { PopUp } from "../../../../components/modal/templates/PopUp";
 import { Button } from "../../../../components/button/Button";
 import { StepPaymentMethodAndConditions } from "./components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";
@@ -24,14 +24,17 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
     const { setModalContent } = useContext(ModalContext);
     const containerCreateDatabaseRef: RefObject<HTMLDivElement> = useRef(null);
     const localStorageDatabase = JSON.parse(localStorage.getItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
+    const localStorageCompany = JSON.parse(localStorage.getItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
 
     const createDatabaseForm = useForm<DatabaseSchema>({
         resolver: zodResolver(databaseSchema),
         defaultValues: {
             step_0: {
                 products: localStorageDatabase.products || [],
+                observation: localStorageDatabase.observation || ""
             },
             step_1: {
+                credit_card_installments: localStorageDatabase.credit_card_installments || "",
                 payment_methods: localStorageDatabase.payment_methods || [],
                 order_tracking: localStorageDatabase.order_tracking || "",
                 tracking_link: localStorageDatabase.tracking_link || ""
@@ -45,10 +48,10 @@ export function FormCreateDatabase({ plan_management_id }: { plan_management_id:
                 how_guarantee_work: localStorageDatabase.how_guarantee_work || ""
             },
             step_3: {
-                address: localStorageDatabase.address || "",
-                company_name: localStorageDatabase.company_name || "",
-                contact_email: localStorageDatabase.contact_email || "",
-                contact_phone_number: localStorageDatabase.contact_phone_number || "",
+                address: localStorageCompany.address || "",
+                company_name: localStorageCompany.company_name || "",
+                contact_email: localStorageCompany.contact_email || "",
+                contact_phone_number: localStorageCompany.contact_phone_number || "",
                 support_hours: localStorageDatabase.support_hours || "",
             },
             step_4: {

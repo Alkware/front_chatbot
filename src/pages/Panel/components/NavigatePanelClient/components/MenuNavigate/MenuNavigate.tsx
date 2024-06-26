@@ -2,7 +2,7 @@ import { ElementType, MouseEvent, RefObject, useRef } from "react";
 import { FaHeadset } from "react-icons/fa6";
 import { IoIosChatbubbles, IoIosCloud, IoIosStats, IoLogoBuffer, IoMdArrowDropdown, IoMdCash } from "react-icons/io";
 import { useSearchParams } from "react-router-dom";
-import { PARAM_MENU_MOBILE, RESIZE_MENU } from "../../../../../../variables/variables";
+import { PARAM_MENU_MOBILE, RESIZE_MENU, TAB_NAME_URL } from "../../../../../../variables/variables";
 import { IoArchiveSharp, IoDiamond } from "react-icons/io5";
 
 export type Tab = "my_chats" | "metrics" | "database" | "records" | "leads" | "conversations" | "payment" | "help_center" | "config";
@@ -59,7 +59,7 @@ const navMenu: NavMenu[] = [
 function MenuNavigate() {
     const [searchParams, setSearchParams] = useSearchParams();
     const ulRef: RefObject<HTMLUListElement> = useRef(null);
-    const isMenuResized = searchParams.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.DEFAULT_VALUES.DEFAULT;
+    const isMenuResized = searchParams.get(RESIZE_MENU.URL_NAME) !== RESIZE_MENU.VALUE;
     const menuMobile = searchParams.get(PARAM_MENU_MOBILE.url_name) === PARAM_MENU_MOBILE.default_values.open;
 
     const handleSelectedTabNavigation = (e: MouseEvent<HTMLDivElement>) => {
@@ -73,12 +73,22 @@ function MenuNavigate() {
 
         if (!menu?.topics) {
             callTabContainer(tab);
-
             // Verifica se é um sub topic...
             const isSubTopic = currentMenu.dataset.container === "sub_topic";
             // Caso ele for um sub topic, não será fechado o container topic...
             !isSubTopic && handleDisplayTopic(tab);
-        } else handleDisplayTopic(tab)
+        } else {
+            handleDisplayTopic(tab);
+            // Caso o menu esteja redimencionado, será aberto...
+            const menuIsResized = searchParams.get(RESIZE_MENU.URL_NAME)
+            // Caso o menu esteja fechado e o usuário clicar em um menu que possu-a sub-topicos, será aberto o menu...
+            if (menuIsResized) {
+                // Ao remover a query params, por padrão o menu será aberto...
+                searchParams.set(TAB_NAME_URL, tab)
+                searchParams.delete(RESIZE_MENU.URL_NAME);
+                setSearchParams(searchParams);
+            }
+        }
 
         // Lista com a exibição dos topicos...
         function handleDisplayTopic(tab: string) {
@@ -90,9 +100,7 @@ function MenuNavigate() {
 
             // Abre ou fecha o atual topico...
             topics?.forEach((topic) => {
-                if (topic.dataset.tab === tab) {
-                    topic.classList.toggle("hidden")
-                }
+                if (topic.dataset.tab === tab) topic.classList.toggle("hidden")
             });
         }
 
@@ -114,7 +122,6 @@ function MenuNavigate() {
                     <li
                         key={menu.name}
                         data-tab={Number(searchParams.get("tab")) == index ? true : false}
-                        data-ismenuresize={isMenuResized}
                         className="w-full flex flex-col justify-center items-end cursor-pointer text-xl"
                     >
                         <div

@@ -19,7 +19,7 @@ const UserPlanInfoProfile = ({ }: UserPlanTypes) => {
     const { client } = useContext(ClientContext)
     const navigate = useNavigate();
     const [params] = useSearchParams();
-    const isMenuResized = params.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.DEFAULT_VALUES.DEFAULT ? true : false;
+    const isMenuResized = params.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.VALUE;
 
 
     const handleExitThePanel = () => {
@@ -57,7 +57,7 @@ const UserPlanInfoProfile = ({ }: UserPlanTypes) => {
                     <TipContainer tip="Edite seu perfil">
                         <FaGear
                             data-ismenuresized={isMenuResized}
-                            className="text-2xl cursor-pointer hover:animate-spin md:data-[ismenuresized=false]:hidden fill-primary-100 dark:fill-light"
+                            className="text-2xl cursor-pointer hover:animate-spin md:data-[ismenuresized=true]:hidden fill-primary-100 dark:fill-light"
                             onClick={handleConfigProfile}
                         />
                     </TipContainer>
@@ -67,7 +67,7 @@ const UserPlanInfoProfile = ({ }: UserPlanTypes) => {
                     <TipContainer tip="Sair do seu painel">
                         <FaRightToBracket
                             data-ismenuresized={isMenuResized}
-                            className="text-2xl cursor-pointer -scale-x-100 fill-primary-100 dark:fill-light hover:fill-red-500 transition-colors duration-200 md:data-[ismenuresized=false]:hidden"
+                            className="text-2xl cursor-pointer -scale-x-100 fill-primary-100 dark:fill-light hover:fill-red-500 transition-colors duration-200 md:data-[ismenuresized=true]:hidden"
                             onClick={handleExitThePanel}
                         />
                     </TipContainer>
@@ -76,7 +76,7 @@ const UserPlanInfoProfile = ({ }: UserPlanTypes) => {
 
                 <div
                     data-ismenuresized={isMenuResized}
-                    className="w-full flex flex-col md:data-[ismenuresized=false]:hidden"
+                    className="w-full flex flex-col md:data-[ismenuresized=true]:hidden"
                 >
                     <ClientName />
 

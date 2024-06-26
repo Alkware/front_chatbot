@@ -48,7 +48,7 @@ export function FormInputColor({ title, joinAtInput, containerWidth, ...props }:
 
     return (
         <div
-            className={twMerge("w-full flex items-center gap-2 mt-8", containerWidth)}
+            className={twMerge("w-full flex items-center gap-2 mt-8 relative", containerWidth)}
             ref={containerRef}
             onClick={handleClickedInput}
             onBlur={handleExitInput}
@@ -62,7 +62,7 @@ export function FormInputColor({ title, joinAtInput, containerWidth, ...props }:
             <input
                 type="color"
                 id={props.name}
-                className="hidden cursor-pointer "
+                className="cursor-pointer w-0 h-0 p-0 absolute left-1/3 -top-full"
                 {...register(props.name, { onChange: props.onChange })}
                 {...props}
             />

@@ -10,7 +10,7 @@ export function UserLogo() {
     const { client } = useContext(ClientContext)
     const refPreviewImage: RefObject<HTMLLabelElement> = useRef(null);
     const [params] = useSearchParams();
-    const isMenuResized = params.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.DEFAULT_VALUES.DEFAULT ? true : false;
+    const isMenuResized = params.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.VALUE;
 
     const handleUploadImage = async (e: any) => {
         const files = e.target.files
@@ -46,7 +46,7 @@ export function UserLogo() {
     return (
         <div
             data-ismenuresized={isMenuResized}
-            className="w-[100px] h-[100px] md:w-[40px] md:h-[40px] md:data-[ismenuresized=true]:w-[80px] md:data-[ismenuresized=true]:h-[80px] rounded-full overflow-hidden cursor-pointer border-4 border-primary-100 dark:border-light"
+            className="w-[100px] h-[100px] md:w-[40px] md:h-[40px] md:data-[ismenuresized=false]:w-[80px] md:data-[ismenuresized=false]:h-[80px] rounded-full overflow-hidden cursor-pointer border-4 border-primary-100 dark:border-light"
         >
             <label
                 className="w-full h-full relative cursor-pointer"

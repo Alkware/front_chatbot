@@ -50,6 +50,11 @@ export function Input({ register, mask, widthContainer, joinAtInput, title, ...p
         }
     }
 
+    const onChange = (e: any) => {
+        (props.onChange && props.onChange(e));
+        (mask && mask(e));
+    }
+
     return (
         <div
             className={twMerge("w-full flex flex-col gap-2 relative border border-primary-100 rounded-md bg-primary-100/30 dark:bg-gray_light", widthContainer)}
@@ -64,16 +69,16 @@ export function Input({ register, mask, widthContainer, joinAtInput, title, ...p
 
             <div className="h-full flex gap-2 justify-center items-center rounded-md px-2">
                 {
-                    register ?
+                    !!register ?
                         <input
                             className=" bg-transparent text-dark dark:text-light"
-                            {...register(props.name, { onChange: props.onChange })}
                             {...props}
+                            {...register(props.name, { onChange })}
                         />
                         :
                         <input
                             className=" bg-transparent text-dark dark:text-light"
-                            onChange={props.onChange}
+                            onChange={onChange}
                             {...props}
                         />
                 }

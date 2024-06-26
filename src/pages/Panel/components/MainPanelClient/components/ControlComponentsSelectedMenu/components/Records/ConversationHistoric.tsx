@@ -33,7 +33,7 @@ export function ConversationHistoric() {
     // Assim que o componente é montado é feito um filtro nos chats...
     useEffect(() => {
         // Obtem o filtro de tempo dos chats...
-        const time = searchParams.get("filter_time_chats")
+        const time = searchParams.get("filter_time")
         // Obtem o projeto selecionado...
         const projectParam = searchParams.get("project")
 
@@ -41,7 +41,7 @@ export function ConversationHistoric() {
             if (projects?.length) {
                 let projectsFiltered;
                 // Filtra por projeto...
-                if (projectParam) projectsFiltered = client.plan_management.project.filter((project) => project.project_name.replace(" ", "_") === projectParam && project);
+                if (projectParam) projectsFiltered = client.plan_management.project.filter((project) => project.project_name.replaceAll(" ", "_") === projectParam && project);
                 else projectsFiltered = client.plan_management.project;
 
                 // Filtra por tempo...
@@ -84,26 +84,36 @@ export function ConversationHistoric() {
         setSearchParams(searchParams)
     }
 
-    return (
-        <Container title="Registros" className="px-0 md:px-8">
+    // Função responsável por remover a query params 'filter_time' da URL...
+    const onDelete = () => {
+        searchParams.delete("project")
+        setSearchParams(searchParams)
+    }
 
-            <div className="w-full flex flex-col-reverse md:flex-row gap-2 md:gap-8 md:h-[40px]  px-4 md:px-0">
+    return (
+        <Container title="Conversas" className="flex items-center">
+
+            <div className="w-[90%] flex flex-col-reverse md:flex-row md:justify-end gap-2 md:gap-8 md:h-[40px] px-4 md:px-0">
                 <TipContainer tip="Selecione um chat">
                     <Select
                         name="select_chat"
                         title="Selecione um chat"
                         options={projects || []}
                         onSelected={handleSelectProject}
+                        onDelete={onDelete}
                     />
                 </TipContainer>
 
                 <div className="flex gap-8 justify-between">
                     <TipContainer tip="Selecione uma data  como filtro">
-                        <SelectTime typeFilter="filter_time_chats" />
+                        <SelectTime />
                     </TipContainer>
 
 
-                    <TipContainer tip="Atualize seus chats">
+                    <TipContainer
+                        tip="Atualize seus chats"
+                        positionX="LEFT"
+                    >
                         <div
                             className="p-2 bg-light dark:bg-gray border border-primary-100 rounded-md cursor-pointer"
                             onClick={reloadMetric}
@@ -114,7 +124,7 @@ export function ConversationHistoric() {
                 </div>
             </div>
 
-            <div className="w-full h-3/4 flex gap-4 flex-col md:flex-row md:bg-light md:dark:bg-gray my-4 px-2">
+            <div className="w-[90%] h-3/4 flex gap-4 flex-col md:flex-row md:bg-light md:dark:bg-gray my-4">
                 {/* Esse botão só será exibido no mobile */}
                 <Button
                     customClass="bg-primary-100 dark:bg-primary-200 md:hidden"

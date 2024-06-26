@@ -3,7 +3,7 @@ import { RESIZE_MENU, URL_LOGO } from "../../variables/variables";
 
 export function CompanyLogo() {
     const [params] = useSearchParams();
-    const isMenuResized = params.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.DEFAULT_VALUES.DEFAULT ? true : false;
+    const isMenuResized = params.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.VALUE;
 
     return (
         <div
@@ -13,7 +13,7 @@ export function CompanyLogo() {
                 data-isresized={isMenuResized}
                 src={URL_LOGO}
                 alt="Logo da empresa"
-                className="w-[90px] md:data-[isresized=false]:w-[50px]"
+                className="w-[90px] md:data-[isresized=true]:w-[50px]"
             />
         </div>
     )

@@ -6,6 +6,7 @@ import { Lead_collected, Message, MessageManager } from "../../../../../../../..
 import { MdLeaderboard } from "react-icons/md";
 import { TipContainer } from "../../../../../../../../../../components/TipContainer/TipContainer";
 import { useSearchParams } from "react-router-dom";
+import { FILTER_BY_PROJECT_NAME_URL, TAB_NAME_URL } from "../../../../../../../../../../variables/variables";
 
 
 interface ContentChats {
@@ -24,6 +25,7 @@ export function ContentChats({ messageManager, index }: ContentChats) {
     const [infoChat, setInfoChat] = useState<InfoChat>();
     const [param, setParam] = useSearchParams();
 
+    const joinMessageWithHistoricMessage = [...messageManager[index].historic_messages, ...messageManager[index].messages]
 
     useEffect(() => {
         if (messageManager.length) {
@@ -33,14 +35,18 @@ export function ContentChats({ messageManager, index }: ContentChats) {
             const leads = projects?.message_manager.map(msg => msg.lead_collected).flat();
 
             if (logoChat && projectName) {
-                setInfoChat({ logoChat, projectName, leads})
+                setInfoChat({ logoChat, projectName, leads })
             }
         }
     }, [])
 
 
+
+    // Função responsável por levar o usuário até a lista de leads...
     const handleDisplayLeadsCollected = () => {
-        param.set("tab", "leads");
+        const project_name = infoChat?.projectName.replaceAll(" ", "_");
+        if(project_name) param.set(FILTER_BY_PROJECT_NAME_URL,  project_name)
+        param.set(TAB_NAME_URL, "leads");
         setParam(param);
     }
 
@@ -72,7 +78,7 @@ export function ContentChats({ messageManager, index }: ContentChats) {
 
                 <div className="w-full h-full max-h-[400px] p-4 flex flex-col gap-4 overflow-auto">
                     {
-                        messageManager[index]?.messages ? messageManager[index].messages.map((msg: Message, index) =>
+                        joinMessageWithHistoricMessage?.map((msg: Message, index) =>
                             <div
                                 key={index}
                                 data-player={msg.player}
@@ -89,8 +95,8 @@ export function ContentChats({ messageManager, index }: ContentChats) {
                                 </div>
                             </div>
                         )
-                            :
-                            <h2 className="w-full h-[200px] flex justify-center items-center">Ainda não existe nenhuma conversa para esse chat</h2>
+                        ||
+                        <h2 className="w-full h-[200px] flex justify-center items-center">Ainda não existe nenhuma conversa para esse chat</h2>
 
                     }
                 </div>
