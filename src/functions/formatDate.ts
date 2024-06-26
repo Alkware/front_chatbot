@@ -61,6 +61,7 @@ export function formatDate(data: string | Date = new Date()) {
     const fullHour = `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date.getSeconds().toString().padStart(2, "0")}`
     const shortHour = `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`
     const dateFormat_A = `${date.getDay()} de ${months[currentMonth].short} - ${shortHour}`
+    const dateTransformNumber = Number(`${date.getFullYear()}${(currentMonth + 1).toString().padStart(2, "0")}${date.getDate().toString().padStart(2, "0")}${date.getHours().toString().padStart(2, "0")}${date.getMinutes().toString().padStart(2, "0")}${date.getMilliseconds()}`)
 
     return {
         currentHour,
@@ -69,5 +70,6 @@ export function formatDate(data: string | Date = new Date()) {
         shortHour,
         dateFormat_A,
         fullDateWithHour: `${fullDate} - ${fullHour}`,
+        dateTransformNumber
     }
 }

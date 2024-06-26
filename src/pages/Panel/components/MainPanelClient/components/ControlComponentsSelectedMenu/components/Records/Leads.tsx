@@ -9,6 +9,7 @@ import { useSearchParams } from "react-router-dom";
 import { Project } from "../../../../../../../../@types/Project";
 import { convertDateInHour } from "../../../../../../../../functions/convertDateInHour";
 import { FaArrowRotateLeft } from "react-icons/fa6";
+import { formatDate } from "../../../../../../../../functions/formatDate";
 
 interface Leads { }
 
@@ -39,11 +40,21 @@ export function Leads({ }: Leads) {
         if (projectParam) projects = projects.filter((project) => project.project_name.replaceAll(" ", "_") === projectParam && project);
 
         // Cria a lista de leads coletados...
-        const rows = projects.flatMap(project => project.message_manager.flatMap(manager => manager.lead_collected.map(lead => {
-            return !time || convertDateInHour(lead.time) <= Number(time) ? [lead.name || "-", lead.email || "-", lead.cell_phone || "-"] : []
-        })));
+        const rows = projects.flatMap(project => project.message_manager.map(manager => {
+            let lead_time = manager.lead_collected[manager.lead_collected.length - 1].time;
+            let name = manager.lead_collected.sort((a, b) => formatDate(b.time).dateTransformNumber - formatDate(a.time).dateTransformNumber).find(lead => !!lead.name)?.name;
+            let email = manager.lead_collected.reverse().find(lead => !!lead.email)?.email;
+            let cell_phone = manager.lead_collected.reverse().find(lead => !!lead.cell_phone)?.cell_phone;
 
-        setRows(rows);
+            if (email || cell_phone) {
+                return (!time || convertDateInHour(lead_time) <= Number(time)) ? [name || "-", email || "-", cell_phone || "-"] : []
+            } else return []
+        }));
+
+        // Remove todos os arrays que vierem vazios...
+        const removeEmptyArray = rows.filter(row => row.length > 0)
+
+        setRows(removeEmptyArray);
     }, [searchParams])
 
 
