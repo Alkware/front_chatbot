@@ -7,7 +7,7 @@ interface PopUp {
     positionModal?: "START" | "CENTER" | "END"
 }
 
-export function PopUp({ children, noBackground, positionModal }: PopUp) {
+export function PopUp({ children, noBackground, positionModal = "CENTER" }: PopUp) {
     const { clearModal } = useContext(ModalContext)
 
     const handleCloseModal = ({ target }: any) => {
@@ -16,7 +16,7 @@ export function PopUp({ children, noBackground, positionModal }: PopUp) {
 
     return (
         <div
-            data-position={(!!positionModal && window.innerWidth < 768) ? positionModal : "CENTER"}
+            data-position={(window.innerWidth < 768) ? positionModal : "CENTER"}
             className="w-full h-full flex justify-center overflow-auto data-[position='CENTER']:items-center data-[position='START']:items-start data-[position='END']:items-end"
             onClick={handleCloseModal}
             data-close

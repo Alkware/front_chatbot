@@ -12,7 +12,7 @@ export function TipContainer({ children, tip, positionY = "TOP", positionX = "RI
     const ballonTipRef: RefObject<HTMLDivElement> = useRef(null);
     const CARACTERES_MAX = 40;
 
-    if (tip.length > CARACTERES_MAX) throw new Error(`A tip não pode conter um nome maior que ${CARACTERES_MAX} caracteres.`);
+    if (tip.length > CARACTERES_MAX) console.error(`A tip não pode conter um nome maior que ${CARACTERES_MAX} caracteres.`, children);
 
     useEffect(() => {
         if (ballonTipRef.current?.style) {

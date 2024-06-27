@@ -29,6 +29,11 @@ export const TAB_NAME_URL = "tab";
 export const FILTER_BY_PROJECT_NAME_URL = "project";
 /**
  * Nome da etapa que ficará na url do navegador.
+ * Esse nome da query serve para definir qual é o atual topico que o ususário quer ver.
+ */
+export const FILTER_BY_TIME_NAME_URL = "filter_time";
+/**
+ * Nome da etapa que ficará na url do navegador.
  * Esse nome é um controlador para verificar se o mobile menu está aberto ou fechado.
  */
 export const RESIZE_MENU = {

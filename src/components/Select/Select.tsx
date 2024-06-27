@@ -14,8 +14,9 @@ interface Select {
     name: string;
     multipleSelect?: boolean;
     useFormContext?: UseFormReturn;
+    optionsDefault?: string[] | null;
     onSelected?: (id: string) => void;
-    onDelete?: ()=> void;
+    onDelete?: () => void;
 }
 
 export interface OptionsState {
@@ -24,21 +25,27 @@ export interface OptionsState {
     selected: boolean
 }
 
-export function Select({ options, name, title, multipleSelect, useFormContext, onSelected, onDelete }: Select) {
+export function Select({ options, name, title, multipleSelect, optionsDefault, useFormContext, onSelected, onDelete }: Select) {
     const contentOptionsRef: RefObject<HTMLDivElement> = useRef(null);
     const addSelectParamToOptions: OptionsState[] = options?.map(option => Object({ ...option, selected: false }) as OptionsState);
     const [optionsState, setOptions] = useState<OptionsState[]>(addSelectParamToOptions);
 
     // Seleciona automaticamente as opções, caso elas tenham valores padrões...
     useEffect(() => {
-        if (!useFormContext) return;
-        // Registra o campo no formulário com valores default...
 
-        useFormContext.register(name, { value: multipleSelect ? [] : "" })
+        let data: Options[];
 
-        // Filtra as opções que já estão selecionadas...
-        const key = useFormContext.getValues(name);
-        const data = options?.filter((opt) => typeof key === "object" ? key.find((key: string) => key === opt.value) : key === opt.value);
+        if (useFormContext) {
+            // Registra o campo no formulário com valores default...
+            useFormContext.register(name, { value: multipleSelect ? [] : "" })
+
+            // Filtra as opções que já estão selecionadas...
+            const key = useFormContext.getValues(name);
+            data = options?.filter((opt) => typeof key === "object" ? key.find((key: string) => key === opt.value) : key === opt.value);
+        }else {
+            data = options?.filter((opt) =>  optionsDefault?.find((key: string) => key === opt.value.replaceAll(" ", "_")));
+        }
+
         if (!!data.length) {
             // Seleciona as opções automaticamente caso já estejam salvas...
             const addSelectParamToOptions: OptionsState[] = options?.map(option => {
@@ -55,7 +62,7 @@ export function Select({ options, name, title, multipleSelect, useFormContext, o
 
         if (options) {
             const value = target.dataset.value;
-            if(!value) throw new Error("Unale to selected the option. because it is empty.");
+            if (!value) throw new Error("Unale to selected the option. because it is empty.");
             const updateOption =
                 optionsState.map((opt: OptionsState) =>
                     opt.value === value ?

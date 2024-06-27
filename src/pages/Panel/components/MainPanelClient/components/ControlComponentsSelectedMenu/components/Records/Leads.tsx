@@ -10,6 +10,7 @@ import { Project } from "../../../../../../../../@types/Project";
 import { convertDateInHour } from "../../../../../../../../functions/convertDateInHour";
 import { FaArrowRotateLeft } from "react-icons/fa6";
 import { formatDate } from "../../../../../../../../functions/formatDate";
+import { FILTER_BY_PROJECT_NAME_URL } from "../../../../../../../../variables/variables";
 
 interface Leads { }
 
@@ -18,6 +19,9 @@ export function Leads({ }: Leads) {
     const [searchParams, setSearchParams] = useSearchParams();
     const titles = ["nome", "e-mail", "Telefone"];
     const [rows, setRows] = useState<Array<string[]>>([[]]);
+
+    // Obtem o projeto selecionado...
+    const projectParam = searchParams.get(FILTER_BY_PROJECT_NAME_URL)
 
     // Cria uma lista de objeto para ser usado em um select...
     const projects_list: Options[] | undefined = client?.plan_management.project?.map((project: Project) => {
@@ -31,8 +35,7 @@ export function Leads({ }: Leads) {
     useEffect(() => {
         // Obtem o filtro de tempo dos chats...
         const time = searchParams.get("filter_time")
-        // Obtem o projeto selecionado...
-        const projectParam = searchParams.get("project")
+
         // List de projetos...
         var projects = client?.plan_management.project || [];
 
@@ -41,10 +44,10 @@ export function Leads({ }: Leads) {
 
         // Cria a lista de leads coletados...
         const rows = projects.flatMap(project => project.message_manager.map(manager => {
-            let lead_time = manager.lead_collected[manager.lead_collected.length - 1].time;
+            let lead_time = manager.lead_collected[manager.lead_collected.length - 1]?.time;
             let name = manager.lead_collected.sort((a, b) => formatDate(b.time).dateTransformNumber - formatDate(a.time).dateTransformNumber).find(lead => !!lead.name)?.name;
-            let email = manager.lead_collected.reverse().find(lead => !!lead.email)?.email;
-            let cell_phone = manager.lead_collected.reverse().find(lead => !!lead.cell_phone)?.cell_phone;
+            let email = manager.lead_collected.sort((a, b) => formatDate(b.time).dateTransformNumber - formatDate(a.time).dateTransformNumber).find(lead => !!lead.email)?.email;
+            let cell_phone = manager.lead_collected.sort((a, b) => formatDate(b.time).dateTransformNumber - formatDate(a.time).dateTransformNumber).find(lead => !!lead.cell_phone)?.cell_phone;
 
             if (email || cell_phone) {
                 return (!time || convertDateInHour(lead_time) <= Number(time)) ? [name || "-", email || "-", cell_phone || "-"] : []
@@ -79,6 +82,7 @@ export function Leads({ }: Leads) {
                         name="select_chat"
                         title="Selecione um chat"
                         options={projects_list || []}
+                        optionsDefault={projectParam ? Array.of(projectParam) : null}
                         onSelected={handleSelectProject}
                         onDelete={onDelete}
                     />

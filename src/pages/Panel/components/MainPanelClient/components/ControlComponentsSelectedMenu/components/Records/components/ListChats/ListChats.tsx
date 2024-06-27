@@ -6,18 +6,18 @@ import { MessageManager } from "../../../../../../../../../../@types/messageMana
 
 interface ListChats {
     chats: MessageManager[] | [],
-    setIndex: Dispatch<SetStateAction<number>>
+    selectedChatById: Dispatch<SetStateAction<string | undefined>>
 }
 
-export function ListChats({ chats, setIndex }: ListChats) {
+export function ListChats({ chats, selectedChatById }: ListChats) {
     const [searchParams, setSearchParams] = useSearchParams();
-    const isOpen = searchParams.get("mobile_modal_select_chat") === "open" ? true : false;
+    const isOpen = searchParams.get("mobile_modal_select_chat") === "open";
 
 
-    const handleSelectConversation = (indexConversation: number) => {
+    const handleSelectConversation = (id: string) => {
         searchParams.delete("mobile_modal_select_chat");
         setSearchParams(searchParams)
-        setIndex(indexConversation)
+        selectedChatById(id)
     }
 
     return (
@@ -32,7 +32,7 @@ export function ListChats({ chats, setIndex }: ListChats) {
                     <div
                         key={chat.id}
                         className="w-full cursor-pointer hover:bg-primary-200 transition-colors p-4 border border-primary-100/20"
-                        onClick={() => handleSelectConversation(index)}
+                        onClick={() => handleSelectConversation(chat.id)}
                     >
                         <h2
                             className="whitespace-nowrap text-ellipsis overflow-hidden py-1 text-xl font-bold"

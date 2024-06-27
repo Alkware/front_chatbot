@@ -1,82 +1,73 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
-import { Project } from "../../../../../../../../../../@types/Project";
 import { formatDate } from "../../../../../../../../../../functions/formatDate";
-import { Lead_collected, Message, MessageManager } from "../../../../../../../../../../@types/messageManager.types";
-import { MdLeaderboard } from "react-icons/md";
+import { Message, MessageManager } from "../../../../../../../../../../@types/messageManager.types";
 import { TipContainer } from "../../../../../../../../../../components/TipContainer/TipContainer";
 import { useSearchParams } from "react-router-dom";
 import { FILTER_BY_PROJECT_NAME_URL, TAB_NAME_URL } from "../../../../../../../../../../variables/variables";
+import { FaCheckCircle } from "react-icons/fa";
+import { FaCircleQuestion } from "react-icons/fa6";
 
 
 interface ContentChats {
-    messageManager: MessageManager[],
-    index: number
+    chats: MessageManager[],
+    selectedChatById: string | undefined
 }
 
-interface InfoChat {
-    logoChat: string;
-    projectName: string;
-    leads?: Lead_collected[];
-}
-
-export function ContentChats({ messageManager, index }: ContentChats) {
+export function ContentChats({ chats, selectedChatById }: ContentChats) {
     const { client } = useContext(ClientContext);
-    const [infoChat, setInfoChat] = useState<InfoChat>();
     const [param, setParam] = useSearchParams();
-
-    const joinMessageWithHistoricMessage = [...messageManager[index].historic_messages, ...messageManager[index].messages]
-
-    useEffect(() => {
-        if (messageManager.length) {
-            const logoChat = client?.plan_management.project.find((project: Project) => messageManager && project.id === project.id)?.logo
-            const projects = client?.plan_management.project.find((project: any) => messageManager && project.id === project.id);
-            const projectName = projects?.project_name
-            const leads = projects?.message_manager.map(msg => msg.lead_collected).flat();
-
-            if (logoChat && projectName) {
-                setInfoChat({ logoChat, projectName, leads })
-            }
-        }
-    }, [])
-
-
+    const { historic_messages, messages, project_id, lead_collected } = chats.find(chat => chat.id === selectedChatById) || chats[0];
+    const joinMessageWithHistoricMessage = [...historic_messages, ...messages];
+    const project = client?.plan_management.project.find(project => project.id === project_id);
 
     // Função responsável por levar o usuário até a lista de leads...
     const handleDisplayLeadsCollected = () => {
-        const project_name = infoChat?.projectName.replaceAll(" ", "_");
-        if(project_name) param.set(FILTER_BY_PROJECT_NAME_URL,  project_name)
+        const project_name = project?.project_name.replaceAll(" ", "_");
+        if (project_name) param.set(FILTER_BY_PROJECT_NAME_URL, project_name)
         param.set(TAB_NAME_URL, "leads");
         setParam(param);
     }
 
-
     return (
-        <div className="w-full h-full flex flex-col mb-8 md:mb-0" >
+        <div className="w-full h-full md:max-h-[400px] overflow-hidden flex flex-col mb-8 md:mb-0" >
             <div className="w-full h-full flex flex-col gap-4">
                 <div className="w-full h-[60px] flex justify-between items-center px-4 bg-primary-100">
                     <div className="flex gap-2 items-center">
                         <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
                             <img
-                                src={infoChat?.logoChat}
+                                src={project?.logo}
                                 alt="logo do cliente"
                                 className="w-full h-full object-cover"
                             />
                         </div>
-                        <p className="px-4 text-xl text-light">{infoChat?.projectName}</p>
+                        <p className="px-4 text-xl text-light">{project?.project_name}</p>
                     </div>
-                    <TipContainer tip="Leads coletados" positionX="LEFT">
-                        <div
-                            className="flex gap-2 items-center cursor-pointer"
-                            onClick={handleDisplayLeadsCollected}
-                        >
-                            <MdLeaderboard />
-                            {infoChat?.leads?.filter(lead => lead.email || lead.name || lead.cell_phone && lead).length}
-                        </div>
-                    </TipContainer>
+                    <div
+                        className="flex gap-2 items-center cursor-pointer"
+                        onClick={handleDisplayLeadsCollected}
+                    >
+                        {!!lead_collected.find(lead => lead.email || lead.cell_phone)
+                            ?
+                            <TipContainer
+                                tip="informações foram coletadas nesse chat"
+                                positionX="LEFT"
+                                positionY="BOTTOM"
+                            >
+                                <FaCheckCircle className="fill-green-200" />
+                            </TipContainer>
+                            :
+                            <TipContainer
+                                tip="Nenhuma informação foi coletada"
+                                positionX="LEFT"
+                                positionY="BOTTOM"
+                            >
+                                <FaCircleQuestion className="fill-red-200" />
+                            </TipContainer>}
+                    </div>
                 </div>
 
-                <div className="w-full h-full max-h-[400px] p-4 flex flex-col gap-4 overflow-auto">
+                <div className="w-full h-full max-h-[320px] p-4 flex flex-col gap-4 overflow-auto">
                     {
                         joinMessageWithHistoricMessage?.map((msg: Message, index) =>
                             <div

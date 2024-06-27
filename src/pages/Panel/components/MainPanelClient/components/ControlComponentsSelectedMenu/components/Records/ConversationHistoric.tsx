@@ -12,13 +12,19 @@ import { SelectTime } from "../../../../../../../../components/SelectTime/Select
 import { Options, Select } from "../../../../../../../../components/Select/Select";
 import { Button } from "../../../../../../../../components/button/Button";
 import { MessageManager } from "../../../../../../../../@types/messageManager.types";
+import { FILTER_BY_PROJECT_NAME_URL, FILTER_BY_TIME_NAME_URL } from "../../../../../../../../variables/variables";
 
 
 export function ConversationHistoric() {
     const { client } = useContext(ClientContext);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [index, setIndex] = useState<number>(0);
+    const [selectedChatById, setSelectedChatById] = useState<string>();
     const [chats, setChats] = useState<MessageManager[]>([]);
+    // Obtem o projeto selecionado...
+    const projectParam = searchParams.get(FILTER_BY_PROJECT_NAME_URL);
+
+
+
 
     // Cria uma lista de objeto para ser usado em um select...
     const projects: Options[] | undefined = client?.plan_management?.project.map((project: Project) => {
@@ -33,10 +39,7 @@ export function ConversationHistoric() {
     // Assim que o componente é montado é feito um filtro nos chats...
     useEffect(() => {
         // Obtem o filtro de tempo dos chats...
-        const time = searchParams.get("filter_time")
-        // Obtem o projeto selecionado...
-        const projectParam = searchParams.get("project")
-
+        const time = searchParams.get(FILTER_BY_TIME_NAME_URL);
         if (client) {
             if (projects?.length) {
                 let projectsFiltered;
@@ -99,6 +102,7 @@ export function ConversationHistoric() {
                         name="select_chat"
                         title="Selecione um chat"
                         options={projects || []}
+                        optionsDefault={projectParam ? Array.of(projectParam) : null}
                         onSelected={handleSelectProject}
                         onDelete={onDelete}
                     />
@@ -134,16 +138,16 @@ export function ConversationHistoric() {
 
                 <ListChats
                     chats={chats}
-                    setIndex={setIndex}
+                    selectedChatById={setSelectedChatById}
                 />
-                {
-                    !!chats.length ?
-                        <ContentChats
-                            messageManager={chats}
-                            index={index}
-                        />
-                        :
-                        <h2 className="p-4 text-center w-full">Você ainda não teve acessos no seu chat</h2>
+
+                {!!chats.length ?
+                    <ContentChats
+                        chats={chats}
+                        selectedChatById={selectedChatById}
+                    />
+                    :
+                    <h2 className="p-4 text-center w-full">Você ainda não teve acessos no seu chat</h2>
                 }
             </div>
         </Container>

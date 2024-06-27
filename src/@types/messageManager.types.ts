@@ -1,9 +1,11 @@
 export interface MessageManager {
     id: string
+    project_id: string
 
     lead_collected: Lead_collected[];
     messages: Message[];
     historic_messages: Message[];
+
 
     created_at: string;
 }
