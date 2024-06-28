@@ -7,7 +7,7 @@ export function HelpCenter() {
 
     useEffect(()=>{
         window.open("https://wa.me/5535991368790")
-        params.set("tab", "0");
+        params.set("tab", "my_chats");
         setParams(params)
         window.location.reload();
 
