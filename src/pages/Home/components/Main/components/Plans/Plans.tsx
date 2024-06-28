@@ -20,7 +20,7 @@ export function Plans() {
 
     const handleSelectPlan = (plan: Plan) => {
         const isLogged = localStorage.token;
-        if(!isLogged) localStorage.setItem("is_account", "0")
+        if (!isLogged) localStorage.setItem("is_account", "0")
         window.location.href = `${plan.payment_link}?pid=${plan.id}&cid=${client?.id}`
     }
 
@@ -94,8 +94,14 @@ export function Plans() {
 
                                 <div className="flex flex-col gap-4 items-center">
                                     <div className="flex items-start gap-1">
-                                        <p className="text-4xl font-bold">{Number(plan.monthly_price).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
-                                        <div className="flex flex-col justify-between">
+                                        <div className="flex gap-2 items-end">
+                                            <span 
+                                                data-hidden={Number(plan.duration_days) / 30 === 1 || Number(plan.monthly_price) <= 0}
+                                                className="text-lg font-bold data-[hidden=true]:hidden"
+                                            >{Number(plan.duration_days / 30).toFixed(0)}x</span>
+                                            <p className="text-4xl font-bold">{Number(plan.monthly_price).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
+                                        </div>
+                                        <div className="flex flex-col justify-end ">
                                             <span className="text-xs">Total:</span>
                                             <span className="text-xs">{Math.floor((Number(plan.monthly_price) * plan.duration_days / 30)).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</span>
                                         </div>
@@ -105,7 +111,7 @@ export function Plans() {
                                         Number(plan.monthly_price) > 0 ?
                                             <Button
                                                 customClass="neon-effect-hover mt-8 mb-4"
-                                                onClick={()=> handleSelectPlan(plan)}
+                                                onClick={() => handleSelectPlan(plan)}
                                             >
                                                 Contratar agora
                                             </Button>

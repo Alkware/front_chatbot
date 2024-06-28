@@ -27,7 +27,7 @@ export function Comparison() {
 
             <div className="flex flex-col md:flex-row gap-8 items-center">
 
-                <div className="w-[90%] md:w-auto flex flex-col items-center cursor-not-allowed border border-red-800/50 rounded-lg bg-red-500/10 gap-2 p-4 opacity-70 animate-pulse">
+                <div className="w-[90%] md:w-auto order-2 md:order-1 flex flex-col items-center cursor-not-allowed border border-red-800/50 rounded-lg bg-red-500/10 gap-2 p-4 opacity-70 animate-pulse">
                     <h3 className="text-2xl font-medium">Outras Soluções</h3>
                     <p className="text-center md:text-left opacity-70">Soluções incompletas e ineficazes do mercado</p>
                     <div className="flex flex-col gap-4 my-4">
@@ -45,7 +45,7 @@ export function Comparison() {
                     </div>
                 </div>
 
-                <div className="w-[90%] md:w-auto flex flex-col items-center cursor-pointer border border-primary-100/50 rounded-lg bg-primary-100/10 gap-2 p-4 shadow-md shadow-primary-100/40 hover:scale-110 transition-transform decoration-neutral-100">
+                <div className="w-[90%] md:w-auto order-1 md:order-2 flex flex-col items-center cursor-pointer border border-primary-100/50 rounded-lg bg-primary-100/10 gap-2 p-4 shadow-md shadow-primary-100/40 hover:scale-110 transition-transform decoration-neutral-100">
                     <h3 className="text-2xl font-medium">Wipzee</h3>
                     <p className="opacity-70 text-center md:text-left">Assistente eficaz utilizando inteligência artifical</p>
                     <div className="flex flex-col gap-4 my-4">
