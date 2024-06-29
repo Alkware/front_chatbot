@@ -63,8 +63,7 @@ export function Plans() {
                                         <p>{plan.max_analyze_metric.default} análise(s) de metricas/dia</p>
                                     </div>
                                 </div>
-                                {
-                                    (Number(plan.max_analyze_metric.bonus) > 0 ||
+                                {(Number(plan.max_analyze_metric.bonus) > 0 ||
                                         Number(plan.max_databases.bonus) > 0 ||
                                         Number(plan.max_messages.bonus) > 0 ||
                                         Number(plan.max_projects.bonus) > 0) &&
@@ -99,7 +98,7 @@ export function Plans() {
                                                 data-hidden={Number(plan.duration_days) / 30 === 1 || Number(plan.monthly_price) <= 0}
                                                 className="text-lg font-bold data-[hidden=true]:hidden"
                                             >{Number(plan.duration_days / 30).toFixed(0)}x</span>
-                                            <p className="text-4xl font-bold">{Number(plan.monthly_price).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
+                                            <p className="text-4xl font-bold">R$ {Number(plan.monthly_price).toFixed(0)}</p>
                                         </div>
                                         <div className="flex flex-col justify-end ">
                                             <span className="text-xs">Total:</span>
