@@ -1,4 +1,5 @@
 import { ReactElement, createContext, useState } from "react";
+import { createLog } from "../api/log";
 
 type ComponentName = `modal_${string}`
 
@@ -10,7 +11,7 @@ interface ProviderTypes {
 interface ModalContextTypes {
     modalContent: ProviderTypes[] | undefined,
     setModalContent: (props: ProviderTypes) => void,
-    clearModal: (props: ComponentName | null, options?: { clearAll?: true, clearLast?: true}) => void,
+    clearModal: (props: ComponentName | null, options?: { clearAll?: true, clearLast?: true }) => void,
 }
 
 export const ModalContext = createContext<ModalContextTypes>({
@@ -28,26 +29,34 @@ export function ModalProvider({ children }: { children: ReactElement | ReactElem
     }
 
     // Função criada para limpar os modals baseado no nome, caso não for passado um nome, ele limpa todos os modal
-    const clearModal = (componentName: ComponentName | null, options?: { clearAll?: true, clearLast?: true}) => {
+    const clearModal = async (componentName: ComponentName | null, options?: { clearAll?: true, clearLast?: true }) => {
         if (options?.clearAll) {
             setModal([])
             return
         }
 
-        if(options?.clearLast){
+        if (options?.clearLast) {
             setModal(values => {
-                if(values){
+                if (values) {
                     const array = [...values]
                     array.pop();
                     return array
-                } 
+                }
                 return []
             })
             return
         }
 
-        if(componentName) setModal(values => [...values].filter(value => value.componentName !== componentName))
-        else throw new Error("ComponentName cannot be empty.")
+        if (componentName) setModal(values => [...values].filter(value => value.componentName !== componentName))
+        else {
+            await createLog({
+                level: "danger",
+                path: "src/context/ModalContext.tsx Ln: 54",
+                log: "O nome do modal veio vazio.",
+                sector: "Plataforma"
+            });
+            throw new Error("ComponentName cannot be empty.")
+        }
     }
 
     return (

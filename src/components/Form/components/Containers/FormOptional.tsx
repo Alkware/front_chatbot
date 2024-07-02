@@ -4,6 +4,7 @@ import { STEP_NAME_URL } from "../../../../variables/variables";
 import { ToggleComponent } from "../../../Toggle/Toggle";
 import { twMerge } from "tailwind-merge";
 import { useFormContext } from "react-hook-form";
+import { createLog } from "../../../../api/log";
 
 interface FormOptional extends HTMLAttributes<HTMLDivElement> {
     children: ReactElement | ReactElement[];
@@ -27,10 +28,19 @@ export function FormOptional({ children, text, functionOffToggle, name, ...props
     const [display, setDisplay] = useState(!!active ? true : false);
     const [params, setParams] = useSearchParams();
 
-    const handleActiveCTA = (prop: any) => {
+    const handleActiveCTA = async (prop: any) => {
         // busca a atual step do formulario
         const currentStep = params.get(STEP_NAME_URL) || "0";
-        if (!currentStep) throw new Error("The current step not founded.")
+
+        if (!currentStep) {
+            await createLog({
+                level: "danger",
+                path: "src/components/Form/components/Containers/FormOptional.tsx Ln: 38",
+                log: "A atual step não foi encontrada",
+                sector: "Plataforma"
+            });
+            throw new Error("The current step not founded.")
+        }
         //aumenta uma ação no formulario, forçando a atualização do simulador do chat
         const actions = params.get("actions");
         const increaseActions = Number(actions) + 1;

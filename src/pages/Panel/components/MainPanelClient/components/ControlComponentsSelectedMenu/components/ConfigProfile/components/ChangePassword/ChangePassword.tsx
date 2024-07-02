@@ -17,7 +17,7 @@ export function ChangePassword() {
 
 
     const handleChangePassword = async (data: any) => {
-        if (!client) throw new Error("Client not founded.");
+        if (!client) return;
         if(data.new_password.length < 8 || data.current_password.length < 8){
             const existPasswordEmpty = !data.new_password.length || !data.current_password.length;
             const message = existPasswordEmpty ? "Preencha todos os dados" : "Informe uma senha com mais de 8 caracteres"

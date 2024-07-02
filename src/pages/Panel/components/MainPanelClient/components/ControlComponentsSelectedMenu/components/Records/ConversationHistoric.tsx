@@ -128,7 +128,7 @@ export function ConversationHistoric() {
                 </div>
             </div>
 
-            <div className="w-[90%] h-3/4 flex gap-4 flex-col md:flex-row md:bg-light md:dark:bg-gray my-4">
+            <div className="w-[90%] h-3/4 flex gap-4 flex-col md:flex-row md:bg-light md:dark:bg-gray my-4 border border-primary-200 rounded-md">
                 {/* Esse botão só será exibido no mobile */}
                 <Button
                     customClass="bg-primary-100 dark:bg-primary-200 md:hidden"

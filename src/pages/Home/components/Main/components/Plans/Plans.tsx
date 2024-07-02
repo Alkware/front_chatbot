@@ -5,6 +5,7 @@ import { getPlans } from "../../../../../../api/plan";
 import { AxiosResponse } from "axios";
 import { MdAutoAwesome, MdCheck } from "react-icons/md";
 import { ClientContext } from "../../../../../../context/ClientContext";
+import { TipContainer } from "../../../../../../components/TipContainer/TipContainer";
 
 export function Plans() {
     const { client } = useContext(ClientContext)
@@ -40,48 +41,55 @@ export function Plans() {
                                 data-isbestseller={index === 2}
                                 className="min-w-[300px] group relative flex flex-col hover:scale-105 transition-transform duration-300 cursor-pointer justify-between gap-4 border border-primary-100 bg-primary-100/20 rounded-md p-2 items-center text-primary-100 dark:text-light"
                             >
-                                <div className="w-4/5 absolute -top-1 left-1/2 -translate-x-1/2 bg-orange-500 text-light border-2 border-orange-800 uppercase text-center -translate-y-1/2 rounded-full text-sm font-bold group-data-[isbestseller=false]:hidden">Mais popular</div>
-                                <div className="w-full flex flex-col gap-4">
-                                    <h3 className="w-full  text-center text-xl font-bold">{plan.plan_name}</h3>
-                                    <div className="w-full flex gap-2 justify-start items-center">
+                                <div className="w-4/5 absolute -top-1 left-1/2 -translate-x-1/2 z-50 bg-orange-500 text-light border-2 border-orange-800 uppercase text-center -translate-y-1/2 rounded-full text-sm font-bold group-data-[isbestseller=false]:hidden">Mais popular</div>
+                                <h3 className="w-full text-center text-xl font-bold bg-primary-100 shadow-md shadow-dark/30 absolute top-0 left-0 py-2 z-40">{plan.plan_name}</h3>
+                                <div className="w-full flex flex-col gap-1">
+
+                                    <div className="ml-8 mt-16 flex gap-2 justify-start items-center">
                                         <MdCheck />
                                         <p>{plan.max_messages.default} Mensagens</p>
                                     </div>
-                                    <div className="w-full flex gap-2 justify-start items-center">
+                                    <div className="ml-8 flex gap-2 justify-start items-center">
                                         <MdCheck />
                                         <p>{plan.max_projects.default} chat(s)</p>
                                     </div>
-                                    <div className="w-full flex gap-2 justify-start items-center">
+                                    <div className="ml-8 flex gap-2 justify-start items-center relative">
                                         <MdCheck />
                                         <p>{plan.max_databases.default} base de dado(s)</p>
+
+                                        <TipContainer tip="Fonte de dados é a fonte de dados e boa...">
+                                            <span className="bg-light text-dark px-1 rounded-full text-[10px] relative">?</span>
+                                        </TipContainer>
+
                                     </div>
                                     <div
                                         data-display={Number(plan.max_analyze_metric.default) > 0}
-                                        className="w-full flex gap-2 justify-start items-center data-[display=false]:hidden"
+                                        className="ml-8 flex gap-2 justify-start items-center data-[display=false]:hidden"
                                     >
                                         <MdCheck />
                                         <p>{plan.max_analyze_metric.default} análise(s) de metricas/dia</p>
+                                        <TipContainer tip="Fonte de dados é a fonte de dados e boa...">
+                                            <span className="bg-light text-dark px-1 rounded-full text-[10px] relative">?</span>
+                                        </TipContainer>
                                     </div>
                                 </div>
                                 {(Number(plan.max_analyze_metric.bonus) > 0 ||
-                                        Number(plan.max_databases.bonus) > 0 ||
-                                        Number(plan.max_messages.bonus) > 0 ||
-                                        Number(plan.max_projects.bonus) > 0) &&
-                                    <div className="w-full flex flex-col justify-start items-center bg-primary-100 text-light rounded-md p-2">
+                                    Number(plan.max_databases.bonus) > 0 ||
+                                    Number(plan.max_messages.bonus) > 0 ||
+                                    Number(plan.max_projects.bonus) > 0) &&
+                                    <div className="w-full flex flex-col justify-start items-center bg-primary-200/50 border-2 border-primary-100/80 shadow-sm shadow-primary-100 text-light rounded-md p-2">
                                         <div className="flex flex-col mb-4 items-center">
                                             <h2 className="text-2xl font-bold">Bônus</h2>
                                             <h3 className="text-center font-medium text-sm">Contratando hoje você ganha:</h3>
                                         </div>
-                                        <div className="w-full flex flex-col gap-2 items-start">
-                                            {
-                                                Number(plan.max_analyze_metric.bonus) > 0 &&
+                                        <div className="w-full flex flex-col gap-2 items-center">
+                                            {Number(plan.max_analyze_metric.bonus) > 0 &&
                                                 <div className="flex gap-2 items-center">
                                                     <MdAutoAwesome />
                                                     <p>{plan.max_analyze_metric.bonus} análise(s) grátis</p>
                                                 </div>
                                             }
-                                            {
-                                                Number(plan.max_messages.bonus) > 0 &&
+                                            {Number(plan.max_messages.bonus) > 0 &&
                                                 <div className="flex gap-2 items-center">
                                                     <MdAutoAwesome />
                                                     <p>{plan.max_messages.bonus} mensagens grátis</p>
@@ -92,31 +100,33 @@ export function Plans() {
                                 }
 
                                 <div className="flex flex-col gap-4 items-center">
-                                    <div className="flex items-start gap-1">
-                                        <div className="flex gap-2 items-end">
-                                            <span 
-                                                data-hidden={Number(plan.duration_days) / 30 === 1 || Number(plan.monthly_price) <= 0}
-                                                className="text-lg font-bold data-[hidden=true]:hidden"
-                                            >{Number(plan.duration_days / 30).toFixed(0)}x</span>
-                                            <p className="text-4xl font-bold">R$ {Number(plan.monthly_price).toFixed(0)}</p>
+                                    <div className="flex items-center">
+                                        <div className="flex items-end">
+                                            <span className="opacity-60 mx-1">R$</span>
+                                            <p className="text-4xl font-bold">{Number(plan.monthly_price).toFixed(0)}</p>
+                                            <span
+                                                data-hidden={Number(plan.monthly_price) <= 0}
+                                                className="text-lg data-[hidden=true]:hidden py-[1px] opacity-60"
+                                            // >{Number(plan.duration_days / 30).toFixed(0)}x</span>
+                                            >/mês</span>
                                         </div>
-                                        <div className="flex flex-col justify-end ">
+                                        {/* <div className="flex flex-col justify-end ">
                                             <span className="text-xs">Total:</span>
                                             <span className="text-xs">{Math.floor((Number(plan.monthly_price) * plan.duration_days / 30)).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</span>
-                                        </div>
+                                        </div> */}
                                     </div>
 
                                     {
                                         Number(plan.monthly_price) > 0 ?
                                             <Button
-                                                customClass="neon-effect-hover mt-8 mb-4"
+                                                customClass="neon-effect-hover mt-2 mb-4"
                                                 onClick={() => handleSelectPlan(plan)}
                                             >
                                                 Contratar agora
                                             </Button>
                                             :
                                             <Button
-                                                customClass="neon-effect-hover mt-8 mb-4"
+                                                customClass="neon-effect-hover mt-2 mb-4"
                                                 onClick={() => window.location.href = "/register"}
                                             >
                                                 Testar agora

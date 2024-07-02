@@ -13,6 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CHAT_NAME_TO_SAVE_LOCALSTORAGE } from "../../variables/variables";
 import { CallToActionFormChat } from "./components/FormCallToAction/FormCallToAction";
 import { loading } from "../../functions/loading";
+import { createLog } from "../../api/log";
 
 export function CreateChat() {
     const [prompt, setPrompt] = useState<Database[]>()
@@ -101,6 +102,12 @@ export function CreateChat() {
                 })
             }
         } catch (error: any) {
+            await createLog({
+                level: "danger",
+                log: "O usuário não conseguiu criar o chat",
+                path: "src/pages/CreateChat/CreateChat.tsx Ln: 108",
+                sector: "Plataforma"
+            })
             throw new Error(error)
         } finally {
             loading(containerFormRef.current?.querySelector("button[data-loading]"), false)

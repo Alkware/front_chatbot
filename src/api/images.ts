@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_URL } from "./url-api";
+import { createLog } from "./log";
 
 export async function uploadImage(file: any) {
     try {
@@ -11,9 +12,16 @@ export async function uploadImage(file: any) {
             form.append('image', file);
             const response = await axios.post(`${API_URL}/upload_image`, form).catch(err => console.warn("ERRO:", err))
 
+            
             if (response) return response
         }
     } catch (error) {
+        await createLog({
+            level: "warning",
+            path: "src/api/images.ts Ln: 20",
+            log: "Falha ao tentar fazer o upload da imagem",
+            sector: "Plataforma"
+        });
         throw new Error("Unable to upload image.")
     }
 }

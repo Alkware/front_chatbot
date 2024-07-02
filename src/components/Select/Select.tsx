@@ -5,6 +5,7 @@ import { OptionList } from "./components/ContainerListSelect/components/OptionLi
 import { MouseEvent, RefObject, useEffect, useRef, useState } from "react";
 import { ListSelected } from "./components/ContainerHeaderSelect/components/ListSelected";
 import { UseFormReturn } from "react-hook-form";
+import { createLog } from "../../api/log";
 
 export type Options = { id?: string, value: string, text: string }
 
@@ -42,8 +43,8 @@ export function Select({ options, name, title, multipleSelect, optionsDefault, u
             // Filtra as opções que já estão selecionadas...
             const key = useFormContext.getValues(name);
             data = options?.filter((opt) => typeof key === "object" ? key.find((key: string) => key === opt.value) : key === opt.value);
-        }else {
-            data = options?.filter((opt) =>  optionsDefault?.find((key: string) => key === opt.value.replaceAll(" ", "_")));
+        } else {
+            data = options?.filter((opt) => optionsDefault?.find((key: string) => key === opt.value.replaceAll(" ", "_")));
         }
 
         if (!!data.length) {
@@ -57,12 +58,20 @@ export function Select({ options, name, title, multipleSelect, optionsDefault, u
     }, []);
 
     // Função responsável por selecionar uma opção;
-    const handleOptionSelected = ({ currentTarget: target }: MouseEvent<HTMLLIElement>) => {
+    const handleOptionSelected = async ({ currentTarget: target }: MouseEvent<HTMLLIElement>) => {
         if (!multipleSelect) handleCloseSelect();
 
         if (options) {
             const value = target.dataset.value;
-            if (!value) throw new Error("Unale to selected the option. because it is empty.");
+            if (!value) {
+                await createLog({
+                    level: "danger",
+                    path: "src/components/Select/Select.tsx Ln: 69",
+                    log: "Não foi encontrado um valor dentro das opções do select",
+                    sector: "Plataforma"
+                });
+                throw new Error("Unale to selected the option. because it is empty.");
+            }
             const updateOption =
                 optionsState.map((opt: OptionsState) =>
                     opt.value === value ?

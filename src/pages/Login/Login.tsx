@@ -10,13 +10,13 @@ import { ModalContext } from "../../context/ModalContext";
 import { PopOver } from "../../components/modal/templates/PopOver";
 import { loading } from "../../functions/loading";
 
-
 const createClientFormSchema = z.object({
     email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
     password: z.string().min(1, "Sua senha não pode estar vazia."),
 })
 
 type createClientFormTypes = z.infer<typeof createClientFormSchema>
+
 
 function Login() {
     const { setModalContent } = useContext(ModalContext)
@@ -55,7 +55,7 @@ function Login() {
             loading(button, false)
             window.location.href = "/panel"
         } else {
-            loading(button, false)
+            loading(button, false);
             setModalContent({
                 componentName: "modal_error_authenticate",
                 components: <PopOver

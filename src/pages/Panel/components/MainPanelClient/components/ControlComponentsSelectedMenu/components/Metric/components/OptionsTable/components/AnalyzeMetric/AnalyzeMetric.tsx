@@ -99,7 +99,7 @@ export function AnalyzeMetric() {
 
 
         setAnalyze(null)
-        if (!client) throw new Error("Client is missing!")
+        if (!client) return;
         const project = client.plan_management.project;
         const timeNow = formatDate(new Date()).currentHour;
 
