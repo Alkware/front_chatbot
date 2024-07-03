@@ -5,7 +5,6 @@ import { getPlans } from "../../../../../../api/plan";
 import { AxiosResponse } from "axios";
 import { MdAutoAwesome, MdCheck } from "react-icons/md";
 import { ClientContext } from "../../../../../../context/ClientContext";
-import { TipContainer } from "../../../../../../components/TipContainer/TipContainer";
 
 export function Plans() {
     const { client } = useContext(ClientContext)
@@ -38,11 +37,13 @@ export function Plans() {
                             <div
                                 key={plan.id}
                                 id={plan.id}
-                                data-isbestseller={index === 2}
-                                className="min-w-[300px] group relative flex flex-col hover:scale-105 transition-transform duration-300 cursor-pointer justify-between gap-4 border border-primary-100 bg-primary-100/20 rounded-md p-2 items-center text-primary-100 dark:text-light"
+                                className="min-w-[300px] relative flex flex-col hover:scale-105 transition-transform duration-300 cursor-pointer justify-between gap-4 border border-primary-100 bg-primary-100/20 rounded-md p-2 items-center text-primary-100 dark:text-light"
                             >
-                                <div className="w-4/5 absolute -top-1 left-1/2 -translate-x-1/2 z-50 bg-orange-500 text-light border-2 border-orange-800 uppercase text-center -translate-y-1/2 rounded-full text-sm font-bold group-data-[isbestseller=false]:hidden">Mais popular</div>
-                                <h3 className="w-full text-center text-xl font-bold bg-primary-100 shadow-md shadow-dark/30 absolute top-0 left-0 py-2 z-40">{plan.plan_name}</h3>
+                                <div
+                                    data-isbestseller={index === 2}
+                                    className="w-4/5 absolute -top-1 left-1/2 -translate-x-1/2 z-50 bg-orange-500 text-light border-2 border-orange-800 uppercase text-center -translate-y-1/2 rounded-full text-sm font-bold data-[isbestseller=false]:hidden"
+                                >Mais popular</div>
+                                <h3 className="w-full text-center text-xl font-bold bg-primary-100 shadow-md shadow-dark/30 absolute top-0 left-0 py-2 z-0">{plan.plan_name}</h3>
                                 <div className="w-full flex flex-col gap-1">
 
                                     <div className="ml-8 mt-16 flex gap-2 justify-start items-center">
@@ -55,11 +56,14 @@ export function Plans() {
                                     </div>
                                     <div className="ml-8 flex gap-2 justify-start items-center relative">
                                         <MdCheck />
-                                        <p>{plan.max_databases.default} base de dado(s)</p>
+                                        <p>{plan.max_databases.default} fonte de dado(s)</p>
 
-                                        <TipContainer tip="Fonte de dados é a fonte de dados e boa...">
-                                            <span className="bg-light text-dark px-1 rounded-full text-[10px] relative">?</span>
-                                        </TipContainer>
+                                        <div className="group relative">
+                                            <span className="bg-light text-dark px-[4px] rounded-full text-[10px] relative font-bold">?</span>
+                                            <span className="scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-95 transition-all absolute z-50 top-0 left-0 -translate-y-full -translate-x-full text-center p-2 rounded-md shadow-md shadow-black/50 bg-primary-100 leading-5 text-light border-2 border-primary-100 w-[300px]">
+                                                A fonte de dados é fundamental para nossa inteligência artificial, pois é dela que extraímos as informações necessárias para responder às perguntas dos clientes de forma precisa e eficiente.
+                                            </span>
+                                        </div>
 
                                     </div>
                                     <div
@@ -68,9 +72,12 @@ export function Plans() {
                                     >
                                         <MdCheck />
                                         <p>{plan.max_analyze_metric.default} análise(s) de metricas/dia</p>
-                                        <TipContainer tip="Fonte de dados é a fonte de dados e boa...">
-                                            <span className="bg-light text-dark px-1 rounded-full text-[10px] relative">?</span>
-                                        </TipContainer>
+                                        <div className="group relative">
+                                            <span className="bg-light text-dark px-[4px] rounded-full text-[10px] relative font-bold">?</span>
+                                            <span className="scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-95 transition-all absolute top-0 left-0 -translate-y-full -translate-x-full text-center p-2 rounded-md shadow-md shadow-black/50 bg-primary-100 leading-5 text-light font-medium border-2 border-primary-100 w-[300px] z-50">
+                                                Utilizamos uma IA treinado para analisar suas métricas para que você saiba exatamente o que fazer para melhorar a qualidade do seu chat.
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                                 {(Number(plan.max_analyze_metric.bonus) > 0 ||
