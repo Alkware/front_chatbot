@@ -39,11 +39,11 @@ export function Plans() {
                                 id={plan.id}
                                 className="min-w-[300px] relative flex flex-col hover:scale-105 transition-transform duration-300 cursor-pointer justify-between gap-4 border border-primary-100 bg-primary-100/20 rounded-md p-2 items-center text-primary-100 dark:text-light"
                             >
+                                <h3 className="w-full text-center text-xl font-bold bg-primary-100 shadow-md shadow-dark/30 absolute top-0 left-0 py-2 z-0">{plan.plan_name}</h3>
                                 <div
                                     data-isbestseller={index === 2}
-                                    className="w-4/5 absolute -top-1 left-1/2 -translate-x-1/2 z-50 bg-orange-500 text-light border-2 border-orange-800 uppercase text-center -translate-y-1/2 rounded-full text-sm font-bold data-[isbestseller=false]:hidden"
+                                    className="w-4/5 absolute -top-1 left-1/2 -translate-x-1/2 bg-orange-500 text-light border-2 border-orange-800 uppercase text-center -translate-y-1/2 rounded-full text-sm font-bold data-[isbestseller=false]:hidden"
                                 >Mais popular</div>
-                                <h3 className="w-full text-center text-xl font-bold bg-primary-100 shadow-md shadow-dark/30 absolute top-0 left-0 py-2 z-0">{plan.plan_name}</h3>
                                 <div className="w-full flex flex-col gap-1">
 
                                     <div className="ml-8 mt-16 flex gap-2 justify-start items-center">
