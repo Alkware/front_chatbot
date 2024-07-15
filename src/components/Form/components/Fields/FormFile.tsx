@@ -84,8 +84,6 @@ export function FormFile({ name, sizeContainer, formContext }: FormFile) {
         }
     }
 
-
-
     return (
         <div
             className="flex justify-evenly items-center"

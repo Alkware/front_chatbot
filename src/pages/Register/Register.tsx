@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod";
@@ -27,6 +27,7 @@ type CreateUserFormData = z.infer<typeof createClientFormSchema>;
 
 
 function Register() {
+    const [params] = useSearchParams();
     const navigate = useNavigate();
     const formRegister = useForm<CreateUserFormData>({
         resolver: zodResolver(createClientFormSchema)
@@ -36,8 +37,7 @@ function Register() {
         (async () => {
             // define o thema da página de register
             const isDark = localStorage.theme === "dark"
-            document.documentElement.classList.toggle("dark", !!isDark)
-
+            document.documentElement.classList.toggle("dark", !!isDark);
 
             //verifica se o usuário já está authenticado, se estiver ele já vai direto para o painel
             const token = localStorage.getItem("token");
@@ -48,6 +48,8 @@ function Register() {
     }, [])
 
     async function createUser(data: any) {
+        const isOriginMarketing = params.get("origin");
+        isOriginMarketing && (data.origin = isOriginMarketing);
         const clientCreated = await registerClient(data);
 
         if (clientCreated && clientCreated.status === 201) {

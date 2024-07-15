@@ -8,9 +8,9 @@ export async function getClientById(id: string) {
     return client
 }
 
-export async function registerClient({ email, password, fullname }: clientRegisterTypes) {
+export async function registerClient({ email, password, fullname, origin }: clientRegisterTypes) {
 
-    const client = await axios.post(`${API_URL}/client/create`, { email, password, fullname })
+    const client = await axios.post(`${API_URL}/client/create`, { email, password, fullname, origin })
         .catch(error => console.warn(error))
     return client
 }

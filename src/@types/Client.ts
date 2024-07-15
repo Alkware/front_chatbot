@@ -25,9 +25,10 @@ export interface Client {
 
 
 export interface clientRegisterTypes {
-    email: string,
-    password: string,
-    fullname: string
+    email: string;
+    password: string;
+    fullname: string;
+    origin: string;
 }
 
 export interface clientLoginTypes {
