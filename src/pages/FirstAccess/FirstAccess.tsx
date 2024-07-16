@@ -12,6 +12,7 @@ import { Button } from "../../components/button/Button";
 import { PopOver } from "../../components/modal/templates/PopOver";
 import { loading } from "../../functions/loading";
 import { InputPassword } from "../Panel/components/MainPanelClient/components/ControlComponentsSelectedMenu/components/ConfigProfile/components/ChangePassword/components/InputPassword/InputPassword";
+import { saveTrafficOrigin } from "../../functions/saveTrafficOrigin";
 
 
 const createClientFormSchema = z.object({
@@ -39,7 +40,10 @@ export function FirstAccess() {
             const token = localStorage.getItem("token");
             const clientIsLogged = token && await authenticateClient(token)
             if (clientIsLogged) navigate("/panel")
-            else setAccess(true)
+            else setAccess(true);
+
+            // Verifica se existe uma origem no trafégo...
+            saveTrafficOrigin();
         })();
     }, [])
 

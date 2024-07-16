@@ -9,6 +9,7 @@ import { Root } from "../../components/Form/FormRoot";
 import { ModalContext } from "../../context/ModalContext";
 import { PopOver } from "../../components/modal/templates/PopOver";
 import { loading } from "../../functions/loading";
+import { saveTrafficOrigin } from "../../functions/saveTrafficOrigin";
 
 const createClientFormSchema = z.object({
     email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
@@ -38,6 +39,9 @@ function Login() {
             const clientIsLogged = token && await authenticateClient(token)
             if (clientIsLogged) window.location.href = "/panel"
             else setAccess(true)
+
+            // Verifica se existe uma origem no trafégo...
+            saveTrafficOrigin();
         })();
     }, [])
 

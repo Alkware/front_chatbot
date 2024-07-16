@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod";
@@ -6,6 +6,7 @@ import { authenticateClient, registerClient } from "../../api/client";
 import { useEffect } from "react";
 import { Header } from "../Home/components/Header/Header";
 import { Root } from "../../components/Form/FormRoot";
+import { saveTrafficOrigin } from "../../functions/saveTrafficOrigin";
 
 const createClientFormSchema = z.object({
     email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
@@ -27,7 +28,6 @@ type CreateUserFormData = z.infer<typeof createClientFormSchema>;
 
 
 function Register() {
-    const [params] = useSearchParams();
     const navigate = useNavigate();
     const formRegister = useForm<CreateUserFormData>({
         resolver: zodResolver(createClientFormSchema)
@@ -44,19 +44,19 @@ function Register() {
             const clientIsLogged = token && await authenticateClient(token);
             (clientIsLogged && navigate("/panel"));
 
+            // Verifica se existe uma origem no trafégo...
+            saveTrafficOrigin();
         })();
     }, [])
 
     async function createUser(data: any) {
-        const isOriginMarketing = params.get("origin");
+        const isOriginMarketing = localStorage?.origin;
         isOriginMarketing && (data.origin = isOriginMarketing);
         const clientCreated = await registerClient(data);
 
         if (clientCreated && clientCreated.status === 201) {
             const token = clientCreated.data
-
             localStorage.setItem("token", token)
-
             navigate("/panel")
         } else alert("E-mail inserido já existe")
     }
