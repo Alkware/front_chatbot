@@ -6,67 +6,77 @@ const messages = [
     {
         id: 0,
         isUser: false,
-        text: "Olá! Sou uma inteligencia artifical criada para solucionar suas dúvidas, como posso te ajudar hoje?"
+        text: "Olá! Sou uma inteligência artifical criada para solucionar suas dúvidas, como posso te ajudar hoje?"
     },
     {
         id: 1,
         isUser: true,
-        text: "Oi, gostaria de saber como a Wipzee funciona?"
+        text: "Oi, gostaria como a wipzee vai me ajudar a vender mais?"
     },
     {
         id: 2,
         isUser: false,
-        text: "A Wipzee é uma assistente virtual avançada, que oferece suporte aos produtos de nossos clientes por meio de inteligência artificial."
+        text: `
+            Eu posso ajudar você há vender mais de diversas maneiras, Aqui estão algumas formas:
+        `
     },
     {
         id: 3,
         isUser: false,
-        text: "Nossa assistente virtual é projetada para interagir com os usuários de forma natural, eficiente e humanizada, fornecendo respostas precisas e solucionando problemas de maneira rápida."
+        text: "1. Sou projetada para interagir com os usuários de forma natural, eficiente e humanizada, fornecendo respostas precisas e solucionando problemas de maneira rápida."
     },
     {
         id: 4,
-        isUser: true,
-        text: "E se eu contratar e não gostar?"
+        isUser: false,
+        text: "2. Eu posso responder instantaneamente às perguntas mais comuns dos clientes, reduzindo o tempo de espera e aumentando a satisfação do cliente."
     },
     {
         id: 5,
         isUser: false,
-        text: "Não se preocupe! Nós oferecemos uma garantia de 7 dias, durante os quais você pode solicitar o reembolso do valor pago."
+        text: "3. Estou disponível 24 horas por dia e todos os dias da semana, você não deixará mais nenhum cliente esperando 😊"
     },
     {
         id: 6,
         isUser: true,
-        text: "Mas essa ferramenta não é aqueles chatbot engessados não né? com fluxos de mensagens que são tediosos para preencher e no fim não funcionam."
+        text: "Tenho que pagar para usar?"
     },
     {
         id: 7,
         isUser: false,
-        text: "Não! Nossa assistente virtual é projetada para interagir de forma natural, humanizada e eficiente com os usuários."
+        text: "De maneira nenhuma! você pode criar sua conta gratuitamente e começar a utlizar em seus negócios"
     },
     {
         id: 8,
-        isUser: false,
-        text: "Focamos muito em deixar simples e fácil a criação de novos chats, que até uma criança entenderia haha"
+        isUser: true,
+        text: "Mas essa ferramenta não é aqueles chatbot engessados não né? com fluxos de mensagens que são tediosos para preencher e no fim não funcionam."
     },
     {
         id: 9,
+        isUser: false,
+        text: "Não! Nossa assistente virtual é projetada para interagir de forma natural, humanizada e eficiente com os usuários."
+    },
+    {
+        id: 10,
+        isUser: false,
+        text: "Focamos muito em deixar simples e fácil a criação de novos chats, que até uma criança entenderia 🤣🤣"
+    },
+    {
+        id: 11,
         isUser: true,
         text: "Como faço para testar?"
     },
     {
-        id: 10,
+        id: 12,
         isUser: false,
         text: "Basta clicar no link abaixo e aumentar suas vendas.",
         link: true,
     },
 ]
 
-interface SimulatorMobile {
-    size?: "BIG" | "SMALL"
-}
+interface SimulatorMobile { }
 
 
-export function SimulatorMobile({ size }: SimulatorMobile) {
+export function SimulatorMobile({ }: SimulatorMobile) {
     return (
         <div
             className="group w-full h-full border-[20px] border-black rounded-[2rem] z-50"
@@ -94,18 +104,15 @@ export function SimulatorMobile({ size }: SimulatorMobile) {
                 >
                     <HeaderDevice
                         messages={messages}
-                        size={size}
                     />
                     <MainDevice
                         messages={messages}
-                        size={size}
                     />
-                    <div 
-                        data-size={size}
-                        className="group w-full data-[size='SMALL']:min-h-[50px] min-h-[70px] flex gap-2 px-4 justify-center items-center"
+                    <div
+                        className="group w-full min-h-[70px] flex gap-2 px-4 justify-center items-center"
                     >
-                        <input className="h-[40px] group-data-[size='SMALL']:h-[30px]" disabled />
-                        <MdSend className="bg-primary-100 p-1 rounded-full text-4xl group-data-[size='SMALL']:text-2xl" />
+                        <input className="h-[40px]" disabled />
+                        <MdSend className="bg-primary-100 p-1 rounded-full text-4xl" />
                     </div>
                 </div>
             </div>

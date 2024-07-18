@@ -9,11 +9,15 @@ export function ChatDemo() {
 
             <div className="w-full md:w-1/2 h-auto md:h-full flex flex-col gap-4 items-center ">
 
-                <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold my-2 md:my-4 lg:my-8">Conheça nosso chat</h2>
+                <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl text-center font-bold mx-4 md:my-2 lg:my-4">
+                    Tenha no seu atendimento uma <br /> assistente 24 horas
+                </h2>
 
-                <h3 className="w-full px-4 lg:w-4/5 text-base md:text-xl lg:text-2xl opacity-80 text-center">
-                    Utilizamos uma linguagem natural humanizada para trazer confiança e segurança ao seu cliente. então
-                    conheça nossos planos e faça agora o seu cadastro pelo chat. É super rápido!
+                <h3 className="w-full px-4 lg:w-4/5 text-base md:text-lg lg:text-xl opacity-80 text-center">
+                    Com o nosso chat da Wipzee, você consegue tirar as dúvidas do seus clientes <strong>NA HORA</strong>.
+                    Nossa tecnologia possui capacidade para fornecer respostas precisas de maneira personalizada e humanizada
+                    aos seus clientes, elevando assim o nível de experiência e satisfação com a sua marca. Faça agora seu cadastro
+                    e começa a vender mais, é rápido e <strong>você não paga nada!</strong>
                 </h3>
                 <Button
                     customClass="my-4 md:my-8 uppercase text-base md:text-xl neon-effect-hover"
@@ -23,13 +27,10 @@ export function ChatDemo() {
                 </Button>
             </div>
 
-            <div className="w-full md:w-1/2 flex flex-col gap-4 justify-start items-center">
-                <div className="w-[280px] h-[450px] md:w-[320px] md:h-[530px] lg:w-[340px] lg:h-[600px] xl:w-[370px] xl:h-[650px]">
-                    <SimulatorMobile 
-                        size={window.innerWidth > 768 ? "BIG" : "SMALL"}
-                    />
+            <div className="w-full h-full md:w-1/2 flex flex-col gap-4 justify-center items-center">
+                <div className="w-[30vw] h-[45vw] max-w-[300px] max-h-[450px]">
+                    <SimulatorMobile />
                 </div>
-                
             </div>
         </div>
     )

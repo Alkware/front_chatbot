@@ -1,6 +1,7 @@
 import { MdCheck, MdClose } from "react-icons/md";
 
 const otherSolutions = [
+    "Cobra para usar um chatbot engessado",
     "Difícil configuração",
     "Utiliza fluxos tediosos de mensagens",
     "Difícil integração com sites",
@@ -11,6 +12,7 @@ const otherSolutions = [
 ];
 
 const wipzee = [
+    "Assitente gratuita",
     "Fácil configuração",
     "Utiliza inteligência artificial",
     "Integração rápida e fácil em qualquer site",
@@ -32,10 +34,11 @@ export function Comparison() {
                     <p className="text-center md:text-left opacity-70">Soluções incompletas e ineficazes do mercado</p>
                     <div className="flex flex-col gap-4 my-4">
                         {
-                            otherSolutions.map(text =>
+                            otherSolutions.map((text, index) =>
                                 <div
+                                    data-iszero={index === 0}
                                     key={text}
-                                    className="flex items-center gap-2"
+                                    className="flex items-center gap-2 data-[iszero=true]:font-bold data-[iszero=true]:underline"
                                 >
                                     <MdClose className="text-xl fill-red-500" />
                                     <span className="text-lg">{text}</span>
@@ -50,10 +53,11 @@ export function Comparison() {
                     <p className="opacity-70 text-center md:text-left">Assistente eficaz utilizando inteligência artifical</p>
                     <div className="flex flex-col gap-4 my-4">
                         {
-                            wipzee.map(text =>
+                            wipzee.map((text, index) =>
                                 <div
+                                    data-iszero={index === 0}
                                     key={text}
-                                    className="flex items-center gap-4"
+                                    className="flex items-center gap-4 data-[iszero=true]:font-bold data-[iszero=true]:underline"
                                 >
                                     <MdCheck className="text-xl fill-primary-100" />
                                     <span className="text-lg">{text}</span>
