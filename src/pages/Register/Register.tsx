@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { Header } from "../Home/components/Header/Header";
 import { Root } from "../../components/Form/FormRoot";
 import { saveTrafficOrigin } from "../../functions/saveTrafficOrigin";
+import { saveGuest } from "../../api/guest.api";
 
 const createClientFormSchema = z.object({
     email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
@@ -46,6 +47,9 @@ function Register() {
 
             // Verifica se existe uma origem no trafégo...
             saveTrafficOrigin();
+
+            // Salva o convidado no banco de dados...
+            saveGuest();
         })();
     }, [])
 

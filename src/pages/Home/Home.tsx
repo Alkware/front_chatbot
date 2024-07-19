@@ -3,6 +3,7 @@ import { Header } from "./components/Header/Header";
 import { Main } from "./components/Main/Main";
 import { Footer } from "./components/Footer/Footer";
 import { saveTrafficOrigin } from "../../functions/saveTrafficOrigin";
+import { saveGuest } from "../../api/guest.api";
 
 export function Home() {
     const homeRef: RefObject<HTMLDivElement> = useRef(null);
@@ -11,8 +12,11 @@ export function Home() {
         const isDark = localStorage.theme === "dark"
         document.documentElement.classList.toggle("dark", !!isDark);
 
-        // Verifica se existe uma origem no trafégo...
+        // Verifica se existe uma origem no trafégo e salva no localstorage...
         saveTrafficOrigin();
+
+        // Salva o convidado no banco de dados...
+        saveGuest();
     }, [])
 
     return (

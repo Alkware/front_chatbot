@@ -10,6 +10,7 @@ import { ModalContext } from "../../context/ModalContext";
 import { PopOver } from "../../components/modal/templates/PopOver";
 import { loading } from "../../functions/loading";
 import { saveTrafficOrigin } from "../../functions/saveTrafficOrigin";
+import { saveGuest } from "../../api/guest.api";
 
 const createClientFormSchema = z.object({
     email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
@@ -42,6 +43,9 @@ function Login() {
 
             // Verifica se existe uma origem no trafégo...
             saveTrafficOrigin();
+
+            // Salva o convidado no banco de dados...
+            saveGuest();
         })();
     }, [])
 
