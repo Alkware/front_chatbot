@@ -9,7 +9,7 @@ export function ChatDemo() {
 
             <div className="w-full md:w-1/2 h-auto md:h-full flex flex-col gap-4 items-center ">
 
-                <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl text-center font-bold mx-4 md:my-2 lg:my-4">
+                <h2 className="text-2xl md:text-xl lg:text-2xl xl:text-3xl text-center font-bold mx-4 md:my-2 lg:my-4">
                     Tenha no seu atendimento uma <br /> assistente 24 horas
                 </h2>
 
@@ -28,7 +28,7 @@ export function ChatDemo() {
             </div>
 
             <div className="w-full h-full md:w-1/2 flex flex-col gap-4 justify-center items-center">
-                <div className="w-[30vw] h-[45vw] max-w-[300px] max-h-[450px]">
+                <div className="w-[90vw] md:w-[30vw] h-[120vw] md:h-[45vw] max-w-[350px] max-h-[500px]">
                     <SimulatorMobile />
                 </div>
             </div>
