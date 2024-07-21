@@ -3,11 +3,13 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod";
 import { authenticateClient, registerClient } from "../../api/client";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Header } from "../Home/components/Header/Header";
 import { Root } from "../../components/Form/FormRoot";
 import { saveTrafficOrigin } from "../../functions/saveTrafficOrigin";
 import { saveGuest } from "../../api/guest.api";
+import { ModalContext } from "../../context/ModalContext";
+import { PopOver } from "../../components/modal/templates/PopOver";
 
 const createClientFormSchema = z.object({
     email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
@@ -30,6 +32,7 @@ type CreateUserFormData = z.infer<typeof createClientFormSchema>;
 
 function Register() {
     const navigate = useNavigate();
+    const { setModalContent } = useContext(ModalContext);
     const formRegister = useForm<CreateUserFormData>({
         resolver: zodResolver(createClientFormSchema)
     });
@@ -62,7 +65,17 @@ function Register() {
             const token = clientCreated.data
             localStorage.setItem("token", token)
             navigate("/panel")
-        } else alert("E-mail inserido já existe")
+        } else {
+            setModalContent({
+                componentName: "modal_failed_create_account",
+                components: 
+                <PopOver 
+                    componentName="modal_failed_create_account"
+                    message="Erro ao tentar criar a conta"
+                    type="WARNING"
+                />
+            })
+        }
     }
 
     return (
