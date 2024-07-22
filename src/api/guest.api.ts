@@ -6,7 +6,7 @@ import { API_URL } from "./url-api";
  * @returns {Promise<string | undefined>} Retorna uma string com o id do convidado.
  */
 export async function saveGuest(): Promise<string | undefined> {
-    const searchParams = new URLSearchParams(window.location.href);
+    const searchParams = new URLSearchParams(window.location.search);
     var guest_id = localStorage.guestId;
     var origin = searchParams.get("tag")
 
