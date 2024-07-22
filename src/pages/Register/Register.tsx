@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod";
@@ -6,7 +6,6 @@ import { authenticateClient, registerClient } from "../../api/client";
 import { useContext, useEffect } from "react";
 import { Header } from "../Home/components/Header/Header";
 import { Root } from "../../components/Form/FormRoot";
-import { saveTrafficOrigin } from "../../functions/saveTrafficOrigin";
 import { saveGuest } from "../../api/guest.api";
 import { ModalContext } from "../../context/ModalContext";
 import { PopOver } from "../../components/modal/templates/PopOver";
@@ -32,6 +31,7 @@ type CreateUserFormData = z.infer<typeof createClientFormSchema>;
 
 function Register() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const { setModalContent } = useContext(ModalContext);
     const formRegister = useForm<CreateUserFormData>({
         resolver: zodResolver(createClientFormSchema)
@@ -48,11 +48,8 @@ function Register() {
             const clientIsLogged = token && await authenticateClient(token);
             (clientIsLogged && navigate("/panel"));
 
-            // Verifica se existe uma origem no trafégo...
-            saveTrafficOrigin();
-
             // Salva o convidado no banco de dados...
-            saveGuest();
+            saveGuest(searchParams);
         })();
     }, [])
 

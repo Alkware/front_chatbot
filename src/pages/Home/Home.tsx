@@ -2,21 +2,19 @@ import { RefObject, useEffect, useRef } from "react";
 import { Header } from "./components/Header/Header";
 import { Main } from "./components/Main/Main";
 import { Footer } from "./components/Footer/Footer";
-import { saveTrafficOrigin } from "../../functions/saveTrafficOrigin";
 import { saveGuest } from "../../api/guest.api";
+import { useSearchParams } from "react-router-dom";
 
 export function Home() {
     const homeRef: RefObject<HTMLDivElement> = useRef(null);
+    const [params] = useSearchParams();
 
     useEffect(() => {
         const isDark = localStorage.theme === "dark"
         document.documentElement.classList.toggle("dark", !!isDark);
 
-        // Verifica se existe uma origem no trafégo e salva no localstorage...
-        saveTrafficOrigin();
-
         // Salva o convidado no banco de dados...
-        saveGuest();
+        saveGuest(params);
     }, [])
 
     return (
