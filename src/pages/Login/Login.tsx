@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,7 +21,6 @@ type createClientFormTypes = z.infer<typeof createClientFormSchema>
 
 function Login() {
     const { setModalContent } = useContext(ModalContext)
-    const [param] = useSearchParams();
     const navigate = useNavigate();
     const [access, setAccess] = useState<boolean>();
     const containerFormRef: RefObject<HTMLDivElement> = useRef(null);
@@ -42,7 +41,7 @@ function Login() {
             else setAccess(true)
 
             // Salva o convidado no banco de dados...
-            saveGuest(param);
+            saveGuest();
         })();
     }, [])
 

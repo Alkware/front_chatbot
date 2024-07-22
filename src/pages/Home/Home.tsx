@@ -3,18 +3,16 @@ import { Header } from "./components/Header/Header";
 import { Main } from "./components/Main/Main";
 import { Footer } from "./components/Footer/Footer";
 import { saveGuest } from "../../api/guest.api";
-import { useSearchParams } from "react-router-dom";
 
 export function Home() {
     const homeRef: RefObject<HTMLDivElement> = useRef(null);
-    const [params] = useSearchParams();
 
     useEffect(() => {
         const isDark = localStorage.theme === "dark"
         document.documentElement.classList.toggle("dark", !!isDark);
 
         // Salva o convidado no banco de dados...
-        saveGuest(params);
+        saveGuest();
     }, [])
 
     return (

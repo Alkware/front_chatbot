@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod";
@@ -31,7 +31,6 @@ type CreateUserFormData = z.infer<typeof createClientFormSchema>;
 
 function Register() {
     const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
     const { setModalContent } = useContext(ModalContext);
     const formRegister = useForm<CreateUserFormData>({
         resolver: zodResolver(createClientFormSchema)
@@ -49,7 +48,7 @@ function Register() {
             (clientIsLogged && navigate("/panel"));
 
             // Salva o convidado no banco de dados...
-            saveGuest(searchParams);
+            saveGuest();
         })();
     }, [])
 

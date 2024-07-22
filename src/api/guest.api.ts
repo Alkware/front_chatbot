@@ -3,12 +3,15 @@ import { API_URL } from "./url-api";
 
 /**
  * Função responsável por enviar os dados do convidado para o back-end
- * @param {URLSearchParams} searchParams Origem do tráfego do convidado.
  * @returns {Promise<string | undefined>} Retorna uma string com o id do convidado.
  */
-export async function saveGuest(searchParams: URLSearchParams): Promise<string | undefined> {
+export async function saveGuest(): Promise<string | undefined> {
+    const searchParams = new URLSearchParams(window.location.href);
     var guest_id = localStorage.guestId;
     var origin = searchParams.get("tag")
+
+    // Salva a origem no localStorage para ser reutilizado em outra página...
+    origin && (localStorage.origin = origin);
 
     // Verifica se tem um id do convidado salvo no localstorage...
     if (guest_id && origin) {
@@ -34,8 +37,6 @@ export async function saveGuest(searchParams: URLSearchParams): Promise<string |
     guest_id = response.data.id;
     // Salva o id do convidado no localstorage
     localStorage.guestId = guest_id;
-    // Salva a origem no localStorage para ser reutilizado em outra página...
-    localStorage.origin = origin;
-    
+
     return guest_id
 }
