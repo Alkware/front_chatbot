@@ -5,7 +5,6 @@ import { MyDatabases } from "./components/MyDatabase/MyDatabase";
 import { ConversationHistoric } from "./components/Records/ConversationHistoric";
 import { Payments } from "./components/Payments/Payments";
 import { ConfigProfile } from "./components/ConfigProfile/ConfigProfile";
-import { HelpCenter } from "./components/HelpCenter/HelpCenter";
 import { Tab } from "../../../NavigatePanelClient/components/MenuNavigate/MenuNavigate";
 import { ReactElement } from "react";
 import { Leads } from "./components/Records/Leads";
@@ -23,7 +22,6 @@ const containers: Container[] = [
     { tab: "conversations", element: <ConversationHistoric /> },
     { tab: "leads", element: <Leads /> },
     { tab: "payment", element: <Payments /> },
-    { tab: "help_center", element: <HelpCenter /> },
     { tab: "config", element: <ConfigProfile /> },
 ]
 

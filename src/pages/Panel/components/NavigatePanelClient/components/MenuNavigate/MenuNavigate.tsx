@@ -1,5 +1,4 @@
 import { ElementType, MouseEvent, RefObject, useRef } from "react";
-import { FaHeadset } from "react-icons/fa6";
 import { IoIosChatbubbles, IoIosCloud, IoIosStats, IoLogoBuffer, IoMdArrowDropdown, IoMdCash } from "react-icons/io";
 import { useSearchParams } from "react-router-dom";
 import { PARAM_MENU_MOBILE, RESIZE_MENU, TAB_NAME_URL } from "../../../../../../variables/variables";
@@ -47,11 +46,7 @@ const navMenu: NavMenu[] = [
         name: "Assinatura",
         Icon: IoMdCash,
     },
-    {
-        tab: "help_center",
-        name: "Central de ajuda",
-        Icon: FaHeadset,
-    },
+
 ]
 
 
