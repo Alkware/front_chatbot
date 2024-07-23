@@ -1,5 +1,6 @@
 import ReactPixel from 'react-facebook-pixel';
+const PIXEL_FACEBOOK = import.meta.env.PIXEL_FACEBOOK;
 
-ReactPixel.init('7460749777363328');
+ReactPixel.init(PIXEL_FACEBOOK);
 
 export default ReactPixel; 

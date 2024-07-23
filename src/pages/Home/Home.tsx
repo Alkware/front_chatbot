@@ -10,12 +10,7 @@ export function Home() {
 
     useEffect(() => {
         // Dispara o evento de page view do facebook...
-        ReactPixel.pageView();
-        ReactPixel.track('Salomão', {
-            // Incluir parâmetros opcionais para o evento, por exemplo, valor ou categoria
-            value: 10.00,
-            category: 'Botao', 
-          });
+        ReactPixel.track("Landing_page");
 
         const isDark = localStorage.theme === "dark"
         document.documentElement.classList.toggle("dark", !!isDark);
