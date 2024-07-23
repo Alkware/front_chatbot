@@ -10,7 +10,7 @@ export function Home() {
 
     useEffect(() => {
         // Dispara o evento de page view do facebook...
-        ReactPixel.trackCustom("landing_page");
+        ReactPixel.pageView();
 
         const isDark = localStorage.theme === "dark"
         document.documentElement.classList.toggle("dark", !!isDark);
