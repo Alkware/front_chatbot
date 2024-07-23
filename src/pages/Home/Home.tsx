@@ -3,15 +3,11 @@ import { Header } from "./components/Header/Header";
 import { Main } from "./components/Main/Main";
 import { Footer } from "./components/Footer/Footer";
 import { saveGuest } from "../../api/guest.api";
-import ReactPixel from "../../lib/pixel_facebook";
 
 export function Home() {
     const homeRef: RefObject<HTMLDivElement> = useRef(null);
 
     useEffect(() => {
-        // Dispara o evento de page view do facebook...
-        ReactPixel.pageView();
-
         const isDark = localStorage.theme === "dark"
         document.documentElement.classList.toggle("dark", !!isDark);
 
