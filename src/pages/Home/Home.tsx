@@ -3,6 +3,7 @@ import { Header } from "./components/Header/Header";
 import { Main } from "./components/Main/Main";
 import { Footer } from "./components/Footer/Footer";
 import { saveGuest } from "../../api/guest.api";
+import { createEventAccessedLandingPage } from "../../api/facebookEvents";
 
 export function Home() {
     const homeRef: RefObject<HTMLDivElement> = useRef(null);
@@ -13,6 +14,8 @@ export function Home() {
 
         // Salva o convidado no banco de dados...
         saveGuest();
+        // Envia o evento de acesso a página para o facebook...
+        createEventAccessedLandingPage();
     }, [])
 
     return (
