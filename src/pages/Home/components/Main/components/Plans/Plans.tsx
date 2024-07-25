@@ -5,6 +5,7 @@ import { getPlans } from "../../../../../../api/plan";
 import { AxiosResponse } from "axios";
 import { MdCheck } from "react-icons/md";
 import { ClientContext } from "../../../../../../context/ClientContext";
+import { createEventIniciateCheckout } from "../../../../../../api/facebookEvents";
 
 export function Plans() {
     const { client } = useContext(ClientContext)
@@ -18,10 +19,11 @@ export function Plans() {
         })();
     }, [])
 
-    const handleSelectPlan = (plan: Plan) => {
+    const handleSelectPlan = async (plan: Plan) => {
         const isLogged = localStorage.token;
-        if (!isLogged) localStorage.setItem("is_account", "0")
-        window.location.href = `${plan.payment_link}?pid=${plan.id}&cid=${client?.id}`
+        if (!isLogged) localStorage.setItem("is_account", "0");
+        const response = await createEventIniciateCheckout();
+        response && (window.location.href = `${plan.payment_link}?pid=${plan.id}&cid=${client?.id}`);
     }
 
 
