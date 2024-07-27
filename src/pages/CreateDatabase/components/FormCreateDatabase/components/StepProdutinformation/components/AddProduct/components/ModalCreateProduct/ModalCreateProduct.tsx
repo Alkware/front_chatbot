@@ -28,7 +28,7 @@ export function ModalCreateProduct({ useFieldArray, useFormReturn, index }: Moda
         defaultValues: products[index]
     });
 
-
+    
     useEffect(() => {
         const hasDataProduct = products[index];
         if (!hasDataProduct) append({ name: "", value: "", description: "", image: { url: "", description: "" } })
