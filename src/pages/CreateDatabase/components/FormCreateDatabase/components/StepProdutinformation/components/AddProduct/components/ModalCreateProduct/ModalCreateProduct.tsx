@@ -13,7 +13,6 @@ import { AddVariables } from "../../../AddVariables/AddVariables";
 import { ComomQuestions } from "../../../ComomQuestions/ComomQuestions";
 import { Root } from "../../../../../../../../../../components/Form/FormRoot";
 
-
 interface ModalCreateProduct {
     index: number;
     useFormReturn: UseFormReturn;
@@ -81,7 +80,7 @@ export function ModalCreateProduct({ useFieldArray, useFormReturn, index }: Moda
     return (
         <div
             ref={containerRef}
-            className="w-full  h-screen overflow-hidden overflow-y-auto fixed top-0 left-0 z-[999] bg-primary-50 dark:bg-primary-200 rounded-md pt-4 md:py-4 flex flex-col justify-start md:justify-center items-center gap-6"
+            className="w-full h-screen overflow-hidden overflow-y-auto fixed top-0 left-0 z-[999] bg-primary-50 dark:bg-primary-200 rounded-md pt-4 md:py-4 flex flex-col justify-start md:justify-center items-center gap-6"
         >
             <h2 className="text-2xl font-bold">Cadastre seus produtos</h2>
             <div className="w-full p-2 flex gap-4 justify-end items-center rounded-md absolute top-0 right-2">
