@@ -21,7 +21,7 @@ export function StepPersonalityIA() {
     }, [ia_name, restrictions, client_describe]);
 
     return (
-        <Root.Step index={4} stepTitle="Personalidade da IA">
+        <Root.Step index={1} stepTitle="Personalidade da IA">
 
             <Root.Optional
                 name="step_4.ia_name"

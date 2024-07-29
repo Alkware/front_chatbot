@@ -23,7 +23,7 @@ export function StepPoliciesAndConditions() {
 
     return (
 
-        <Root.Step index={2} stepTitle="Politicas e condições">
+        <Root.Step index={0} stepTitle="Politicas e condições">
 
             <Root.Container className="flex gap-4" >
 

@@ -1,10 +1,10 @@
 import { ElementType, MouseEvent, RefObject, useRef } from "react";
-import { IoIosChatbubbles, IoIosCloud, IoIosStats, IoLogoBuffer, IoMdArrowDropdown, IoMdCash } from "react-icons/io";
+import { IoIosChatbubbles, IoIosCloud, IoIosPricetags, IoIosStats, IoLogoBuffer, IoMdArrowDropdown, IoMdCash } from "react-icons/io";
 import { useSearchParams } from "react-router-dom";
 import { PARAM_MENU_MOBILE, RESIZE_MENU, TAB_NAME_URL } from "../../../../../../variables/variables";
 import { IoArchiveSharp, IoDiamond } from "react-icons/io5";
 
-export type Tab = "my_chats" | "metrics" | "database" | "records" | "leads" | "conversations" | "payment" | "help_center" | "config";
+export type Tab = "my_chats" | "metrics" | "database" | "products" |"records" | "leads" | "conversations" | "payment" | "help_center" | "config";
 
 interface Menu {
     tab: Tab;
@@ -31,6 +31,11 @@ const navMenu: NavMenu[] = [
         tab: "database",
         name: "Fonte de dados",
         Icon: IoIosCloud,
+    },
+    {
+        tab: "products",
+        name: "Produtos",
+        Icon: IoIosPricetags,
     },
     {
         tab: "records",
