@@ -25,7 +25,7 @@ export function StepAboutCompany() {
     }, [company_name, contact_email, contact_phone_number, address]);
 
     return (
-        <Root.Step index={3} stepTitle="Sobre a empresa">
+        <Root.Step index={0} stepTitle="Sobre a empresa">
 
             <Root.Container className="flex gap-4" >
                 <Root.Input

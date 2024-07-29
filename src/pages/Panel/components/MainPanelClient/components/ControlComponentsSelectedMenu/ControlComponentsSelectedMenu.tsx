@@ -8,6 +8,7 @@ import { ConfigProfile } from "./components/ConfigProfile/ConfigProfile";
 import { Tab } from "../../../NavigatePanelClient/components/MenuNavigate/MenuNavigate";
 import { ReactElement } from "react";
 import { Leads } from "./components/Records/Leads";
+import { MyProducts } from "./components/MyProducts/MyProducts";
 
 interface Container {
     tab: Tab;
@@ -18,6 +19,7 @@ const containers: Container[] = [
     { tab: "my_chats", element: <MyChats /> },
     { tab: "metrics", element: <Metric /> },
     { tab: "database", element: <MyDatabases /> },
+    { tab: "products", element: <MyProducts /> },
     { tab: "records", element: <ConversationHistoric /> },
     { tab: "conversations", element: <ConversationHistoric /> },
     { tab: "leads", element: <Leads /> },
