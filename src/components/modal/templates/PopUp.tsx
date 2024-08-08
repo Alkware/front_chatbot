@@ -5,12 +5,16 @@ interface PopUp {
     children: any
     noBackground?: boolean
     positionModal?: "START" | "CENTER" | "END"
+    blockCloseModalWithClickBackground?: boolean
 }
 
-export function PopUp({ children, noBackground, positionModal = "CENTER" }: PopUp) {
+export function PopUp({ children, noBackground, blockCloseModalWithClickBackground, positionModal = "CENTER" }: PopUp) {
     const { clearModal } = useContext(ModalContext)
 
     const handleCloseModal = ({ target }: any) => {
+        // Bloqueia o clique no background para fechar o modal
+        if (blockCloseModalWithClickBackground) return;
+        // Fecha modal caso o clique tenha sido feito no background
         if (target.dataset.close) clearModal(null, { clearLast: true })
     }
 

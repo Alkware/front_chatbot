@@ -1,14 +1,12 @@
-import { FaPlus } from "react-icons/fa";
-import { Button } from "../../../../../../../../../../components/button/Button";
 import { SubTitle } from "../../../../../../../../../../components/SubTitle/SubTitle";
 import { Title } from "../../../../../../../../../../components/Title/Title";
+import { ButtonCreateCategory } from "../ButtonCreateCategory/ButtonCreateCategory";
 
 
-interface CardNoCategory { 
-    handleCreateCategory: () => void;
+interface CardNoItems { 
 }
 
-export function CardNoCategory({ handleCreateCategory }: CardNoCategory) {
+export function CardNoItems({ }: CardNoItems) {
     return (
         <div className="w-3/4 flex flex-col items-center gap-4">
             <Title>Cadastre seus produtos aqui</Title>
@@ -16,10 +14,7 @@ export function CardNoCategory({ handleCreateCategory }: CardNoCategory) {
             >
                 É muito simples e fácil, basta criar um categoria e logo em seguida adicionar seus produtos
             </SubTitle>
-            <Button
-                effectNeon={true}
-                onClick={handleCreateCategory}
-            ><FaPlus /> Adicionar categoria</Button>
+            <ButtonCreateCategory />
         </div>
     )
 };

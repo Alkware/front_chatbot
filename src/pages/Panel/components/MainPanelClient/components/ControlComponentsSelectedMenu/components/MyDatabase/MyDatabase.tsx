@@ -84,7 +84,7 @@ export function MyDatabases() {
 
     return (
         (client) &&
-        <Container title="Fonte de dados">
+        <Container title="Inteligência artificial">
             <div className="w-full flex-wrap flex justify-center p-4 my-12 gap-8">
                 {
                     limitPromps.map((_, index) =>

@@ -1,15 +1,16 @@
-import { ReactElement } from "react";
+import { HtmlHTMLAttributes, ReactElement } from "react";
 import { twMerge } from "tailwind-merge";
 
-interface Title {
+interface Title extends HtmlHTMLAttributes<HTMLHeadingElement>{
     children: string | ReactElement;
     className?: string
 }
 
-export function Title({ children, className }: Title) {
+export function Title({ children, className, ...props }: Title) {
     return (
         <h2
-            className={twMerge("text-xl md:text-2xl text-center opacity-90 text-dark dark:text-light ", className)}
+            {...props}
+            className={twMerge("text-xl md:text-2xl text-center opacity-90 text-dark dark:text-light", className)}
         >{children}</h2>
     )
 };
