@@ -21,6 +21,7 @@ export function MyLibrary({ client_id, imagesSelected, setImagesSelected }: MyLi
     const containerMyLibraryRef: RefObject<HTMLDivElement> = useRef(null);
     const [images, setImages] = useState<Image[]>();
 
+    // useEffect para buscar as imagens no banco e adicionar transition nos containers...
     useEffect(() => {
         (async () => {
             // Adiciona uma transição de opacidade ao conteiner...
@@ -36,7 +37,9 @@ export function MyLibrary({ client_id, imagesSelected, setImagesSelected }: MyLi
         })();
     }, []);
 
-
+    /**
+     * Função repsonsável por deixar selecionado uma imagem...
+     */
     const handleSelectedImage = (image: Image) => {
         const existingImageId = imagesSelected?.find(img => img.id === image.id);
 
@@ -46,6 +49,9 @@ export function MyLibrary({ client_id, imagesSelected, setImagesSelected }: MyLi
         } else setImagesSelected(values => values?.length ? [...values, image] : [image]);
     }
 
+    /**
+     * Função responsável por deletar uma imagem no banco de dados...
+     */
     const handleDeleteImage = (id: string) => {
 
         async function confirmDeleteImage() {

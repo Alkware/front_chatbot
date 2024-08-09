@@ -1,7 +1,7 @@
 import { RefObject, useContext, useRef } from "react";
 import { Button } from "../../../../components/button/Button";
 import { ModalContext } from "../../../../context/ModalContext";
-import { Input } from "../../../../components/Input/Input";
+import { Input } from "../../../../components/Form/components/Fields/Input/Input";
 import { addMaskCpfOrCnpjToInput } from "../../../../functions/addMaskToInput";
 import { updateClient } from "../../../../api/client";
 import { ClientContext } from "../../../../context/ClientContext";

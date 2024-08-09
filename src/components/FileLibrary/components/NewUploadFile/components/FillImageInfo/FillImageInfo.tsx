@@ -1,7 +1,7 @@
 import { MdSave } from "react-icons/md";
 import { Button } from "../../../../../button/Button";
 import { SubTitle } from "../../../../../SubTitle/SubTitle";
-import { TextArea } from "../../../../../TextArea/TextArea";
+import { TextArea } from "../../../../../Form/components/Fields/TextArea/TextArea";
 import { uploadImage } from "../../../../../../api/images";
 import { FieldValues, useForm } from "react-hook-form";
 import { Dispatch, RefObject, SetStateAction, useContext, useRef } from "react";
@@ -60,7 +60,7 @@ export function FillImageInfo({ src, file, client_id, setFiles }: FillImageInfo)
                 componentName: "modal_failed_save_img",
                 components: <PopOver
                     componentName="modal_failed_save_img"
-                    message="Não foi possível salvar sua imagem, tente entrar em contato com o suporte"
+                    message="Não foi possível salvar sua imagem, tente outra imagem ou entre em contato com o suporte"
                     type="ERROR"
                     functionAfterComplete={() => clearModal(null, { clearAll: true })}
                 />

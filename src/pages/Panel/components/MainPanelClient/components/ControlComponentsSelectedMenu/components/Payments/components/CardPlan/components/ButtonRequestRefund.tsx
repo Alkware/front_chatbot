@@ -5,7 +5,7 @@ import { PopOver } from "../../../../../../../../../../../components/modal/templ
 import { refundRequested } from "../../../../../../../../../../../api/refundRequested"
 import { Client } from "../../../../../../../../../../../@types/Client"
 import { PopUp } from "../../../../../../../../../../../components/modal/templates/PopUp"
-import { TextArea } from "../../../../../../../../../../../components/TextArea/TextArea"
+import { TextArea } from "../../../../../../../../../../../components/Form/components/Fields/TextArea/TextArea"
 import { Button } from "../../../../../../../../../../../components/button/Button"
 
 

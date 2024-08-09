@@ -6,31 +6,34 @@ import { FileAccept, FileLibrary } from "../../../../../../components/FileLibrar
 import { PopUp } from "../../../../../../components/modal/templates/PopUp";
 import { Button } from "../../../../../../components/button/Button";
 import { Image } from "../../../../../../@types/images.types";
+import { UseFormRegister } from "react-hook-form";
 
 interface UploadFile extends InputHTMLAttributes<HTMLInputElement> {
     client_id: string | undefined;
     acceptFiles?: FileAccept[]
     limitSelect?: number;
+    register?: UseFormRegister<any>
 }
 
-export function UploadFile({ acceptFiles, limitSelect, client_id }: UploadFile) {
+export function UploadFile({ acceptFiles, limitSelect, client_id, register }: UploadFile) {
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const [images, setImages] = useState<Image[]>();
     const { setModalContent } = useContext(ModalContext);
 
     const handleSelectFile = () => {
-        if(!client_id) {
+        if (!client_id) {
             console.error("Client id is missing!");
             return;
         };
         setModalContent({
             componentName: "modal_display_library",
             components: <PopUp>
-                <FileLibrary 
+                <FileLibrary
                     name="images"
                     client_id={client_id}
                     limitSelect={limitSelect}
                     setFiles={setImages}
+                    register={register}
                 />
             </PopUp>
         })
@@ -51,7 +54,11 @@ export function UploadFile({ acceptFiles, limitSelect, client_id }: UploadFile) 
                 onClick={handleSelectFile}
             >
                 <FaCamera />
-                Escolher {acceptFiles?.length === 1 && acceptFiles[0] === "img" ? "imagem" : "arquivo"}
+                {images?.length ?
+                    "Adicionar mais"
+                    :
+                    `Escolher ${acceptFiles?.length === 1 && acceptFiles[0] === "img" ? "imagem" : "arquivo"}`
+                }
             </Button>
 
         </div>

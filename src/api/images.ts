@@ -11,30 +11,24 @@ import { Image, SaveImageInfo } from "../@types/images.types";
  */
 export async function uploadImage(file: File, image_info: SaveImageInfo): Promise<Image | void> {
     try {
-        if (file.size < 4000000) {
-            // Cria um objeto FormData para o file...
-            const form = new FormData();
-            form.append('image', file);
+        // Cria um objeto FormData para o file...
+        const form = new FormData();
+        form.append('image', file);
 
-            // Faz o upload do file no servidor da imgBB...
-            const responseUploadImage = await axios.post(`${API_URL}/upload_image`, form, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).catch(err => console.warn("ERRO:", err));
+        // Faz o upload do file no servidor da imgBB...
+        const responseUploadImage = await axios.post(`${API_URL}/upload_image`, form).catch(err => console.warn("ERRO:", err));
 
-            // Verifica se foi feito o upload...
-            if (!responseUploadImage) throw new Error("Unable to upload the image");
+        // Verifica se foi feito o upload...
+        if (!responseUploadImage) throw new Error("Unable to upload the image");
 
-            // Adiciona a url da imagem que acabou de ser upada...
-            image_info.url = responseUploadImage.data.url;
-            // Salva a imagem no banco de dados...
-            const responseSaveImage = await axios.post(`${API_URL}/save_image`, image_info).catch(err => console.warn("ERRO:", err));
+        // Adiciona a url da imagem que acabou de ser upada...
+        image_info.url = responseUploadImage.data.url;
+        // Salva a imagem no banco de dados...
+        const responseSaveImage = await axios.post(`${API_URL}/save_image`, image_info).catch(err => console.warn("ERRO:", err));
 
-            // Verifica se a imagem foi salva...
-            if (!responseSaveImage) throw new Error("Unable to save the image")
-            return responseSaveImage.data
-        }
+        // Verifica se a imagem foi salva...
+        if (!responseSaveImage) throw new Error("Unable to save the image")
+        return responseSaveImage.data
     } catch (error) {
         await createLog({
             level: "warning",
@@ -42,7 +36,8 @@ export async function uploadImage(file: File, image_info: SaveImageInfo): Promis
             log: "Falha ao tentar fazer o upload da imagem",
             sector: "Plataforma"
         });
-        throw new Error("Unable to upload image.")
+        console.error(error)
+        return;
     }
 }
 

@@ -16,8 +16,8 @@ export function Loading({ width, textSize }: Loading) {
             <img
                 src={img}
                 alt="logo loading wipzee"
-                className="w-full h-full object-cover animate-pulse"
-                style={{ width: width || "auto" }}
+                className="w-full h-full max-w-[220px] object-cover animate-pulse"
+                style={{ width: width || "100%" }}
             />
             <span
                 className={twMerge("animate-pulse text-xl md:text-2xl text-center", textSize)}

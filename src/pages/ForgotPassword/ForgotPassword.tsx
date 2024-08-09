@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { Button } from "../../components/button/Button";
-import { Input } from "../../components/Input/Input";
+import { Input } from "../../components/Form/components/Fields/Input/Input";
 import { useForm } from "react-hook-form";
 import { changePasswordClient, recoverPassword } from "../../api/client";
 import { ModalContext } from "../../context/ModalContext";

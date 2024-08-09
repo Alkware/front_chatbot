@@ -2,19 +2,27 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { DatabaseSchema, databaseSchema } from "../../schema/zod/databaseSchema";
 import { Root } from "../../components/Form/FormRoot";
 import { StepBasicProductInfo } from "./components/StepBasicProductInfo/StepBasicProductInfo"
 import { setThemePage } from "../../functions/setThemePage";
+import { productSchema, ProductSchema } from "../../schema/zod/productSchema";
 
 export function CreateProduct() {
     const { category_name, client_id } = useParams();
-    const createDatabaseForm = useForm<DatabaseSchema>({
-        resolver: zodResolver(databaseSchema),
+    const createDatabaseForm = useForm<ProductSchema>({
+        resolver: zodResolver(productSchema),
     });
     const { handleSubmit } = createDatabaseForm
 
-    const handleCreateDatabase = () => {
+    useEffect(() => {
+        (async () => {
+            // define o thema da página de login
+           setThemePage();
+        })()
+    }, [])
+
+    const handleCreateDatabase = (data: any) => {
+        console.log(data)
         // let prompt_name: string | null = null;
 
         alert("Esse prompt é experimental, ainda não é possivel criar a fonte de dados")
@@ -89,18 +97,6 @@ export function CreateProduct() {
         //         </PopUp>
         // })
     }
-
-
-    useEffect(() => {
-        (async () => {
-
-
-            // define o thema da página de login
-           setThemePage();
-        })()
-    }, [])
-
-  
 
     return (
         <div className="w-screen min-h-screen bg-gradient-to-br from-primary-100 to-light dark:via-primary-300 via-15% dark:to-dark to-30% text-light flex flex-col justify-start items-center">

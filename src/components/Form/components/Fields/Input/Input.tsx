@@ -5,13 +5,14 @@ import { twMerge } from "tailwind-merge";
 interface Input extends HTMLAttributes<HTMLInputElement> {
     title: string;
     name: string;
+    type?: "number" | "text" | "password";
     register?: UseFormRegister<any>
     mask?: (e: MouseEvent<HTMLInputElement, MouseEvent>) => void;
     widthContainer?: string;
     joinAtInput?: string;
 };
 
-export function Input({ register, mask, widthContainer, joinAtInput, title, ...props }: Input) {
+export function Input({ register, mask, widthContainer, joinAtInput, title, type, ...props }: Input) {
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const sizeLetter = 10;
     const averageInputSize = 500
@@ -71,12 +72,14 @@ export function Input({ register, mask, widthContainer, joinAtInput, title, ...p
                 {
                     !!register ?
                         <input
+                            type={type || "text"}
                             className=" bg-transparent text-dark dark:text-light"
                             {...props}
                             {...register(props.name, { onChange })}
                         />
                         :
                         <input
+                            type={type || "text"}
                             className=" bg-transparent text-dark dark:text-light"
                             onChange={onChange}
                             {...props}

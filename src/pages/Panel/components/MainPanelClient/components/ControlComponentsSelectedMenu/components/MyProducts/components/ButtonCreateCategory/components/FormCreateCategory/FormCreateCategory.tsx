@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Button } from "../../../../../../../../../../../../components/button/Button";
-import { Input } from "../../../../../../../../../../../../components/Input/Input";
+import { Input } from "../../../../../../../../../../../../components/Form/components/Fields/Input/Input";
 import { SubTitle } from "../../../../../../../../../../../../components/SubTitle/SubTitle";
 import { Title } from "../../../../../../../../../../../../components/Title/Title";
 import { useContext } from "react";

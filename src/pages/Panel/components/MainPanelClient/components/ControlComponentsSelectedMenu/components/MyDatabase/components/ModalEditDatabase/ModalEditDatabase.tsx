@@ -13,7 +13,6 @@ import { FaBook, FaInfo, FaSuitcase } from "react-icons/fa";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
 import { AddProduct } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepProdutinformation/components/AddProduct/AddProduct";
 import { OpeningHours } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepAboutCompany/components/OpeningHours/OpeningHours";
-import { saveImage } from "../../../../../../../../../../api/images";
 import { StepPaymentMethodAndConditions } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";
 
 interface ModalEditDatabase {
@@ -73,15 +72,6 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
         if (database) {
             const databaseUpdated = await updateDatabase(database, prompt.id);
             if (databaseUpdated && client && databaseUpdated.status === 200) {
-                // Salva as imagens dos produtos no banco de dados...
-                data.step_0.products.forEach(async (product) => {
-                    await saveImage({
-                        client_id: client.id,
-                        prompt_id: prompt.id,
-                        url: product.image.url,
-                        description: product.image.description
-                    });
-                })
                 setPrompts(prompts => [...prompts.filter(p => p.id !== databaseUpdated.data.id), databaseUpdated.data])
                 setModalContent({
                     componentName: "modal_updated_database",

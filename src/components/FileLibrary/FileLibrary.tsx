@@ -29,8 +29,11 @@ interface FileLibrary {
 export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFiles, register }: FileLibrary) {
     const { setModalContent, clearModal } = useContext(ModalContext);
     const [imagesSelected, setImagesSelected] = useState<Image[]>();
-    const [newUploadIsActive, setNewUploadIsActive] = useState(true);
+    const [newUploadIsActive, setNewUploadIsActive] = useState<boolean>();
 
+    /**
+     * USEEFFECT VERIFICA SE O USUÁRIO JÁ ESTOUROU O LIMITE DE ARQUIVOS PERMITIDOS PARA A SELEÇÃO.
+     */
     useEffect(() => {
         if (limitSelect && imagesSelected) {
             if (imagesSelected?.length > limitSelect) {
@@ -47,12 +50,54 @@ export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFile
                 setImagesSelected(imagesSelected);
             }
         }
-
     }, [imagesSelected])
 
-    // Função responsável por devolver os arquivos que foram selecionados...
+    /**
+     * FUNÇÃO RESPONSÁVEL POR DEVOLVER OS ARQUIVOS SELECIONADOS AO ELEMENTO PAI ATRAVÉS DE UM SETSTATE OU REGISTER.
+     */
     const handleSelectFiles = async () => {
-        (setFiles && setFiles(values => values ? imagesSelected ? [...values, ...imagesSelected] : values : imagesSelected));
+        // Verifica se o usuário selecionou alguma imagem.
+        if (!imagesSelected) {
+            setModalContent({
+                componentName: "modal_empty_images",
+                components: <PopOver componentName="modal_empty_images" message="Você ainda não selecionou nenhuma imagem" type="WARNING" />
+            });
+            return;
+        }
+
+        // Caso seja solicitado os arquivos selecionados em um setState...
+        (setFiles &&
+            setFiles(values => {
+                // Verifica se tem valores dentro do Files...
+                if (values) {
+                    // Elimina os arquivos que já contem dentro das imagens selecionadas e dos valores dentro de setFiles...
+                    const filteredImagensSelected = imagesSelected.filter(img => !values.find(value => value.id === img.id));
+                    // Verifica se tem um limite de seleção e se a quantidade de arquivos dentro do values está dentro desse limite...
+                    if (limitSelect && values.length < limitSelect) {
+                        // Caso já tenha arquivos dentro de 'values', será necessário remover alguns arquivos selecionados,
+                        // caso não haja espaço dentro do 'values'
+                        const images = filteredImagensSelected?.filter((img, index) => index < (limitSelect - values.length) && img);
+                        // Verifica se ainda tem arquivos dentro de images
+                        if (images?.length) {
+                            // Cria um alerta ao usuário caso tenha sido removido alguns arquivos....
+                            if(filteredImagensSelected.length > (limitSelect - values.length)){
+                                setModalContent({
+                                    componentName: "modal_max_limit",
+                                    components: 
+                                    <PopOver 
+                                        componentName="modal_max_limit"
+                                        message={`Você já selecionou ${values?.length} imagens, removeremos algumas imagens para que não exceda o limite de ${limitSelect} imagens. `}
+                                        type="WARNING"
+                                    />
+                                });
+                            }
+                            return [...values, ...images];
+                        } else return values;
+                    } else return [...values, ...filteredImagensSelected]
+                } else return imagesSelected;
+            })
+        );
+        // Caso seja solicitados os arquivos selecionados em um formState (register).
         (register && (
             imagesSelected?.forEach((img, index) => register(`${name}.${index}`, { value: img.id }))
         ));
@@ -77,7 +122,7 @@ export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFile
             </div>
 
             <div className="flex flex-col items-center p-4 gap-4">
-                {newUploadIsActive ?
+                {!!newUploadIsActive ?
                     /* CONTAINER NOVO UPLOAD DE ARQUIVO */
                     <NewUploadFile
                         name="images"

@@ -55,7 +55,7 @@ function Panel() {
         <div className="w-screen min-h-screen flex items-center text-primary-100 dark:text-light bg-light dark:bg-dark">
             {
                 !client ?
-                    <Loading />
+                    <Loading/>
                     :
                     <div
                         className="w-full h-full flex justify-start md:justify-center items-start"
