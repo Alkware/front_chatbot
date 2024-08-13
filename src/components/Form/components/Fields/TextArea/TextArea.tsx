@@ -1,5 +1,5 @@
 import { ChangeEventHandler, RefObject, useEffect, useRef } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 import { MdHelpOutline } from "react-icons/md";
 
 interface TextArea {
@@ -9,11 +9,11 @@ interface TextArea {
     help?: string;
     maxText?: number;
     minText?: number;
-    register?: UseFormRegister<any>;
+    formContext?: UseFormReturn;
     onChange?: ChangeEventHandler<HTMLTextAreaElement>;
 }
 
-export function TextArea({ title, maxText, minText, name, size, help, register, onChange }: TextArea) {
+export function TextArea({ title, maxText, minText, name, size, help, formContext, onChange }: TextArea) {
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const spanLimitTextRef: RefObject<HTMLSpanElement> = useRef(null);
 
@@ -118,11 +118,11 @@ export function TextArea({ title, maxText, minText, name, size, help, register, 
             </label>
 
             {
-                register ?
+                formContext ?
                     <textarea
                         data-isbig={size === "BIG" ? true : false}
                         className="border border-primary-100 h-[80px] lg:h-[100px] data-[isbig=true]:h-[150px] bg-light dark:bg-gray_light text-dark dark:text-light"
-                        {...register(name, { onChange: onChangeEvent })}
+                        {...formContext.register(name, { onChange: onChangeEvent })}
                     />
                     :
                     <textarea

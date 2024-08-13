@@ -4,13 +4,15 @@ import { MdAdd, MdDelete } from "react-icons/md";
 import { Root } from "../../../../../../components/Form/FormRoot";
 import { ModalContext } from "../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../components/modal/templates/PopOver";
+import { Input } from "../../../../../../components/Form/components/Fields/Input/Input";
+import { TextArea } from "../../../../../../components/Form/components/Fields/TextArea/TextArea";
 
 export function ComomQuestions() {
     const { setModalContent } = useContext(ModalContext);
-    const { control, watch } = useFormContext();
+    const formContext = useFormContext();
 
     const { fields, append, remove, update } = useFieldArray({
-        control: control,
+        control: formContext.control,
         name: `questions`
     });
 
@@ -19,7 +21,7 @@ export function ComomQuestions() {
     }, [])
 
     const handleAddNewAsk = () => {
-        const product = watch(`questions.${fields.length - 1}`);
+        const product = formContext.watch(`questions.${fields.length - 1}`);
 
         if (product.ask && product.answer) {
             append({ ask: "", answer: "" })
@@ -46,14 +48,16 @@ export function ComomQuestions() {
                 fields.map((field, indexQuestions) =>
                     <div key={field.id} className="flex flex-col justify-center rounded-md p-4 items-start gap-4">
 
-                        <Root.Input
+                        <Input
                             name={`questions.${indexQuestions}.ask`}
                             title="Digite uma pergunta"
+                            formContext={formContext}
                         />
 
-                        <Root.TextArea
+                        <TextArea
                             name={`questions.${indexQuestions}.answer`}
                             title="Digite a resposta"
+                            formContext={formContext}
                         />
 
                         <div className="w-full flex gap-4 justify-end items-center">

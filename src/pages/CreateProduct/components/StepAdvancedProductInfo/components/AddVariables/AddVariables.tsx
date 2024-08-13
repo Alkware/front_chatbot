@@ -5,6 +5,8 @@ import { ModalContext } from "../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../components/modal/templates/PopOver";
 import { Root } from "../../../../../../components/Form/FormRoot";
 import { TipContainer } from "../../../../../../components/TipContainer/TipContainer";
+import { Select } from "../../../../../../components/Select/Select";
+import { Input } from "../../../../../../components/Form/components/Fields/Input/Input";
 
 const options = [
     { text: "COR", value: "COR" },
@@ -20,22 +22,22 @@ const options = [
 
 export function AddVariables() {
     const { setModalContent } = useContext(ModalContext);
-    const { control, watch } = useFormContext();
+    const formContext = useFormContext();
 
     const { fields, append, remove, update } = useFieldArray({
         name: `optional_variable`,
-        control: control,
+        control: formContext.control,
     })
 
     useEffect(() => {
-        !fields.length && append({ title: "", answer: "" })
+        !fields.length && append({ title: "", value: "" })
     }, [])
 
     const handleAddNewVariable = () => {
-        const product = watch(`optional_variable.${fields.length - 1}`);
+        const product = formContext.watch(`optional_variable.${fields.length - 1}`);
 
-        if (product.title && product.answer) {
-            append({ title: "", answer: "" })
+        if (product.title && product.value) {
+            append({ title: "", value: "" })
         } else {
             setModalContent({
                 componentName: "modal_error_add_product",
@@ -63,15 +65,17 @@ export function AddVariables() {
                                 className="flex flex-col md:flex-row items-center justify-between gap-3"
                                 key={field.id}
                             >
-                                <Root.Select
+                                <Select
                                     title="Característica"
                                     name={`optional_variable.${indexVariable}.title`}
                                     options={options}
+                                    formContext={formContext}
                                 />
 
-                                <Root.Input
-                                    name={`optional_variable.${indexVariable}.answer`}
+                                <Input
+                                    name={`optional_variable.${indexVariable}.value`}
                                     title="Digite a variável: (ex: ROSA ou ROSA, AZUL, PRETO)"
+                                    formContext={formContext}
                                 />
                                 <div className="flex gap-4 justify-center items-center">
                                     {

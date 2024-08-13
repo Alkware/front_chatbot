@@ -6,6 +6,7 @@ import { MouseEvent, RefObject, useEffect, useRef, useState } from "react";
 import { ListSelected } from "./components/ContainerHeaderSelect/components/ListSelected";
 import { UseFormReturn } from "react-hook-form";
 import { createLog } from "../../api/log";
+import { twMerge } from "tailwind-merge";
 
 export type Options = { id?: string, value: string, text: string }
 
@@ -14,10 +15,12 @@ interface Select {
     title: string;
     name: string;
     multipleSelect?: boolean;
-    useFormContext?: UseFormReturn;
+    formContext?: UseFormReturn;
     optionsDefault?: string[] | null;
+    className?: string;
     onSelected?: (id: string) => void;
     onDelete?: () => void;
+
 }
 
 export interface OptionsState {
@@ -26,7 +29,7 @@ export interface OptionsState {
     selected: boolean
 }
 
-export function Select({ options, name, title, multipleSelect, optionsDefault, useFormContext, onSelected, onDelete }: Select) {
+export function Select({ options, name, title, multipleSelect, optionsDefault, formContext, className, onSelected, onDelete }: Select) {
     const contentOptionsRef: RefObject<HTMLDivElement> = useRef(null);
     const addSelectParamToOptions: OptionsState[] = options?.map(option => Object({ ...option, selected: false }) as OptionsState);
     const [optionsState, setOptions] = useState<OptionsState[]>(addSelectParamToOptions);
@@ -36,12 +39,12 @@ export function Select({ options, name, title, multipleSelect, optionsDefault, u
 
         let data: Options[];
 
-        if (useFormContext) {
+        if (formContext) {
             // Registra o campo no formulário com valores default...
-            useFormContext.register(name, { value: multipleSelect ? [] : "" })
+            formContext.register(name, { value: multipleSelect ? [] : "" })
 
             // Filtra as opções que já estão selecionadas...
-            const key = useFormContext.getValues(name);
+            const key = formContext.getValues(name);
             data = options?.filter((opt) => typeof key === "object" ? key.find((key: string) => key === opt.value) : key === opt.value);
         } else {
             data = options?.filter((opt) => optionsDefault?.find((key: string) => key === opt.value.replaceAll(" ", "_")));
@@ -118,17 +121,17 @@ export function Select({ options, name, title, multipleSelect, optionsDefault, u
 
     // // Função responsável por registrar o campo no formulário.
     const registerField = (list: { value: string }[]) => {
-        if (list.length && useFormContext) {
-            useFormContext.unregister(name);
-            if (multipleSelect) list.forEach((_, index) => useFormContext.register(`${name}.${index}`, { value: list[index].value }));
-            else useFormContext.register(name, { value: list[0].value });
+        if (list.length && formContext) {
+            formContext.unregister(name);
+            if (multipleSelect) list.forEach((_, index) => formContext.register(`${name}.${index}`, { value: list[index].value }));
+            else formContext.register(name, { value: list[0].value });
         }
     }
 
     return (
         <div
             ref={contentOptionsRef}
-            className="w-full min-w-[180px] flex flex-col relative"
+            className={twMerge("w-full flex flex-col relative", className)}
             data-id="container-select"
         >
             <ContainerHeaderSelect

@@ -1,18 +1,19 @@
-import { HTMLAttributes, MouseEvent, RefObject, useEffect, useRef } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { HTMLAttributes, HTMLInputTypeAttribute, MouseEvent, RefObject, useEffect, useRef } from "react";
+import { useFormContext, UseFormReturn } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
 
 interface Input extends HTMLAttributes<HTMLInputElement> {
     title: string;
     name: string;
-    type?: "number" | "text" | "password";
-    register?: UseFormRegister<any>
+    type?: HTMLInputTypeAttribute;
+    formContext?: UseFormReturn
     mask?: (e: MouseEvent<HTMLInputElement, MouseEvent>) => void;
     widthContainer?: string;
     joinAtInput?: string;
 };
 
-export function Input({ register, mask, widthContainer, joinAtInput, title, type, ...props }: Input) {
+export function Input({ formContext, mask, widthContainer, joinAtInput, title, type, ...props }: Input) {
+    const form = useFormContext() || formContext;
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const sizeLetter = 10;
     const averageInputSize = 500
@@ -70,12 +71,12 @@ export function Input({ register, mask, widthContainer, joinAtInput, title, type
 
             <div className="h-full flex gap-2 justify-center items-center rounded-md px-2">
                 {
-                    !!register ?
+                    !!form ?
                         <input
                             type={type || "text"}
                             className=" bg-transparent text-dark dark:text-light"
                             {...props}
-                            {...register(props.name, { onChange })}
+                            {...form.register(props.name, { onChange })}
                         />
                         :
                         <input

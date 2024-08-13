@@ -6,16 +6,16 @@ import { FileAccept, FileLibrary } from "../../../../../../components/FileLibrar
 import { PopUp } from "../../../../../../components/modal/templates/PopUp";
 import { Button } from "../../../../../../components/button/Button";
 import { Image } from "../../../../../../@types/images.types";
-import { UseFormRegister } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 
 interface UploadFile extends InputHTMLAttributes<HTMLInputElement> {
     client_id: string | undefined;
     acceptFiles?: FileAccept[]
     limitSelect?: number;
-    register?: UseFormRegister<any>
+    formContext?: UseFormReturn
 }
 
-export function UploadFile({ acceptFiles, limitSelect, client_id, register }: UploadFile) {
+export function UploadFile({ acceptFiles, limitSelect, client_id, formContext }: UploadFile) {
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const [images, setImages] = useState<Image[]>();
     const { setModalContent } = useContext(ModalContext);
@@ -33,7 +33,7 @@ export function UploadFile({ acceptFiles, limitSelect, client_id, register }: Up
                     client_id={client_id}
                     limitSelect={limitSelect}
                     setFiles={setImages}
-                    register={register}
+                    formContext={formContext}
                 />
             </PopUp>
         })

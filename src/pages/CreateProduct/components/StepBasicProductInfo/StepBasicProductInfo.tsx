@@ -1,22 +1,16 @@
 import { useFormContext } from "react-hook-form";
 import { Root } from "../../../../components/Form/FormRoot";
-import { useEffect } from "react";
 import { UploadFile } from "./components/UploadFile/UploadFile";
 import { Input } from "../../../../components/Form/components/Fields/Input/Input";
+import { TextArea } from "../../../../components/Form/components/Fields/TextArea/TextArea";
+import { InputDate } from "../../../../components/Form/components/Fields/InputDate/InputDate";
 
 interface StepBasicProductInfo {
     client_id: string | undefined;
 }
 
 export function StepBasicProductInfo({ client_id }: StepBasicProductInfo) {
-    const { watch, register } = useFormContext();
-
-    // UseEffect responsável por salvar os dados digitados pelo usuário no localstorage para manter a consistencia de dados até que a fonte de dados seja criada...
-    useEffect(() => {
-        const text = watch("step_0.observation");
-        const database = JSON.parse(localStorage.getItem("database") || "{}");
-        localStorage.setItem("database", JSON.stringify({ ...database, observation: text }));
-    }, [watch("step_0.observation")]);
+    const formContext = useFormContext();
 
     return (
         <Root.Step
@@ -26,22 +20,46 @@ export function StepBasicProductInfo({ client_id }: StepBasicProductInfo) {
             <UploadFile
                 client_id={client_id}
                 limitSelect={5}
-                register={register}
+                formContext={formContext}
             />
 
-            <div className="w-4/5 mx-auto flex gap-4">
+            <div className="w-full mx-auto flex gap-4">
                 <Input
                     name="product_name"
                     title="Digite o nome do produto"
-                    register={register}
+                    formContext={formContext}
                 />
                 <Input
                     name="price"
                     title="Digite o preço do produto"
                     type="number"
-                    register={register}
+                    formContext={formContext}
                 />
             </div>
+
+            <Root.Optional
+                name="promocional_price"
+                text="Deseja adicionar valor promocional?"
+                className=" flex-row items-end"
+            >
+                <Input
+                    name="promocional_price.price"
+                    title="Digite o preço do produto"
+                    type="number"
+                    formContext={formContext}
+                />
+                <InputDate
+                    name="promocional_price.end_date"
+                    title="Até quando vai essa promoção?"
+                    formContext={formContext}
+                />
+            </Root.Optional>
+
+            <TextArea
+                name="description"
+                title="Faça uma descrição detalhada do seu produto"
+                formContext={formContext}
+            />
 
         </Root.Step>
     )

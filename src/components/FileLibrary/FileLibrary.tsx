@@ -6,7 +6,7 @@ import { ModalContext } from "../../context/ModalContext";
 import { PopOver } from "../modal/templates/PopOver";
 import { NewUploadFile } from "./components/NewUploadFile/NewUploadFile";
 import { Image } from "../../@types/images.types";
-import { UseFormRegister } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 
 
 export type FileAccept = "img" | "csx" | "txt" | "pdf"
@@ -23,10 +23,10 @@ interface FileLibrary {
     acceptFiles?: FileAccept[];
     limitSelect?: number;
     setFiles?: Dispatch<SetStateAction<Image[] | undefined>>
-    register?: UseFormRegister<any>
+    formContext?: UseFormReturn
 }
 
-export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFiles, register }: FileLibrary) {
+export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFiles, formContext }: FileLibrary) {
     const { setModalContent, clearModal } = useContext(ModalContext);
     const [imagesSelected, setImagesSelected] = useState<Image[]>();
     const [newUploadIsActive, setNewUploadIsActive] = useState<boolean>();
@@ -98,8 +98,8 @@ export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFile
             })
         );
         // Caso seja solicitados os arquivos selecionados em um formState (register).
-        (register && (
-            imagesSelected?.forEach((img, index) => register(`${name}.${index}`, { value: img.id }))
+        (formContext?.register && (
+            imagesSelected?.forEach((img, index) => formContext.register(`${name}.${index}`, { value: img.id }))
         ));
 
         clearModal(null, { clearAll: true });

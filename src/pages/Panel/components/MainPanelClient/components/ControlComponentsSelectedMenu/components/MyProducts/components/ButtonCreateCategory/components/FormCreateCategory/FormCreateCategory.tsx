@@ -12,7 +12,7 @@ interface FormCreateCategory { }
 
 export function FormCreateCategory({ }: FormCreateCategory) {
     const { setModalContent } = useContext(ModalContext);
-    const { register, handleSubmit } = useForm();
+    const formContext = useForm();
 
     const handleDisplaySelectTypeOffer = ({ category_name }: any)=>{
         setModalContent({
@@ -23,7 +23,7 @@ export function FormCreateCategory({ }: FormCreateCategory) {
 
     return (
         <form
-            onSubmit={handleSubmit(handleDisplaySelectTypeOffer)}
+            onSubmit={formContext.handleSubmit(handleDisplaySelectTypeOffer)}
             className="flex flex-col justify-center items-center gap-2 p-4"
         >
             <Title>Crie sua categoria</Title>
@@ -32,7 +32,7 @@ export function FormCreateCategory({ }: FormCreateCategory) {
                 <Input
                     name="category_name"
                     title="De um nome para sua categoria"
-                    register={register}
+                    formContext={formContext}
                 />
             </div>
 

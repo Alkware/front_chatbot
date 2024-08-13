@@ -17,7 +17,7 @@ export function DisplaySelectOfferType({ category_name }: DisplaySelectOfferType
     const handleSelectOffer = ({ currentTarget }: MouseEvent<HTMLDivElement>) => {
         if(!client) { console.error("Unable to select offer because the client is missing"); return;}
         clearModal(null, { clearAll: true })
-        navigate(`/${currentTarget.dataset.source}/${client.id}/${category_name || null}`)
+        navigate(`/${currentTarget.dataset.source}/${client.plan_management.id}/${category_name || null}`)
     }
 
     return (

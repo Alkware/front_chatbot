@@ -12,6 +12,8 @@ import { StepPersonalityIA } from "./components/StepPersonalityIA/StepPersonalit
 import { useForm } from "react-hook-form";
 // import { transformSchemaInText } from "../../../../schema/PromptIA/transformSchemaInText";
 import { COMPANY_NAME_TO_SAVE_LOCALSTORAGE, DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../variables/variables";
+import { StepPoliciesAndConditions } from "./components/StepPoliciesAndConditions/StepPoliciesAndConditions";
+import { StepProdutinformation } from "./components/StepProdutinformation/StepProdutinformation";
 // import { PopUp } from "../../../../components/modal/templates/PopUp";
 // import { Button } from "../../../../components/button/Button";
 // import { StepPaymentMethodAndConditions } from "./components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";
@@ -144,13 +146,13 @@ export function FormCreateDatabase({  }: { plan_management_id: string }) {
             onSubmit={handleSubmit(handleCreateDatabase)}
             form={createDatabaseForm}
         >
-            {/* <StepProdutinformation /> */}
+            <StepProdutinformation />
 
             {/* <Root.Step index={1} stepTitle="Métodos de pagamentos e condições">
                 <StepPaymentMethodAndConditions />
             </Root.Step> */}
 
-            {/* <StepPoliciesAndConditions /> */}
+            <StepPoliciesAndConditions />
 
             <StepAboutCompany />
 

@@ -52,6 +52,22 @@ export async function getImagesById(client_id: string) {
     return response.data
 }
 
+/**
+ * Função responsável por atualizar todas as imagens com o id do produto recem criado.
+ * @param {string[]} images_id Array contendo os id das imagens.
+ * @returns {Image[]} Retorna um array com todas as imagens que foram atualizadas
+ */
+export async function getManyImagesById(product_id: string, images_id: string[]): Promise<Image[] | void> {
+    const response = await axios.put(`${API_URL}/images/update/${product_id}`, { images_id }).catch(err => console.error("ERRO:", err));
+
+    if (!response?.data) {
+        return
+    }
+
+    return response.data
+}
+
+
 
 export async function deleteImageById(client_id: string) {
     const response = await axios.delete(`${API_URL}/image/${client_id}`).catch(err => console.warn("ERRO:", err));

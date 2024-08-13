@@ -2,6 +2,9 @@ import { useFormContext } from "react-hook-form";
 import { Root } from "../../../../../../components/Form/FormRoot";
 import { useEffect } from "react";
 import { DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../variables/variables";
+import { Select } from "../../../../../../components/Select/Select";
+import { TextArea } from "../../../../../../components/Form/components/Fields/TextArea/TextArea";
+import { Input } from "../../../../../../components/Form/components/Fields/Input/Input";
 
 export function StepPaymentMethodAndConditions() {
     const { watch } = useFormContext();
@@ -29,7 +32,7 @@ export function StepPaymentMethodAndConditions() {
                 className="flex w-full"
                 title="Quais são os métodos de pagamentos aceitos?"
             >
-                <Root.Select
+                <Select
                     title="Escolha seus métodos de pagamentos"
                     multipleSelect={true}
                     name="step_1.payment_methods"
@@ -48,7 +51,7 @@ export function StepPaymentMethodAndConditions() {
                 hiddenContainer={!!isCreditCard ? false : true}
                 className="max-w-[200px]"
             >
-                <Root.Select
+                <Select
                     title="Quantas parcelas?"
                     name="step_1.credit_card_installments"
                     options={[
@@ -75,7 +78,7 @@ export function StepPaymentMethodAndConditions() {
                 text="Você está entregando um produto físico?"
                 className="w-full flex flex-col gap-6 "
             >
-                <Root.TextArea
+                <TextArea
                     name="step_1.order_tracking"
                     title="Descreva como seu produto vai ser entregue e as politicas de frete?"
                 />
@@ -84,12 +87,12 @@ export function StepPaymentMethodAndConditions() {
                     name="step_1.tracking_link"
                     text="Você possui link para rastrear pedido?"
                 >
-                    <Root.Input
+                    <Input
                         title="Digite a url do site:"
                         name="step_1.tracking_link"
-                        onChange={({ target }) => {
-                            if (!target.value.toLowerCase().includes("http"))
-                                target.value = `https://${target.value.replace("http", "")}`
+                        onChange={({ currentTarget }) => {
+                            if (!currentTarget.value.toLowerCase().includes("http"))
+                                currentTarget.value = `https://${currentTarget.value.replace("http", "")}`
                         }}
                     />
                 </Root.Optional>

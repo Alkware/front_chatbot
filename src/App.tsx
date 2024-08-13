@@ -31,8 +31,8 @@ function App() {
         <Route path="/plans" element={<PlansPage />} />
         <Route path="/create-chat/:plan_management_id" element={<CreateChat />} />
         <Route path="/create-database/:plan_management_id" element={<CreateDatabase />} />
-        <Route path="/create-product/:client_id/:category_name" element={<CreateProduct />} />
-        <Route path="/create-service/:client_id/:category_name" element={<CreateDatabase />} />
+        <Route path="/create-product/:plan_management_id/:category_name" element={<CreateProduct />} />
+        <Route path="/create-service/:plan_management_id/:category_name" element={<CreateDatabase />} />
         <Route path="/polices" element={<Police />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/cookies" element={<Cookies />} />

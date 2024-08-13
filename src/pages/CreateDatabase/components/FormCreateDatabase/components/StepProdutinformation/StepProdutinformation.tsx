@@ -1,6 +1,5 @@
 import { useFormContext } from "react-hook-form";
 import { Root } from "../../../../../../components/Form/FormRoot";
-import { AddProduct } from "./components/AddProduct/AddProduct";
 import { useEffect } from "react";
 
 export function StepProdutinformation() {
@@ -15,16 +14,7 @@ export function StepProdutinformation() {
 
     return (
         <Root.Step index={0} stepTitle="Informações básicas do produto/serviço">
-            <AddProduct />
-            <Root.Optional
-                text="Deseja adicionar alguma observação sobre seus produtos?"
-                name="step_0.observation"
-            >
-                <Root.TextArea
-                    name="step_0.observation"
-                    title="Deixe uma observação sobre seus produtos"
-                />
-            </Root.Optional>
+            <h1>removido</h1>
         </Root.Step>
     )
 };

@@ -1,14 +1,25 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { RefObject, useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Root } from "../../components/Form/FormRoot";
 import { StepBasicProductInfo } from "./components/StepBasicProductInfo/StepBasicProductInfo"
 import { setThemePage } from "../../functions/setThemePage";
 import { productSchema, ProductSchema } from "../../schema/zod/productSchema";
+import { StepPaymentMethodAndConditions } from "./components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";
+import { StepAdvancedProductInfo } from "./components/StepAdvancedProductInfo/StepAdvancedProductInfo";
+import { StepAboutProductWarranty } from "./components/StepAboutProductWarranty/StepAboutProductWarranty";
+import { loading } from "../../functions/loading";
+import { ModalContext } from "../../context/ModalContext";
+import { PopOver } from "../../components/modal/templates/PopOver";
+import { createNewProduct } from "../../api/product.api";
+import { getPlanManagementById } from "../../api/planManagement";
 
 export function CreateProduct() {
-    const { category_name, client_id } = useParams();
+    const { setModalContent } = useContext(ModalContext);
+    const [client_id, setClientId] = useState<string>();
+    const { category_name, plan_management_id } = useParams();
+    const containerCreateProductRef: RefObject<HTMLDivElement> = useRef(null);
     const createDatabaseForm = useForm<ProductSchema>({
         resolver: zodResolver(productSchema),
     });
@@ -16,98 +27,79 @@ export function CreateProduct() {
 
     useEffect(() => {
         (async () => {
+            const response = await getPlanManagementById(plan_management_id);
+            response && setClientId(response.client_id)
+
             // define o thema da página de login
-           setThemePage();
+            setThemePage();
         })()
     }, [])
 
-    const handleCreateDatabase = (data: any) => {
-        console.log(data)
-        // let prompt_name: string | null = null;
+    const handleCreateProduct = async (data: ProductSchema) => {
+        if (!category_name || !plan_management_id) {
+            console.error("Category name ou plan_management_id is missing!");
+            return;
+        }
 
-        alert("Esse prompt é experimental, ainda não é possivel criar a fonte de dados")
+        // Busca o botão para ser adicionado o loading...
+        const button = containerCreateProductRef.current?.querySelector("button");
+        // Adiciona o loading no botão...
+        loading(button, true);
 
-        // setModalContent({
-        //     componentName: "modal_create_name",
-        //     components:
-        //         <PopUp>
-        //             <div
-        //                 ref={containerCreateDatabaseRef}
-        //                 className="flex flex-col gap-4 p-4"
-        //             >
-        //                 <h2>De um nome a essa fonte de dados:</h2>
-        //                 <input
-        //                     type="text"
-        //                     placeholder="Ex: Minha fonte de dados"
-        //                     className="bg-primary-100/30 dark:bg-zinc-800"
-        //                     onChange={(e) => { prompt_name = e.target.value }}
-        //                 />
-        //                 <Button
-        //                     onClick={async () => {
-        //                         if (prompt_name) {
-        //                             // Busca o botão para ser adicionado o loading...
-        //                             const button = containerCreateDatabaseRef.current?.querySelector("button");
-        //                             // Adiciona o loading no botão...
-        //                             loading(button, true);
-        //                             // Transforma os dados do cliente em um prompt para ser enviado para IA...
-        //                             const prompt = transformSchemaInText(data);
-        //                             // Obtem a descrição do cliente
-        //                             const client_describe = data.step_4.client_describe;
-        //                             // Transforma em um json  stringfy para que futuramente possa ser transformado em objeto novamente...
-        //                             const prompt_query = JSON.stringify(data);
 
-        //                             try {
-        //                                 // Cria a fonte de dados...
-        //                                 const response: void | AxiosResponse<Database, any> = await createNewDatabase({ prompt_name, prompt, client_describe, prompt_query, plan_management_id });
+        // Cria o novo produto...
+        const response = await createNewProduct({
+            ...data,
+            plan_management_id,
+            category: { name: category_name },
+        });
 
-        //                                 if (response?.status === 201) {
+        // Verifica se o produto foi criado...
+        if (!response) {
+            setModalContent({
+                componentName: "modal_failed_create_product",
+                components:
+                    <PopOver
+                        componentName="modal_failed_create_product"
+                        message="Falha ao tentar criar o produto, tente entrar em contato com o suporte."
+                        type="WARNING"
+                    />
+            })
+            return;
+        }
 
-        //                                     // Salva as imagens dos produtos no banco de dados...
-        //                                     data.step_0.products.forEach(async (product) => {
-        //                                         await saveImage({
-        //                                             client_id: response.data.plan_management.client_id,
-        //                                             prompt_id: response.data.id,
-        //                                             url: product.image.url,
-        //                                             description: `Imagem/Imagens/foto/fotos de ${product.image.description}`
-        //                                         });
-        //                                     })
-        //                                     // Remove os dados salvos no localstorage...
-        //                                     localStorage.removeItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE)
-        //                                     // Desativa o loading...
-        //                                     loading(button, false)
-        //                                     // Envia uma mensagem que a fonte de dados foi criada com sucesso...
-        //                                     setModalContent({
-        //                                         componentName: "modal_created_database",
-        //                                         components:
-        //                                             <PopOver
-        //                                                 componentName="modal_created_database"
-        //                                                 message="Fonte de dados criada com sucesso!"
-        //                                                 type="INFORMATION"
-        //                                                 functionAfterComplete={() => window.location.href = "/panel?tab=my_chats"}
-        //                                             />
-        //                                     })
-        //                                 }
-        //                             } catch (error) {
-        //                                 console.error(error)
-        //                             }
-        //                         }
-        //                     }}
-        //                 >Salvar</Button>
-        //             </div>
-        //         </PopUp>
-        // })
-    }
+        // Desativa o loading...
+        loading(button, false)
+        // Envia uma mensagem que a fonte de dados foi criada com sucesso...
+        setModalContent({
+            componentName: "modal_created_product",
+            components:
+                <PopOver
+                    componentName="modal_created_product"
+                    message="Produto criado com sucesso!"
+                    functionAfterComplete={() => window.location.href = "/panel?tab=products"}
+                />
+        })
+    };
 
     return (
         <div className="w-screen min-h-screen bg-gradient-to-br from-primary-100 to-light dark:via-primary-300 via-15% dark:to-dark to-30% text-light flex flex-col justify-start items-center">
-            <div className="w-[90%] flex flex-col gap-2 justify-start items-center">
+            <div
+                className="w-[90%] flex flex-col gap-2 justify-start items-center"
+                ref={containerCreateProductRef}
+            >
                 <Root.Form
-                    onSubmit={handleSubmit(handleCreateDatabase)}
+                    onSubmit={handleSubmit(handleCreateProduct)}
                     form={createDatabaseForm}
                 >
-                    <StepBasicProductInfo 
+                    <StepBasicProductInfo
                         client_id={client_id}
                     />
+                    <StepPaymentMethodAndConditions />
+
+                    <StepAboutProductWarranty />
+
+                    <StepAdvancedProductInfo />
                 </Root.Form>
             </div>
         </div >

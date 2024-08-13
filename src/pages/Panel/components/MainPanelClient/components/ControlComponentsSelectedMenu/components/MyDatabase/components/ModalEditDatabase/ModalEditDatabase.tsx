@@ -11,9 +11,8 @@ import { transformSchemaInText } from "../../../../../../../../../../schema/Prom
 import { FaCircleInfo, FaFaceGrinBeam } from "react-icons/fa6";
 import { FaBook, FaInfo, FaSuitcase } from "react-icons/fa";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
-import { AddProduct } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepProdutinformation/components/AddProduct/AddProduct";
-import { OpeningHours } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepAboutCompany/components/OpeningHours/OpeningHours";
-import { StepPaymentMethodAndConditions } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";
+// import { OpeningHours } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepAboutCompany/components/OpeningHours/OpeningHours";
+// import { StepPaymentMethodAndConditions } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";
 
 interface ModalEditDatabase {
     prompt: Database,
@@ -140,7 +139,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
 
     return (
         <div className="w-screen h-screen px-4 md:px-0 md:w-[90vw] md:h-[80vh] md:min-h-[450px] md:min-w-[700px] flex items-start overflow-hidden">
-            <Root.EditForm
+            {/* <Root.EditForm
                 form={updateDatabaseForm}
                 onDelete={handleDeleteDatabase}
                 onSubmit={handleUpdateDatabase}
@@ -305,7 +304,7 @@ export function ModalEditDatabase({ prompt, setPrompts }: ModalEditDatabase) {
 
 
 
-            </Root.EditForm>
+            </Root.EditForm> */}
 
         </div >
     )

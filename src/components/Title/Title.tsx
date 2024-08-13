@@ -10,7 +10,7 @@ export function Title({ children, className, ...props }: Title) {
     return (
         <h2
             {...props}
-            className={twMerge("text-xl md:text-2xl text-center opacity-90 text-dark dark:text-light", className)}
+            className={twMerge("text-lg md:text-xl text-center opacity-90 text-dark dark:text-light", className)}
         >{children}</h2>
     )
 };
