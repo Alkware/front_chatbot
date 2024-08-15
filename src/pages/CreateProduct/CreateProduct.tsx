@@ -6,7 +6,7 @@ import { Root } from "../../components/Form/FormRoot";
 import { StepBasicProductInfo } from "./components/StepBasicProductInfo/StepBasicProductInfo"
 import { setThemePage } from "../../functions/setThemePage";
 import { productSchema, ProductSchema } from "../../schema/zod/productSchema";
-import { StepPaymentMethodAndConditions } from "./components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";
+import { StepProductPaymentMethodAndConditions } from "./components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";
 import { StepAdvancedProductInfo } from "./components/StepAdvancedProductInfo/StepAdvancedProductInfo";
 import { StepAboutProductWarranty } from "./components/StepAboutProductWarranty/StepAboutProductWarranty";
 import { loading } from "../../functions/loading";
@@ -45,7 +45,6 @@ export function CreateProduct() {
         const button = containerCreateProductRef.current?.querySelector("button");
         // Adiciona o loading no botão...
         loading(button, true);
-
 
         // Cria o novo produto...
         const response = await createNewProduct({
@@ -92,14 +91,34 @@ export function CreateProduct() {
                     onSubmit={handleSubmit(handleCreateProduct)}
                     form={createDatabaseForm}
                 >
-                    <StepBasicProductInfo
-                        client_id={client_id}
-                    />
-                    <StepPaymentMethodAndConditions />
+                    <Root.Step
+                        index={0}
+                        stepTitle="Informações básicas"
+                    >
+                        <StepBasicProductInfo
+                            client_id={client_id}
+                        />
+                    </Root.Step>
 
-                    <StepAboutProductWarranty />
+                    <Root.Step index={1}
+                        stepTitle="Métodos de pagamentos e condições"
+                    >
+                        <StepProductPaymentMethodAndConditions />
+                    </Root.Step>
 
-                    <StepAdvancedProductInfo />
+                    <Root.Step
+                        index={2}
+                        stepTitle="Garantia do produto"
+                    >
+                        <StepAboutProductWarranty />
+                    </Root.Step>
+
+                    <Root.Step
+                        index={3}
+                        stepTitle="Informações avançadas"
+                    >
+                        <StepAdvancedProductInfo />
+                    </Root.Step>
                 </Root.Form>
             </div>
         </div >

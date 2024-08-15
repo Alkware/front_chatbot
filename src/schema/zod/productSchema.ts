@@ -13,10 +13,10 @@ export const productSchema = z.object({
             month: z.string().min(1, "Informe até que mês vai a promoção."),
             year: z.string().min(1, "Informe até que ano vai a promoção."),
         }, { required_error: "Informe até quando vai a promoção" })
-    }).optional(),
+    }).nullable().optional(),
     description: z.string().min(1, "A descrição do produto não pode estar vazia."),
     payment_methods: z.array(z.string()),
-    credit_card_installments: z.string().optional(),
+    credit_card_installments: z.string().nullable(),
     warranty_time: z.object({
         type: z.string().min(1, "O tipo de data parta garantia do produto, não pode estar vazia."),
         time: z.coerce.number().min(1, "O tempo de garantia do produto não pode estar vazio.")
@@ -27,11 +27,11 @@ export const productSchema = z.object({
     optional_variable: z.array(z.object({
         title: z.string().min(1, "O titulo da variável não pode estar vazia"),
         value: z.string().min(1, "O valor da variável não pode estar vazia.")
-    })).optional(),
-    tracking_link: z.string().url().optional(),
+    })).nullable().optional(),
+    tracking_link: z.string().url().nullable().optional(),
     questions: z.array(z.object({
         ask: z.string().min(1, "Digite a pergunta"),
         answer: z.string().min(1, "Digite a resposta")
-    })).optional(),
-    extra_information: z.string().optional()
+    })).nullable().optional(),
+    extra_information: z.string().nullable().optional()
 });

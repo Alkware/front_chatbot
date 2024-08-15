@@ -28,23 +28,23 @@ export type Questions = {
     answer: string
 }
 
-export interface Product {
+export type Product = {
     id?: string
     plan_management_id: string
     product_name: string
     price: number
     description: string
     payment_methods: string[]
-    credit_card_installments?: string 
+    credit_card_installments?: string | null
     how_guarantee_work: string
     how_product_will_be_delivered: string
-    tracking_link?: string | null
-    delivery_fee?: string | null
-    promocional_price?: Promocional_price | null,
+    tracking_link?: string | null;
+    delivery_fee?: string | null;
+    promocional_price?: Promocional_price | null;
     category: Category
     warranty_time: Warranty_time
-    optional_variable?: Optional_variable[]
-    questions?: Questions[]
+    optional_variable?: Optional_variable[] | null;
+    questions?: Questions[] | null;
     extra_information?: string | null
     how_exchanges_work_and_returns: string
     plan_management?: PlanManagement;

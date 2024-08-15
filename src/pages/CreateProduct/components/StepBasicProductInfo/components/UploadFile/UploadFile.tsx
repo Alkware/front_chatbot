@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, RefObject, useContext, useRef, useState } from "react";
+import { InputHTMLAttributes, RefObject, useContext, useEffect, useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import { PreviewImage } from "./components/PreviewImage/PreviewImage";
 import { ModalContext } from "../../../../../../context/ModalContext";
@@ -7,18 +7,29 @@ import { PopUp } from "../../../../../../components/modal/templates/PopUp";
 import { Button } from "../../../../../../components/button/Button";
 import { Image } from "../../../../../../@types/images.types";
 import { UseFormReturn } from "react-hook-form";
+import { getManyImagesById } from "../../../../../../api/images";
 
 interface UploadFile extends InputHTMLAttributes<HTMLInputElement> {
+    name: string;
     client_id: string | undefined;
     acceptFiles?: FileAccept[]
     limitSelect?: number;
     formContext?: UseFormReturn
 }
 
-export function UploadFile({ acceptFiles, limitSelect, client_id, formContext }: UploadFile) {
+export function UploadFile({ name, acceptFiles, limitSelect, client_id, formContext }: UploadFile) {
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const [images, setImages] = useState<Image[]>();
     const { setModalContent } = useContext(ModalContext);
+    useEffect(() => {
+        const imageIdSavedForm = formContext?.watch(name);
+        if (imageIdSavedForm) {
+            (async () => {
+                const images = await getManyImagesById(imageIdSavedForm);
+                images && setImages(images)
+            })();
+        }
+    }, [])
 
     const handleSelectFile = () => {
         if (!client_id) {

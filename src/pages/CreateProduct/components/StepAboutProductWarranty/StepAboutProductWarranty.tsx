@@ -8,10 +8,7 @@ export function StepAboutProductWarranty() {
     const formContext = useFormContext();
 
     return (
-        <Root.Step
-            index={2}
-            stepTitle="Sobre garantia do produto"
-        >
+        <>
             <Root.Container
                 className="flex gap-4"
                 title="Qual é o período de garantia do seu produto?"
@@ -47,8 +44,6 @@ export function StepAboutProductWarranty() {
                 title="Descreva como funciona as trocas e devoluções?"
                 formContext={formContext}
             />
-
-        </Root.Step>
-
+        </>
     )
 };

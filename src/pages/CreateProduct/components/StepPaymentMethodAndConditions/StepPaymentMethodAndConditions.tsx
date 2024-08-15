@@ -4,15 +4,13 @@ import { Select } from "../../../../components/Select/Select";
 import { TextArea } from "../../../../components/Form/components/Fields/TextArea/TextArea";
 import { Input } from "../../../../components/Form/components/Fields/Input/Input";
 
-export function StepPaymentMethodAndConditions() {
+export function StepProductPaymentMethodAndConditions() {
     const formContext = useFormContext();
     const payments = formContext.watch("payment_methods")
     const isCreditCard = typeof payments === "object" && payments?.find((payment: any) => payment === "Cartão de crédito");
 
     return (
-        <Root.Step index={1}
-            stepTitle="Métodos de pagamentos e condições"
-        >
+        <>
             <Root.Container
                 className="flex w-full gap-4"
                 title="Quais são os métodos de pagamentos aceitos?"
@@ -88,7 +86,8 @@ export function StepPaymentMethodAndConditions() {
                     }}
                 />
             </Root.Optional>
-        </Root.Step>
+
+        </>
 
     )
 };

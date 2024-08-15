@@ -8,18 +8,14 @@ export function StepAdvancedProductInfo() {
     const formContext = useFormContext();
 
     return (
-        <Root.Step
-            index={3}
-            stepTitle="Informações avançadas"
-        >
-
+        <>
             <Root.Optional
                 name={`optional_variable`}
                 text="Esse produto possui alguma caracteristica?"
             >
                 <AddVariables />
             </Root.Optional>
-            
+
             <Root.Optional
                 name={`questions`}
                 text="Esse produto possui perguntas frequentes?"
@@ -36,7 +32,6 @@ export function StepAdvancedProductInfo() {
                     formContext={formContext}
                 />
             </Root.Optional>
-        </Root.Step>
-
+        </>
     )
 };

@@ -20,7 +20,7 @@ interface FillImageInfo {
 export function FillImageInfo({ src, file, client_id, setFiles }: FillImageInfo) {
     const transformSrcImage = src as string;
     const { setModalContent, clearModal } = useContext(ModalContext)
-    const { register, handleSubmit } = useForm();
+    const form = useForm();
     const containerFormRef: RefObject<HTMLFormElement> = useRef(null);
     const MIN_CHARACTERS = 40;
 
@@ -83,7 +83,7 @@ export function FillImageInfo({ src, file, client_id, setFiles }: FillImageInfo)
             <form
                 ref={containerFormRef}
                 className="space-y-6"
-                onSubmit={handleSubmit(handleSaveImage)}
+                onSubmit={form.handleSubmit(handleSaveImage)}
             >
                 <SubTitle className="oapcity-70 text-sm">
                     Faça uma descrição detalhada dessa imagem para que nossa inteligência artificial possa interpleta-la.
@@ -93,7 +93,7 @@ export function FillImageInfo({ src, file, client_id, setFiles }: FillImageInfo)
                     name="description"
                     title="Descrição da imagem"
                     minText={MIN_CHARACTERS}
-                    register={register}
+                    formContext={form}
                 />
                 <Button><MdSave /> Salvar</Button>
             </form>

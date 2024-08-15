@@ -102,7 +102,7 @@ export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFile
             imagesSelected?.forEach((img, index) => formContext.register(`${name}.${index}`, { value: img.id }))
         ));
 
-        clearModal(null, { clearAll: true });
+        clearModal(null, { clearLast: true });
     }
 
     return (

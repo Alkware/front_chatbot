@@ -8,6 +8,10 @@ import { useNavigate } from "react-router-dom"
 import { createNewProduct, deleteProduct } from "../../../../../../../../../../../../api/product.api"
 import { ModalContext } from "../../../../../../../../../../../../context/ModalContext"
 import { PopOver } from "../../../../../../../../../../../../components/modal/templates/PopOver"
+import { Image } from "../../../../../../../../../../../../@types/images.types"
+import { TipContainer } from "../../../../../../../../../../../../components/TipContainer/TipContainer"
+import { PopUp } from "../../../../../../../../../../../../components/modal/templates/PopUp"
+import { ModalEditProduct } from "./components/ModalEditProduct/ModalEditProduct"
 
 
 interface CardProducts {
@@ -15,10 +19,10 @@ interface CardProducts {
 }
 
 export function CardProducts({ items }: CardProducts) {
-    const { setModalContent } = useContext(ModalContext)
+    const { setModalContent } = useContext(ModalContext);
     const { client } = useContext(ClientContext);
     const containerProductsRef: RefObject<HTMLDivElement> = useRef(null);
-    const [newItems, setNewItems] = useState(items);
+    const [newProduct, setNewProduct] = useState(items);
     const navigate = useNavigate();
 
     // FUNÇÃO RESPONSÁVEL REDIRECIONAR O USUÁRIO PARA O FORMULÁRIO DE CRIAÇÃO DE NOVOS PRODUTOS...
@@ -41,18 +45,27 @@ export function CardProducts({ items }: CardProducts) {
         // Cria a fonte de dados...
         const response = await createNewProduct({
             ...product,
-            product_name: `${product.product_name.split(" ")[0]} ${newItems.length + 1}`,
+            product_name: `${product.product_name.split(" ")[0]} (${newProduct.length + 1})`,
             plan_management_id: client?.plan_management.id,
             category: { name: product.category.name },
             images: product.images.map(img => img.id)
         });
 
-        setNewItems(values => response ? [...values, response] : values);
+        const convertImageToProduct = response as unknown as Omit<Product, "images"> & { images: Image[] };
+        convertImageToProduct.images = product.images;
+
+        setNewProduct(values => values ? [...values, convertImageToProduct] : values);
     }
+
+
     // FUNÇÃO RESPONSÁVEL POR DELETAR O PRODUTO
     const handleDeleteProduct = async (product: Product) => {
+        console.log(product)
         const { id } = product;
-        if (!id) return;
+        if (!id) {
+            window.location.reload();
+            return;
+        }
         const response = await deleteProduct(id);
 
         if (!response) {
@@ -68,7 +81,7 @@ export function CardProducts({ items }: CardProducts) {
             return;
         };
 
-        setNewItems(values => values.filter(value => value.id !== id));
+        setNewProduct(values => values.filter(value => value.id !== id));
 
         setModalContent({
             componentName: "modal_success_delete_product",
@@ -77,6 +90,18 @@ export function CardProducts({ items }: CardProducts) {
                     componentName="modal_success_delete_product"
                     message="Produto deletado com sucesso!"
                 />
+        })
+    }
+
+    const handleEditProduct = (product: Product) => {
+        setModalContent({
+            componentName: "modal_edit_product",
+            components: <PopUp>
+                <ModalEditProduct 
+                    product={product}
+                    setProducts={setNewProduct}
+                />
+            </PopUp>
         })
     }
 
@@ -94,7 +119,7 @@ export function CardProducts({ items }: CardProducts) {
                 ref={containerProductsRef}
                 className="w-full flex gap-4 justify-start flex-wrap items-center bg-primary-50 dark:bg-primary-300 p-4"
             >
-                {newItems.map(product => {
+                {newProduct.map(product => {
                     return (
                         <div
                             key={product.id}
@@ -113,10 +138,19 @@ export function CardProducts({ items }: CardProducts) {
                             <img
                                 src={product.images[0]?.url || "https://via.placeholder.com/100"}
                                 className="w-full h-full object-cover"
+                                onClick={()=> handleEditProduct(product)}
                             />
-                            <SubTitle
-                                className="absolute bottom-0 w-full bg-dark/80 text-light text-sm overflow-hidden whitespace-nowrap text-ellipsis px-1"
-                            >{product.product_name}</SubTitle>
+
+                            <div className="w-full absolute bottom-0">
+                                <TipContainer
+                                    tip={product.product_name.substring(0, 39)}
+                                    positionY="BOTTOM"
+                                >
+                                    <SubTitle
+                                        className="w-full bg-dark/80 text-light text-sm overflow-hidden whitespace-nowrap text-ellipsis px-1"
+                                    >{product.product_name}</SubTitle>
+                                </TipContainer>
+                            </div>
                         </div>
                     )
                 })}

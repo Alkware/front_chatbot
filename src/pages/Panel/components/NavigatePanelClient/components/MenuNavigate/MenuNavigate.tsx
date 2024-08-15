@@ -5,7 +5,7 @@ import { PARAM_MENU_MOBILE, RESIZE_MENU, TAB_NAME_URL } from "../../../../../../
 import { IoArchiveSharp, IoDiamond } from "react-icons/io5";
 import { BsStars } from "react-icons/bs";
 
-export type Tab = "my_chats" | "metrics" | "database" | "products" |"records" | "leads" | "conversations" | "payment" | "help_center" | "config";
+export type Tab = "my_chats" | "metrics" | "database" | "products" | "records" | "leads" | "conversations" | "payment" | "help_center" | "config";
 
 interface Menu {
     tab: Tab;
@@ -19,24 +19,24 @@ interface NavMenu extends Menu {
 
 const navMenu: NavMenu[] = [
     {
+        tab: "metrics",
+        name: "Métricas",
+        Icon: IoIosStats,
+    },
+    {
         tab: "my_chats",
         name: "Meus chats",
         Icon: IoLogoBuffer,
     },
     {
-        tab: "database",
-        name: "Inteligência artificial",
-        Icon: BsStars,
-    },
-    {
         tab: "products",
-        name: "Produtos",
+        name: "Meus produtos",
         Icon: IoIosPricetags,
     },
     {
-        tab: "metrics",
-        name: "Métricas",
-        Icon: IoIosStats,
+        tab: "database",
+        name: "Inteligência artificial",
+        Icon: BsStars,
     },
     {
         tab: "records",
@@ -133,7 +133,7 @@ function MenuNavigate() {
                         >
                             <div className="flex gap-2 items-center">
                                 <menu.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-xl transition-colors duration-100" />
-                                <h2 
+                                <h2
                                     data-textisbig={menu.name.length > 20}
                                     className="md:group-data-[ismenuresize=false]:hidden group-hover:text-primary-100 data-[textisbig=true]:text-lg whitespace-nowrap"
                                 >{menu.name}</h2>

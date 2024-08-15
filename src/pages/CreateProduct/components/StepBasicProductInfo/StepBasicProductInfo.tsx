@@ -13,11 +13,9 @@ export function StepBasicProductInfo({ client_id }: StepBasicProductInfo) {
     const formContext = useFormContext();
 
     return (
-        <Root.Step
-            index={0}
-            stepTitle="Informações básicas"
-        >
+        <>
             <UploadFile
+                name="images"
                 client_id={client_id}
                 limitSelect={5}
                 formContext={formContext}
@@ -60,7 +58,6 @@ export function StepBasicProductInfo({ client_id }: StepBasicProductInfo) {
                 title="Faça uma descrição detalhada do seu produto"
                 formContext={formContext}
             />
-
-        </Root.Step>
+        </>
     )
 };

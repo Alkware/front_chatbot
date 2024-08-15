@@ -25,7 +25,7 @@ interface FormOptional extends HTMLAttributes<HTMLDivElement> {
 export function FormOptional({ children, text, functionOffToggle, name, ...props }: FormOptional) {
     const { watch } = useFormContext();
     const active = watch(name);
-    const [display, setDisplay] = useState(!!active ? true : false);
+    const [display, setDisplay] = useState(!!active?.length ? true : false);
     const [params, setParams] = useSearchParams();
 
     const handleActiveCTA = async (prop: any) => {

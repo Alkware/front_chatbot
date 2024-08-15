@@ -1,7 +1,7 @@
 import { Container } from "../../../../../../../../components/Container/Container";
 import { useContext, useEffect, useState } from "react";
 import { CardNoItems } from "./components/CardNoCategory/CardNoCategory";
-import { CardWithItems } from "./components/CardWithCategory/CardWithCategory";
+import { CardWithItems } from "./components/CardWithItems/CardWithItems";
 import { getAllProductsAndServices, ProductsAndServices } from "../../../../../../../../api/productAndServices";
 import { ClientContext } from "../../../../../../../../context/ClientContext";
 
