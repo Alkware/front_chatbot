@@ -8,7 +8,7 @@ interface FormStep {
     stepTitle?: string,
 }
 
-export function FormStep({ children, index, stepTitle }: FormStep) {
+export function FormStep({ children, index, stepTitle }: FormStep): ReactElement {
     const [params] = useSearchParams();
     const currentStep = Number(params.get(STEP_NAME_URL))
 

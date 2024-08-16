@@ -31,8 +31,10 @@ export type Questions = {
 export type Product = {
     id?: string
     plan_management_id: string
+    category: Category;
     product_name: string
     price: number
+    promocional_price?: Promocional_price | null;
     description: string
     payment_methods: string[]
     credit_card_installments?: string | null
@@ -40,8 +42,6 @@ export type Product = {
     how_product_will_be_delivered: string
     tracking_link?: string | null;
     delivery_fee?: string | null;
-    promocional_price?: Promocional_price | null;
-    category: Category
     warranty_time: Warranty_time
     optional_variable?: Optional_variable[] | null;
     questions?: Questions[] | null;

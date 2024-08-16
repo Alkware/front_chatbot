@@ -2,6 +2,8 @@ import { useFormContext } from "react-hook-form";
 import { Root } from "../../../../../../components/Form/FormRoot";
 import { useEffect } from "react";
 import { DATABASE_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../variables/variables";
+import { Input } from "../../../../../../components/Form/components/Fields/Input/Input";
+import { TextArea } from "../../../../../../components/Form/components/Fields/TextArea/TextArea";
 
 export function StepPersonalityIA() {
     const { watch } = useFormContext();
@@ -21,13 +23,12 @@ export function StepPersonalityIA() {
     }, [ia_name, restrictions, client_describe]);
 
     return (
-        <Root.Step index={1} stepTitle="Personalidade da IA">
-
+        <>
             <Root.Optional
-                name="step_4.ia_name"
+                name="step_1.ia_name"
                 text="Deseja dar um nome a sua inteligência artificial?"
             >
-                <Root.Input
+                <Input
                     name="step_4.ia_name"
                     title="Como quer que nossa IA se apresente?"
                 />
@@ -35,21 +36,18 @@ export function StepPersonalityIA() {
 
             <Root.Optional
                 text="Deseja adicionar restrições de palavras ou frase?"
-                name="step_4.restrictions"
+                name="step_1.restrictions"
             >
-                <Root.Input
+                <Input
                     name="step_4.restrictions"
                     title="Faça uma lista de restrições para que a IA evite utiliza-la em uma conversa"
                 />
             </Root.Optional>
 
-            <Root.TextArea
+            <TextArea
                 title="Faça uma breve descrição de quem é seu público (cliente)"
-                name="step_4.client_describe"
+                name="step_1.client_describe"
             />
-
-
-        </Root.Step>
-
+        </>
     )
 };

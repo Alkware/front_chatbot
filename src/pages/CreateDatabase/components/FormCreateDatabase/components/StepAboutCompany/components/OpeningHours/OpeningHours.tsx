@@ -2,6 +2,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { Root } from "../../../../../../../../components/Form/FormRoot";
 import { useEffect } from "react";
 import { MdAdd, MdDelete } from "react-icons/md";
+import { Select } from "../../../../../../../../components/Select/Select";
 
 const weekdays = [
     { text: "Segunda-feira", value: "Seg" },
@@ -91,20 +92,20 @@ export function OpeningHours() {
                             key={field.id}
                             className="w-full flex flex-col md:flex-row gap-1 md:gap-4 items-center"
                         >
-                            <Root.Select
-                                name={`step_3.support_hours.${index}.day`}
+                            <Select
+                                name={`step_0.support_hours.${index}.day`}
                                 options={weekdays}
                                 title="Selecione o dia"
                             />
 
-                            <Root.Select
-                                name={`step_3.support_hours.${index}.start`}
+                            <Select
+                                name={`step_0.support_hours.${index}.start`}
                                 options={hours}
                                 title="Quando começa"
                             />
                             <span>Até</span>
-                            <Root.Select
-                                name={`step_3.support_hours.${index}.end`}
+                            <Select
+                                name={`step_0.support_hours.${index}.end`}
                                 options={hours}
                                 title="Quando termina"
                             />

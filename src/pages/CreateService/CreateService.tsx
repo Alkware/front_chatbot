@@ -1,34 +1,33 @@
+import { RefObject, useContext, useEffect, useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { RefObject, useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Root } from "../../components/Form/FormRoot";
-import { StepBasicProductInfo } from "./components/StepBasicProductInfo/StepBasicProductInfo"
 import { setThemePage } from "../../functions/setThemePage";
-import { productSchema, ProductSchema } from "../../schema/zod/productSchema";
-import { StepProductPaymentMethodAndConditions } from "./components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";
-import { StepAdvancedProductInfo } from "./components/StepAdvancedProductInfo/StepAdvancedProductInfo";
-import { StepAboutProductWarranty } from "./components/StepAboutProductWarranty/StepAboutProductWarranty";
 import { loading } from "../../functions/loading";
 import { ModalContext } from "../../context/ModalContext";
 import { PopOver } from "../../components/modal/templates/PopOver";
-import { createNewProduct } from "../../api/product.api";
 import { getPlanManagementById } from "../../api/planManagement";
+import { StepBasicServiceInfo } from "./components/StepBasicServiceInfo/StepBasicServiceInfo";
+import { StepServicePaymentMethodAndConditions } from "./components/StepServicePaymentMethodAndConditions/StepServicePaymentMethodAndConditions";
+import { StepAdvancedServiceInfo } from "./components/StepAdvancedServiceInfo/StepAdvancedProductInfo";
+import { serviceSchema, ServiceSchema } from "../../schema/zod/serviceSchema";
+import { createNewService } from "../../api/service.api";
 
-export function CreateProduct() {
+export function CreateService() {
     // VARIÁVEIS...
     const { setModalContent } = useContext(ModalContext);
     const [client_id, setClientId] = useState<string>();
     const { category_name, plan_management_id } = useParams();
     const containerCreateProductRef: RefObject<HTMLDivElement> = useRef(null);
-    const createDatabaseForm = useForm<ProductSchema>({
-        resolver: zodResolver(productSchema),
+    const createDatabaseForm = useForm<ServiceSchema>({
+        resolver: zodResolver(serviceSchema),
     });
     const { handleSubmit } = createDatabaseForm
 
     /**
-    * UseEffect para buscar o gerenciador de plano do usuário e definir o thema padrão da página...
-    */
+     * UseEffect para buscar o gerenciador de plano do usuário e definir o thema padrão da página..
+     */
     useEffect(() => {
         (async () => {
             const response = await getPlanManagementById(plan_management_id);
@@ -40,10 +39,10 @@ export function CreateProduct() {
     }, [])
 
     /**
-    * Função responsável por criar um novo serviço...
-    * @param {ServiceSchema} data Objeto com os dados a serem criados. 
-    */
-    const handleCreateProduct = async (data: ProductSchema) => {
+     * Função responsável por criar um novo serviço...
+     * @param {ServiceSchema} data Objeto com os dados a serem criados. 
+     */
+    const handleCreateService = async (data: ServiceSchema) => {
         if (!category_name || !plan_management_id) {
             console.error("Category name ou plan_management_id is missing!");
             return;
@@ -54,21 +53,22 @@ export function CreateProduct() {
         // Adiciona o loading no botão...
         loading(button, true);
 
-        // Cria o novo produto...
-        const response = await createNewProduct({
+        // Cria o novo serviço...
+        const response = await createNewService({
             ...data,
             plan_management_id,
             category: { name: category_name },
         });
 
-        // Verifica se o produto foi criado...
+
+        // Verifica se o serviço foi criado...
         if (!response) {
             setModalContent({
                 componentName: "modal_failed_create_product",
                 components:
                     <PopOver
                         componentName="modal_failed_create_product"
-                        message="Falha ao tentar criar o produto, tente entrar em contato com o suporte."
+                        message="Falha ao tentar criar o serviço, tente entrar em contato com o suporte."
                         type="WARNING"
                     />
             })
@@ -79,11 +79,11 @@ export function CreateProduct() {
         loading(button, false)
         // Envia uma mensagem que a fonte de dados foi criada com sucesso...
         setModalContent({
-            componentName: "modal_created_product",
+            componentName: "modal_created_service",
             components:
                 <PopOver
-                    componentName="modal_created_product"
-                    message="Produto criado com sucesso!"
+                    componentName="modal_created_service"
+                    message="serviço criado com sucesso!"
                     functionAfterComplete={() => window.location.href = "/panel?tab=products"}
                 />
         })
@@ -96,14 +96,14 @@ export function CreateProduct() {
                 ref={containerCreateProductRef}
             >
                 <Root.Form
-                    onSubmit={handleSubmit(handleCreateProduct)}
+                    onSubmit={handleSubmit(handleCreateService)}
                     form={createDatabaseForm}
                 >
                     <Root.Step
                         index={0}
                         stepTitle="Informações básicas"
                     >
-                        <StepBasicProductInfo
+                        <StepBasicServiceInfo
                             client_id={client_id}
                         />
                     </Root.Step>
@@ -111,21 +111,14 @@ export function CreateProduct() {
                     <Root.Step index={1}
                         stepTitle="Métodos de pagamentos e condições"
                     >
-                        <StepProductPaymentMethodAndConditions />
+                        <StepServicePaymentMethodAndConditions />
                     </Root.Step>
 
                     <Root.Step
                         index={2}
-                        stepTitle="Garantia do produto"
-                    >
-                        <StepAboutProductWarranty />
-                    </Root.Step>
-
-                    <Root.Step
-                        index={3}
                         stepTitle="Informações avançadas"
                     >
-                        <StepAdvancedProductInfo />
+                        <StepAdvancedServiceInfo />
                     </Root.Step>
                 </Root.Form>
             </div>

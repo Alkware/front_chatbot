@@ -1,4 +1,4 @@
-import { FieldValue, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { Product } from "../../../../../../../../../../../../../../@types/products.types"
 import { Root } from "../../../../../../../../../../../../../../components/Form/FormRoot";
 import { StepBasicProductInfo } from "../../../../../../../../../../../../../CreateProduct/components/StepBasicProductInfo/StepBasicProductInfo";
@@ -12,13 +12,12 @@ import { StepProductPaymentMethodAndConditions } from "../../../../../../../../.
 import { deleteProduct, updateProduct } from "../../../../../../../../../../../../../../api/product.api";
 import { ModalContext } from "../../../../../../../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../../../../../../../components/modal/templates/PopOver";
+import { Image } from "../../../../../../../../../../../../../../@types/images.types";
 
 interface ModalEditProduct {
     product: Product;
     setProducts: Dispatch<SetStateAction<Product[]>>
 }
-
-
 
 export function ModalEditProduct({ product, setProducts }: ModalEditProduct) {
     const { client } = useContext(ClientContext)
@@ -35,14 +34,47 @@ export function ModalEditProduct({ product, setProducts }: ModalEditProduct) {
         }
     });
 
-    const handleUpdateProduct = async (data: Omit<Product, "images"> & { images: string[ ]}) => {
-        if(!product.id){
+    const handleUpdateProduct = async (data: Omit<Product, "images"> & { images: string[] }) => {
+        if (!product.id) {
             window.location.reload();
             return;
         }
 
         const response = await updateProduct(product.id, data);
-        console.log(response)
+        if (!response) {
+            setModalContent({
+                componentName: "modal_failed_update_product",
+                components:
+                    <PopOver
+                        componentName="modal_failed_update_product"
+                        message="Falha ao tentar atualizar o produto, tente entrar em contato com suporte."
+                        type="WARNING"
+                        functionAfterComplete={() => clearModal(null, { clearAll: true })}
+                    />
+            });
+            return;
+        }
+
+        const convertImageToProduct = response as unknown as Omit<Product, "images"> & { images: Image[] };
+        convertImageToProduct.images = product.images;
+
+        setProducts(values => {
+            if (values) {   
+                const removeOldProduct = values.filter(value=> value.id !== product.id);
+                return [...removeOldProduct, convertImageToProduct];
+            } else return values;
+        });
+
+        setModalContent({
+            componentName: "modal_success_update_product",
+            components:
+                <PopOver
+                    componentName="modal_success_update_product"
+                    message="Produto atualizado com sucesso!"
+                    functionAfterComplete={() => clearModal(null, { clearAll: true })}
+                />
+        });
+
     }
 
     // FUNÇÃO RESPONSÁVEL POR DELETAR O PRODUTO
@@ -76,7 +108,7 @@ export function ModalEditProduct({ product, setProducts }: ModalEditProduct) {
                 <PopOver
                     componentName="modal_success_delete_product"
                     message="Produto deletado com sucesso!"
-                    functionAfterComplete={()=> clearModal(null, { clearAll: true })}
+                    functionAfterComplete={() => clearModal(null, { clearAll: true })}
                 />
         })
     }

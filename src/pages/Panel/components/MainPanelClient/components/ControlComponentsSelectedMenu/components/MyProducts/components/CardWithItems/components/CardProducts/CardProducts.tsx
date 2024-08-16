@@ -9,7 +9,6 @@ import { createNewProduct, deleteProduct } from "../../../../../../../../../../.
 import { ModalContext } from "../../../../../../../../../../../../context/ModalContext"
 import { PopOver } from "../../../../../../../../../../../../components/modal/templates/PopOver"
 import { Image } from "../../../../../../../../../../../../@types/images.types"
-import { TipContainer } from "../../../../../../../../../../../../components/TipContainer/TipContainer"
 import { PopUp } from "../../../../../../../../../../../../components/modal/templates/PopUp"
 import { ModalEditProduct } from "./components/ModalEditProduct/ModalEditProduct"
 
@@ -97,7 +96,7 @@ export function CardProducts({ items }: CardProducts) {
         setModalContent({
             componentName: "modal_edit_product",
             components: <PopUp>
-                <ModalEditProduct 
+                <ModalEditProduct
                     product={product}
                     setProducts={setNewProduct}
                 />
@@ -138,18 +137,13 @@ export function CardProducts({ items }: CardProducts) {
                             <img
                                 src={product.images[0]?.url || "https://via.placeholder.com/100"}
                                 className="w-full h-full object-cover"
-                                onClick={()=> handleEditProduct(product)}
+                                onClick={() => handleEditProduct(product)}
                             />
 
                             <div className="w-full absolute bottom-0">
-                                <TipContainer
-                                    tip={product.product_name.substring(0, 39)}
-                                    positionY="BOTTOM"
-                                >
-                                    <SubTitle
-                                        className="w-full bg-dark/80 text-light text-sm overflow-hidden whitespace-nowrap text-ellipsis px-1"
-                                    >{product.product_name}</SubTitle>
-                                </TipContainer>
+                                <SubTitle
+                                    className="w-full bg-dark/80 text-light text-sm overflow-hidden whitespace-nowrap text-ellipsis px-1"
+                                >{product.product_name}</SubTitle>
                             </div>
                         </div>
                     )

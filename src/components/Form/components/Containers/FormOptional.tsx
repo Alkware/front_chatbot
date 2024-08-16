@@ -7,10 +7,11 @@ import { useFormContext } from "react-hook-form";
 import { createLog } from "../../../../api/log";
 
 interface FormOptional extends HTMLAttributes<HTMLDivElement> {
-    children: ReactElement | ReactElement[];
+    children?: ReactElement | ReactElement[];
     text: string;
     name: string,
     functionOffToggle?: () => void;
+    functionOnToggle?: () => void;
 }
 
 /**
@@ -22,7 +23,7 @@ interface FormOptional extends HTMLAttributes<HTMLDivElement> {
  * @param active Define se o toggle vai iniciar ativado ou desativado.
  * @returns 
  */
-export function FormOptional({ children, text, functionOffToggle, name, ...props }: FormOptional) {
+export function FormOptional({ children, text, functionOffToggle, functionOnToggle, name, ...props }: FormOptional) {
     const { watch } = useFormContext();
     const active = watch(name);
     const [display, setDisplay] = useState(!!active?.length ? true : false);
@@ -52,7 +53,10 @@ export function FormOptional({ children, text, functionOffToggle, name, ...props
             if (prop === false) {
                 functionOffToggle && functionOffToggle();
                 setDisplay(false)
-            } else setDisplay(true);
+            } else {
+                setDisplay(true);
+                (functionOnToggle && functionOnToggle());
+            }
             resolve(true)
         }) as Promise<boolean>
     }
@@ -70,7 +74,7 @@ export function FormOptional({ children, text, functionOffToggle, name, ...props
                     template="yesNo"
                 />
             </h2>
-            {display &&
+            {(display && children) &&
                 <div
                     className={twMerge("flex flex-col justify-between items-center gap-8", props.className)}
                 >
