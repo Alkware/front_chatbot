@@ -7,7 +7,7 @@ import { PopOver } from "../../../../../../../../../../components/modal/template
 import { TipContainer } from "../../../../../../../../../../components/TipContainer/TipContainer";
 import { TutoralContainer } from "../../../../../../../../../../components/TutoralContainer/TutoralContainer";
 
-export function ButtonCreateNewDatabase({ plan_management_id, index }: { plan_management_id: string, index: number }) {
+export function ButtonCreateNewAI({ plan_management_id, index }: { plan_management_id: string, index: number }) {
     const { client } = useContext(ClientContext)
     const { setModalContent } = useContext(ModalContext)
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ export function ButtonCreateNewDatabase({ plan_management_id, index }: { plan_ma
         if (client?.plan_management) {
 
             const maxPlans = Number(client.plan_management.plan.max_databases.default);
-            const currentNumberOfProjects = client.plan_management.prompt.length
+            const currentNumberOfProjects = client.plan_management.artificial_intelligence.length
 
             if (client.plan_management.status !== "DISABLED") {
                 if (maxPlans > currentNumberOfProjects) {
@@ -76,5 +76,5 @@ export function ButtonCreateNewDatabase({ plan_management_id, index }: { plan_ma
 
 }
 
-export default ButtonCreateNewDatabase;
+export default ButtonCreateNewAI;
 

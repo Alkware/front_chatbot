@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
-import { Client } from "../../../../../../../../../../@types/Client";
+import { Client } from "../../../../../../../../../../@types/Client.types";
 import { reactivatePlan } from "../../../../../../../../../../api/refundRequested";
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
 import { Button } from "../../../../../../../../../../components/button/Button";

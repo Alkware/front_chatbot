@@ -1,34 +1,38 @@
 import { useContext, useState } from "react"
-import { ButtonCreateNewDatabase } from "./components/CreateNewDatabase/ButtonCreateNewDatabase"
+import { ButtonCreateNewAI } from "./components/CreateNewDatabase/ButtonCreateNewDatabase"
 import { ClientContext } from "../../../../../../../../context/ClientContext"
 import { ModalContext } from "../../../../../../../../context/ModalContext"
 import { PopUp } from "../../../../../../../../components/modal/templates/PopUp"
-import { ModalEditDatabase } from "./components/ModalEditDatabase/ModalEditDatabase"
 import { Container } from "../../../../../../../../components/Container/Container"
 import { FaDatabase, FaLock } from "react-icons/fa"
 import { MAX_CONTAINER_TO_CREATE_DATABASE } from "../../../../../../../../variables/variables"
-import { Database } from "../../../../../../../../@types/Database.types"
 import { MdEdit } from "react-icons/md"
 import { Button } from "../../../../../../../../components/button/Button"
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver"
-import { updateDatabaseName } from "../../../../../../../../api/Prompt"
+import { updateDatabaseName } from "../../../../../../../../api/artificialIntelligence.api"
+import { Artificial_Intelligence } from "../../../../../../../../@types/artificialInteligence.types"
+import { ModalEditArtificialIntelligence } from "./components/ModalEditDatabase/ModalEditDatabase"
 
 export function MyDatabases() {
     const { client } = useContext(ClientContext)
     const { setModalContent, clearModal } = useContext(ModalContext)
     const limitPromps = Array(MAX_CONTAINER_TO_CREATE_DATABASE).fill(0)
-    const [prompts, setPrompts] = useState<Database[]>(client?.plan_management?.prompt || [])
+    const [intelligence, setIntelligence] = useState<Artificial_Intelligence[]>(client?.plan_management?.artificial_intelligence || [])
 
-
-    const handleEditDatabase = (index: number) => {
-        if (!!prompts?.length) {
+    /**
+     * Função responsável por editar uma inteligencia artificial...
+     * @param {number} index Index da inteligencia a ser editada...
+     */
+    const handleEditArtificialIntelligence = (index: number) => {
+        if (!!intelligence?.length && client?.plan_management) {
             setModalContent({
                 componentName: "modal_create_database",
                 components:
                     <PopUp>
-                        <ModalEditDatabase
-                            prompt={prompts[index]}
-                            setPrompts={setPrompts}
+                        <ModalEditArtificialIntelligence
+                            plan_management_id={client?.plan_management.id}
+                            intelligence={intelligence[index]}
+                            setIntelligence={setIntelligence}
                         />
                     </PopUp>
             })
@@ -36,16 +40,20 @@ export function MyDatabases() {
         }
     }
 
+    /**
+     * Função responsável por alterar o nome da inteligência artificial...
+     * @param {string} index Index da inteligencia artificial que vai mudar o nome.
+     */
     const handleEditNameDatabase = (index: number) => {
 
         async function saveNewNameDatabase(e: any) {
             e.preventDefault();
             const name = e.target.querySelector("input").value;
-            const prompt_id = prompts[index].id
+            const prompt_id = intelligence[index].id
             if (name) {
                 const updated = await updateDatabaseName(name, prompt_id);
                 if (updated?.status === 200) {
-                    setPrompts([...prompts, prompts[index].prompt_name = name])
+                    setIntelligence([...intelligence, intelligence[index].artificial_name = name])
                     setModalContent({
                         componentName: "modal_saved",
                         components:
@@ -73,7 +81,7 @@ export function MyDatabases() {
                             <input
                                 placeholder="Ex: Minha nova base de dados"
                                 name="database_name"
-                                defaultValue={prompts[index].prompt_name}
+                                defaultValue={intelligence[index].artificial_name}
                             />
                             <Button>Salvar</Button>
                         </form>
@@ -93,19 +101,19 @@ export function MyDatabases() {
                             (
                                 <div
                                     key={index}
-                                    data-prompt={!!prompts[index]?.prompt_name}
+                                    data-prompt={!!intelligence[index]?.artificial_name}
                                     className="w-full max-w-[300px] flex justify-center items-center  cursor-pointer"
                                 >
                                     {
-                                        prompts[index]?.prompt_name ?
+                                        intelligence[index]?.artificial_name ?
                                             <div className="w-full flex gap-2 items-center justify-center rounded-xl border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-white dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20">
                                                 <h2
                                                     className="w-[200px] text-center py-4 flex justify-center items-center gap-2"
-                                                    onClick={() => handleEditDatabase(index)}
+                                                    onClick={() => handleEditArtificialIntelligence(index)}
                                                 >
                                                     <FaDatabase />
                                                     <span className="w-full whitespace-nowrap text-ellipsis overflow-x-hidden">
-                                                        {prompts[index]?.prompt_name}
+                                                        {intelligence[index]?.artificial_name}
                                                     </span>
                                                 </h2>
 
@@ -115,7 +123,7 @@ export function MyDatabases() {
                                                 />
                                             </div>
                                             :
-                                            <ButtonCreateNewDatabase
+                                            <ButtonCreateNewAI
                                                 plan_management_id={client.plan_management.id}
                                                 index={index}
                                             />
@@ -126,7 +134,7 @@ export function MyDatabases() {
                             (
                                 <div
                                     key={index}
-                                    data-prompt={!!prompts[index]?.prompt_name}
+                                    data-prompt={!!intelligence[index]?.artificial_name}
                                     className="w-full max-w-[300px] flex opacity-30 cursor-not-allowed justify-center items-center rounded-xl border border-primary-100 bg-primary-300 hover:bg-primary-200 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
                                 >
                                     <FaLock className="py-3 text-5xl" />

@@ -1,10 +1,19 @@
-import { useFieldArray, useFormContext } from "react-hook-form";
-import { Root } from "../../../../../../../../components/Form/FormRoot";
-import { useEffect } from "react";
+import { useContext, useState } from "react";
 import { MdAdd, MdDelete } from "react-icons/md";
 import { Select } from "../../../../../../../../components/Select/Select";
+import { Client_Company } from "../../../../../../../../@types/clientCompany.types";
+import { ModalContext } from "../../../../../../../../context/ModalContext";
+import { PopUp } from "../../../../../../../../components/modal/templates/PopUp";
+import { useForm } from "react-hook-form";
+import { Button } from "../../../../../../../../components/button/Button";
+import { SubTitle } from "../../../../../../../../components/SubTitle/SubTitle";
+import { Title } from "../../../../../../../../components/Title/Title";
+import { COMPANY_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../../../variables/variables";
 
 const weekdays = [
+    { text: "Todos os dias", value: "Todos os dias" },
+    { text: "Segunda à Sexta-feira", value: "Seg. a Sex" },
+    { text: "Segunda à Sábado", value: "Seg. a Sab" },
     { text: "Segunda-feira", value: "Seg" },
     { text: "Terça-feira", value: "Ter" },
     { text: "Quarta-feira", value: "Qua" },
@@ -12,9 +21,6 @@ const weekdays = [
     { text: "Sexta-feira", value: "Sex" },
     { text: "Sábado", value: "Sab" },
     { text: "Domingo", value: "Dom" },
-    { text: "Segunda à Sexta-feira", value: "Seg. a Sex" },
-    { text: "Segunda à Sábado", value: "Seg. a Sab" },
-    { text: "Todos os dias", value: "Todos os dias" },
 ];
 
 const hours = [
@@ -68,61 +74,121 @@ const hours = [
     { text: "05:30", value: "05:30" },
 ]
 
+interface OpeningHours {
+    name: string,
+    company: Client_Company | undefined
+}
 
-export function OpeningHours() {
-    const { control } = useFormContext();
+export function OpeningHours({ name, company }: OpeningHours) {
+    const { setModalContent, clearModal } = useContext(ModalContext);
+    const [hoursSaved, setHours] = useState(company?.support_hours || []);
+    const form = useForm();
 
+    /**
+     * Função responsável por exibir a modal para ser adicionado novos horarios...
+     */
+    const handleDisplayAddHours = () => {
+        /**
+         * Função responsável por adicionar um novo horario...
+         * @param {Support_hours} data Objeto os dados do novo horário a ser adicionado
+         */
+        const handleAddHour = (data: any) => {
+            // Atualiza o suporte humano no localstorage...
+            const company_info = JSON.parse(localStorage.getItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
+            company_info[name] = company_info[name] ? [...company_info[name], data] : [data];
+            localStorage.setItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE, JSON.stringify(company_info));
+            // Atualiza o suporye humano no stage...
+            setHours(values => [...values, data]);
+            clearModal("modal_display_modal");
+        }
 
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: "step_3.support_hours"
-    })
+        // modal...
+        setModalContent({
+            componentName: "modal_display_modal",
+            components:
+                <PopUp>
+                    <Title>Adicione novo horário:</Title>
+                    <form
+                        className="flex gap-4 p-4 items-center"
+                        onSubmit={form.handleSubmit(handleAddHour)}
+                    >
+                        <Select
+                            name={`day`}
+                            options={weekdays}
+                            title="Selecione o dia"
+                            formContext={form}
+                        />
 
-    useEffect(() => {
-        !fields.length && append({ day: "", start: "", end: "" });
-    }, []);
+                        <Select
+                            name={`start`}
+                            options={hours}
+                            title="Quando começa"
+                            formContext={form}
+                        />
+                        <span>Até</span>
+                        <Select
+                            name={`end`}
+                            options={hours}
+                            title="Quando termina"
+                            formContext={form}
+                        />
+                        <Button>
+                            <MdAdd
+                                className="text-2xl p-1 cursor-pointer bg-primary-100 rounded-full fill-primary-300"
+                            />
+                        </Button>
+                    </form>
+                </PopUp>
+        })
+    }
+
+    /**
+     * Função responsável por deletar um horario na lista de atendimento do cliente.
+     * @param {number} index Index do horario a ser deletado
+     */
+    const handleDeleteHour = (index: number) => {
+        const company_info = JSON.parse(localStorage.getItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
+        company_info[name] = company_info[name].filter((_: any, i: number)=> i !== index);
+        localStorage.setItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE, JSON.stringify(company_info));
+
+        setHours(hours => hours.filter((_, i) => i !== index ));
+    }
 
     return (
         <div>
             <h2 className="my-4 text-xl font-bold text-primary-100 dark:text-light">Qual seu horário para suporte humano?</h2>
-            <div className="w-full flex flex-col gap-2 md:gap-4">
-                {
-                    fields.map((field, index) =>
-                        <Root.Container
-                            key={field.id}
-                            className="w-full flex flex-col md:flex-row gap-1 md:gap-4 items-center"
+            <div
+                className="w-full flex flex-col items-start gap-2 md:gap-4"
+            >
+                <Button
+                    type="button"
+                    onClick={handleDisplayAddHours}
+                ><MdAdd /> Adicionar horário</Button>
+                <div className="w-full md:w-[400px] flex flex-col items-start my-1 mb-4 md:m-0">
+                    {hoursSaved.map((hour, index) =>
+                        <div 
+                            data-color={index % 2 === 0}
+                            className="w-full flex gap-4 items-center bg-primary-200 data-[color=true]:bg-primary-300 px-4"
                         >
-                            <Select
-                                name={`step_0.support_hours.${index}.day`}
-                                options={weekdays}
-                                title="Selecione o dia"
-                            />
-
-                            <Select
-                                name={`step_0.support_hours.${index}.start`}
-                                options={hours}
-                                title="Quando começa"
-                            />
-                            <span>Até</span>
-                            <Select
-                                name={`step_0.support_hours.${index}.end`}
-                                options={hours}
-                                title="Quando termina"
-                            />
-                            <div className="w-full md:w-[200px] flex justify-end my-1 mb-4 md:m-0 gap-2">
-                                <MdAdd
-                                    data-islast={ index === (fields.length - 1)}
-                                    onClick={() => append({ day: "", start: "", end: "" })}
-                                    className="hidden data-[islast=true]:block text-2xl p-1 cursor-pointer bg-primary-100 rounded-full fill-primary-300"
-                                />
-                                <MdDelete
-                                    onClick={() => fields.length > 1 && remove(index)}
-                                    className="text-2xl p-1 cursor-pointer bg-red-200 rounded-full fill-red-700"
-                                />
+                            <div className="w-full flex flex-col items-center p-1">
+                                <SubTitle className="whitespace-nowrap text-xs">Dia(s) da semana</SubTitle>
+                                <span className="font-bold whitespace-nowrap">{hour.day}</span>
                             </div>
-                        </Root.Container>
-                    )
-                }
+                            <div className="w-full flex flex-col items-center p-1">
+                                <SubTitle className="whitespace-nowrap text-xs">Ínicio</SubTitle>
+                                <span className="font-bold whitespace-nowrap">{hour.start}</span>
+                            </div>
+                            <div className="w-full flex flex-col items-center p-1">
+                                <SubTitle className="whitespace-nowrap text-xs">Fim</SubTitle>
+                                <span className="font-bold whitespace-nowrap">{hour.end}</span>
+                            </div>
+                            <MdDelete
+                                onClick={()=> handleDeleteHour(index)}
+                                className="w-20 text-2xl cursor-pointer rounded-full fill-red-400"
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     )

@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { RefObject, useContext, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Root } from "../../components/Form/FormRoot";
 import { StepBasicProductInfo } from "./components/StepBasicProductInfo/StepBasicProductInfo"
 import { setThemePage } from "../../functions/setThemePage";
@@ -20,6 +20,8 @@ export function CreateProduct() {
     const { setModalContent } = useContext(ModalContext);
     const [client_id, setClientId] = useState<string>();
     const { category_name, plan_management_id } = useParams();
+    const [params] = useSearchParams();
+    const origin = params.get("origin");
     const containerCreateProductRef: RefObject<HTMLDivElement> = useRef(null);
     const createDatabaseForm = useForm<ProductSchema>({
         resolver: zodResolver(productSchema),
@@ -77,6 +79,9 @@ export function CreateProduct() {
 
         // Desativa o loading...
         loading(button, false)
+
+        const redirectTo = origin ? `/create-database/${response.plan_management_id}`: "/panel?tab=products"
+
         // Envia uma mensagem que a fonte de dados foi criada com sucesso...
         setModalContent({
             componentName: "modal_created_product",
@@ -84,7 +89,7 @@ export function CreateProduct() {
                 <PopOver
                     componentName="modal_created_product"
                     message="Produto criado com sucesso!"
-                    functionAfterComplete={() => window.location.href = "/panel?tab=products"}
+                    functionAfterComplete={() => window.location.href = redirectTo}
                 />
         })
     };

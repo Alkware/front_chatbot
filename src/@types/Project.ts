@@ -1,6 +1,6 @@
 import { Metric } from "./metric.types";
 import { MessageManager } from "./messageManager.types";
-import { Database } from "./Database.types";
+import { Database } from "./prompt.types";
 
 
 export interface Project {

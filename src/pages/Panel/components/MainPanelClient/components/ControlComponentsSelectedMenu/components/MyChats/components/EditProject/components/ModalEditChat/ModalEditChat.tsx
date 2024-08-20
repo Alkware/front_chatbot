@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react"
 import { Project } from "../../../../../../../../../../../../@types/Project";
-import { Database } from "../../../../../../../../../../../../@types/Database.types";
+import { Database } from "../../../../../../../../../../../../@types/prompt.types";
 import { checkSlugIsAvailable, deleteProject, updateProject } from "../../../../../../../../../../../../api/project";
 import { PopOver } from "../../../../../../../../../../../../components/modal/templates/PopOver";
 import { ModalContext } from "../../../../../../../../../../../../context/ModalContext";

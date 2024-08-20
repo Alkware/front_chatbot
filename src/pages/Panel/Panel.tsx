@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ClientContext } from "../../context/ClientContext";
 import { Loading } from "../../components/Loading/Loading";
 import { AxiosResponse } from "axios";
-import { Client } from "../../@types/Client";
+import { Client } from "../../@types/Client.types";
 import { ModalContext } from "../../context/ModalContext";
 import { PopUp } from "../../components/modal/templates/PopUp";
 import { ModalSaveCpfOrCnpj } from "./components/ModalSaveCpfOrCnpj/ModalSaveCpfOrCnpj";

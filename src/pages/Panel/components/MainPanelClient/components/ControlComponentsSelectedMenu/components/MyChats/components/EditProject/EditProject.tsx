@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useContext } from "react";
 import { FcSettings } from "react-icons/fc";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { Project } from "../../../../../../../../../../@types/Project";
-import { Database } from "../../../../../../../../../../@types/Database.types";
+import { Database } from "../../../../../../../../../../@types/prompt.types";
 import { ModalEditChat } from "./components/ModalEditChat/ModalEditChat";
 
 interface EditProject {

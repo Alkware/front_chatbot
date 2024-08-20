@@ -6,10 +6,10 @@ import { Input } from "../../../../../../components/Form/components/Fields/Input
 import { TextArea } from "../../../../../../components/Form/components/Fields/TextArea/TextArea";
 
 export function StepPersonalityIA() {
-    const { watch } = useFormContext();
-    const ia_name = watch("step_4.ia_name");
-    const restrictions = watch("step_4.restrictions");
-    const client_describe = watch("step_4.client_describe");
+    const form = useFormContext();
+    const ia_name = form.watch("step_4.ia_name");
+    const restrictions = form.watch("step_4.restrictions");
+    const client_describe = form.watch("step_4.client_describe");
 
     // UseEffect responsável por salvar os dados digitados pelo usuário no localstorage para manter a consistencia de dados até que a fonte de dados seja criada...
     useEffect(() => {
@@ -25,18 +25,18 @@ export function StepPersonalityIA() {
     return (
         <>
             <Root.Optional
-                name="step_1.ia_name"
+                name="artificial_name"
                 text="Deseja dar um nome a sua inteligência artificial?"
             >
                 <Input
-                    name="step_4.ia_name"
+                    name="step_4.artificial_name"
                     title="Como quer que nossa IA se apresente?"
                 />
             </Root.Optional>
 
             <Root.Optional
                 text="Deseja adicionar restrições de palavras ou frase?"
-                name="step_1.restrictions"
+                name="restrictions"
             >
                 <Input
                     name="step_4.restrictions"
@@ -45,8 +45,9 @@ export function StepPersonalityIA() {
             </Root.Optional>
 
             <TextArea
+                name="client_describe"
                 title="Faça uma breve descrição de quem é seu público (cliente)"
-                name="step_1.client_describe"
+                formContext={form}
             />
         </>
     )

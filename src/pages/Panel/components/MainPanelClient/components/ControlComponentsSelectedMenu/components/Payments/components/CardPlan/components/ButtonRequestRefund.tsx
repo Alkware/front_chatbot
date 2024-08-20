@@ -3,7 +3,7 @@ import { ModalContext } from "../../../../../../../../../../../context/ModalCont
 import { calculatesRemainingFreeTrialDays } from "../../../../../../../../../../../functions/calculatesRemainingFreeTrialDays"
 import { PopOver } from "../../../../../../../../../../../components/modal/templates/PopOver"
 import { refundRequested } from "../../../../../../../../../../../api/refundRequested"
-import { Client } from "../../../../../../../../../../../@types/Client"
+import { Client } from "../../../../../../../../../../../@types/Client.types"
 import { PopUp } from "../../../../../../../../../../../components/modal/templates/PopUp"
 import { TextArea } from "../../../../../../../../../../../components/Form/components/Fields/TextArea/TextArea"
 import { Button } from "../../../../../../../../../../../components/button/Button"

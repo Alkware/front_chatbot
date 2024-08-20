@@ -1,5 +1,5 @@
 import axios from "axios"
-import { clientLoginTypes, clientRegisterTypes } from "../@types/Client"
+import { clientLoginTypes, clientRegisterTypes } from "../@types/Client.types"
 import { API_URL } from "./url-api"
 
 export async function getClientById(id: string) {

@@ -2,7 +2,7 @@ import { RefObject, useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPlanManagementById } from "../../api/planManagement";
 import { AxiosResponse } from "axios";
-import { Database } from "../../@types/Database.types";
+import { Database } from "../../@types/prompt.types";
 import { PopOver } from "../../components/modal/templates/PopOver";
 import { ModalContext } from "../../context/ModalContext";
 import { createNewProject } from "../../api/project";

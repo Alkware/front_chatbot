@@ -9,7 +9,7 @@ import { PopUp } from "../../components/modal/templates/PopUp";
 import { ModalChangePassword } from "./ModalChangePassword/ModalChangePassword";
 import { useNavigate } from "react-router-dom";
 import { AxiosResponse } from "axios";
-import { Client } from "../../@types/Client";
+import { Client } from "../../@types/Client.types";
 import { Header } from "../Home/components/Header/Header";
 
 interface ForgotPassword { }

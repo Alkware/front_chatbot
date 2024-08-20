@@ -1,17 +1,13 @@
-import { Project } from "./Project"
-import { PlanManagement } from "./planManagement"
-
-export interface Database {
+export interface Prompt {
     id: string
     prompt_name: string
     prompt: string
     client_describe: string,
     prompt_query: string
-    plan_management: PlanManagement,
-    projects: Project[]
+
 }
 
-export interface CreateDatabase {
+export interface CreatePrompt {
     prompt: string
     client_describe: string,
     prompt_query: string

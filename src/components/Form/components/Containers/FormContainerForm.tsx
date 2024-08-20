@@ -18,12 +18,11 @@ interface FormContainerForm {
 
 export function FormContainerForm({ children, onSubmit, form, activeSimulator = false, hiddenPreviewButton, titleButtonSend }: FormContainerForm) {
     const childrenToArray = React.Children.toArray(children);
-    const numberChildren = childrenToArray.length
+    const numberChildren = childrenToArray.filter((child: any) => !child?.props?.hidden).length
     const { setModalContent } = useContext(ModalContext)
 
     useEffect(() => {
         const { errors } = form.formState;
-        console.log(errors)
         const message = findMessageError(errors);
         if (!!message) {
             setModalContent({

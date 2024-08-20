@@ -1,4 +1,4 @@
-import { DatabaseSchema } from "../zod/databaseSchema";
+import { DatabaseSchema } from "../zod/artificialIntelligenceSchema";
 
 export function transformSchemaInText(data: DatabaseSchema) {
 

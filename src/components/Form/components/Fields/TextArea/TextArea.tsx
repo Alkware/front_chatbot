@@ -11,9 +11,10 @@ interface TextArea {
     minText?: number;
     formContext?: UseFormReturn;
     onChange?: ChangeEventHandler<HTMLTextAreaElement>;
+    defaultValue?: string;
 }
 
-export function TextArea({ title, maxText, minText, name, size, help, formContext, onChange }: TextArea) {
+export function TextArea({ title, maxText, minText, name, size, help, defaultValue, formContext, onChange }: TextArea) {
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const spanLimitTextRef: RefObject<HTMLSpanElement> = useRef(null);
 
@@ -122,11 +123,13 @@ export function TextArea({ title, maxText, minText, name, size, help, formContex
                     <textarea
                         data-isbig={size === "BIG" ? true : false}
                         className="border border-primary-100 h-[80px] lg:h-[100px] data-[isbig=true]:h-[150px] bg-light dark:bg-gray_light text-dark dark:text-light"
+                        defaultValue={defaultValue}
                         {...formContext.register(name, { onChange: onChangeEvent })}
                     />
                     :
                     <textarea
                         className=" bg-light dark:bg-gray_light text-dark dark:text-light"
+                        defaultValue={defaultValue}
                         onChange={onChangeEvent}
                     />
             }

@@ -9,11 +9,11 @@ import { TipContainer } from "../../../../../../../../../../components/TipContai
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ShareProject } from "./components/ShareProject/ShareProject";
 import { ModalEditChat } from "../EditProject/components/ModalEditChat/ModalEditChat";
-import { Database } from "../../../../../../../../../../@types/Database.types";
+import { Database } from "../../../../../../../../../../@types/prompt.types";
 import { TutoralContainer } from "../../../../../../../../../../components/TutoralContainer/TutoralContainer";
 import { updateTutorialClient } from "../../../../../../../../../../api/client";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
-import { Client } from "../../../../../../../../../../@types/Client";
+import { Client } from "../../../../../../../../../../@types/Client.types";
 import { FaChartColumn, FaGear, FaLink } from "react-icons/fa6";
 
 interface CardChat {

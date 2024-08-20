@@ -6,7 +6,7 @@ import { addMaskCpfOrCnpjToInput } from "../../../../functions/addMaskToInput";
 import { updateClient } from "../../../../api/client";
 import { ClientContext } from "../../../../context/ClientContext";
 import { AxiosResponse } from "axios";
-import { Client } from "../../../../@types/Client";
+import { Client } from "../../../../@types/Client.types";
 import { PopOver } from "../../../../components/modal/templates/PopOver";
 import { loading } from "../../../../functions/loading";
 
