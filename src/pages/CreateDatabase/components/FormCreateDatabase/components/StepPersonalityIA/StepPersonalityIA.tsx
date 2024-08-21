@@ -29,7 +29,7 @@ export function StepPersonalityIA() {
                 text="Deseja dar um nome a sua inteligência artificial?"
             >
                 <Input
-                    name="step_4.artificial_name"
+                    name="artificial_name"
                     title="Como quer que nossa IA se apresente?"
                 />
             </Root.Optional>
@@ -39,7 +39,7 @@ export function StepPersonalityIA() {
                 name="restrictions"
             >
                 <Input
-                    name="step_4.restrictions"
+                    name="restrictions"
                     title="Faça uma lista de restrições para que a IA evite utiliza-la em uma conversa"
                 />
             </Root.Optional>

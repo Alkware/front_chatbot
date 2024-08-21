@@ -31,7 +31,7 @@ export function TextArea({ title, maxText, minText, name, size, help, defaultVal
                 !!help && (svgHelp?.classList.remove("hidden"))
             }
         }
-    }, [])
+    }, [defaultValue])
 
     const handleClickedInput = ({ currentTarget }: any) => {
         const label: HTMLLabelElement = currentTarget.querySelector("label");
@@ -128,6 +128,7 @@ export function TextArea({ title, maxText, minText, name, size, help, defaultVal
                     />
                     :
                     <textarea
+                        name={name}
                         className=" bg-light dark:bg-gray_light text-dark dark:text-light"
                         defaultValue={defaultValue}
                         onChange={onChangeEvent}

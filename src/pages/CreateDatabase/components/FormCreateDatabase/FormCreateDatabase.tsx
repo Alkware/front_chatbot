@@ -38,6 +38,7 @@ export function FormCreateDatabase({ plan_management_id, planManagement }: FormC
                 <PopUp>
                     <ModalCreateArtificialIntelligence
                         info={data}
+                        plan_management_id={plan_management_id}
                     />
                 </PopUp>
         })

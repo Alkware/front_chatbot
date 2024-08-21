@@ -19,6 +19,8 @@ export function MyDatabases() {
     const limitPromps = Array(MAX_CONTAINER_TO_CREATE_DATABASE).fill(0)
     const [intelligence, setIntelligence] = useState<Artificial_Intelligence[]>(client?.plan_management?.artificial_intelligence || [])
 
+    console.log(intelligence)
+
     /**
      * Função responsável por editar uma inteligencia artificial...
      * @param {number} index Index da inteligencia a ser editada...
@@ -101,11 +103,10 @@ export function MyDatabases() {
                             (
                                 <div
                                     key={index}
-                                    data-prompt={!!intelligence[index]?.artificial_name}
-                                    className="w-full max-w-[300px] flex justify-center items-center  cursor-pointer"
+                                    className="w-full max-w-[300px] flex justify-center items-center cursor-pointer"
                                 >
                                     {
-                                        intelligence[index]?.artificial_name ?
+                                        intelligence[index]?.identification ?
                                             <div className="w-full flex gap-2 items-center justify-center rounded-xl border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-white dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20">
                                                 <h2
                                                     className="w-[200px] text-center py-4 flex justify-center items-center gap-2"
@@ -113,7 +114,7 @@ export function MyDatabases() {
                                                 >
                                                     <FaDatabase />
                                                     <span className="w-full whitespace-nowrap text-ellipsis overflow-x-hidden">
-                                                        {intelligence[index]?.artificial_name}
+                                                        {intelligence[index]?.identification}
                                                     </span>
                                                 </h2>
 

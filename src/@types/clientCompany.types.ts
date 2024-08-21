@@ -1,4 +1,5 @@
 export interface Support_hours {
+    id: string;
     day: string;
     start: string;
     end: string;

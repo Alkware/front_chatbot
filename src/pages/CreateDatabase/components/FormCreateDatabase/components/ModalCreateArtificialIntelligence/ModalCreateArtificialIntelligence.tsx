@@ -10,17 +10,18 @@ import { PopOver } from "../../../../../../components/modal/templates/PopOver";
 import { createClientCompany } from "../../../../../../api/client_company.api";
 
 interface ModalCreateArtificialIntelligence {
-    info: Info_Artificial_Intelligence
+    info: Info_Artificial_Intelligence;
+    plan_management_id: string;
 }
 
-export function ModalCreateArtificialIntelligence({ info }: ModalCreateArtificialIntelligence) {
+export function ModalCreateArtificialIntelligence({ info, plan_management_id }: ModalCreateArtificialIntelligence) {
     const { setModalContent } = useContext(ModalContext);
     const containerCreateDatabaseRef: RefObject<HTMLDivElement> = useRef(null);
 
 
     const handleCreateAI = async () => {
-        const prompt_name = containerCreateDatabaseRef.current?.querySelector("input")?.value;
-        if (!prompt_name) {
+        const identification = containerCreateDatabaseRef.current?.querySelector("input")?.value;
+        if (!identification) {
             console.error("Failed to search the prompt name");
             return;
         }
@@ -31,29 +32,48 @@ export function ModalCreateArtificialIntelligence({ info }: ModalCreateArtificia
         
         // Salva as informações da empresa, caso seja necessário...
         const company_info = JSON.parse(localStorage.getItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE) || "{}") 
-        const response = await createClientCompany(company_info);
-        console.log(response)
-
-        // // Cria a fonte de dados...
-        // const response: void | AxiosResponse<Artificial_Intelligence, any> = await createNewArtificialIntelligence(info);
-
-        // if (response?.status === 201) {
-        //     // Remove os dados salvos no localstorage...
-        //     localStorage.removeItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE)
-        //     // Desativa o loading...
-        //     loading(button, false)
-        //     // Envia uma mensagem que a fonte de dados foi criada com sucesso...
-        //     setModalContent({
-        //         componentName: "modal_created_database",
-        //         components:
-        //             <PopOver
-        //                 componentName="modal_created_database"
-        //                 message="Inteligencia artificial criada com sucesso!"
-        //                 type="INFORMATION"
-        //                 functionAfterComplete={() => window.location.href = "/panel?tab=my_chats"}
-        //             />
-        //     })
-        // }
+        company_info.plan_management_id = plan_management_id;
+        const clientCompany = await createClientCompany(company_info);
+        if(!clientCompany) {
+            setModalContent({
+                componentName: "modal_failed_create_company",
+                components: 
+                <PopOver 
+                    componentName="modal_failed_create_company"
+                    message="Falha ao salvar as informações da empresa, reinicie a página e tente novamente."
+                    type="ERROR"
+                />
+            });
+            return;
+        }
+        
+        // Adicionar o id do gerenciador de plano do cliente...
+        info.plan_management_id = plan_management_id;
+        info.client_company_id = clientCompany.id;
+        info.identification = identification;
+        console.log(info)
+        // Cria a fonte de dados...
+        const response: void | AxiosResponse<Artificial_Intelligence, any> = await createNewArtificialIntelligence(info);
+        
+        if (response?.status === 201) {
+            // Remove os dados salvos no localstorage...
+            localStorage.removeItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE)
+            // Remove as informações da empresa
+            localStorage.removeItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE)
+            // Desativa o loading...
+            loading(button, false)
+            // Envia uma mensagem que a fonte de dados foi criada com sucesso...
+            setModalContent({
+                componentName: "modal_created_database",
+                components:
+                    <PopOver
+                        componentName="modal_created_database"
+                        message="Inteligencia artificial criada com sucesso!"
+                        type="INFORMATION"
+                        functionAfterComplete={() => window.location.href = "/panel?tab=my_chats"}
+                    />
+            })
+        }
 
     }
 

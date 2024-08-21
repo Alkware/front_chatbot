@@ -6,7 +6,9 @@ export interface Artificial_Intelligence {
     id: string
     plan_management_id: string
     client_company_id: string
-    artificial_name: string
+
+    identification: string
+    artificial_name?: string
     client_describe: string
     restrictions?: string | null; 
     

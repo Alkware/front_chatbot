@@ -34,3 +34,17 @@ export async function createClientCompany(company: Info_Client_Company): Promise
 
     return response.data;
 }
+
+/**
+ * Função responsável por deletar as informações da empresa do usuário no banco de dados.
+ * @param id Id unico da empresa do cliente.
+ * @returns {Client_Company} Retorna as informações deletadas da empresa do client
+ */
+export async function deleteClientCompany(id: string): Promise<Client_Company | void> {
+    
+    const response = await axios.delete(`${API_URL}/company/delete/${id}`).catch(err => console.error(err));
+
+    if(!response) return;
+
+    return response.data;
+}

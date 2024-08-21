@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MdAdd, MdDelete } from "react-icons/md";
 import { Select } from "../../../../../../../../components/Select/Select";
-import { Client_Company } from "../../../../../../../../@types/clientCompany.types";
+import { Client_Company, Support_hours } from "../../../../../../../../@types/clientCompany.types";
 import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { PopUp } from "../../../../../../../../components/modal/templates/PopUp";
 import { useForm } from "react-hook-form";
@@ -9,6 +9,7 @@ import { Button } from "../../../../../../../../components/button/Button";
 import { SubTitle } from "../../../../../../../../components/SubTitle/SubTitle";
 import { Title } from "../../../../../../../../components/Title/Title";
 import { COMPANY_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../../../variables/variables";
+import { v4 } from "uuid";
 
 const weekdays = [
     { text: "Todos os dias", value: "Todos os dias" },
@@ -75,14 +76,22 @@ const hours = [
 ]
 
 interface OpeningHours {
-    name: string,
-    company: Client_Company | undefined
+    name: string;
+    company: {
+        current?: Client_Company;
+        companies: Client_Company[] | undefined;
+    } | undefined
 }
 
 export function OpeningHours({ name, company }: OpeningHours) {
     const { setModalContent, clearModal } = useContext(ModalContext);
-    const [hoursSaved, setHours] = useState(company?.support_hours || []);
+    const [hoursSaved, setHours] = useState<Support_hours[]>();
     const form = useForm();
+
+    useEffect(() => {
+        if (!company) return;
+        setHours(company.current?.support_hours)
+    }, [company])
 
     /**
      * Função responsável por exibir a modal para ser adicionado novos horarios...
@@ -93,12 +102,14 @@ export function OpeningHours({ name, company }: OpeningHours) {
          * @param {Support_hours} data Objeto os dados do novo horário a ser adicionado
          */
         const handleAddHour = (data: any) => {
+            // Adiciona um id unico para o novo horário...
+            data.id = v4();
             // Atualiza o suporte humano no localstorage...
             const company_info = JSON.parse(localStorage.getItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
             company_info[name] = company_info[name] ? [...company_info[name], data] : [data];
             localStorage.setItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE, JSON.stringify(company_info));
             // Atualiza o suporye humano no stage...
-            setHours(values => [...values, data]);
+            setHours(values => values ? [...values, data] : [data]);
             clearModal("modal_display_modal");
         }
 
@@ -144,14 +155,20 @@ export function OpeningHours({ name, company }: OpeningHours) {
 
     /**
      * Função responsável por deletar um horario na lista de atendimento do cliente.
-     * @param {number} index Index do horario a ser deletado
+     * @param {Support_hours} hour Informações do horário a ser deletado.
      */
-    const handleDeleteHour = (index: number) => {
+    const handleDeleteHour = (hour: Support_hours) => {
         const company_info = JSON.parse(localStorage.getItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
-        company_info[name] = company_info[name].filter((_: any, i: number)=> i !== index);
-        localStorage.setItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE, JSON.stringify(company_info));
 
-        setHours(hours => hours.filter((_, i) => i !== index ));
+        setHours(hours => {
+            if(hours){
+                const newHour = hours.filter((info: Support_hours) => info.id !== hour.id)
+                company_info[name] = newHour;
+                localStorage.setItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE, JSON.stringify(company_info));
+                return newHour
+            }  else return []
+        });
+        
     }
 
     return (
@@ -165,8 +182,9 @@ export function OpeningHours({ name, company }: OpeningHours) {
                     onClick={handleDisplayAddHours}
                 ><MdAdd /> Adicionar horário</Button>
                 <div className="w-full md:w-[400px] flex flex-col items-start my-1 mb-4 md:m-0">
-                    {hoursSaved.map((hour, index) =>
-                        <div 
+                    {hoursSaved?.map((hour, index) =>
+                        <div
+                            key={index}
                             data-color={index % 2 === 0}
                             className="w-full flex gap-4 items-center bg-primary-200 data-[color=true]:bg-primary-300 px-4"
                         >
@@ -183,7 +201,7 @@ export function OpeningHours({ name, company }: OpeningHours) {
                                 <span className="font-bold whitespace-nowrap">{hour.end}</span>
                             </div>
                             <MdDelete
-                                onClick={()=> handleDeleteHour(index)}
+                                onClick={() => handleDeleteHour(hour)}
                                 className="w-20 text-2xl cursor-pointer rounded-full fill-red-400"
                             />
                         </div>

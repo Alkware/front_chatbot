@@ -30,7 +30,7 @@ export function Input({ formContext, mask, widthContainer, joinAtInput, title, t
                 label.classList.add("top-0", "-translate-y-1/2", "bg-primary-100", "text-sm", "text-light")
             }
         }
-    }, []);
+    }, [props.defaultValue]);
 
     const handleClickedInput = ({ currentTarget }: any) => {
         const label: HTMLLabelElement = currentTarget.querySelector("label");
