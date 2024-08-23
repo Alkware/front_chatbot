@@ -29,7 +29,7 @@ export type Questions = {
 };
 
 export interface Service {
-    id?: string
+    id: string
     plan_management_id: string
     category: Category
     service_name: string

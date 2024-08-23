@@ -1,14 +1,16 @@
 export interface Image {
-    id: string
-    client_id: string
-    products_id?: string | null
-    services_id?: string | null
+    image: {
+        id: string
+        client_id: string
+        products_id?: string | null
+        services_id?: string | null
 
-    url: string
-    description: string
-    
-    created_at: Date
-    updated_at: Date
+        url: string
+        description: string
+
+        created_at: Date
+        updated_at: Date
+    }
 }
 
 

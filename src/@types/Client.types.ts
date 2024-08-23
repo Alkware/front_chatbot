@@ -19,7 +19,7 @@ export interface Client {
     traffic_origin: string[]
     images: Image[];
     notification_client: Notification_client[];
-    plan_management?: PlanManagement | null;
+    plan_management: PlanManagement;
     refund_requested: any;
     guest: Guest[];
     created_at: Date

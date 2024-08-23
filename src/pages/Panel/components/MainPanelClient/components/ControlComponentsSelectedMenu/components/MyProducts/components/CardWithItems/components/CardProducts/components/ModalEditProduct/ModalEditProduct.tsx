@@ -12,7 +12,6 @@ import { StepProductPaymentMethodAndConditions } from "../../../../../../../../.
 import { deleteProduct, updateProduct } from "../../../../../../../../../../../../../../api/product.api";
 import { ModalContext } from "../../../../../../../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../../../../../../../components/modal/templates/PopOver";
-import { Image } from "../../../../../../../../../../../../../../@types/images.types";
 
 interface ModalEditProduct {
     product: Product;
@@ -30,7 +29,7 @@ export function ModalEditProduct({ product, setProducts }: ModalEditProduct) {
         resolver: zodResolver(productSchema),
         defaultValues: {
             ...product,
-            images: product.images?.map(img => img.id),
+            images: product.images?.map(infoImage => infoImage.image.url),
         }
     });
 
@@ -55,13 +54,10 @@ export function ModalEditProduct({ product, setProducts }: ModalEditProduct) {
             return;
         }
 
-        const convertImageToProduct = response as unknown as Omit<Product, "images"> & { images: Image[] };
-        convertImageToProduct.images = product.images;
-
         setProducts(values => {
             if (values) {   
                 const removeOldProduct = values.filter(value=> value.id !== product.id);
-                return [...removeOldProduct, convertImageToProduct];
+                return [...removeOldProduct, response];
             } else return values;
         });
 
@@ -125,6 +121,7 @@ export function ModalEditProduct({ product, setProducts }: ModalEditProduct) {
             >
                 <StepBasicProductInfo
                     client_id={client.id}
+                    product={product}
                 />
             </Root.EditStep>
 

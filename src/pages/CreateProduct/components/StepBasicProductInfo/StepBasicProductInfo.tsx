@@ -4,12 +4,14 @@ import { UploadFile } from "./components/UploadFile/UploadFile";
 import { Input } from "../../../../components/Form/components/Fields/Input/Input";
 import { TextArea } from "../../../../components/Form/components/Fields/TextArea/TextArea";
 import { InputDate } from "../../../../components/Form/components/Fields/InputDate/InputDate";
+import { Product } from "../../../../@types/products.types";
 
 interface StepBasicProductInfo {
     client_id: string | undefined;
+    product?: Product
 }
 
-export function StepBasicProductInfo({ client_id }: StepBasicProductInfo) {
+export function StepBasicProductInfo({ client_id, product }: StepBasicProductInfo) {
     const formContext = useFormContext();
 
     return (
@@ -19,6 +21,7 @@ export function StepBasicProductInfo({ client_id }: StepBasicProductInfo) {
                 client_id={client_id}
                 limitSelect={5}
                 formContext={formContext}
+                imagesDefault={product?.images}
             />
 
             <div className="w-full mx-auto flex gap-4">

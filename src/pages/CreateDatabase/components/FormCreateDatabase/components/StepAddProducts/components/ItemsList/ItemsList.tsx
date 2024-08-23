@@ -18,11 +18,14 @@ interface ItemsList {
     register: UseFormRegister<any>;
 }
 
-export function ItemsList({ title, type, list, items, plan_management_id, register, setItems }: ItemsList) {
+export function ItemsList({ title, type, list, items, plan_management_id, setItems }: ItemsList) {
     const [isSelected, setIsSelected] = useState<Item[] | undefined>(items);
     const { clearModal } = useContext(ModalContext);
     const navigate = useNavigate();
 
+    /**
+     * Função responsável por criar um novo item...
+     */
     const handleCreateNewItem = () => {
         if (!list) return;
 
@@ -35,6 +38,10 @@ export function ItemsList({ title, type, list, items, plan_management_id, regist
         clearModal(null, { clearAll: true })
     }
 
+    /**
+     * Função responsável por selecionar um item...
+     * @param {Item} item Item selecionado
+     */
     const handleSelectItem = (item: Item) => {
         const selected = isSelected?.find(select => select.id === item.id);
         if (selected) {
@@ -42,14 +49,14 @@ export function ItemsList({ title, type, list, items, plan_management_id, regist
             setItems(isSelected?.filter(select => select.id !== item.id))
         }
         else {
-            const isProduct = type === "PRODUCT";
-            const index  = !!items ? items.length > 0 ? (items.length - 1) : 0 : 0;
-            register(isProduct ? `products_id.${index}` : `services_id.${index}`, { value: item.id })
             setIsSelected(values => values ? [...values, item] : [item]);
             setItems(values => values ? [...values, item] : [item]);
         }
     }
 
+    /**
+     * Função responsável por selecionar todos os items...
+     */
     const handleSelectAll = () => {
         setIsSelected(values => values ? [...values.filter(value => !list.find(l => l.id === value.id)), ...list] : list);
         setItems(values => values ? [...values.filter(value => !list.find(l => l.id === value.id)), ...list] : list);
@@ -74,7 +81,7 @@ export function ItemsList({ title, type, list, items, plan_management_id, regist
                             className="w-4 h-4 bg-primary-100 absolute top-0 right-0 group-data-[isselected=false]:hidden"
                         > </div>
                         <img
-                            src={item.images[0].url}
+                            src={item.images[0].image.url}
                             alt=""
                             className="w-full h-full object-cover"
                         />

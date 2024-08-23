@@ -8,9 +8,9 @@ import { useNavigate } from "react-router-dom"
 import { createNewProduct, deleteProduct } from "../../../../../../../../../../../../api/product.api"
 import { ModalContext } from "../../../../../../../../../../../../context/ModalContext"
 import { PopOver } from "../../../../../../../../../../../../components/modal/templates/PopOver"
-import { Image } from "../../../../../../../../../../../../@types/images.types"
 import { PopUp } from "../../../../../../../../../../../../components/modal/templates/PopUp"
 import { ModalEditProduct } from "./components/ModalEditProduct/ModalEditProduct"
+import { Confirm } from "../../../../../../../../../../../../components/modal/templates/Confirm"
 
 
 interface CardProducts {
@@ -18,7 +18,7 @@ interface CardProducts {
 }
 
 export function CardProducts({ items }: CardProducts) {
-    const { setModalContent } = useContext(ModalContext);
+    const { setModalContent, clearModal } = useContext(ModalContext);
     const { client } = useContext(ClientContext);
     const containerProductsRef: RefObject<HTMLDivElement> = useRef(null);
     const [newProduct, setNewProduct] = useState(items);
@@ -31,10 +31,14 @@ export function CardProducts({ items }: CardProducts) {
     }
     // FUNÇÃO RESPONSÁVEL POR DUPLICAR O PRODUTO...
     const handleDuplicateProduct = async (product: Product) => {
-        delete product["id"];
-        delete product["created_at"];
-        delete product["updated_at"];
-        delete product["plan_management"]
+        // Transforma o id em um campo opcional para ser deletado...
+        const duplicateProduct: Omit<Product, "id"> & { id?: string } = product;
+
+        // Deleta alguns campos que não são necessários...
+        delete duplicateProduct["id"];
+        delete duplicateProduct["created_at"];
+        delete duplicateProduct["updated_at"];
+        delete duplicateProduct["plan_management"]
 
         if (!client) {
             console.error("Client id is missing!");
@@ -47,49 +51,59 @@ export function CardProducts({ items }: CardProducts) {
             product_name: `${product.product_name.split(" ")[0]} (${newProduct.length + 1})`,
             plan_management_id: client?.plan_management.id,
             category: { name: product.category.name },
-            images: product.images.map(img => img.id)
+            images: product.images.map(infoImage => infoImage.image.id)
         });
 
-        const convertImageToProduct = response as unknown as Omit<Product, "images"> & { images: Image[] };
-        convertImageToProduct.images = product.images;
-
-        setNewProduct(values => values ? [...values, convertImageToProduct] : values);
+        response && setNewProduct(values => values ? [...values, response] : values);
     }
 
 
     // FUNÇÃO RESPONSÁVEL POR DELETAR O PRODUTO
-    const handleDeleteProduct = async (product: Product) => {
-        console.log(product)
-        const { id } = product;
-        if (!id) {
-            window.location.reload();
-            return;
-        }
-        const response = await deleteProduct(id);
+    const handleDisplayConfirmDeleteProduct= async (product: Product) => {
+        setModalContent({
+            componentName: "modal_confirm_delete_product",
+            components: <PopUp>
+                <Confirm
+                    title="Deseja realmente excluir esse produto?"
+                    confirmFunction={()=> handleDeleteProduct()}
+                    cancelFuntion={()=> clearModal("modal_confirm_delete_product")}
+                />
+            </PopUp>
+        })
 
-        if (!response) {
+        async function handleDeleteProduct() {
+            const { id } = product;
+            if (!id) {
+                window.location.reload();
+                return;
+            }
+            const response = await deleteProduct(id);
+
+            if (!response) {
+                setModalContent({
+                    componentName: "modal_failed_delete_product",
+                    components:
+                        <PopOver
+                            componentName="modal_failed_delete_product"
+                            message="Falha ao tentar deletar o produto, tente entrar em contato com suporte"
+                            type="WARNING"
+                        />
+                });
+                return;
+            };
+
+            setNewProduct(values => values.filter(value => value.id !== id));
+
             setModalContent({
-                componentName: "modal_failed_delete_product",
+                componentName: "modal_success_delete_product",
                 components:
                     <PopOver
-                        componentName="modal_failed_delete_product"
-                        message="Falha ao tentar deletar o produto, tente entrar em contato com suporte"
-                        type="WARNING"
+                        componentName="modal_success_delete_product"
+                        message="Produto deletado com sucesso!"
                     />
-            });
-            return;
-        };
-
-        setNewProduct(values => values.filter(value => value.id !== id));
-
-        setModalContent({
-            componentName: "modal_success_delete_product",
-            components:
-                <PopOver
-                    componentName="modal_success_delete_product"
-                    message="Produto deletado com sucesso!"
-                />
-        })
+            })
+            clearModal("modal_confirm_delete_product")
+        }
     }
 
     const handleEditProduct = (product: Product) => {
@@ -131,11 +145,11 @@ export function CardProducts({ items }: CardProducts) {
                                 />
                                 <MdDelete
                                     className="hover:scale-110 transition-transform fill-red-400"
-                                    onClick={() => handleDeleteProduct(product)}
+                                    onClick={() => handleDisplayConfirmDeleteProduct(product)}
                                 />
                             </div>
                             <img
-                                src={product.images[0]?.url || "https://via.placeholder.com/100"}
+                                src={product.images[0].image.url || "https://via.placeholder.com/100"}
                                 className="w-full h-full object-cover"
                                 onClick={() => handleEditProduct(product)}
                             />

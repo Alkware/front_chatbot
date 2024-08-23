@@ -29,7 +29,7 @@ export type Questions = {
 }
 
 export type Product = {
-    id?: string
+    id: string
     plan_management_id: string
     category: Category;
     product_name: string
@@ -48,7 +48,7 @@ export type Product = {
     extra_information?: string | null
     how_exchanges_work_and_returns: string
     plan_management?: PlanManagement;
-    images: Image[]
+    images: Image[];
     created_at?: Date
     updated_at?: Date
 }

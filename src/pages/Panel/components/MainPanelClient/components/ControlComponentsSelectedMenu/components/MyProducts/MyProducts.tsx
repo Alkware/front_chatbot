@@ -21,7 +21,7 @@ export function MyProducts({ }: MyProducts) {
 
     useEffect(()=>{
         (async ()=>{
-            if(!client) return;
+            if(!client?.plan_management) return;
             const offers = await getAllProductsAndServices(client?.plan_management.id);
 
             if(!offers) return;

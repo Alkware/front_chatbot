@@ -11,15 +11,13 @@ import { Button } from "../../../../../../../../components/button/Button"
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver"
 import { updateDatabaseName } from "../../../../../../../../api/artificialIntelligence.api"
 import { Artificial_Intelligence } from "../../../../../../../../@types/artificialInteligence.types"
-import { ModalEditArtificialIntelligence } from "./components/ModalEditDatabase/ModalEditDatabase"
+import { ModalEditArtificialIntelligence } from "./components/ModalEditArtificialIntelligence/ModalEditArtificialIntelligence"
 
-export function MyDatabases() {
+export function MyArtificialIntelligence() {
     const { client } = useContext(ClientContext)
     const { setModalContent, clearModal } = useContext(ModalContext)
     const limitPromps = Array(MAX_CONTAINER_TO_CREATE_DATABASE).fill(0)
     const [intelligence, setIntelligence] = useState<Artificial_Intelligence[]>(client?.plan_management?.artificial_intelligence || [])
-
-    console.log(intelligence)
 
     /**
      * Função responsável por editar uma inteligencia artificial...
@@ -46,7 +44,7 @@ export function MyDatabases() {
      * Função responsável por alterar o nome da inteligência artificial...
      * @param {string} index Index da inteligencia artificial que vai mudar o nome.
      */
-    const handleEditNameDatabase = (index: number) => {
+    const handleEditIdentificationArtificialName = (index: number) => {
 
         async function saveNewNameDatabase(e: any) {
             e.preventDefault();
@@ -120,7 +118,7 @@ export function MyDatabases() {
 
                                                 <MdEdit
                                                     className="cursor-text "
-                                                    onClick={() => handleEditNameDatabase(index)}
+                                                    onClick={() => handleEditIdentificationArtificialName(index)}
                                                 />
                                             </div>
                                             :

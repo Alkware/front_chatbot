@@ -6,7 +6,6 @@ import { ClientContext } from "../../../../../../../../../../../../context/Clien
 import { useNavigate } from "react-router-dom"
 import { ModalContext } from "../../../../../../../../../../../../context/ModalContext"
 import { PopOver } from "../../../../../../../../../../../../components/modal/templates/PopOver"
-import { Image } from "../../../../../../../../../../../../@types/images.types"
 import { TipContainer } from "../../../../../../../../../../../../components/TipContainer/TipContainer"
 import { Service } from "../../../../../../../../../../../../@types/services.types"
 import { createNewService, deleteService } from "../../../../../../../../../../../../api/service.api"
@@ -32,10 +31,13 @@ export function CardServices({ items }: CardServices) {
     }
     // FUNÇÃO RESPONSÁVEL POR DUPLICAR O serviço...
     const handleDuplicateProduct = async (service: Service) => {
-        delete service["id"];
-        delete service["created_at"];
-        delete service["updated_at"];
-        delete service["plan_management"]
+        // Transforma o id em um campo opcional para ser deletado...
+        const duplicateProduct: Omit<Service, "id"> & { id?: string } = service;
+
+        delete duplicateProduct["id"];
+        delete duplicateProduct["created_at"];
+        delete duplicateProduct["updated_at"];
+        delete duplicateProduct["plan_management"]
 
         if (!client) {
             console.error("Client id is missing!");
@@ -44,22 +46,19 @@ export function CardServices({ items }: CardServices) {
 
         // Cria a fonte de dados...
         const response = await createNewService({
-            ...service,
-            service_name: `${service.service_name.split(" ")[0]} (${newService.length + 1})`,
+            ...duplicateProduct,
+            service_name: `${duplicateProduct.service_name.split(" ")[0]} (${newService.length + 1})`,
             plan_management_id: client?.plan_management.id,
-            category: { name: service.category.name },
-            images: service.images.map(img => img.id)
+            category: { name: duplicateProduct.category.name },
+            images: duplicateProduct.images.map(infoImage => infoImage.image.id)
         });
 
-        const convertImageToService = response as unknown as Omit<Service, "images"> & { images: Image[] };
-        convertImageToService.images = service.images;
-
-        setNewService(values => values ? [...values, convertImageToService] : values);
+        response && setNewService(values => values ? [...values, response] : values);
     }
 
 
     // FUNÇÃO RESPONSÁVEL POR DELETAR O serviço
-    const handleDeleteService= async (service: Service) => {
+    const handleDeleteService = async (service: Service) => {
         const { id } = service;
         if (!id) {
             window.location.reload();
@@ -135,7 +134,7 @@ export function CardServices({ items }: CardServices) {
                                 />
                             </div>
                             <img
-                                src={service.images[0]?.url || "https://via.placeholder.com/100"}
+                                src={service.images[0].image.url || "https://via.placeholder.com/100"}
                                 className="w-full h-full object-cover"
                                 onClick={() => handleEditProduct(service)}
                             />

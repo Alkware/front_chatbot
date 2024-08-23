@@ -5,7 +5,7 @@ import { PARAM_MENU_MOBILE, RESIZE_MENU, TAB_NAME_URL } from "../../../../../../
 import { IoArchiveSharp, IoDiamond } from "react-icons/io5";
 import { BsStars } from "react-icons/bs";
 
-export type Tab = "my_chats" | "metrics" | "database" | "products" | "records" | "leads" | "conversations" | "payment" | "help_center" | "config";
+export type Tab = "my_chats" | "metrics" | "artificial_intelligence" | "products" | "records" | "leads" | "conversations" | "payment" | "help_center" | "config";
 
 interface Menu {
     tab: Tab;
@@ -34,7 +34,7 @@ const navMenu: NavMenu[] = [
         Icon: IoIosPricetags,
     },
     {
-        tab: "database",
+        tab: "artificial_intelligence",
         name: "Inteligência artificial",
         Icon: BsStars,
     },

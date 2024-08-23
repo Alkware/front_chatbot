@@ -1,12 +1,12 @@
 import axios from "axios";
 import { API_URL } from "./url-api";
-import { Services } from "../@types/services.types";
-import { Products } from "../@types/products.types";
+import { Service } from "../@types/services.types";
+import { Product } from "../@types/products.types";
 
 
 export interface ProductsAndServices {
-    products: Products[];
-    services: Services[]
+    products: Product[];
+    services: Service[]
 }
 
 /**

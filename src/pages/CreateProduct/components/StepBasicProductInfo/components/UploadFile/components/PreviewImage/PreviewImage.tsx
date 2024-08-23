@@ -11,7 +11,7 @@ export function PreviewImage({ images, setImages }: PreviewImage) {
 
     // Função responsável por remover a imagem da lista de selecionados...
     const handleDeleteImage = (img: Image) => {
-        const removeImg = images?.filter(image => image.id !== img.id);
+        const removeImg = images?.filter(imageInfo => imageInfo.image.id !== img.image.id);
         setImages(removeImg)
     }
 
@@ -35,7 +35,7 @@ export function PreviewImage({ images, setImages }: PreviewImage) {
                                 <span className="text-xl font-medium">X</span>
                             </div>
                             <img
-                                src={img.url}
+                                src={img.image.url}
                                 alt="Imagem carregada pela usuário"
                             />
                         </div>

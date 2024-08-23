@@ -11,7 +11,6 @@ import { Root } from "../../../../../../../../../../../../../components/Form/For
 import { StepBasicServiceInfo } from "../../../../../../../../../../../../CreateService/components/StepBasicServiceInfo/StepBasicServiceInfo";
 import { StepServicePaymentMethodAndConditions } from "../../../../../../../../../../../../CreateService/components/StepServicePaymentMethodAndConditions/StepServicePaymentMethodAndConditions";
 import { StepAdvancedServiceInfo } from "../../../../../../../../../../../../CreateService/components/StepAdvancedServiceInfo/StepAdvancedProductInfo";
-import { Image } from "../../../../../../../../../../../../../@types/images.types";
 
 
 interface ModalEditService {
@@ -30,7 +29,7 @@ export function ModalEditService({ service, setServices }: ModalEditService) {
         resolver: zodResolver(serviceSchema),
         defaultValues: {
             ...service,
-            images: service.images?.map(img => img.id),
+            images: service.images?.map(infoImage => infoImage.image.id),
         }
     });
 
@@ -55,14 +54,10 @@ export function ModalEditService({ service, setServices }: ModalEditService) {
             return;
         }
 
-
-        const convertImageToProduct = response as unknown as Omit<Service, "images"> & { images: Image[] };
-        convertImageToProduct.images = service.images;
-
         setServices(values => {
             if (values) {   
                 const removeOldService = values.filter(value=> value.id !== service.id);
-                return [...removeOldService, convertImageToProduct];
+                return [...removeOldService, response];
             } else return values;
         });
 

@@ -1,6 +1,8 @@
 import { Client_Company } from "./clientCompany.types"
 import { PlanManagement } from "./planManagement"
+import { Product } from "./products.types"
 import { Project } from "./Project"
+import { Service } from "./services.types"
 
 export interface Artificial_Intelligence {
     id: string
@@ -12,7 +14,12 @@ export interface Artificial_Intelligence {
     client_describe: string
     restrictions?: string | null; 
     
-    ai_products_Services: any;
+    ai_products_Services: Array<{
+        product_id: string,
+        service_id: string;
+        product: Product;
+        service: Service;
+    }>;
     plan_management: PlanManagement
     company: Client_Company;
     project: Project[]
@@ -29,4 +36,8 @@ export type Info_Artificial_Intelligence = Omit<Artificial_Intelligence,
     "ai_products_Services" |
     "company" |
     "project"
->;
+> & {
+    products_id: string[];
+    services_id: string[];
+    client_company_id: string
+};

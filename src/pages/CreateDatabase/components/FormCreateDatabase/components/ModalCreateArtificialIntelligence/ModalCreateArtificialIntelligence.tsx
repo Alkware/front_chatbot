@@ -51,7 +51,6 @@ export function ModalCreateArtificialIntelligence({ info, plan_management_id }: 
         info.plan_management_id = plan_management_id;
         info.client_company_id = clientCompany.id;
         info.identification = identification;
-        console.log(info)
         // Cria a fonte de dados...
         const response: void | AxiosResponse<Artificial_Intelligence, any> = await createNewArtificialIntelligence(info);
         
