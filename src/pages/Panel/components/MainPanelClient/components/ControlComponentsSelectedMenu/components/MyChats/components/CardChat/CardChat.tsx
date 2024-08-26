@@ -9,21 +9,21 @@ import { TipContainer } from "../../../../../../../../../../components/TipContai
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ShareProject } from "./components/ShareProject/ShareProject";
 import { ModalEditChat } from "../EditProject/components/ModalEditChat/ModalEditChat";
-import { Database } from "../../../../../../../../../../@types/prompt.types";
 import { TutoralContainer } from "../../../../../../../../../../components/TutoralContainer/TutoralContainer";
 import { updateTutorialClient } from "../../../../../../../../../../api/client";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
 import { Client } from "../../../../../../../../../../@types/Client.types";
 import { FaChartColumn, FaGear, FaLink } from "react-icons/fa6";
+import { Artificial_Intelligence } from "../../../../../../../../../../@types/artificialInteligence.types";
 
 interface CardChat {
     project: Project,
     setNewProject: Dispatch<SetStateAction<any>>
-    prompts: Database[]
+    ai: Artificial_Intelligence[]
 
 }
 
-export function CardChat({ project, setNewProject, prompts }: CardChat) {
+export function CardChat({ project, setNewProject, ai }: CardChat) {
     const { client, setClient } = useContext(ClientContext);
     const { setModalContent } = useContext(ModalContext);
     const navigate = useNavigate();
@@ -46,7 +46,7 @@ export function CardChat({ project, setNewProject, prompts }: CardChat) {
                     <ModalEditChat
                         setProjects={setNewProject}
                         project={project}
-                        prompts={prompts}
+                        ai={ai}
                     />
                 </PopUp>
         })
@@ -170,7 +170,7 @@ export function CardChat({ project, setNewProject, prompts }: CardChat) {
                 className="w-[150px] h-[110px] rounded-xl overflow-hidden"
             >
                 <img
-                    src={project.logo || "https://via.placeholder.com/100"}
+                    src={project.logo?.url || "https://via.placeholder.com/100"}
                     alt="imagem do projeto"
                     className="w-full h-full object-cover"
                     onClick={()=> window.open(`https://chat.wipzee.com/${project.slug}`)}

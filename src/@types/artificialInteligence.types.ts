@@ -14,18 +14,20 @@ export interface Artificial_Intelligence {
     client_describe: string
     restrictions?: string | null; 
     
-    ai_products_Services: Array<{
-        product_id: string,
-        service_id: string;
-        product: Product;
-        service: Service;
-    }>;
+    ai_products_Services: Ai_products_Services[];
     plan_management: PlanManagement
     company: Client_Company;
     project: Project[]
 
     created_at: Date
     updated_at: Date
+}
+
+export interface Ai_products_Services{
+    product_id: string,
+    service_id: string;
+    product: Product;
+    service: Service;
 }
 
 export type Info_Artificial_Intelligence = Omit<Artificial_Intelligence,

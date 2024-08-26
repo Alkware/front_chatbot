@@ -1,10 +1,10 @@
 import { useFormContext } from "react-hook-form";
 import { Root } from "../../../../components/Form/FormRoot";
-import { UploadFile } from "./components/UploadFile/UploadFile";
 import { Input } from "../../../../components/Form/components/Fields/Input/Input";
 import { TextArea } from "../../../../components/Form/components/Fields/TextArea/TextArea";
 import { InputDate } from "../../../../components/Form/components/Fields/InputDate/InputDate";
 import { Product } from "../../../../@types/products.types";
+import { UploadFile } from "../../../../components/UploadFile/UploadFile";
 
 interface StepBasicProductInfo {
     client_id: string | undefined;

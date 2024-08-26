@@ -1,31 +1,26 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { useContext, useEffect } from "react";
-import { MdAdd, MdDelete } from "react-icons/md";
+import { RefObject, useContext, useEffect, useRef } from "react";
+import { MdAdd, MdDelete, MdLink } from "react-icons/md";
 import { Root } from "../../../../components/Form/FormRoot";
 import { ChatSchema } from "../../../../schema/zod/chatSchema";
-import { Call_to_action } from "../../../../@types/Project";
 import { ModalContext } from "../../../../context/ModalContext";
 import { PopOver } from "../../../../components/modal/templates/PopOver";
-import { Database } from "../../../../@types/prompt.types";
-import { DatabaseSchema } from "../../../../schema/zod/artificialIntelligenceSchema";
-import { PopUp } from "../../../../components/modal/templates/PopUp";
-import { Select } from "../../../../components/Select/Select";
-import { Button } from "../../../../components/button/Button";
+import { Input } from "../../../../components/Form/components/Fields/Input/Input";
+import { Title } from "../../../../components/Title/Title";
+import { Link } from "../../../../@types/Project";
+import { TextArea } from "../../../../components/Form/components/Fields/TextArea/TextArea";
 
-interface CallToActionFormChat {
-    prompts: Database[]
-}
-
-interface Field extends Call_to_action {
+interface Field extends Link {
     id: string,
 }
 
-export function CallToActionFormChat({ prompts }: CallToActionFormChat) {
-    const { setModalContent, clearModal } = useContext(ModalContext);
+export function LinkFormChat() {
+    const formLinkRef: RefObject<HTMLDivElement> = useRef(null);
+    const { setModalContent } = useContext(ModalContext);
     const { control, watch } = useFormContext<ChatSchema>();
-    const { fields, remove, append, update }: any = useFieldArray({
+    const { fields, remove, append }: any = useFieldArray({
         control,
-        name: "step_1.call_to_action"
+        name: "step_1.links"
     })
 
     useEffect(() => {
@@ -33,66 +28,16 @@ export function CallToActionFormChat({ prompts }: CallToActionFormChat) {
     }, []);
 
     const handleAddCTA = () => {
-        const callToActions: { button_text: string, button_link: string, button_describe: string }[] | undefined = watch(`step_1.call_to_action`);
-        const cta = callToActions && callToActions[fields.length - 1];
-        const prompt_id = watch(`step_1.prompt_id`);
+        const url = (formLinkRef.current?.querySelector("input[name=url]") as HTMLInputElement);
+        const description = (formLinkRef.current?.querySelector("textarea[name=description]") as HTMLTextAreaElement);
 
-        if (!prompt_id) {
-            setModalContent({
-                componentName: "modal_error_not_selected_db",
-                components:
-                    <PopOver
-                        componentName="modal_error_not_selected_db"
-                        message="Selecione primeiro uma fonte de dados, antes de adicionar uma CTA."
-                    />
-            });
-            return;
-        }
+        console.log(url, description)
 
-
-        const promptSelected = prompts.find(prompt => prompt.id === prompt_id);
-        const convertObject: DatabaseSchema = promptSelected && JSON.parse(promptSelected.prompt_query);
-        const products = convertObject.step_0.products.map((product, index) => Object({ id: index, name: product.name }));
-        const removeProductsSelected = products.filter((product) => !callToActions?.find(cta => cta.button_text === product.name) && product);
-
-        const handleSelectDatabase = (id: string) => {
-            append({ button_text: id, button_link: "", button_describe: "", })
-            clearModal("modal_show_select_products");
-        }
-
-        if (cta && cta.button_text && cta.button_link) {
-            if (cta.button_describe.length > 30) {
-                removeProductsSelected.length > 0 ?
-                    setModalContent({
-                        componentName: "modal_show_select_products",
-                        components:
-                            <PopUp>
-                                <div className="max-w-[95vw] md:max-w-[500px] space-y-8 p-4">
-                                    <div>
-                                        <h2 className="text-2xl text-center font-medium">Criar CTA para seus produtos</h2>
-                                        <p className="w-full text-center opacity-80 ">
-                                            Recomendamos que você crie links para seus produtos, para que nossa IA, possa redirecionar o usuário quando houver interesse no produto.
-                                        </p>
-                                    </div>
-                                    <Select
-                                        name="selected_product"
-                                        options={removeProductsSelected}
-                                        title="Selecionar produto"
-                                        onSelected={handleSelectDatabase}
-                                    />
-                                    <div className="flex justify-evenly">
-                                        <Button
-                                            onClick={() => {
-                                                clearModal("modal_show_select_products");
-                                                append({ button_text: "", button_link: "", button_describe: "", })
-                                            }}
-                                        >Criar customizado</Button>
-                                    </div>
-                                </div>
-                            </PopUp>
-                    })
-                    :
-                    append({ button_text: "", button_link: "", button_describe: "", })
+        if (url && description) {
+            if (description.value.length > 30) {
+                append({ url: url.value, description: description.value })
+                url.value = "";
+                description.value = "";
             } else setModalContent({
                 componentName: "modal_error_min_text",
                 components:
@@ -109,7 +54,7 @@ export function CallToActionFormChat({ prompts }: CallToActionFormChat) {
                 components:
                     <PopOver
                         componentName="modal_error_add_product"
-                        message="Preencha todos os dados antes de adicionar uma nova CTA"
+                        message="Preencha todos os dados antes de adicionar um novo link"
                         type="WARNING"
                     />
             })
@@ -119,57 +64,59 @@ export function CallToActionFormChat({ prompts }: CallToActionFormChat) {
     return (
         <div className="w-full md:w-autoflex flex-col border-2 md:border-none border-primary-100 rounded-md md:rounded-none p-2 md:p-0">
             <div className="flex justify-between items-center">
-                <div className="flex flex-col text-center">
-                    <h2 className="text-base md:text-xl font-bold">Adicione chamadas para ação no seu chat</h2>
-                    <span className="text-sm opacity-80 md:opacity-70">(Essas CTA serão usadas no contexto da conversa)</span>
+                <div className="flex flex-col">
+                    <Title className="text-left md:text-base">Adicione links que podem ser relevantes para seu chat</Title>
+                    <span className="text-sm opacity-80 md:opacity-70">(Esses links podem ser usados no contexto da conversa)</span>
                 </div>
             </div>
-            <Root.MultipleInput
-                name="step_1.call_to_action"
-                remove={remove}
-                update={update}
-            >
-                {
-                    fields.map((field: Field, index: number) =>
-                        <Root.Container className="flex gap-4" key={field.id}>
 
-                            <Root.Container className="flex flex-col gap-4 md:gap-8">
-                                <Root.Container className="flex flex-col md:flex-row gap-4">
-                                    <Root.Input
-                                        name={`step_1.call_to_action.${index}.button_text`}
-                                        title={`Digite o texto do link`}
-                                    />
-                                    <Root.Input
-                                        name={`step_1.call_to_action.${index}.button_link`}
-                                        title={`Digite a url do link`}
-                                        onChange={({ target }) => {
-                                            if (!target.value.toLowerCase().includes("http"))
-                                                target.value = `https://${target.value.replace("http", "")}`
-                                        }}
-                                    />
-                                </Root.Container>
+            <Root.Container className="flex gap-6 items-end my-8">
+                <div
+                    ref={formLinkRef}
+                    className="w-full flex flex-col gap-4"
+                >
+                    <Input
+                        name={`url`}
+                        title={`Digite a url do link`}
+                        onChange={({ currentTarget }) => {
+                            if (!currentTarget.value.toLowerCase().includes("http"))
+                                currentTarget.value = `https://${currentTarget.value.replace("http", "")}`
+                        }}
+                    />
+                    <TextArea
+                        name={`description`}
+                        title={`Digite uma descrição do link`}
+                        minText={30}
+                    />
+                </div>
 
-                                <Root.TextArea
-                                    name={`step_1.call_to_action.${index}.button_describe`}
-                                    title="Digite a descrição do link"
-                                />
-                            </Root.Container>
+                <MdAdd
+                    className="p-1 size-10 fill-primary-100 bg-primary-200 rounded-full cursor-pointer"
+                    onClick={handleAddCTA}
+                />
 
-                            <div className="flex flex-col gap-4">
-                                <MdAdd
-                                    className="text-3xl p-1 fill-primary-100 bg-primary-300 rounded-full cursor-pointer"
-                                    onClick={handleAddCTA}
-                                />
-                                <MdDelete
-                                    className="text-3xl p-1 fill-red-500 bg-red-900/50 rounded-full cursor-pointer"
-                                    onClick={() => fields.length > 1 && remove(index)}
-                                />
-                            </div>
+            </Root.Container>
 
-                        </Root.Container>
-                    )
-                }
-            </Root.MultipleInput>
+            <Root.Container className="flex flex-col my-4">
+                {fields.map((field: Field, index: number) =>
+                    <div
+                        data-display={!!field.url}
+                        data-color={index % 2 === 0}
+                        className="w-full py-1 bg-primary-300 flex items-center gap-4 data-[color=false]:bg-primary-200 data-[display=false]:hidden"
+                    >
+                        <div className="w-4/5 flex gap-1 items-center px-1">
+                            <MdLink />
+                            <span>{field.url}</span>
+                        </div>
+                        <MdDelete
+                            className="w-1/5 text-2xl fill-red-400 rounded-full cursor-pointer"
+                            onClick={() => fields.length > 1 && remove(index)}
+                        />
+                    </div>
+                )}
+            </Root.Container>
+
+
         </div>
     )
 };

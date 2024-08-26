@@ -120,6 +120,7 @@ export function ModalEditService({ service, setServices }: ModalEditService) {
             >
                 <StepBasicServiceInfo
                     client_id={client.id}
+                    service={service}
                 />
             </Root.EditStep>
 

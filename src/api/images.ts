@@ -41,16 +41,30 @@ export async function uploadImage(file: File, image_info: SaveImageInfo): Promis
     }
 }
 
-export async function getImagesById(client_id: string) {
-    const response = await axios.get(`${API_URL}/images/${client_id}`).catch(err => console.warn("ERRO:", err));
+export async function getImagesByClient_id(client_id: string) {
+    const response = await axios.get(`${API_URL}/images/client/${client_id}`).catch(err => console.warn("ERRO:", err));
 
     if (!response?.data) {
         console.error("Unable to search the images");
         return
     }
 
-    return response.data
+    // Formato correto para consiliar com o modo de busca das imagens
+    return response.data.map((image: Image) => ({ image }))
 }
+
+export async function getImagesById(image_id: string) {
+    const response = await axios.get(`${API_URL}/image/${image_id}`).catch(err => console.warn("ERRO:", err));
+
+    if (!response?.data) {
+        console.error("Unable to search the image by id");
+        return
+    }
+
+    // Formato correto para consiliar com o modo de busca das imagens
+    return { image: response.data }
+}
+
 
 export async function getManyImagesById(images_id: string[]) {
     const response = await axios.patch(`${API_URL}/images`, { images_id }).catch(err => console.warn("ERRO:", err));
@@ -60,7 +74,8 @@ export async function getManyImagesById(images_id: string[]) {
         return
     }
 
-    return response.data
+    // Formato correto para consiliar com o modo de busca das imagens
+    return response.data.map((image: Image) => ({ image }))
 }
 
 /**
@@ -75,7 +90,8 @@ export async function updateManyImagesById(product_id: string, images_id: string
         return
     }
 
-    return response.data
+    // Formato correto para consiliar com o modo de busca das imagens
+    return response.data.map((image: Image) => ({ image }))
 }
 
 
@@ -88,5 +104,6 @@ export async function deleteImageById(client_id: string) {
         return
     }
 
-    return response.data
+    // Formato correto para consiliar com o modo de busca das imagens
+    return { image: response.data }
 }

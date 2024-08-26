@@ -4,7 +4,7 @@ import { ContainerListSelect } from "./components/ContainerListSelect/ContainerL
 import { OptionList } from "./components/ContainerListSelect/components/OptionList";
 import { MouseEvent, RefObject, useEffect, useRef, useState } from "react";
 import { ListSelected } from "./components/ContainerHeaderSelect/components/ListSelected";
-import { UseFormReturn } from "react-hook-form";
+import { useFormContext, UseFormReturn } from "react-hook-form";
 import { createLog } from "../../api/log";
 import { twMerge } from "tailwind-merge";
 
@@ -30,6 +30,7 @@ export interface OptionsState {
 }
 
 export function Select({ options, name, title, multipleSelect, optionsDefault, formContext, className, onSelected, onDelete }: Select) {
+    const form = useFormContext() || formContext;
     const contentOptionsRef: RefObject<HTMLDivElement> = useRef(null);
     const addSelectParamToOptions: OptionsState[] = options?.map(option => Object({ ...option, selected: false }) as OptionsState);
     const [optionsState, setOptions] = useState<OptionsState[]>(addSelectParamToOptions);
@@ -39,12 +40,12 @@ export function Select({ options, name, title, multipleSelect, optionsDefault, f
 
         let data: Options[];
 
-        if (formContext) {
+        if (form) {
             // Registra o campo no formulário com valores default...
-            formContext.register(name, { value: multipleSelect ? [] : "" })
+            form.register(name, { value: multipleSelect ? [] : "" })
 
             // Filtra as opções que já estão selecionadas...
-            const key = formContext.getValues(name);
+            const key = form.getValues(name);
             data = options?.filter((opt) => typeof key === "object" ? key.find((key: string) => key === opt.value) : key === opt.value);
         } else {
             data = options?.filter((opt) => optionsDefault?.find((key: string) => key === opt.value.replaceAll(" ", "_")));
@@ -121,10 +122,13 @@ export function Select({ options, name, title, multipleSelect, optionsDefault, f
 
     // // Função responsável por registrar o campo no formulário.
     const registerField = (list: { value: string }[]) => {
-        if (list.length && formContext) {
-            formContext.unregister(name);
-            if (multipleSelect) list.forEach((_, index) => formContext.register(`${name}.${index}`, { value: list[index].value }));
-            else formContext.register(name, { value: list[0].value });
+        if (list.length && form) {
+            form.unregister(name);
+            if (multipleSelect) list.forEach((_, index) => form.register(`${name}.${index}`, { value: list[index].value }));
+            else {
+                console.log(list[0].value, name)
+                form.register(name, { value: list[0].value });
+            }
         }
     }
 

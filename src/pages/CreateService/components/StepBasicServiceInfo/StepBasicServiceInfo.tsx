@@ -1,15 +1,17 @@
 import { useFormContext } from "react-hook-form";
 import { Root } from "../../../../components/Form/FormRoot";
-import { UploadFile } from "./components/UploadFile/UploadFile";
 import { Input } from "../../../../components/Form/components/Fields/Input/Input";
 import { TextArea } from "../../../../components/Form/components/Fields/TextArea/TextArea";
 import { InputDate } from "../../../../components/Form/components/Fields/InputDate/InputDate";
+import { UploadFile } from "../../../../components/UploadFile/UploadFile";
+import { Service } from "../../../../@types/services.types";
 
 interface StepBasicServiceInfo {
     client_id: string | undefined;
+    service?: Service
 }
 
-export function StepBasicServiceInfo({ client_id }: StepBasicServiceInfo) {
+export function StepBasicServiceInfo({ client_id, service }: StepBasicServiceInfo) {
     const formContext = useFormContext();
 
     return (
@@ -19,6 +21,7 @@ export function StepBasicServiceInfo({ client_id }: StepBasicServiceInfo) {
                 client_id={client_id}
                 limitSelect={5}
                 formContext={formContext}
+                imagesDefault={service?.images}
             />
 
             <div className="w-full mx-auto flex gap-4">

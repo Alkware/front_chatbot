@@ -25,7 +25,6 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
 
     useEffect(() => {
         const errors = form.formState.errors;
-        console.log(errors)
         const message = findMessageError(errors);
         if (!!message) {
             setModalContent({
@@ -61,11 +60,11 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
     return (
         <FormProvider {...form}>
             <form
-                className="w-screen h-screen md:w-[80vw] md:h-[80vh] flex flex-col md:flex-row gap-4 overflow-hidden "
+                className="w-screen h-screen md:h-[80vh] flex flex-col md:flex-row gap-4 overflow-hidden "
                 onSubmit={form.handleSubmit(onSubmit)}
             >
                 <div className="w-full h-[10%] min-h-[60px] md:w-auto md:min-h-full md:max-w-[220px] bg-primary-300 fixed md:static bottom-0 z-50 flex flex-row md:flex-col justify-between items-center border-r border-primary-100 md:bg-transparent">
-                    
+
                     <MenuHambuguer
                         urlParamName="menu_modal_edit_chat"
                         className="md:hidden"
@@ -83,18 +82,16 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
 
                 <div className="w-full h-full flex flex-col justify-start lg:flex-row gap-8 overflow-auto pb-16 md:pb-0">
                     <div
-                        className="w-full flex flex-col gap-12 md:max-w-[900px] p-4"
+                        className="w-full flex flex-col gap-12 p-4"
                     >
-                        {
-                            childrenToArray.map((child: any, index: number) =>
-                                React.cloneElement(child, { key: index, stepChildren: filterStepChildren })
-                            )
-                        }
+                        {childrenToArray.map((child: any, index: number) =>
+                            React.cloneElement(child, { key: index, stepChildren: filterStepChildren })
+                        )}
                     </div>
 
-                    <div 
+                    <div
                         data-activesimulator={!!activeSimulator}
-                        className="w-auto md:w-2/3 h-full flex justify-center items-center data-[activesimulator=false]:hidden"
+                        className="w-auto h-full flex justify-center items-center data-[activesimulator=false]:hidden"
                     >
                         <SimulatorChat active={activeSimulator} />
                     </div>

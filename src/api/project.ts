@@ -1,8 +1,8 @@
 import axios from "axios"
 import { API_URL } from "./url-api"
-import { ProjectCreateTypes, Project } from "../@types/Project"
+import { Info_project, Project } from "../@types/Project"
 
-export async function createNewProject(data: ProjectCreateTypes) {
+export async function createNewProject(data: Info_project) {
     const project = await axios.post(`${API_URL}/create/project`, data).catch(err => console.warn(err))
 
     return project

@@ -6,12 +6,13 @@ import { PopUp } from "../../../../../../../../components/modal/templates/PopUp"
 import { Container } from "../../../../../../../../components/Container/Container"
 import { FaDatabase, FaLock } from "react-icons/fa"
 import { MAX_CONTAINER_TO_CREATE_DATABASE } from "../../../../../../../../variables/variables"
-import { MdEdit } from "react-icons/md"
+import { MdEdit, MdWarning } from "react-icons/md"
 import { Button } from "../../../../../../../../components/button/Button"
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver"
 import { updateDatabaseName } from "../../../../../../../../api/artificialIntelligence.api"
 import { Artificial_Intelligence } from "../../../../../../../../@types/artificialInteligence.types"
 import { ModalEditArtificialIntelligence } from "./components/ModalEditArtificialIntelligence/ModalEditArtificialIntelligence"
+import { TipContainer } from "../../../../../../../../components/TipContainer/TipContainer"
 
 export function MyArtificialIntelligence() {
     const { client } = useContext(ClientContext)
@@ -105,7 +106,18 @@ export function MyArtificialIntelligence() {
                                 >
                                     {
                                         intelligence[index]?.identification ?
-                                            <div className="w-full flex gap-2 items-center justify-center rounded-xl border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-white dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20">
+                                            <div
+                                                className="w-full relative flex gap-2 items-center justify-center rounded-xl border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-white dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
+                                            >
+                                                <div
+                                                    data-hasproduct={!!client.plan_management.artificial_intelligence[index].ai_products_Services.length}
+                                                    className="data-[hasproduct=true]:hidden absolute top-0 right-1"
+                                                >
+                                                    <TipContainer
+                                                        tip="Inteligência artificial não tem conhecimento sobre seus produtos!"
+                                                        positionX="LEFT"
+                                                    ><MdWarning className="fill-orange-500" /></TipContainer>
+                                                </div>
                                                 <h2
                                                     className="w-[200px] text-center py-4 flex justify-center items-center gap-2"
                                                     onClick={() => handleEditArtificialIntelligence(index)}

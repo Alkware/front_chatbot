@@ -25,7 +25,7 @@ export function ButtonCreateChat({ plan_management_id, projects, index }: Button
 
     const handleClickNewProject = () => {
         if (client?.plan_management) {
-            if (!!client?.plan_management.prompt.length) {
+            if (!!client?.plan_management.artificial_intelligence.length) {
                 const maxPlans = Number(client.plan_management.plan.max_projects.default);
                 const currentNumberOfProjects = client.plan_management.project.length
                 if (client.plan_management.status !== "DISABLED") {

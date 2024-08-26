@@ -7,12 +7,12 @@ import { PlanManagement } from "../@types/planManagement";
  * @param {string} id Id único do gerenciador de plano do cliente.
  * @returns {PlanManagement}
  */
-export async function getPlanManagementById(id: string | undefined): Promise<void | PlanManagement>{
+export async function getPlanManagementById(id: string | undefined): Promise<PlanManagement | void>{
     if(!id) throw new Error("Id is missing")
     
-    const response: void | AxiosResponse<PlanManagement> = await axios.get(`${API_URL}/plan_management/${id}`).catch(err => console.error(err))
+    const response: AxiosResponse<PlanManagement> | void  = await axios.get(`${API_URL}/plan_management/${id}`).catch(err => console.error(err))
 
     if(!response) return;
 
-    return response.data
+    return response.data as PlanManagement
 }

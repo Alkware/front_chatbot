@@ -11,15 +11,12 @@ interface TipContainer {
 
 export function TipContainer({ children, tip, display = true, positionY = "TOP", positionX = "RIGHT" }: TipContainer) {
     const ballonTipRef: RefObject<HTMLDivElement> = useRef(null);
-    const CARACTERES_MAX = 40;
-
-    if (tip.length > CARACTERES_MAX) console.error(`A tip não pode conter um nome maior que ${CARACTERES_MAX} caracteres.`, children);
 
     useEffect(() => {
         if (ballonTipRef.current?.style) {
             const tipSize = tip.length
             const ballonSize = tipSize < 15 ? "120px" : tipSize < 20 ? "160px" : tipSize < 25 ? "200px" : "250px";
-            ballonTipRef.current.setAttribute("style", `width: ${ballonSize}; font-size: ${tipSize > 30 ? ".8rem" : ".9rem"};`);
+            ballonTipRef.current.setAttribute("style", `width: ${ballonSize}; font-size: ${tipSize > 30 ? ".8rem" : ".9rem"}; line-height: 1rem`);
         }
     }, []);
 

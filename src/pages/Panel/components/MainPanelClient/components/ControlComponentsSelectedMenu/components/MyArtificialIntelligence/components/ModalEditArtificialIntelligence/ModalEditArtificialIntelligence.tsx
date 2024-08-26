@@ -11,9 +11,9 @@ import { FaCircleInfo } from "react-icons/fa6";
 import { FaBook, FaInfo } from "react-icons/fa";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
 import { Artificial_Intelligence, Info_Artificial_Intelligence } from "../../../../../../../../../../@types/artificialInteligence.types";
-import { StepAddProducts } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepAddProducts/StepAddProducts";
-import { StepAboutCompany } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepAboutCompany/StepAboutCompany";
-import { StepPersonalityIA } from "../../../../../../../../../CreateDatabase/components/FormCreateDatabase/components/StepPersonalityIA/StepPersonalityIA";
+import { StepAddProducts } from "../../../../../../../../../CreateArtificialIntelligence/components/FormCreateDatabase/components/StepAddProducts/StepAddProducts";
+import { StepAboutCompany } from "../../../../../../../../../CreateArtificialIntelligence/components/FormCreateDatabase/components/StepAboutCompany/StepAboutCompany";
+import { StepPersonalityIA } from "../../../../../../../../../CreateArtificialIntelligence/components/FormCreateDatabase/components/StepPersonalityIA/StepPersonalityIA";
 
 interface ModalEditArtificialIntelligence {
     plan_management_id: string;
@@ -24,7 +24,7 @@ interface ModalEditArtificialIntelligence {
 export function ModalEditArtificialIntelligence({ plan_management_id, intelligence, setIntelligence }: ModalEditArtificialIntelligence) {
     const { setModalContent, clearModal } = useContext(ModalContext);
     const { client, setClient } = useContext(ClientContext);
-    const updateDatabaseForm = useForm<ArtificialIntelligenceSchema>({
+    const updateAiForm = useForm<ArtificialIntelligenceSchema>({
         resolver: zodResolver(artificialIntelligenceSchema),
         defaultValues: {
             products_id: intelligence.ai_products_Services.map(ai => ai.product_id),
@@ -52,16 +52,16 @@ export function ModalEditArtificialIntelligence({ plan_management_id, intelligen
             client_company_id: data.client_company_id
         };
 
-        const databaseUpdated = await updateArtificialIntelligence(ai, intelligence.id);
+        const aiUpdated = await updateArtificialIntelligence(ai, intelligence.id);
 
-        if (databaseUpdated && client && databaseUpdated.status === 200) {
-            setIntelligence(intelli => [...intelli.filter(i => i.id !== databaseUpdated.data.id), databaseUpdated.data])
+        if (aiUpdated && client && aiUpdated.status === 200) {
+            setIntelligence(intelli => [...intelli.filter(i => i.id !== aiUpdated.data.id), aiUpdated.data])
             setModalContent({
-                componentName: "modal_updated_database",
+                componentName: "modal_updated_ai",
                 components:
                     <PopOver
-                        message="Database atualizado com sucesso"
-                        componentName="modal_updated_database"
+                        message="Inteligência artificial atualizada com sucesso"
+                        componentName="modal_updated_ai"
                         functionAfterComplete={() => clearModal(null, { clearAll: true })}
                     />
             })
@@ -99,12 +99,12 @@ export function ModalEditArtificialIntelligence({ plan_management_id, intelligen
                 })
             } else if (deleted?.status === 500) {
                 setModalContent({
-                    componentName: "modal_failed_delete_database",
+                    componentName: "modal_failed_delete_ai",
                     components:
                         <PopOver
                             message="Você não pode excluir uma inteligência artificial que possui um chat vinculado a ela, tente excluir todos os chats primeiro, antes de excluir essa fonte de dados."
                             type="ERROR"
-                            componentName="modal_failed_delete_database"
+                            componentName="modal_failed_delete_ai"
                         />
                 })
             } else {
@@ -125,7 +125,7 @@ export function ModalEditArtificialIntelligence({ plan_management_id, intelligen
     return (
         <div className="w-screen h-screen px-4 md:px-0 md:w-[90vw] md:h-[80vh] md:min-h-[450px] md:min-w-[700px] flex items-start overflow-hidden">
             <Root.EditForm
-                form={updateDatabaseForm}
+                form={updateAiForm}
                 onSubmit={handleUpdateArtificialIntelligence}
                 onDelete={handleDeleteArtificialIntelligence}
             >
@@ -137,7 +137,7 @@ export function ModalEditArtificialIntelligence({ plan_management_id, intelligen
                 >
                     <StepAddProducts
                         plan_management_id={plan_management_id}
-                        intelligence={intelligence}
+                        ai_products_Services_default={intelligence.ai_products_Services}
                     />
                 </Root.EditStep>
 

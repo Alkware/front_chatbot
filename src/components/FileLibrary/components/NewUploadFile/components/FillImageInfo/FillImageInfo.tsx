@@ -8,13 +8,13 @@ import { Dispatch, RefObject, SetStateAction, useContext, useRef } from "react";
 import { ModalContext } from "../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../modal/templates/PopOver";
 import { loading } from "../../../../../../functions/loading";
-import { Image } from "../../../../../../@types/images.types";
+import { LinkedImage } from "../../../../../../@types/images.types";
 
 interface FillImageInfo {
     client_id: string;
     src: string | ArrayBuffer | null | undefined;
     file: File;
-    setFiles: Dispatch<SetStateAction<Image[] | undefined>>
+    setFiles: Dispatch<SetStateAction<LinkedImage[] | undefined>>
 }
 
 export function FillImageInfo({ src, file, client_id, setFiles }: FillImageInfo) {
@@ -68,7 +68,7 @@ export function FillImageInfo({ src, file, client_id, setFiles }: FillImageInfo)
             return;
         };
 
-        setFiles(values => values ? [...values, response] : [response]);
+        setFiles(values => values ? [...values, { image: response}] : [{ image: response}]);
         clearModal(null, { clearLast: true })
     }
 

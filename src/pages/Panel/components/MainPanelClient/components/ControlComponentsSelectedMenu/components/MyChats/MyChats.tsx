@@ -45,7 +45,7 @@ function MyChats() {
                                                 key={projects[index].id}
                                                 project={projects[index]}
                                                 setNewProject={setProjects}
-                                                prompts={client.plan_management?.prompt}
+                                                ai={client.plan_management?.artificial_intelligence}
                                             />
                                             :
                                             <ButtonCreateChat

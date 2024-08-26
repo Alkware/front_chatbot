@@ -1,25 +1,25 @@
 import { Dispatch, RefObject, SetStateAction, useContext, useEffect, useRef, useState } from "react"
-import { deleteImageById, getImagesById } from "../../../../api/images";
+import { deleteImageById, getImagesByClient_id } from "../../../../api/images";
 import { MdDelete } from "react-icons/md";
 import { ModalContext } from "../../../../context/ModalContext";
 import { PopOver } from "../../../modal/templates/PopOver";
 import { Confirm } from "../../../modal/templates/Confirm";
 import { PopUp } from "../../../modal/templates/PopUp";
 import { Loading } from "../../../Loading/Loading";
-import { Image } from "../../../../@types/images.types";
+import { LinkedImage } from "../../../../@types/images.types";
 import { SubTitle } from "../../../SubTitle/SubTitle";
 import { FaRegSadTear } from "react-icons/fa";
 
 interface MyLibrary {
     client_id: string;
-    imagesSelected: Image[] | undefined;
-    setImagesSelected: Dispatch<SetStateAction<Image[] | undefined>>;
+    imagesSelected: LinkedImage[] | undefined;
+    setImagesSelected: Dispatch<SetStateAction<LinkedImage[] | undefined>>;
 }
 
 export function MyLibrary({ client_id, imagesSelected, setImagesSelected }: MyLibrary) {
     const { setModalContent, clearModal } = useContext(ModalContext);
     const containerMyLibraryRef: RefObject<HTMLDivElement> = useRef(null);
-    const [images, setImages] = useState<Image[]>();
+    const [images, setImages] = useState<LinkedImage[]>();
 
     // useEffect para buscar as imagens no banco e adicionar transition nos containers...
     useEffect(() => {
@@ -32,7 +32,7 @@ export function MyLibrary({ client_id, imagesSelected, setImagesSelected }: MyLi
             }, 100);
 
             // Busca todas as imagens que pertence a esse client id...
-            const images = await getImagesById(client_id);
+            const images = await getImagesByClient_id(client_id);
             images && setImages(images)
         })();
     }, []);
@@ -40,11 +40,11 @@ export function MyLibrary({ client_id, imagesSelected, setImagesSelected }: MyLi
     /**
      * Função repsonsável por deixar selecionado uma imagem...
      */
-    const handleSelectedImage = (image: Image) => {
-        const existingImageId = imagesSelected?.find(img => img.id === image.id);
+    const handleSelectedImage = (image: LinkedImage) => {
+        const existingImageId = imagesSelected?.find(img => img.image.id === image.image.id);
 
         if (existingImageId) {
-            const filteredImages = imagesSelected?.filter(img => img.id !== image.id);
+            const filteredImages = imagesSelected?.filter(img => img.image.id !== image.image.id);
             setImagesSelected(filteredImages)
         } else setImagesSelected(values => values?.length ? [...values, image] : [image]);
     }
@@ -64,7 +64,7 @@ export function MyLibrary({ client_id, imagesSelected, setImagesSelected }: MyLi
                         message="Imagem excluida com sucesso!"
                     />
                 })
-                setImages(values => values?.filter(img => img.id !== id))
+                setImages(values => values?.filter(img => img.image.id !== id))
                 clearModal("modal_confirm_delete_image")
             }
         }
@@ -105,15 +105,15 @@ export function MyLibrary({ client_id, imagesSelected, setImagesSelected }: MyLi
                             :
                             images.map(img =>
                                 <div
-                                    data-isselected={!!imagesSelected?.find(image => image.id === img.id)}
+                                    data-isselected={!!imagesSelected?.find(image => image.image.id === img.image.id)}
                                     className="w-16 h-16 border-2 cursor-pointer rounded-md hover:scale-125 transition-transform group data-[isselected=true]:scale-110 data-[isselected=true]:border-primary-100 "
                                 >
                                     <MdDelete
                                         className="absolute z-50 -top-2 -right-2 group-hover:block hidden bg-red-200 fill-red-500 rounded-full group-data-[isselected=true]:hidden"
-                                        onClick={() => handleDeleteImage(img.id)}
+                                        onClick={() => handleDeleteImage(img.image.id)}
                                     />
                                     <img
-                                        src={img.url}
+                                        src={img.image.url}
                                         alt="Imagem da bibliotecado do usuário"
                                         className="w-full h-full object-cover opacity-50 group-data-[isselected=true]:opacity-100"
                                         onClick={() => handleSelectedImage(img)}

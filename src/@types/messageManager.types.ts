@@ -1,19 +1,25 @@
+import { Guest } from "./guest.types";
+import { Project } from "./Project";
+
 export interface MessageManager {
     id: string
     project_id: string
+    guest_id: string
 
     lead_collected: Lead_collected[];
     messages: Message[];
     historic_messages: Message[];
 
+    guest: Guest
+    project: Project[]
 
     created_at: string;
 }
 
 export interface Lead_collected {
-    email?: string;
-    name?: string;
-    cell_phone?: string;
+    email ?: string;
+    name ?: string;
+    cell_phone ?: string;
     time: Date;
 }
 
@@ -22,7 +28,7 @@ export interface Message {
     message: string;
     time: string;
     tokens: {
-        input: number, 
-        output: number, 
+        input: number,
+        output: number,
     }
 }
