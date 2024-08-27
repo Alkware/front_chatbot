@@ -95,13 +95,13 @@ export function MyLibrary({ client_id, imagesSelected, setImagesSelected }: MyLi
                     textSize="text-xs md:text-sm"
                 />
                 :
-                <div className="w-full  min-w-[400px] min-h-[100px] flex gap-4 flex-wrap p-4 border border-dashed border-white/60 rounded-md">
+                <div className="w-full min-w-[400px] min-h-[100px] flex gap-4 flex-wrap justify-center p-4 border border-dashed border-white/60 rounded-md">
                     {
                         !images.length ?
-                        <div className="flex gap-2 justify-center items-center">
-                        <SubTitle>Biblioteca vazia</SubTitle>
-                        <FaRegSadTear />
-                        </div>
+                            <div className="w-full flex gap-2 justify-center items-center">
+                                <SubTitle>Biblioteca vazia</SubTitle>
+                                <FaRegSadTear />
+                            </div>
                             :
                             images.map(img =>
                                 <div

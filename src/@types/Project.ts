@@ -20,7 +20,7 @@ export interface Project {
     call_to_action?: any
     links?: Link[]
     chat_appearance?: Chat_appearance
-    message_manager: MessageManager
+    message_manager: MessageManager[]
     metric: Metric
     plan_management: PlanManagement
     artificial_intelligence: Artificial_Intelligence

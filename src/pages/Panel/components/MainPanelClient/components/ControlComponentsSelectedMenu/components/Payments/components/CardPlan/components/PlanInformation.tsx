@@ -21,7 +21,7 @@ export function PlanInformation({ plan_management }: { plan_management?: PlanMan
                 >{plan_management.status === "ACTIVE" ? "Ativo" : "Desativado"}</span>
             </span>
             <span>Chats: {plan_management.project.length} / {Number(plan_management.plan.max_projects.default)}</span>
-            <span>Fonte de dados: {plan_management.prompt.length} / {Number(plan_management.plan.max_databases.default)}</span>
+            <span>Fonte de dados: {plan_management.artificial_intelligence.length} / {Number(plan_management.plan.max_databases.default)}</span>
             <span>Análise de métrica diária:  {Number(plan_management.plan.max_analyze_metric.default)} </span>
             <span>Limite de messages: {messagesEventManager(plan_management).totalMessages} / {Number(plan_management.plan.max_messages.default)} </span>
             <span

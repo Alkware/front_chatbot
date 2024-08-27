@@ -1,5 +1,5 @@
 import axios from "axios"
-import { clientLoginTypes, clientRegisterTypes } from "../@types/Client.types"
+import { Client, clientLoginTypes, clientRegisterTypes } from "../@types/Client.types"
 import { API_URL } from "./url-api"
 
 export async function getClientById(id: string) {
@@ -43,10 +43,11 @@ export async function loginClientFirstAccess({ email, cpf_cnpj }: { email: strin
 
 }
 
-export async function updateClient(data: { client_id: string, fullname?: string, logo?: string, cpf_cnpj?: string, user?: string }) {
-    const client = await axios.put(`${API_URL}/client/update`, data).catch(err => console.warn(err))
-
-    return client
+export async function updateClient(client_id: string, data: Partial<Client>) {
+    const response = await axios.put(`${API_URL}/client/update/${client_id}`, data).catch(err => console.warn(err))
+    if(!response) return;
+    
+    return response.data
 }
 
 

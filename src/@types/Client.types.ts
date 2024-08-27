@@ -5,8 +5,8 @@ import { PlanManagement } from "./planManagement"
 
 export interface Client {
     id: string
+    logo_id: string
     fullname: string
-    logo: string | null
     cpf_cnpj: string | null
     email: string
     user: string
@@ -22,6 +22,7 @@ export interface Client {
     plan_management: PlanManagement;
     refund_requested: any;
     guest: Guest[];
+    logo: Image
     created_at: Date
     updated_at: Date
 }

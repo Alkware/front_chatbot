@@ -71,7 +71,7 @@ export function NewUploadFile({ name, acceptFiles, client_id, imagesSelected, se
     return (
         <div
             ref={containerUploadFileRef}
-            className="w-full max-w-[600px] min-w-[400px] min-h-[100px] flex justify-start items-center border border-dashed border-white/50 rounded-md transition-opacity opacity-0 px-4 gap-4"
+            className="w-full max-w-[600px] min-w-[400px] min-h-[100px] flex justify-center items-center border border-dashed border-white/50 rounded-md transition-opacity opacity-0 px-4 gap-4"
             data-id={name}
         >
             {imagesSelected?.map(file =>

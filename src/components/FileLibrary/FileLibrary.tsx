@@ -23,10 +23,11 @@ interface FileLibrary {
     acceptFiles?: FileAccept[];
     limitSelect?: number;
     setFiles?: Dispatch<SetStateAction<LinkedImage[] | undefined>>
+    onAction?: (logo_id: string[])=> void;
     formContext?: UseFormReturn
 }
 
-export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFiles, formContext }: FileLibrary) {
+export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFiles, onAction,  formContext }: FileLibrary) {
     const { setModalContent, clearModal } = useContext(ModalContext);
     const [imagesSelected, setImagesSelected] = useState<LinkedImage[]>();
     const [newUploadIsActive, setNewUploadIsActive] = useState<boolean>();
@@ -71,7 +72,7 @@ export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFile
                 // Verifica se tem valores dentro do Files...
                 if (values) {
                     // Elimina os arquivos que já contem dentro das imagens selecionadas e dos valores dentro de setFiles...
-                    const filteredImagensSelected = imagesSelected.filter(img => !values.find(value => value.image.id === img.image.id));
+                    const filteredImagensSelected = imagesSelected.filter(img => !values?.find(value => value.image?.id === img.image?.id));
                     // Verifica se tem um limite de seleção e se a quantidade de arquivos dentro do values está dentro desse limite...
                     if (limitSelect && values.length < limitSelect) {
                         // Caso já tenha arquivos dentro de 'values', será necessário remover alguns arquivos selecionados,
@@ -80,15 +81,15 @@ export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFile
                         // Verifica se ainda tem arquivos dentro de images
                         if (images?.length) {
                             // Cria um alerta ao usuário caso tenha sido removido alguns arquivos....
-                            if(filteredImagensSelected.length > (limitSelect - values.length)){
+                            if (filteredImagensSelected.length > (limitSelect - values.length)) {
                                 setModalContent({
                                     componentName: "modal_max_limit",
-                                    components: 
-                                    <PopOver 
-                                        componentName="modal_max_limit"
-                                        message={`Você já selecionou ${values?.length} imagens, removeremos algumas imagens para que não exceda o limite de ${limitSelect} imagens. `}
-                                        type="WARNING"
-                                    />
+                                    components:
+                                        <PopOver
+                                            componentName="modal_max_limit"
+                                            message={`Você já selecionou ${values?.length} imagens, removeremos algumas imagens para que não exceda o limite de ${limitSelect} imagens. `}
+                                            type="WARNING"
+                                        />
                                 });
                             }
                             return [...values, ...images];
@@ -99,29 +100,32 @@ export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFile
         );
         // Caso seja solicitados os arquivos selecionados em um formState (register).
         (formContext?.register && (
-            imagesSelected?.forEach((img, index) => formContext.register(`${name}.${index}`, { value: img.image.id }))
+            imagesSelected?.forEach((img, index) => formContext.register(`${name}.${index}`, { value: img.image?.id }))
         ));
+
+        // Uma função para executar algum comando após a seleção da imagem
+        (onAction && onAction(imagesSelected.map(img => img.image.id)))
 
         clearModal(null, { clearLast: true });
     }
 
     return (
-        <div className="w-full h-full flex flex-col items-center min-w-[400px] bg-dark overflow-hidden rounded-md">
+        <div className="w-[60vw] h-[50vh] min-w-[400px] max-w-[600px] max-h-[500px] flex flex-col items-center bg-dark overflow-hidden rounded-md">
             {/* TABS  */}
             <div className="flex w-full">
                 <Title
                     data-active={newUploadIsActive}
-                    className="w-1/2 p-1 cursor-pointer data-[active=false]:bg-primary-200 md:text-lg"
+                    className="w-1/2 p-1 cursor-pointer data-[active=true]:bg-primary-200 md:text-lg"
                     onClick={() => setNewUploadIsActive(true)}
                 >Novo arquivo</Title>
                 <Title
                     data-active={!newUploadIsActive}
-                    className="w-1/2 p-1 cursor-pointer data-[active=false]:bg-primary-200 md:text-lg"
+                    className="w-1/2 p-1 cursor-pointer data-[active=true]:bg-primary-200 md:text-lg"
                     onClick={() => setNewUploadIsActive(false)}
                 >Minha biblioteca</Title>
             </div>
 
-            <div className="flex flex-col items-center p-4 gap-4">
+            <div className="w-full h-full flex flex-col items-center justify-center p-4 gap-4">
                 {!!newUploadIsActive ?
                     /* CONTAINER NOVO UPLOAD DE ARQUIVO */
                     <NewUploadFile

@@ -12,7 +12,7 @@ export interface Image {
 }
 
 export interface LinkedImage {
-    image: Image
+    image: Image;
 }
 
 
