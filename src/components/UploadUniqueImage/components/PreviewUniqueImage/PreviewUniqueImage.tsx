@@ -2,14 +2,14 @@ import { Dispatch, SetStateAction } from "react"
 import { LinkedImage } from "../../../../@types/images.types";
 import { UseFormReturn } from "react-hook-form";
 
-interface PreviewImage {
+interface PreviewUniqueImage {
     image: LinkedImage | undefined;
     name?: string;
     formContext?: UseFormReturn<any>
     setImages: Dispatch<SetStateAction<LinkedImage[] | undefined>>
 }
 
-export function PreviewImage({ name, formContext, image, setImages }: PreviewImage) {
+export function PreviewUniqueImage({ name, formContext, image, setImages }: PreviewUniqueImage) {
 
     // Função responsável por remover a imagem da lista de selecionados...
     const handleDeleteImage = () => {
@@ -30,7 +30,7 @@ export function PreviewImage({ name, formContext, image, setImages }: PreviewIma
                     <span className="text-xl font-medium">X</span>
                 </div>
                 <img
-                    src={image.image.url}
+                    src={image?.image?.url || "https://via.placeholder.com/100"}
                     alt="Imagem carregada pela usuário"
                 />
             </div>

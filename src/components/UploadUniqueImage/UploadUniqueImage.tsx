@@ -1,6 +1,6 @@
 import { InputHTMLAttributes, RefObject, useContext, useEffect, useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
-import { PreviewImage } from "./components/PreviewImage/PreviewImage";
+import { PreviewUniqueImage } from "./components/PreviewUniqueImage/PreviewUniqueImage";
 import { UseFormReturn } from "react-hook-form";
 import { FileLibrary } from "../FileLibrary/FileLibrary";
 import { LinkedImage } from "../../@types/images.types";
@@ -47,7 +47,7 @@ export function UploadUniqueFile({ client_id, formContext, imageDefault, ...prop
             ref={containerRef}
             className="w-full mx-auto max-w-[350px] p-4 flex flex-col gap-4 justify-center items-center border border-dashed border-primary-100 bg-zinc-600/40 rounded-md"
         >
-            <PreviewImage
+            <PreviewUniqueImage
                 name={props.name}
                 image={images && images[0]}
                 setImages={setImages}

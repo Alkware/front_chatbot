@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { Input } from "../../../../components/Form/components/Fields/Input/Input";
 import { TextArea } from "../../../../components/Form/components/Fields/TextArea/TextArea";
-import { UploadUniqueFile } from "../../../../components/uploadUniqueImage/uploadUniqueImage";
+import { UploadUniqueFile } from "../../../../components/UploadUniqueImage/UploadUniqueImage";
 import { LinkedImage } from "../../../../@types/images.types";
 
 interface StepBasicInfoChat {
@@ -11,29 +11,36 @@ interface StepBasicInfoChat {
 
 export function StepBasicInfoChat({ client_id, imageDefault }: StepBasicInfoChat) {
     const form = useFormContext();
+    const isCreateChat = window.location.href.includes("create-chat");
 
     return (
         <>
             <UploadUniqueFile
-                name="step_0.logo_id"
+                name="logo_id"
                 client_id={client_id}
                 formContext={form}
                 imageDefault={imageDefault}
             />
             <Input
-                name="step_0.project_name"
+                name="project_name"
                 title="Escreva o nome do seu chat"
                 widthContainer="w-full"
             />
             <TextArea
-                name="step_0.chat_input_message.0"
+                name="chat_input_message.0"
                 title="Digite a primeira mensagem do seu chat"
                 maxText={100}
             />
-            <TextArea
-                name="step_1.bio"
-                title="Digite uma descrição para seu chat"
-            />
+            <div
+                data-display={isCreateChat}
+                className="data-[display=true]:hidden"
+            >
+                <TextArea
+                    name="bio"
+                    title="Digite uma descrição para seu chat"
+
+                />
+            </div>
         </>
     )
 };

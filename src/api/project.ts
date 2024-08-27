@@ -1,18 +1,26 @@
 import axios from "axios"
 import { API_URL } from "./url-api"
-import { Info_project, Project } from "../@types/Project"
+import { Create_project, Update_project } from "../@types/Project"
 
-export async function createNewProject(data: Info_project) {
+export async function createNewProject(data: Create_project) {
     const project = await axios.post(`${API_URL}/create/project`, data).catch(err => console.warn(err))
 
     return project
 }
 
-export async function updateProject(data: Project, project_slug: string) {
+/**
+ * Função responsável por enviar as informações do projeto até o back-end...
+ * @param data 
+ * @param project_slug 
+ * @returns 
+ */
+export async function updateProject(data: Update_project, project_slug: string) {
     
     const project = await axios.put(`${API_URL}/project/${project_slug}/update`, data).catch(err => console.warn(err))
 
-    return project
+    if(!project) return
+
+    return project.data
 }
 
 export async function checkSlugIsAvailable(slug: string) {

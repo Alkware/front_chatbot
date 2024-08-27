@@ -25,17 +25,14 @@ export function CreateChat() {
     const createChatForm = useForm<ChatSchema>({
         resolver: zodResolver(chatSchema),
         defaultValues: {
-            step_0: {
-                project_name: localStorageDatabase?.project_name,
-                chat_input_message: [localStorageDatabase?.chat_input_message],
-                logo_id: localStorageDatabase?.logo_id,
-            },
-            step_1: {
-                artificial_intelligence_id: localStorageDatabase?.prompt_id,
-                links: localStorageDatabase?.links,
-            }
+            project_name: localStorageDatabase?.project_name,
+            chat_input_message: [localStorageDatabase?.chat_input_message],
+            logo_id: localStorageDatabase?.logo_id,
+            artificial_intelligence_id: localStorageDatabase?.prompt_id,
+            links: localStorageDatabase?.links,
         }
-    });
+    }
+    );
 
 
 
@@ -58,19 +55,15 @@ export function CreateChat() {
     const handleCreateProject = async (data: ChatSchema) => {
         loading(containerFormRef.current?.querySelector("button[data-loading]"), true)
         try {
-            if (!plan_management_id) throw new Error("plan management id is missing!")
+            if (!plan_management_id) throw new Error("plan management id is missing!");
 
             // Extrai as informções para criar o chat...
             const {
-                step_0: {
-                    project_name,
-                    chat_input_message,
-                    logo_id
-                },
-                step_1: {
-                    artificial_intelligence_id,
-                    links
-                }
+                project_name,
+                chat_input_message,
+                logo_id,
+                artificial_intelligence_id,
+                links
             } = data
 
             // Cria o chat no banco de dados...
@@ -129,13 +122,13 @@ export function CreateChat() {
                 >
 
                     <Root.Step index={0}>
-                        <StepBasicInfoChat 
+                        <StepBasicInfoChat
                             client_id={artificialInteligence[0].plan_management.client_id}
                         />
                     </Root.Step>
 
                     <Root.Step index={1}>
-                        <StepLinksChat 
+                        <StepLinksChat
                             artificialInteligence={artificialInteligence}
                             createChatForm={createChatForm}
                         />

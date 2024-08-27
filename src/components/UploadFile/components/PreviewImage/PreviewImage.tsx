@@ -1,16 +1,16 @@
 import { Dispatch, SetStateAction } from "react"
-import { Image } from "../../../../@types/images.types";
+import { LinkedImage } from "../../../../@types/images.types";
 import { TipContainer } from "../../../TipContainer/TipContainer";
 
 interface PreviewImage {
-    images: Image[] | undefined,
-    setImages: Dispatch<SetStateAction<Image[] | undefined>>
+    images: LinkedImage[] | undefined,
+    setImages: Dispatch<SetStateAction<LinkedImage[] | undefined>>
 }
 
 export function PreviewImage({ images, setImages }: PreviewImage) {
 
     // Função responsável por remover a imagem da lista de selecionados...
-    const handleDeleteImage = (img: Image) => {
+    const handleDeleteImage = (img: LinkedImage) => {
         const removeImg = images?.filter(infoImage => infoImage.image.id !== img.image.id);
         setImages(removeImg)
     }

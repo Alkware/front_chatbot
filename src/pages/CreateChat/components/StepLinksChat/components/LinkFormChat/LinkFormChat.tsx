@@ -1,14 +1,14 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { RefObject, useContext, useEffect, useRef } from "react";
+import { RefObject, useContext, useRef } from "react";
 import { MdAdd, MdDelete, MdLink } from "react-icons/md";
-import { Root } from "../../../../components/Form/FormRoot";
-import { ChatSchema } from "../../../../schema/zod/chatSchema";
-import { ModalContext } from "../../../../context/ModalContext";
-import { PopOver } from "../../../../components/modal/templates/PopOver";
-import { Input } from "../../../../components/Form/components/Fields/Input/Input";
-import { Title } from "../../../../components/Title/Title";
-import { Link } from "../../../../@types/Project";
-import { TextArea } from "../../../../components/Form/components/Fields/TextArea/TextArea";
+import { Root } from "../../../../../../components/Form/FormRoot";
+import { ChatSchema } from "../../../../../../schema/zod/chatSchema";
+import { ModalContext } from "../../../../../../context/ModalContext";
+import { PopOver } from "../../../../../../components/modal/templates/PopOver";
+import { Input } from "../../../../../../components/Form/components/Fields/Input/Input";
+import { Title } from "../../../../../../components/Title/Title";
+import { Link } from "../../../../../../@types/Project";
+import { TextArea } from "../../../../../../components/Form/components/Fields/TextArea/TextArea";
 
 interface Field extends Link {
     id: string,
@@ -17,21 +17,15 @@ interface Field extends Link {
 export function LinkFormChat() {
     const formLinkRef: RefObject<HTMLDivElement> = useRef(null);
     const { setModalContent } = useContext(ModalContext);
-    const { control, watch } = useFormContext<ChatSchema>();
+    const { control } = useFormContext<ChatSchema>();
     const { fields, remove, append }: any = useFieldArray({
         control,
-        name: "step_1.links"
+        name: "links"
     })
-
-    useEffect(() => {
-        !fields.length && append({ button_text: "", button_link: "", button_describe: "", })
-    }, []);
 
     const handleAddCTA = () => {
         const url = (formLinkRef.current?.querySelector("input[name=url]") as HTMLInputElement);
         const description = (formLinkRef.current?.querySelector("textarea[name=description]") as HTMLTextAreaElement);
-
-        console.log(url, description)
 
         if (url && description) {
             if (description.value.length > 30) {
@@ -70,10 +64,10 @@ export function LinkFormChat() {
                 </div>
             </div>
 
-            <Root.Container className="flex gap-6 items-end my-8">
+            <Root.Container className="flex gap-6 items-end my-4">
                 <div
                     ref={formLinkRef}
-                    className="w-full flex flex-col gap-4"
+                    className="w-full flex flex-col gap-6"
                 >
                     <Input
                         name={`url`}
@@ -94,15 +88,15 @@ export function LinkFormChat() {
                     className="p-1 size-10 fill-primary-100 bg-primary-200 rounded-full cursor-pointer"
                     onClick={handleAddCTA}
                 />
-
             </Root.Container>
 
-            <Root.Container className="flex flex-col my-4">
+            <Root.Container className="flex flex-col items-center">
+                <Title className="font-bold my-2">Seus links:</Title>
                 {fields.map((field: Field, index: number) =>
                     <div
                         data-display={!!field.url}
                         data-color={index % 2 === 0}
-                        className="w-full py-1 bg-primary-300 flex items-center gap-4 data-[color=false]:bg-primary-200 data-[display=false]:hidden"
+                        className="w-4/5 rounded-sm py-1 bg-primary-200 flex items-center gap-4 data-[color=false]:bg-primary-300 data-[display=false]:hidden"
                     >
                         <div className="w-4/5 flex gap-1 items-center px-1">
                             <MdLink />

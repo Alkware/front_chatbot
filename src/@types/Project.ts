@@ -9,16 +9,16 @@ export interface Project {
     id: string
     plan_management_id: string
     prompt_id?: string | null
-    artificial_intelligence_id?: string | null
-    logo_id?: string | null
+    artificial_intelligence_id: string | null;
+    logo_id: string | null;
     project_name: string
     slug: string
-    bio: string
+    bio?: string
     pixel_facebook?: string | null
     is_online: boolean
     chat_input_message: string[]
     call_to_action?: any
-    links: Link[]
+    links?: Link[]
     chat_appearance?: Chat_appearance
     message_manager: MessageManager
     metric: Metric
@@ -29,12 +29,11 @@ export interface Project {
     updated_at: Date
 }
 
-export type Info_project = Omit<Project,
+export type Create_project = Omit<Project,
     "id" |
     "slug" |
     "bio" |
     "is_online" |
-    "social_proof" |
     "message_manager" |
     "metric" |
     "logo" |
@@ -43,6 +42,21 @@ export type Info_project = Omit<Project,
     "created_at" |
     "updated_at" 
 >;
+
+export type Update_project = Omit<Project,
+    "id" |
+    "is_online" |
+    "slug" |
+    "message_manager" |
+    "metric" |
+    "logo" |
+    "plan_management" |
+    "artificial_intelligence" |
+    "created_at" |
+    "updated_at" 
+> & {
+    slug?: string;
+};
 
 export type Link = {
     url: string;

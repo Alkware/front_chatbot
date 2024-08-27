@@ -8,7 +8,7 @@ export function StepAdvancedInfoChat({ }: StepAdvancedInfoChat) {
     return (
         <Root.Container className="flex flex-col items-center p-2" >
             <Input
-                name="step_4.slug"
+                name="slug"
                 title="Altere a slug do seu chat"
             />
 

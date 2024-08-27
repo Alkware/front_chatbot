@@ -37,16 +37,14 @@ export function Select({ options, name, title, multipleSelect, optionsDefault, f
 
     // Seleciona automaticamente as opções, caso elas tenham valores padrões...
     useEffect(() => {
-
         let data: Options[];
-
         if (form) {
             // Registra o campo no formulário com valores default...
-            form.register(name, { value: multipleSelect ? [] : "" })
+            form.register(name, { value: !!multipleSelect ? [] : null })
 
             // Filtra as opções que já estão selecionadas...
             const key = form.getValues(name);
-            data = options?.filter((opt) => typeof key === "object" ? key.find((key: string) => key === opt.value) : key === opt.value);
+            data = options?.filter((opt) => typeof key === "object" ? key?.find((key: string) => key === opt.value) : key === opt.value);
         } else {
             data = options?.filter((opt) => optionsDefault?.find((key: string) => key === opt.value.replaceAll(" ", "_")));
         }
@@ -120,13 +118,12 @@ export function Select({ options, name, title, multipleSelect, optionsDefault, f
     }
 
 
-    // // Função responsável por registrar o campo no formulário.
+    // Função responsável por registrar o campo no formulário.
     const registerField = (list: { value: string }[]) => {
         if (list.length && form) {
             form.unregister(name);
             if (multipleSelect) list.forEach((_, index) => form.register(`${name}.${index}`, { value: list[index].value }));
             else {
-                console.log(list[0].value, name)
                 form.register(name, { value: list[0].value });
             }
         }

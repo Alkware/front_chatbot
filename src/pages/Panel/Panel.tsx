@@ -3,7 +3,6 @@ import { authenticateClient } from "../../api/client";
 import { useNavigate } from "react-router-dom";
 import { ClientContext } from "../../context/ClientContext";
 import { Loading } from "../../components/Loading/Loading";
-import { AxiosResponse } from "axios";
 import { Client } from "../../@types/Client.types";
 import { ModalContext } from "../../context/ModalContext";
 import { PopUp } from "../../components/modal/templates/PopUp";
@@ -30,11 +29,11 @@ function Panel() {
 
             if(!token) return;
 
-            const clientIsLogged: AxiosResponse<{ client: Client, message: string }> | void = await authenticateClient(token);
+            const clientIsLogged: { client: Client, message: string } | void = await authenticateClient(token);
 
             if (clientIsLogged) {
                 // Verifica se o cliente já possui um CPF OU CNPJ cadastrado, caso não possu-a será enviado um aviso para que ele inserira seus dados
-                if(!clientIsLogged.data.client.cpf_cnpj && convertDateInHour(clientIsLogged.data.client.created_at) > 24){
+                if(!clientIsLogged.client.cpf_cnpj && convertDateInHour(clientIsLogged.client.created_at) > 24){
                     setModalContent({
                         componentName: "modal_save_cpf_cnpj",
                         components: 
@@ -45,7 +44,7 @@ function Panel() {
                     })
                 };
 
-                setClient(clientIsLogged.data.client);
+                setClient(clientIsLogged.client);
             }
             else navigate("/login")
         })();

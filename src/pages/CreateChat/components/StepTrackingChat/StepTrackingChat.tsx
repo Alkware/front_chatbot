@@ -5,7 +5,7 @@ interface StepTrackingChat { }
 export function StepTrackingChat({ }: StepTrackingChat) {
     return (
         <Input
-            name="step_2.facebook_pixel"
+            name="facebook_pixel"
             title="Adicione o pixel do seu facebook"
         />
     )

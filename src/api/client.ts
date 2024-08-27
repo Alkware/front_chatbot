@@ -21,7 +21,9 @@ export async function authenticateClient(token: string) {
         }
     }).catch(error => console.warn(error));
 
-    return client
+    if(!client) return;
+
+    return client.data
 }
 
 

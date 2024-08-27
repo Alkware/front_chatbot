@@ -11,8 +11,8 @@ export function SimulatorSlugUrl() {
     const [slug, setSlug] = useState();
 
     useEffect(() => {
-        const slugData = watch("step_4.slug");
-        setSlug(slugData.replaceAll(" ", "-"))
+        const slugData = watch("slug");
+        setSlug(slugData?.replaceAll(" ", "-"))
     }, [watch()])
 
     return (

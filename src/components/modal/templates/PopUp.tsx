@@ -21,7 +21,7 @@ export function PopUp({ children, noBackground, blockCloseModalWithClickBackgrou
     return (
         <div
             data-position={(window.innerWidth < 768) ? positionModal : "CENTER"}
-            className="w-full h-full flex justify-center overflow-auto data-[position='CENTER']:items-center data-[position='START']:items-start data-[position='END']:items-end"
+            className="w-full h-full flex justify-center overflow-hidden data-[position='CENTER']:items-center data-[position='START']:items-start data-[position='END']:items-end"
             onClick={handleCloseModal}
             data-close
         >

@@ -1,17 +1,13 @@
-import { ForwardedRef, forwardRef, useEffect, useState } from "react"
-import { useFormContext } from "react-hook-form";
+import { ForwardedRef, forwardRef } from "react"
 import { FaX } from "react-icons/fa6";
 import { BioDescribe } from "./components/BioDescribe";
+import { LinkedImage } from "../../../../../../../@types/images.types";
 
-export const Bio = forwardRef(({}, ref: ForwardedRef<HTMLDivElement>) => {
-    const [logo, setLogo] = useState<any>();
-    const { watch } = useFormContext();
+interface Bio {
+    logo: LinkedImage | undefined
+}
 
-    useEffect(() => {
-        const logo = watch("step_0.logo")
-        if(logo) setLogo(logo)
-    }, [watch()])
-
+export const Bio = forwardRef(({ logo }: Bio, ref: ForwardedRef<HTMLDivElement>) => {
     return (
         <div
             ref={ref}
@@ -26,7 +22,7 @@ export const Bio = forwardRef(({}, ref: ForwardedRef<HTMLDivElement>) => {
 
             <div className="w-full flex justify-center items-center">
                 <img
-                    src={logo}
+                    src={logo?.image.url}
                     alt=""
                     className="w-[80px] h-[80px] object-cover rounded-full"
                 />

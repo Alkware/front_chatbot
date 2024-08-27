@@ -1,20 +1,10 @@
-import { useEffect, useState } from "react"
-import { useFormContext } from "react-hook-form";
-import { getImagesById } from "../../../../../../../api/images";
-import { Image } from "../../../../../../../@types/images.types";
+import { LinkedImage } from "../../../../../../../@types/images.types";
 
-export function ProfileAvatar() {
-    const [logo, setLogo] = useState<Image>();
-    const { watch } = useFormContext();
+interface ProfileAvatar {
+    logo: LinkedImage | undefined,
+}
 
-    useEffect(() => {
-        (async () => {
-            const id = watch("step_0.logo_id")
-            if (!id) return;
-            const image = await getImagesById(id);
-            if (image) setLogo(image);
-        })();
-    }, [watch("step_0.logo")])
+export function ProfileAvatar({ logo }: ProfileAvatar) {
 
     return (
         <div className="w-1/5 h-full flex justify-center items-center">

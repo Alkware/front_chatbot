@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useContext } from "react"
 import { Project } from "../../../../../../../../../../../../@types/Project";
 import { checkSlugIsAvailable, deleteProject, updateProject } from "../../../../../../../../../../../../api/project";
 import { PopOver } from "../../../../../../../../../../../../components/modal/templates/PopOver";
@@ -7,10 +7,6 @@ import { useForm } from "react-hook-form";
 import { Root } from "../../../../../../../../../../../../components/Form/FormRoot";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import { ChatSchema, chatSchema } from "../../../../../../../../../../../../schema/zod/chatSchema";
-import { getPlanManagementById } from "../../../../../../../../../../../../api/planManagement";
-import { AxiosResponse } from "axios";
-import { useSearchParams } from "react-router-dom";
-import { CTA_NAME_URL } from "../../../../../../../../../../../../variables/variables";
 import { ClientContext } from "../../../../../../../../../../../../context/ClientContext";
 import { PopUp } from "../../../../../../../../../../../../components/modal/templates/PopUp";
 import { Confirm } from "../../../../../../../../../../../../components/modal/templates/Confirm";
@@ -20,6 +16,7 @@ import { StepLinksChat } from "../../../../../../../../../../../CreateChat/compo
 import { StepTrackingChat } from "../../../../../../../../../../../CreateChat/components/StepTrackingChat/StepTrackingChat";
 import { StepCustomChat } from "../../../../../../../../../../../CreateChat/components/StepCustomChat/StepCustomChat";
 import { StepAdvancedInfoChat } from "../../../../../../../../../../../CreateChat/components/StepAdvancedInfoChat/StepAdvancedInfoChat";
+import { Chat_appearance } from "../../../../../../../../../../../../@types/chatAppearence.types";
 
 
 interface ModalEditChat {
@@ -30,109 +27,95 @@ interface ModalEditChat {
 
 export function ModalEditChat({ project, setProjects, ai }: ModalEditChat) {
     const { setModalContent, clearModal } = useContext(ModalContext);
-    const { setClient, client } = useContext(ClientContext)
-    const [artificialIntelligence, setArtificialIntelligence] = useState<Artificial_Intelligence[]>();
-    const [params, setParams] = useSearchParams();
+    const { setClient, client } = useContext(ClientContext);
     const editChatForm = useForm<ChatSchema>({
         resolver: zodResolver(chatSchema),
         defaultValues: {
-            step_0: {
-                project_name: project.project_name,
-                chat_input_message: project.chat_input_message,
-                logo_id: project.logo.id,
+            project_name: project.project_name,
+            chat_input_message: project.chat_input_message,
+            logo_id: project?.logo?.id || "",
+            artificial_intelligence_id: project?.artificial_intelligence_id || "",
+            bio: project.bio,
+            links: project.links,
+            facebook_pixel: project.pixel_facebook,
+            chat_appearance: {
+                chat_icon: project.chat_appearance?.chat_icon,
+                icon_text: project.chat_appearance?.icon_text,
+                primary_color: project.chat_appearance?.primary_color,
+                second_color: project.chat_appearance?.second_color,
+                background: project.chat_appearance?.background,
             },
-            step_1: {
-                artificial_intelligence_id: project?.artificial_intelligence?.id,
-                bio: project.bio,
-                links: project.links,
-            },
-            step_2: {
-                facebook_pixel: project.pixel_facebook
-            },
-            step_3: {
-                chat_appearance: {
-                    chat_icon: project.chat_appearance?.chat_icon,
-                    icon_text: project.chat_appearance?.icon_text,
-                    primary_color: project.chat_appearance?.primary_color,
-                    second_color: project.chat_appearance?.second_color,
-                    background: project.chat_appearance?.background,
-                }
-            },
-            step_4: {
-                slug: project.slug,
-            }
+            slug: project.slug,
         }
     });
 
-    useEffect(() => {
-        (async () => {
-            // Limpa CTA_NAME_URL caso ela ainda esteja disponivel na url, caso ela estiver irá dar conflito nos link cta;
-            params.set(CTA_NAME_URL, (project.call_to_action.length - 1).toString());
-            setParams(params)
+    /**
+     * Função responsável por atualizar o projeto...
+     * @param data 
+     * @returns 
+     */
+    const handleUpdateProject = async (data: Omit<ChatSchema, "chat_appearance"> & { plan_management_id: string, chat_appearance?: Chat_appearance }) => {
+        if (!data && !project.slug) return;
 
-            // Busca todos os prompts disponiveis
-            const response = await getPlanManagementById(project.plan_management_id);
-            if (response) {
-                setArtificialIntelligence(response.artificial_intelligence)
-            }
-        })()
-    }, [])
-
-
-    const handleUpdateProject = async (data: ChatSchema) => {
-        let newData: any = {};
-
-        Object.keys(data).forEach((keyStep) => {
-            const dataStep = (data as any)[keyStep];
-
-            Object.keys(dataStep).forEach((key: string) => {
-                newData[key] = (data as any)[keyStep][key]
+        if (data.slug && data.slug !== project.slug && !await checkSlugIsAvailable(data.slug)) {
+            setModalContent({
+                componentName: "modal_error_slug",
+                components:
+                    <PopOver
+                        componentName="modal_error_slug"
+                        message="A slug escolhida não está disponível!"
+                        type="WARNING"
+                    />
             })
-        })
+            return;
+        };
 
-        if (newData && project.slug) {
+        data.plan_management_id = project.plan_management_id;
+        (data.chat_appearance && project.chat_appearance) && (data.chat_appearance.id = project?.chat_appearance?.id);
 
-            if (data.step_4?.slug && data.step_4?.slug !== project.slug && !await checkSlugIsAvailable(data.step_4.slug)) {
-                setModalContent({
-                    componentName: "modal_error_slug",
-                    components:
-                        <PopOver
-                            componentName="modal_error_slug"
-                            message="A slug escolhida não está disponível!"
-                            type="WARNING"
-                        />
-                })
-                return;
-            }
+        const projectUpdate: Project | void = await updateProject(data, project.slug);
+        console.log(projectUpdate)
+        if (!projectUpdate) {
+            setModalContent({
+                componentName: "modal_failed_chat_updated",
+                components:
+                    <PopOver
+                        message="Falha ao tentar atualizar o chat, tente entrar em contato com o suporte."
+                        componentName="modal_failed_chat_updated"
+                        type="WARNING"
+                    />
+            });
+            return;
+        };
 
-            newData.chat_appearance.id = project.chat_appearance?.id
-            const projectUpdate: AxiosResponse<Project, Project> | void = await updateProject(newData, project.slug)
-            if (projectUpdate && projectUpdate.status === 200) {
-                setProjects(projects => {
-                    const findIndex = projects.findIndex(p => p.id === project.id)
-                    const filterWithoutOutDatedProject = projects.filter(p => p.id !== project.id)
-                    // preenchendo alguns dados ficticios até que o usuario recarregue com os dados verdadeiros.
-                    newData.is_online = projectUpdate.data.is_online
-                    newData.plan_management_id = projectUpdate.data.plan_management_id
-                    newData.id = projectUpdate.data.id
-                    newData.chat_appearance = projectUpdate.data.chat_appearance;
-
-                    // insere o novo dado dentro do array de projeto
-                    filterWithoutOutDatedProject.splice(findIndex, 0, newData)
-
-                    return filterWithoutOutDatedProject
-                })
-                setModalContent({
-                    componentName: "modal_chat_updated",
-                    components:
-                        <PopOver
-                            message="Chat atualizado com sucesso"
-                            componentName="modal_chat_updated"
-                            functionAfterComplete={() => clearModal("modal_edit_project")}
-                        />
-                })
-            }
-        }
+        setModalContent({
+            componentName: "modal_chat_updated",
+            components:
+                <PopOver
+                    message="Chat atualizado com sucesso"
+                    componentName="modal_chat_updated"
+                    functionAfterComplete={() => {
+                        clearModal("modal_edit_project");
+                        setProjects(projects => {
+                            const newData: any = data;
+                            const findIndex = projects.findIndex(p => p.id === project.id)
+                            const filterWithoutOutDatedProject = projects.filter(p => p.id !== project.id)
+                            // preenchendo alguns dados ficticios até que o usuario recarregue com os dados verdadeiros.
+                            newData.is_online = projectUpdate.is_online
+                            newData.plan_management_id = projectUpdate.plan_management_id
+                            newData.artificial_intelligence_id = projectUpdate.artificial_intelligence_id
+                            newData.id = projectUpdate.id
+                            newData.chat_appearance = projectUpdate.chat_appearance;
+                            newData.logo = projectUpdate.logo;
+            
+                            // insere o novo dado dentro do array de projeto
+                            filterWithoutOutDatedProject.splice(findIndex, 0, newData)
+            
+                            return filterWithoutOutDatedProject
+                        })
+                    }}
+                />
+        });
     }
 
     async function handleDeleteProject() {
@@ -180,11 +163,9 @@ export function ModalEditChat({ project, setProjects, ai }: ModalEditChat) {
         })
     }
 
-
-
     return (
-        (!!artificialIntelligence?.length && !!client) &&
-        <div className="w-screen px-4 md:px-0 md:w-[90vw] md:h-[80vh] md:min-h-[450px] md:min-w-[700px] flex overflow-hidden">
+        (!!ai?.length && !!client) &&
+        <div className="w-screen h-screen px-4 md:px-0 flex">
             <Root.EditForm
                 form={editChatForm}
                 onDelete={handleDeleteProject}
@@ -197,7 +178,7 @@ export function ModalEditChat({ project, setProjects, ai }: ModalEditChat) {
                 >
                     <StepBasicInfoChat
                         client_id={client.id}
-                        imageDefault={[{image: project.logo}]}
+                        imageDefault={[{ image: project.logo }]}
                     />
                 </Root.EditStep>
 
@@ -235,10 +216,3 @@ export function ModalEditChat({ project, setProjects, ai }: ModalEditChat) {
         </div>
     )
 };
-
-
-
-
-
-
-

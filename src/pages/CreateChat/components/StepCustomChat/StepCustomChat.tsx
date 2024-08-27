@@ -15,8 +15,8 @@ export function StepCustomChat({ }: StepCustomChat) {
     const handleSelectIcon = (id: number) => {
         params.set(ICON_NAME_URL, id.toString())
         setParams(params)
-        form.unregister("step_3.chat_appearance.chat_icon");
-        form.register("step_3.chat_appearance.chat_icon", { value: id })
+        form.unregister("chat_appearance.chat_icon");
+        form.register("chat_appearance.chat_icon", { value: id })
     }
 
     return (
@@ -39,7 +39,7 @@ export function StepCustomChat({ }: StepCustomChat) {
             </div>
 
             <Input
-                name="step_3.chat_appearance.icon_text"
+                name="chat_appearance.icon_text"
                 title="Digite o texto que será exibido ao lado do icon"
             />
 
@@ -48,17 +48,17 @@ export function StepCustomChat({ }: StepCustomChat) {
             title="Defina as cores do seu chat"
         >
             <Root.Color
-                name="step_3.chat_appearance.primary_color"
+                name="chat_appearance.primary_color"
                 title="Escolha a cor primária do seu chat"
             />
 
             <Root.Color
-                name="step_3.chat_appearance.second_color"
+                name="chat_appearance.second_color"
                 title="Escolha a cor secundária do seu chat"
             />
 
             <Root.Color
-                name="step_3.chat_appearance.background"
+                name="chat_appearance.background"
                 title="Escolha a cor do background do seu chat"
             />
 
