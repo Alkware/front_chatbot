@@ -2,8 +2,8 @@ import axios, { AxiosResponse } from "axios";
 import { API_URL } from "./url-api";
 import { Service } from "../@types/services.types";
 
-type ServiceInfo = Omit<Service, "id" | "created_at" | "updated_at" | "images"> & {
-    images: string[]
+type ServiceInfo = Omit<Service, "id" | "created_at" | "updated_at" | "images_products_services"> & {
+    images_products_services: string[]
 }
 
 /**

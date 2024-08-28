@@ -29,17 +29,19 @@ export function ModalEditService({ service, setServices }: ModalEditService) {
         resolver: zodResolver(serviceSchema),
         defaultValues: {
             ...service,
-            images: service.images?.map(infoImage => infoImage.image.id),
+            images: service.images_products_services?.map(infoImage => infoImage.image_id),
         }
     });
 
-    const handleUpdateService = async (data: Omit<Service, "images"> & { images: string[]}) => {
+    const handleUpdateService = async (data: Omit<Service, "images_products_services"> & { images_products_services: string[]}) => {
         if(!service.id){
             window.location.reload();
             return;
         }
 
         const response = await updateService(service.id, data);
+        console.log(response)
+
         if (!response) {
             setModalContent({
                 componentName: "modal_failed_update_service",

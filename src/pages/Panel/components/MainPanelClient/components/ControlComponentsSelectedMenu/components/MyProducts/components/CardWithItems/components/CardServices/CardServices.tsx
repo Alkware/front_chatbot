@@ -29,6 +29,7 @@ export function CardServices({ items }: CardServices) {
         if (!client) { console.error("Unable to select offer because the client is missing"); return; }
         navigate(`/create-service/${client.plan_management.id}/${items[0].category.name}`)
     }
+
     // FUNÇÃO RESPONSÁVEL POR DUPLICAR O serviço...
     const handleDuplicateProduct = async (service: Service) => {
         // Transforma o id em um campo opcional para ser deletado...
@@ -50,12 +51,11 @@ export function CardServices({ items }: CardServices) {
             service_name: `${duplicateProduct.service_name.split(" ")[0]} (${newService.length + 1})`,
             plan_management_id: client?.plan_management.id,
             category: { name: duplicateProduct.category.name },
-            images: duplicateProduct.images.map(infoImage => infoImage.image.id)
+            images_products_services: duplicateProduct.images.map(infoImage => infoImage.id)
         });
 
         response && setNewService(values => values ? [...values, response] : values);
     }
-
 
     // FUNÇÃO RESPONSÁVEL POR DELETAR O serviço
     const handleDeleteService = async (service: Service) => {
@@ -134,7 +134,7 @@ export function CardServices({ items }: CardServices) {
                                 />
                             </div>
                             <img
-                                src={service.images[0].image.url || "https://via.placeholder.com/100"}
+                                src={service.images.length ? service.images[0].url : "https://via.placeholder.com/100"}
                                 className="w-full h-full object-cover"
                                 onClick={() => handleEditProduct(service)}
                             />

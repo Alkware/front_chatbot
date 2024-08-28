@@ -1,4 +1,4 @@
-import { Image } from "./images.types";
+import {  Image } from "./images.types";
 import { PlanManagement } from "./planManagement";
 
 export type Promocional_price = {

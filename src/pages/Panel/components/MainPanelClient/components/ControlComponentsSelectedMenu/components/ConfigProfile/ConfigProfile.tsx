@@ -12,6 +12,7 @@ import { checkUserIsAvailable, updateClient } from "../../../../../../../../api/
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver";
 import { object, z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "../../../../../../../../components/Form/components/Fields/Input/Input";
 
 const clientSchema = z.object({
     fullname: z.string().min(1, "Digite seu nome completo!").refine(text => { 
@@ -73,9 +74,9 @@ export function ConfigProfile() {
 
 
     const handleSaveDataUser = async (data: any) => {
+        if(!client) return;
         if (client?.user === data.user || await checkUserIsAvailable(data.user)) {
-            data.client_id = client?.id;
-            const response = await updateClient(data);
+            const response = await updateClient(client?.id, data);
 
 
             if (response?.status === 200) {
@@ -136,12 +137,12 @@ export function ConfigProfile() {
                 >
 
                     <Root.Container className="w-full flex flex-col md:flex-row items-center gap-4">
-                        <Root.Input
+                        <Input
                             name="fullname"
                             title="Nome completo"
                         />
 
-                        <Root.Input
+                        <Input
                             name="user"
                             title="Usuário"
                         />
@@ -151,7 +152,7 @@ export function ConfigProfile() {
                         className="flex flex-col md:flex-row gap-4 justify-center items-center"
                     >
                         <Root.Container >
-                            <Root.Input
+                            <Input
                                 type="email"
                                 name="email"
                                 title="Informe seu e-mail"
@@ -173,7 +174,7 @@ export function ConfigProfile() {
                         className="flex flex-col md:flex-row gap-4 justify-center items-center"
                     >
                         <Root.Container >
-                            <Root.Input
+                            <Input
                                 type="password"
                                 name="password"
                                 title="Sua senha"

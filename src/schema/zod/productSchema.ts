@@ -3,7 +3,7 @@ import z from "zod";
 export type ProductSchema = z.infer<typeof productSchema>;
 
 export const productSchema = z.object({
-    images: z.array(z.string()),
+    images: z.array(z.string()).min(1, "Informe pelo menos uma imagem para seu produto"),
     product_name: z.string().min(1, "O nome do produto não pode estar vazio."),
     price: z.coerce.number().min(1, "O preço do produto não pode estar vazio."),
     promocional_price: z.object({

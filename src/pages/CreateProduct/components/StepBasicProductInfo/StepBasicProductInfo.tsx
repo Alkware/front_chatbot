@@ -17,11 +17,11 @@ export function StepBasicProductInfo({ client_id, product }: StepBasicProductInf
     return (
         <>
             <UploadFile
-                name="images"
+                name="images_products_services"
                 client_id={client_id}
                 limitSelect={5}
                 formContext={formContext}
-                imagesDefault={product?.images}
+                imagesDefault={product?.images_products_services}
             />
 
             <div className="w-full mx-auto flex gap-4">

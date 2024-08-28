@@ -1,4 +1,4 @@
-import { Image } from "./images.types";
+import { Images_products_services } from "./images.types";
 import { PlanManagement } from "./planManagement";
 
 export type Promocional_price = {
@@ -48,7 +48,7 @@ export type Product = {
     extra_information?: string | null
     how_exchanges_work_and_returns: string
     plan_management?: PlanManagement;
-    images: Image[];
+    images_products_services: Images_products_services[];
     created_at?: Date
     updated_at?: Date
 }

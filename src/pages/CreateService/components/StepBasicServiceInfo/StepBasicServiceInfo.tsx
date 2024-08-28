@@ -21,7 +21,7 @@ export function StepBasicServiceInfo({ client_id, service }: StepBasicServiceInf
                 client_id={client_id}
                 limitSelect={5}
                 formContext={formContext}
-                imagesDefault={service?.images}
+                imagesDefault={service?.images_products_services}
             />
 
             <div className="w-full mx-auto flex gap-4">

@@ -29,11 +29,11 @@ export function ModalEditProduct({ product, setProducts }: ModalEditProduct) {
         resolver: zodResolver(productSchema),
         defaultValues: {
             ...product,
-            images: product.images?.map(infoImage => infoImage.image.url),
+            images_products_services: product.images_products_services?.map(infoImage => infoImage.url),
         }
     });
 
-    const handleUpdateProduct = async (data: Omit<Product, "images"> & { images: string[] }) => {
+    const handleUpdateProduct = async (data: Omit<Product, "images_products_services"> & { images_products_services: string[] }) => {
         if (!product.id) {
             window.location.reload();
             return;

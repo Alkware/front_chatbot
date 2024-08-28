@@ -10,6 +10,7 @@ interface Input extends HTMLAttributes<HTMLInputElement> {
     mask?: (e: MouseEvent<HTMLInputElement, MouseEvent>) => void;
     widthContainer?: string;
     joinAtInput?: string;
+    disabled?: boolean
 };
 
 export function Input({ formContext, mask, widthContainer, joinAtInput, title, type, ...props }: Input) {

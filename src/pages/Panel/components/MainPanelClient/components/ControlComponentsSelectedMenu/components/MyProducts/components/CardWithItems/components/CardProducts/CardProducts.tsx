@@ -51,7 +51,7 @@ export function CardProducts({ items }: CardProducts) {
             product_name: `${product.product_name.split(" ")[0]} (${newProduct.length + 1})`,
             plan_management_id: client?.plan_management.id,
             category: { name: product.category.name },
-            images: product.images.map(infoImage => infoImage.image.id)
+            images_products_services: product.images_products_services.map(infoImage => infoImage.image.id)
         });
 
         response && setNewProduct(values => values ? [...values, response] : values);
@@ -149,7 +149,7 @@ export function CardProducts({ items }: CardProducts) {
                                 />
                             </div>
                             <img
-                                src={product.images[0].image.url || "https://via.placeholder.com/100"}
+                                src={product.images_products_services[0].image.url || "https://via.placeholder.com/100"}
                                 className="w-full h-full object-cover"
                                 onClick={() => handleEditProduct(product)}
                             />

@@ -74,7 +74,6 @@ export function ModalEditChat({ project, setProjects, ai }: ModalEditChat) {
         (data.chat_appearance && project.chat_appearance) && (data.chat_appearance.id = project?.chat_appearance?.id);
 
         const projectUpdate: Project | void = await updateProject(data, project.slug);
-        console.log(projectUpdate)
         if (!projectUpdate) {
             setModalContent({
                 componentName: "modal_failed_chat_updated",
