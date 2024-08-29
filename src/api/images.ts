@@ -50,7 +50,7 @@ export async function getImagesByClient_id(client_id: string) {
     }
 
     // Formato correto para consiliar com o modo de busca das imagens
-    return response.data.map((image: Image) => ({ image }))
+    return response.data
 }
 
 export async function getImagesById(image_id: string) {
@@ -62,7 +62,7 @@ export async function getImagesById(image_id: string) {
     }
 
     // Formato correto para consiliar com o modo de busca das imagens
-    return { image: response.data }
+    return response.data
 }
 
 
@@ -75,7 +75,7 @@ export async function getManyImagesById(images_id: string[]) {
     }
 
     // Formato correto para consiliar com o modo de busca das imagens
-    return response.data.map((image: Image) => ({ image }))
+    return response.data
 }
 
 /**
@@ -91,7 +91,7 @@ export async function updateManyImagesById(product_id: string, images_id: string
     }
 
     // Formato correto para consiliar com o modo de busca das imagens
-    return response.data.map((image: Image) => ({ image }))
+    return response.data
 }
 
 
@@ -105,5 +105,5 @@ export async function deleteImageById(client_id: string) {
     }
 
     // Formato correto para consiliar com o modo de busca das imagens
-    return { image: response.data }
+    return response.data
 }

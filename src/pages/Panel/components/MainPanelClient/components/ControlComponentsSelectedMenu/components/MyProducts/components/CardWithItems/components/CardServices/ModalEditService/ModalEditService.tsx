@@ -29,18 +29,17 @@ export function ModalEditService({ service, setServices }: ModalEditService) {
         resolver: zodResolver(serviceSchema),
         defaultValues: {
             ...service,
-            images: service.images_products_services?.map(infoImage => infoImage.image_id),
+            images: service.images?.map(img => img.id),
         }
     });
 
-    const handleUpdateService = async (data: Omit<Service, "images_products_services"> & { images_products_services: string[]}) => {
-        if(!service.id){
+    const handleUpdateService = async (data: Omit<Service, "images_products_services"> & { images_products_services: string[] }) => {
+        if (!service.id) {
             window.location.reload();
             return;
         }
 
         const response = await updateService(service.id, data);
-        console.log(response)
 
         if (!response) {
             setModalContent({
@@ -57,8 +56,8 @@ export function ModalEditService({ service, setServices }: ModalEditService) {
         }
 
         setServices(values => {
-            if (values) {   
-                const removeOldService = values.filter(value=> value.id !== service.id);
+            if (values) {
+                const removeOldService = values.filter(value => value.id !== service.id);
                 return [...removeOldService, response];
             } else return values;
         });
@@ -105,7 +104,7 @@ export function ModalEditService({ service, setServices }: ModalEditService) {
                 <PopOver
                     componentName="modal_success_delete_product"
                     message="Produto deletado com sucesso!"
-                    functionAfterComplete={()=> clearModal(null, { clearAll: true })}
+                    functionAfterComplete={() => clearModal(null, { clearAll: true })}
                 />
         })
     }

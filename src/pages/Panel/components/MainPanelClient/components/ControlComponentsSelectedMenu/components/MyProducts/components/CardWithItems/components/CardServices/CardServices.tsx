@@ -51,7 +51,7 @@ export function CardServices({ items }: CardServices) {
             service_name: `${duplicateProduct.service_name.split(" ")[0]} (${newService.length + 1})`,
             plan_management_id: client?.plan_management.id,
             category: { name: duplicateProduct.category.name },
-            images_products_services: duplicateProduct.images.map(infoImage => infoImage.id)
+            images: duplicateProduct.images.map(infoImage => infoImage.id)
         });
 
         response && setNewService(values => values ? [...values, response] : values);
@@ -134,7 +134,7 @@ export function CardServices({ items }: CardServices) {
                                 />
                             </div>
                             <img
-                                src={service.images.length ? service.images[0].url : "https://via.placeholder.com/100"}
+                                src={service?.image_main?.url || "https://via.placeholder.com/100"}
                                 className="w-full h-full object-cover"
                                 onClick={() => handleEditProduct(service)}
                             />

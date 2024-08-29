@@ -23,7 +23,6 @@ export function MyProducts({ }: MyProducts) {
         (async ()=>{
             if(!client?.plan_management) return;
             const offers = await getAllProductsAndServices(client?.plan_management.id);
-            console.log(offers)
             if(!offers) return;
 
             setOffers(offers);

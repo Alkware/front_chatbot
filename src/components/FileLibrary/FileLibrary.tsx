@@ -5,9 +5,7 @@ import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react
 import { ModalContext } from "../../context/ModalContext";
 import { PopOver } from "../modal/templates/PopOver";
 import { NewUploadFile } from "./components/NewUploadFile/NewUploadFile";
-import { LinkedImage } from "../../@types/images.types";
-import { UseFormReturn } from "react-hook-form";
-
+import { Image } from "../../@types/images.types";
 
 export type FileAccept = "img" | "csx" | "txt" | "pdf"
 
@@ -22,14 +20,13 @@ interface FileLibrary {
     client_id: string;
     acceptFiles?: FileAccept[];
     limitSelect?: number;
-    setFiles?: Dispatch<SetStateAction<LinkedImage[] | undefined>>
+    setFiles?: Dispatch<SetStateAction<Image[] | undefined>>
     onAction?: (logo_id: string[])=> void;
-    formContext?: UseFormReturn
 }
 
-export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFiles, onAction,  formContext }: FileLibrary) {
+export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFiles, onAction }: FileLibrary) {
     const { setModalContent, clearModal } = useContext(ModalContext);
-    const [imagesSelected, setImagesSelected] = useState<LinkedImage[]>();
+    const [imagesSelected, setImagesSelected] = useState<Image[]>();
     const [newUploadIsActive, setNewUploadIsActive] = useState<boolean>();
 
     /**
@@ -72,7 +69,7 @@ export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFile
                 // Verifica se tem valores dentro do Files...
                 if (values) {
                     // Elimina os arquivos que já contem dentro das imagens selecionadas e dos valores dentro de setFiles...
-                    const filteredImagensSelected = imagesSelected.filter(img => !values?.find(value => value.image?.id === img.image?.id));
+                    const filteredImagensSelected = imagesSelected.filter(img => !values?.find(value => value?.id === img?.id));
                     // Verifica se tem um limite de seleção e se a quantidade de arquivos dentro do values está dentro desse limite...
                     if (limitSelect && values.length < limitSelect) {
                         // Caso já tenha arquivos dentro de 'values', será necessário remover alguns arquivos selecionados,
@@ -98,13 +95,9 @@ export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFile
                 } else return imagesSelected;
             })
         );
-        // Caso seja solicitados os arquivos selecionados em um formState (register).
-        (formContext?.register && (
-            imagesSelected?.forEach((img, index) => formContext.register(`${name}.${index}`, { value: img.image?.id }))
-        ));
 
         // Uma função para executar algum comando após a seleção da imagem
-        (onAction && onAction(imagesSelected.map(img => img.image.id)))
+        (onAction && onAction(imagesSelected.map(img => img.id)))
 
         clearModal(null, { clearLast: true });
     }

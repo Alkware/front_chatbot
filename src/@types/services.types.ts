@@ -44,9 +44,11 @@ export interface Service {
     how_guarantee_work: string
     extra_information?: string | null;
     plan_management?: PlanManagement;
-    images: Image[]
+    images: Image[];
+    image_main: Image;
     created_at?: Date
     updated_at?: Date
 }
 
 
+export type Create_Service = Omit<Partial<Service>, "images"> & { images: string[] }

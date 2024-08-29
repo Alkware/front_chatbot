@@ -3,7 +3,7 @@ import { FaCamera } from "react-icons/fa";
 import { PreviewImage } from "./components/PreviewImage/PreviewImage";
 import { UseFormReturn } from "react-hook-form";
 import { FileAccept, FileLibrary } from "../FileLibrary/FileLibrary";
-import { Images_products_services } from "../../@types/images.types";
+import { Image } from "../../@types/images.types";
 import { ModalContext } from "../../context/ModalContext";
 import { PopUp } from "../modal/templates/PopUp";
 import { Button } from "../button/Button";
@@ -13,17 +13,27 @@ interface UploadFile extends InputHTMLAttributes<HTMLInputElement> {
     acceptFiles?: FileAccept[]
     limitSelect?: number;
     formContext?: UseFormReturn
-    imagesDefault?: Images_products_services[]
+    imagesDefault?: Image[]
 }
 
-export function UploadFile({  acceptFiles, limitSelect, client_id, formContext, imagesDefault }: UploadFile) {
+export function UploadFile({ acceptFiles, limitSelect, client_id, formContext, imagesDefault }: UploadFile) {
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
-    const [images, setImages] = useState<Images_products_services[]>();
+    const [images, setImages] = useState<Image[]>();
     const { setModalContent } = useContext(ModalContext);
 
-    useEffect(()=>{
-        if(imagesDefault) setImages(imagesDefault);
-    },[])
+    useEffect(() => {
+        if (imagesDefault) setImages(imagesDefault);
+    }, []);
+
+    useEffect(() => {
+        // Caso seja solicitados os arquivos selecionados em um formState (register).
+        if (formContext?.register) {
+            images?.forEach((_, index) => formContext.unregister(`images.${index}`))
+            images?.forEach((img, index) => formContext.register(`images.${index}`, { value: img.id }))
+        };
+
+        console.log(formContext?.watch("images"))
+    }, [images])
 
     const handleSelectFile = () => {
         if (!client_id) {
@@ -38,7 +48,6 @@ export function UploadFile({  acceptFiles, limitSelect, client_id, formContext, 
                     client_id={client_id}
                     limitSelect={limitSelect}
                     setFiles={setImages}
-                    formContext={formContext}
                 />
             </PopUp>
         })

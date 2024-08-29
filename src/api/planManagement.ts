@@ -11,7 +11,6 @@ export async function getPlanManagementById(id: string | undefined): Promise<Pla
     if(!id) throw new Error("Id is missing")
     
     const response: AxiosResponse<PlanManagement> | void  = await axios.get(`${API_URL}/plan_management/${id}`).catch(err => console.error(err))
-
     if(!response) return;
 
     return response.data as PlanManagement
