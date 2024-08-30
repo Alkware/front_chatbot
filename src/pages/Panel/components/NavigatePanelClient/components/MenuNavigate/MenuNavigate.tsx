@@ -3,7 +3,7 @@ import { IoIosChatbubbles, IoIosPricetags, IoIosStats, IoLogoBuffer, IoMdArrowDr
 import { useSearchParams } from "react-router-dom";
 import { PARAM_MENU_MOBILE, RESIZE_MENU, TAB_NAME_URL } from "../../../../../../variables/variables";
 import { IoArchiveSharp, IoDiamond } from "react-icons/io5";
-import { BsStars } from "react-icons/bs";
+import { GiCircuitry } from "react-icons/gi";
 
 export type Tab = "my_chats" | "metrics" | "artificial_intelligence" | "products" | "records" | "leads" | "conversations" | "payment" | "help_center" | "config";
 
@@ -19,14 +19,14 @@ interface NavMenu extends Menu {
 
 const navMenu: NavMenu[] = [
     {
-        tab: "metrics",
-        name: "Métricas",
-        Icon: IoIosStats,
-    },
-    {
         tab: "my_chats",
         name: "Meus chats",
         Icon: IoLogoBuffer,
+    },
+    {
+        tab: "artificial_intelligence",
+        name: "Inteligência artificial",
+        Icon: GiCircuitry,
     },
     {
         tab: "products",
@@ -34,9 +34,9 @@ const navMenu: NavMenu[] = [
         Icon: IoIosPricetags,
     },
     {
-        tab: "artificial_intelligence",
-        name: "Inteligência artificial",
-        Icon: BsStars,
+        tab: "metrics",
+        name: "Métricas",
+        Icon: IoIosStats,
     },
     {
         tab: "records",

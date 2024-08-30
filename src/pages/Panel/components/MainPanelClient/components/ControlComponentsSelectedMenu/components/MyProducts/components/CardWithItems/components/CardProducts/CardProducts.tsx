@@ -12,7 +12,6 @@ import { PopUp } from "../../../../../../../../../../../../components/modal/temp
 import { ModalEditProduct } from "./components/ModalEditProduct/ModalEditProduct"
 import { Confirm } from "../../../../../../../../../../../../components/modal/templates/Confirm"
 
-
 interface CardProducts {
     items: Product[]
 }
@@ -31,15 +30,6 @@ export function CardProducts({ items }: CardProducts) {
     }
     // FUNÇÃO RESPONSÁVEL POR DUPLICAR O PRODUTO...
     const handleDuplicateProduct = async (product: Product) => {
-        // Transforma o id em um campo opcional para ser deletado...
-        const duplicateProduct: Omit<Product, "id"> & { id?: string } = product;
-
-        // Deleta alguns campos que não são necessários...
-        delete duplicateProduct["id"];
-        delete duplicateProduct["created_at"];
-        delete duplicateProduct["updated_at"];
-        delete duplicateProduct["plan_management"]
-
         if (!client) {
             console.error("Client id is missing!");
             return;
@@ -48,13 +38,13 @@ export function CardProducts({ items }: CardProducts) {
         // Cria a fonte de dados...
         const response = await createNewProduct({
             ...product,
-            product_name: `${product.product_name.split(" ")[0]} (${newProduct.length + 1})`,
+            product_name: `Copiá (${newProduct.filter(product => product.product_name.includes("Copiá")).length + 1})`,
             plan_management_id: client?.plan_management.id,
             category: { name: product.category.name },
             images: product.images.map(infoImage => infoImage.id)
         });
 
-        response && setNewProduct(values => values ? [...values, response] : values);
+        response && setNewProduct(values => values ? [...values, response] : [response]);
     }
 
 

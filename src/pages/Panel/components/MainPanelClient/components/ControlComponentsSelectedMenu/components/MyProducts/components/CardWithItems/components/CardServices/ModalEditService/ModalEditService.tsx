@@ -33,7 +33,7 @@ export function ModalEditService({ service, setServices }: ModalEditService) {
         }
     });
 
-    const handleUpdateService = async (data: Omit<Service, "images_products_services"> & { images_products_services: string[] }) => {
+    const handleUpdateService = async (data: Omit<Service, "images"> & { images: string[] }) => {
         if (!service.id) {
             window.location.reload();
             return;

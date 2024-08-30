@@ -74,6 +74,7 @@ export function ItemsList({ title, type, list, items, plan_management_id, setIte
             <div className="flex gap-2">
                 {list.map(item =>
                     <div
+                        key={item.id}
                         data-isselected={!!isSelected?.find(selected => selected.id === item.id)}
                         className="group w-20 h-20 overflow-hidden cursor-pointer relative hover:scale-110 transition-transform rounded-md opacity-70  data-[isselected=true]:opacity-100 data-[isselected=true]:border-2 border-primary-100"
                         onClick={() => handleSelectItem(item)}
@@ -82,7 +83,7 @@ export function ItemsList({ title, type, list, items, plan_management_id, setIte
                             className="w-4 h-4 bg-primary-100 absolute top-0 right-0 group-data-[isselected=false]:hidden"
                         > </div>
                         <img
-                            src={item.images[0].image.url}
+                            src={item?.image_main?.url || "https://via.placeholder.com/100"}
                             alt=""
                             className="w-full h-full object-cover"
                         />

@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import { artificialIntelligenceSchema, ArtificialIntelligenceSchema } from "../../../../../../../../../../schema/zod/artificialIntelligenceSchema";
 // import { transformSchemaInText } from "../../../../../../../../../../schema/PromptIA/transformSchemaInText";
 import { FaCircleInfo } from "react-icons/fa6";
-import { FaBook, FaInfo } from "react-icons/fa";
+import { FaBrain, FaBuilding } from "react-icons/fa";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
 import { Artificial_Intelligence, Info_Artificial_Intelligence } from "../../../../../../../../../../@types/artificialInteligence.types";
 import { StepAddProducts } from "../../../../../../../../../CreateArtificialIntelligence/components/FormCreateDatabase/components/StepAddProducts/StepAddProducts";
@@ -123,7 +123,7 @@ export function ModalEditArtificialIntelligence({ plan_management_id, intelligen
 
 
     return (
-        <div className="w-screen h-screen px-4 md:px-0 md:w-[90vw] md:h-[80vh] md:min-h-[450px] md:min-w-[700px] flex items-start overflow-hidden">
+        <div className="w-screen h-screen px-4 md:px-0 md:min-h-[450px] md:min-w-[700px] flex items-start overflow-hidden">
             <Root.EditForm
                 form={updateAiForm}
                 onSubmit={handleUpdateArtificialIntelligence}
@@ -137,14 +137,14 @@ export function ModalEditArtificialIntelligence({ plan_management_id, intelligen
                 >
                     <StepAddProducts
                         plan_management_id={plan_management_id}
-                        ai_products_Services_default={intelligence.ai_products_Services}
+                        ai_products_services={intelligence.ai_products_Services}
                     />
                 </Root.EditStep>
 
                 <Root.EditStep
                     index={1}
-                    titleStep="Métodos de pagamento"
-                    icon={<FaInfo />}
+                    titleStep="Sobre sua empresa"
+                    icon={<FaBuilding />}
                 >
                     <StepAboutCompany
                         companies={client?.plan_management?.client_company}
@@ -153,8 +153,8 @@ export function ModalEditArtificialIntelligence({ plan_management_id, intelligen
 
                 <Root.EditStep
                     index={2}
-                    titleStep="Politicas e condições"
-                    icon={<FaBook />}
+                    titleStep="Personalidade da AI"
+                    icon={<FaBrain />}
                 >
                     <StepPersonalityIA />
                 </Root.EditStep>

@@ -34,8 +34,6 @@ export function CreateChat() {
     }
     );
 
-
-
     useEffect(() => {
         (async () => {
             // define o thema da página de login

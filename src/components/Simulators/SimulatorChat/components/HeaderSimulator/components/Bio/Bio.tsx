@@ -1,10 +1,10 @@
 import { ForwardedRef, forwardRef } from "react"
 import { FaX } from "react-icons/fa6";
 import { BioDescribe } from "./components/BioDescribe";
-import { LinkedImage } from "../../../../../../../@types/images.types";
+import { Image } from "../../../../../../../@types/images.types";
 
 interface Bio {
-    logo: LinkedImage | undefined
+    logo: Image | undefined
 }
 
 export const Bio = forwardRef(({ logo }: Bio, ref: ForwardedRef<HTMLDivElement>) => {
@@ -12,7 +12,7 @@ export const Bio = forwardRef(({ logo }: Bio, ref: ForwardedRef<HTMLDivElement>)
         <div
             ref={ref}
             data-active={false}
-            className="data-[active='false']:hidden absolute top-0 w-full h-1/2 bg-light border-b border-black"
+            className="data-[active='false']:hidden absolute top-0 w-full h-auto bg-light border-b border-black"
         >
             <div className="w-full p-3">
                 <FaX
@@ -22,7 +22,7 @@ export const Bio = forwardRef(({ logo }: Bio, ref: ForwardedRef<HTMLDivElement>)
 
             <div className="w-full flex justify-center items-center">
                 <img
-                    src={logo?.image.url}
+                    src={logo?.url}
                     alt=""
                     className="w-[80px] h-[80px] object-cover rounded-full"
                 />

@@ -2,11 +2,11 @@ import { useFormContext } from "react-hook-form";
 import { Input } from "../../../../components/Form/components/Fields/Input/Input";
 import { TextArea } from "../../../../components/Form/components/Fields/TextArea/TextArea";
 import { UploadUniqueFile } from "../../../../components/UploadUniqueImage/UploadUniqueImage";
-import { LinkedImage } from "../../../../@types/images.types";
+import { Image } from "../../../../@types/images.types";
 
 interface StepBasicInfoChat {
     client_id: string;
-    imageDefault?: LinkedImage[]
+    imageDefault?: Image[]
 }
 
 export function StepBasicInfoChat({ client_id, imageDefault }: StepBasicInfoChat) {

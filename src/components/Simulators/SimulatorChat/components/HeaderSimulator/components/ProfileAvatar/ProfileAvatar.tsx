@@ -1,7 +1,7 @@
-import { LinkedImage } from "../../../../../../../@types/images.types";
+import { Image } from "../../../../../../../@types/images.types";
 
 interface ProfileAvatar {
-    logo: LinkedImage | undefined,
+    logo: Image | undefined,
 }
 
 export function ProfileAvatar({ logo }: ProfileAvatar) {
@@ -10,7 +10,7 @@ export function ProfileAvatar({ logo }: ProfileAvatar) {
         <div className="w-1/5 h-full flex justify-center items-center">
             <img
                 data-islogo={!!logo}
-                src={logo?.image.url || ""}
+                src={logo?.url || "https://via.placeholder.com/100"}
                 alt=""
                 className="w-[40px] h-[40px] object-cover rounded-full data-[islogo='true']:block hidden"
             />

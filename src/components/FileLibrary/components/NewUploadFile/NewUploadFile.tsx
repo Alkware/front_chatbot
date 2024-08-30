@@ -3,7 +3,7 @@ import { RiUpload2Line } from "react-icons/ri";
 import { ModalContext } from "../../../../context/ModalContext";
 import { PopUp } from "../../../modal/templates/PopUp";
 import { FillImageInfo } from "./components/FillImageInfo/FillImageInfo";
-import { LinkedImage } from "../../../../@types/images.types";
+import { Image } from "../../../../@types/images.types";
 import { MdAdd } from "react-icons/md";
 import { FileAccept, ListFilesAccept } from "../../FileLibrary";
 
@@ -11,8 +11,8 @@ interface NewUploadFile {
     name?: string;
     client_id: string;
     acceptFiles?: FileAccept[];
-    imagesSelected: LinkedImage[] | undefined;
-    setImagesSelected: Dispatch<SetStateAction<LinkedImage[] | undefined>>;
+    imagesSelected: Image[] | undefined;
+    setImagesSelected: Dispatch<SetStateAction<Image[] | undefined>>;
 }
 
 const listFilesAccept: ListFilesAccept = {
@@ -75,10 +75,13 @@ export function NewUploadFile({ name, acceptFiles, client_id, imagesSelected, se
             data-id={name}
         >
             {imagesSelected?.map(file =>
-                <div className="border rounded-full overflow-hidden">
+                <div 
+                    key={file.id}
+                    className="border rounded-full overflow-hidden"
+                >
                     <img
                         className="w-14 h-14 object-contain"
-                        src={file.image.url || "https://via.placeholder.com/100"}
+                        src={file.url || "https://via.placeholder.com/100"}
                     />
                 </div>
             )}

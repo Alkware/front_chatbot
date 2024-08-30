@@ -1,12 +1,12 @@
 import { Dispatch, SetStateAction } from "react"
-import { LinkedImage } from "../../../../@types/images.types";
+import { Image } from "../../../../@types/images.types";
 import { UseFormReturn } from "react-hook-form";
 
 interface PreviewUniqueImage {
-    image: LinkedImage | undefined;
+    image: Image | undefined;
     name?: string;
     formContext?: UseFormReturn<any>
-    setImages: Dispatch<SetStateAction<LinkedImage[] | undefined>>
+    setImages: Dispatch<SetStateAction<Image[] | undefined>>
 }
 
 export function PreviewUniqueImage({ name, formContext, image, setImages }: PreviewUniqueImage) {
@@ -30,7 +30,7 @@ export function PreviewUniqueImage({ name, formContext, image, setImages }: Prev
                     <span className="text-xl font-medium">X</span>
                 </div>
                 <img
-                    src={image?.image?.url || "https://via.placeholder.com/100"}
+                    src={image?.url || "https://via.placeholder.com/100"}
                     alt="Imagem carregada pela usuário"
                 />
             </div>

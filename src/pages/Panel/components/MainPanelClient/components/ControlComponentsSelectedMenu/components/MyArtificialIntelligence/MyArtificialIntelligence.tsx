@@ -4,7 +4,6 @@ import { ClientContext } from "../../../../../../../../context/ClientContext"
 import { ModalContext } from "../../../../../../../../context/ModalContext"
 import { PopUp } from "../../../../../../../../components/modal/templates/PopUp"
 import { Container } from "../../../../../../../../components/Container/Container"
-import { FaDatabase, FaLock } from "react-icons/fa"
 import { MAX_CONTAINER_TO_CREATE_DATABASE } from "../../../../../../../../variables/variables"
 import { MdEdit, MdWarning } from "react-icons/md"
 import { Button } from "../../../../../../../../components/button/Button"
@@ -13,6 +12,8 @@ import { updateDatabaseName } from "../../../../../../../../api/artificialIntell
 import { Artificial_Intelligence } from "../../../../../../../../@types/artificialInteligence.types"
 import { ModalEditArtificialIntelligence } from "./components/ModalEditArtificialIntelligence/ModalEditArtificialIntelligence"
 import { TipContainer } from "../../../../../../../../components/TipContainer/TipContainer"
+import { FaLock } from "react-icons/fa"
+import { GiCircuitry } from "react-icons/gi"
 
 export function MyArtificialIntelligence() {
     const { client } = useContext(ClientContext)
@@ -94,7 +95,7 @@ export function MyArtificialIntelligence() {
     return (
         (client) &&
         <Container title="Inteligência artificial">
-            <div className="w-full flex-wrap flex justify-center p-4 my-12 gap-8">
+            <div className="w-full flex-wrap flex justify-center p-4 my-8 gap-6">
                 {
                     limitPromps.map((_, index) =>
                         //Verifica quantos slots o usuário tem disponivel e o resto que não está disponivel ficará com um cadeado.
@@ -102,13 +103,26 @@ export function MyArtificialIntelligence() {
                             (
                                 <div
                                     key={index}
-                                    className="w-full max-w-[300px] flex justify-center items-center cursor-pointer"
+                                    className="w-full max-w-[250px] flex justify-center items-center cursor-pointer"
                                 >
                                     {
                                         intelligence[index]?.identification ?
                                             <div
-                                                className="w-full relative flex gap-2 items-center justify-center rounded-xl border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-white dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
+                                                className="w-full relative flex gap-2 items-center justify-between rounded-md border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-white dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
                                             >
+                                                <GiCircuitry className="size-10" />
+                                                <h2
+                                                    className="text-center flex justify-center items-center gap-2 whitespace-nowrap text-ellipsis overflow-x-hidden"
+                                                    onClick={() => handleEditArtificialIntelligence(index)}
+                                                >
+                                                    {intelligence[index]?.identification}
+                                                </h2>
+
+                                                <MdEdit
+                                                    className="cursor-text size-6 mx-2"
+                                                    onClick={() => handleEditIdentificationArtificialName(index)}
+                                                />
+
                                                 <div
                                                     data-hasproduct={!!client.plan_management.artificial_intelligence[index].ai_products_Services.length}
                                                     className="data-[hasproduct=true]:hidden absolute top-0 right-1"
@@ -118,20 +132,6 @@ export function MyArtificialIntelligence() {
                                                         positionX="LEFT"
                                                     ><MdWarning className="fill-orange-500" /></TipContainer>
                                                 </div>
-                                                <h2
-                                                    className="w-[200px] text-center py-4 flex justify-center items-center gap-2"
-                                                    onClick={() => handleEditArtificialIntelligence(index)}
-                                                >
-                                                    <FaDatabase />
-                                                    <span className="w-full whitespace-nowrap text-ellipsis overflow-x-hidden">
-                                                        {intelligence[index]?.identification}
-                                                    </span>
-                                                </h2>
-
-                                                <MdEdit
-                                                    className="cursor-text "
-                                                    onClick={() => handleEditIdentificationArtificialName(index)}
-                                                />
                                             </div>
                                             :
                                             <ButtonCreateNewAI
@@ -146,9 +146,9 @@ export function MyArtificialIntelligence() {
                                 <div
                                     key={index}
                                     data-prompt={!!intelligence[index]?.artificial_name}
-                                    className="w-full max-w-[300px] flex opacity-30 cursor-not-allowed justify-center items-center rounded-xl border border-primary-100 bg-primary-300 hover:bg-primary-200 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
+                                    className="w-full max-w-[250px] flex opacity-30 cursor-not-allowed justify-center items-center rounded-md border border-primary-100 bg-primary-300 hover:bg-primary-200 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
                                 >
-                                    <FaLock className="py-3 text-5xl" />
+                                    <FaLock className="size-10 py-3" />
                                 </div>
                             )
                     )

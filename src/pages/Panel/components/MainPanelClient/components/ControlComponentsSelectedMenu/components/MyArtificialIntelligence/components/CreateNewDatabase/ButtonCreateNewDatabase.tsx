@@ -20,7 +20,7 @@ export function ButtonCreateNewAI({ plan_management_id, index }: { plan_manageme
 
             if (client.plan_management.status !== "DISABLED") {
                 if (maxPlans > currentNumberOfProjects) {
-                    navigate(`/create-database/${plan_management_id}`)
+                    navigate(`/create-ai/${plan_management_id}`)
                 } else {
                     setModalContent({
                         componentName: "modal_max_database",
@@ -56,7 +56,7 @@ export function ButtonCreateNewAI({ plan_management_id, index }: { plan_manageme
 
     return (
         <div
-            className="w-full rounded-xl border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-white dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20 flex justify-center"
+            className="w-full rounded-md border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-white dark:text-primary-100 data-[prompt=false]:bg-primary-200/20 flex justify-center"
             onClick={handleClickNewDatabases}
         >
             <TutoralContainer
@@ -68,7 +68,7 @@ export function ButtonCreateNewAI({ plan_management_id, index }: { plan_manageme
                 <TipContainer
                     tip="Criar fonte de dados"
                 >
-                    <FaPlus className="text-5xl py-3 fill-light dark:fill-primary-100" />
+                    <FaPlus className="size-10 py-2 fill-light dark:fill-primary-100" />
                 </TipContainer>
             </TutoralContainer>
         </div>
@@ -77,4 +77,3 @@ export function ButtonCreateNewAI({ plan_management_id, index }: { plan_manageme
 }
 
 export default ButtonCreateNewAI;
-

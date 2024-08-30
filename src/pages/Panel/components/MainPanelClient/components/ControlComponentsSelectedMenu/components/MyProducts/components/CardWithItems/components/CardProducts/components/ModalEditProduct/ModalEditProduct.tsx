@@ -29,7 +29,7 @@ export function ModalEditProduct({ product, setProducts }: ModalEditProduct) {
         resolver: zodResolver(productSchema),
         defaultValues: {
             ...product,
-            images: product.images_products_services?.map(infoImage => infoImage.id),
+            images: product.images?.map(infoImage => infoImage.id),
         }
     });
 

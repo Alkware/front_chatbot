@@ -13,27 +13,24 @@ import { SubTitle } from "../../../../../../components/SubTitle/SubTitle";
 import { useFormContext } from "react-hook-form";
 import { Ai_products_Services } from "../../../../../../@types/artificialInteligence.types";
 
-
 export type Item = Product | Service;
 
 interface StepAddProducts {
     plan_management_id: string
-    ai_products_Services_default?: Ai_products_Services[];
+    ai_products_services?: Ai_products_Services[]
 }
 
-export function StepAddProducts({ plan_management_id, ai_products_Services_default }: StepAddProducts) {
+export function StepAddProducts({ plan_management_id, ai_products_services }: StepAddProducts) {
     const { setModalContent, clearModal } = useContext(ModalContext);
     const { register, unregister, watch } = useFormContext();
     const [items, setItems] = useState<Item[]>();
     const productsRegister: string[] = watch("products_id");
     const servicesRegister: string[] = watch("services_id");
 
-
     useEffect(() => {
-        if(!ai_products_Services_default) return;
-        const products = ai_products_Services_default.map(ai => ai.product).filter(product => !!product);
-        const services = ai_products_Services_default.map(ai => ai.service).filter(service => !!service);
-        setItems(values => values ? [...values, ...products, ...services] : [...products, ...services]);
+        const products = ai_products_services?.map(ai => ai.product).filter(product => !!product) || [];
+        const services = ai_products_services?.map(ai => ai.service).filter(service => !!service) || [];
+        setItems(values => values ? [...values, ...products, ...services] :[...products, ...services]);
     }, [])
 
     // UseEffect para registrar os valores dos produtos ou serviços selecionados...
@@ -101,7 +98,10 @@ export function StepAddProducts({ plan_management_id, ai_products_Services_defau
             <SubTitle className="text-left">Vincule seus produtos e serviços a sua inteligencia artificial para que ela obtenha conhecimento sobre eles.</SubTitle>
             <div className="flex gap-2 flex-wrap my-8">
                 {items?.map((item: Omit<Item, "product_name"> & { product_name?: string }) =>
-                    <div className="group w-20 h-20 overflow-hidden border border-primary-100 grid place-items-center cursor-pointer relative">
+                    <div
+                        key={item.id}
+                        className="group w-20 h-20 overflow-hidden border border-primary-100 grid place-items-center cursor-pointer relative"
+                    >
                         <div className="absolute top-0 left-0 w-full bg-dark/80 grid place-items-center">
                             <span className="text-xs">{item?.product_name ? "Produto" : "Serviço"}</span>
                         </div>
@@ -112,7 +112,7 @@ export function StepAddProducts({ plan_management_id, ai_products_Services_defau
                             <MdDelete className="size-8 fill-red-400" />
                         </div>
                         <img
-                            src={item.images[0].image.url}
+                            src={item?.image_main?.url || "https://via.placeholder.com/100"}
                             alt=""
                             className="w-full h-full object-cover"
                         />

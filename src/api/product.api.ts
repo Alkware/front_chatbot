@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { Create_Product, Product } from "../@types/products.types";
 import { API_URL } from "./url-api";
+import { Image } from "../@types/images.types";
 
 /**
  * Função responsável por enviar as informações do produto para o back-end.
@@ -8,8 +9,17 @@ import { API_URL } from "./url-api";
  * @returns {Product} Retorna um objeto com todos as informações do produto criado.
  */
 export async function createNewProduct(productInfo: Create_Product): Promise<Product | void> {
+    // Transforma o id em um campo opcional para ser deletado...
+    const duplicateProduct: Omit<Create_Product, "id" | "image_main"> & { id?: string, image_main?: Image } = productInfo;
 
-    const response: void | AxiosResponse<Product> = await axios.post(`${API_URL}/product/create`, productInfo)
+    // Deleta alguns campos que não são necessários...
+    delete duplicateProduct["id"];
+    delete duplicateProduct["created_at"];
+    delete duplicateProduct["updated_at"];
+    delete duplicateProduct["plan_management"];
+    delete duplicateProduct["image_main"];
+
+    const response: void | AxiosResponse<Product> = await axios.post(`${API_URL}/product/create`, duplicateProduct)
         .catch(err => console.error(err))
 
     if (!response) return;
@@ -41,7 +51,7 @@ export async function deleteProduct(id: string): Promise<Product | void> {
 
     const response = await axios.delete(`${API_URL}/product/delete/${id}`).catch(err => console.error(err));
 
-    if(!response) return;
+    if (!response) return;
 
     return response.data;
 }

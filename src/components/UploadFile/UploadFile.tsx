@@ -31,8 +31,6 @@ export function UploadFile({ acceptFiles, limitSelect, client_id, formContext, i
             images?.forEach((_, index) => formContext.unregister(`images.${index}`))
             images?.forEach((img, index) => formContext.register(`images.${index}`, { value: img.id }))
         };
-
-        console.log(formContext?.watch("images"))
     }, [images])
 
     const handleSelectFile = () => {

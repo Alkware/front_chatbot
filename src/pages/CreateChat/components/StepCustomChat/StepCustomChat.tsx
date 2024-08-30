@@ -3,6 +3,7 @@ import { Root } from "../../../../components/Form/FormRoot";
 import { CHAT_ICONS_MODELS, ICON_NAME_URL } from "../../../../variables/variables";
 import { useFormContext } from "react-hook-form";
 import { Input } from "../../../../components/Form/components/Fields/Input/Input";
+import { FormInputColor } from "../../../../components/Form/components/Fields/FormInputColor";
 
 interface StepCustomChat { }
 
@@ -43,26 +44,26 @@ export function StepCustomChat({ }: StepCustomChat) {
                 title="Digite o texto que será exibido ao lado do icon"
             />
 
-            {/* <Root.Container
+            <Root.Container
             className="w-full flex"
             title="Defina as cores do seu chat"
         >
-            <Root.Color
+            <FormInputColor
                 name="chat_appearance.primary_color"
                 title="Escolha a cor primária do seu chat"
             />
 
-            <Root.Color
+            <FormInputColor
                 name="chat_appearance.second_color"
                 title="Escolha a cor secundária do seu chat"
             />
 
-            <Root.Color
+            <FormInputColor
                 name="chat_appearance.background"
                 title="Escolha a cor do background do seu chat"
             />
 
-        </Root.Container> */}
+        </Root.Container>
 
 
         </Root.Container>

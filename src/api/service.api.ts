@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "./url-api";
 import { Create_Service, Service } from "../@types/services.types";
+import { Image } from "../@types/images.types";
 
 /**
  * Função responsável por enviar as informações do serviço para o back-end.
@@ -9,7 +10,16 @@ import { Create_Service, Service } from "../@types/services.types";
  */
 export async function createNewService(serviceInfo: Create_Service): Promise<Service | void> {
 
-    const response: void | AxiosResponse<Service> = await axios.post(`${API_URL}/service/create`, serviceInfo)
+    // Transforma o id em um campo opcional para ser deletado...
+    const duplicateProduct: Omit<Create_Service, "id" | "image_main"> & { id?: string, image_main?: Image } = serviceInfo;
+
+    delete duplicateProduct["id"];
+    delete duplicateProduct["created_at"];
+    delete duplicateProduct["updated_at"];
+    delete duplicateProduct["plan_management"];
+    delete duplicateProduct["image_main"];
+
+    const response: void | AxiosResponse<Service> = await axios.post(`${API_URL}/service/create`, duplicateProduct)
         .catch(err => console.error(err))
 
     if (!response) return;
@@ -41,7 +51,7 @@ export async function deleteService(id: string): Promise<Service | void> {
 
     const response = await axios.delete(`${API_URL}/service/delete/${id}`).catch(err => console.error(err));
 
-    if(!response) return;
+    if (!response) return;
 
     return response.data;
 }

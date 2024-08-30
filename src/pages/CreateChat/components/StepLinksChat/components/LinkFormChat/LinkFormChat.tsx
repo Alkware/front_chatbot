@@ -64,7 +64,33 @@ export function LinkFormChat() {
                 </div>
             </div>
 
-            <Root.Container className="flex gap-6 items-end my-4">
+            <Root.Container
+                className="flex flex-col my-4"
+                hiddenContainer={!fields.length}
+            >
+                <Title className="font-bold my-2 text-left">Seus links:</Title>
+                <div className="max-h-[120px] overflow-auto">
+                    {fields.map((field: Field, index: number) =>
+                        <div
+                            key={field.id}
+                            data-display={!!field.url}
+                            data-color={index % 2 === 0}
+                            className="w-full rounded-sm py-1 bg-primary-200 flex justify-between items-center gap-4 data-[color=false]:bg-primary-300 data-[display=false]:hidden"
+                        >
+                            <div className="flex gap-1 items-center px-1">
+                                <MdLink />
+                                <span>{field.url}</span>
+                            </div>
+                            <MdDelete
+                                className="text-2xl fill-red-400 rounded-full cursor-pointer"
+                                onClick={() => remove(index)}
+                            />
+                        </div>
+                    )}
+                </div>
+            </Root.Container>
+
+            <Root.Container className="flex gap-6 my-4">
                 <div
                     ref={formLinkRef}
                     className="w-full flex flex-col gap-6"
@@ -89,28 +115,6 @@ export function LinkFormChat() {
                     onClick={handleAddCTA}
                 />
             </Root.Container>
-
-            <Root.Container className="flex flex-col items-center">
-                <Title className="font-bold my-2">Seus links:</Title>
-                {fields.map((field: Field, index: number) =>
-                    <div
-                        data-display={!!field.url}
-                        data-color={index % 2 === 0}
-                        className="w-4/5 rounded-sm py-1 bg-primary-200 flex items-center gap-4 data-[color=false]:bg-primary-300 data-[display=false]:hidden"
-                    >
-                        <div className="w-4/5 flex gap-1 items-center px-1">
-                            <MdLink />
-                            <span>{field.url}</span>
-                        </div>
-                        <MdDelete
-                            className="w-1/5 text-2xl fill-red-400 rounded-full cursor-pointer"
-                            onClick={() => fields.length > 1 && remove(index)}
-                        />
-                    </div>
-                )}
-            </Root.Container>
-
-
         </div>
     )
 };

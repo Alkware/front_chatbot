@@ -17,7 +17,7 @@ export function StepAdvancedInfoChat({ }: StepAdvancedInfoChat) {
             <div className="w-4/5 md:w-auto flex flex-col items-center md:items-start">
                 <span className="font-medium uppercase">Lembre-se</span>
                 <span className="opacity-70 text-center md:text-left">
-                    Ao trocar a slug do seu chat, todos seus clientes que possuirem a URL antiga, podem perder acesso ao seu site utilizando a antiga URL.
+                    Ao trocar a slug do seu chat, todos seus clientes que possuirem a URL antiga, podem perder acesso ao seu chat utilizando a antiga URL.
                 </span>
             </div>
         </Root.Container>

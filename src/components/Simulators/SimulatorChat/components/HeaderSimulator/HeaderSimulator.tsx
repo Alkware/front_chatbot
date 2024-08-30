@@ -3,26 +3,28 @@ import { Bio } from "./components/Bio/Bio";
 import { ContactName } from "./components/ContactName/ContactName";
 import { ProfileAvatar } from "./components/ProfileAvatar/ProfileAvatar";
 import { useFormContext } from "react-hook-form";
-import { LinkedImage } from "../../../../../@types/images.types";
+import { Image } from "../../../../../@types/images.types";
 import { getImagesById } from "../../../../../api/images";
 
 export function HeaderSimulator() {
     const refContentBio: RefObject<HTMLDivElement> = useRef(null);
     const [primaryColor, setPrimaryColor] = useState();
-    const [logo, setLogo] = useState<LinkedImage>();
+    const [logo, setLogo] = useState<Image>();
     const { watch } = useFormContext();
 
     useEffect(() => {
         const primaryColorData = watch("chat_appearance.primary_color")
         primaryColorData && (setPrimaryColor(primaryColorData));
+    }, [watch()]);
 
+    useEffect(()=>{
         (async () => {
             const id = watch("logo_id")
             if (!id) return;
             const image = await getImagesById(id);
             if (image) setLogo(image);
         })();
-    }, [watch("logo_id"), watch("chat_appearance")])
+    }, [watch("logo_id")])
 
 
     const handleDisplayContentBio = () => {

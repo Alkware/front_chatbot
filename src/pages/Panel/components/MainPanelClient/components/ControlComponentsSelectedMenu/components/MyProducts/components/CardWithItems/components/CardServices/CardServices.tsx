@@ -12,7 +12,6 @@ import { createNewService, deleteService } from "../../../../../../../../../../.
 import { PopUp } from "../../../../../../../../../../../../components/modal/templates/PopUp"
 import { ModalEditService } from "./ModalEditService/ModalEditService"
 
-
 interface CardServices {
     items: Service[]
 }
@@ -32,14 +31,6 @@ export function CardServices({ items }: CardServices) {
 
     // FUNÇÃO RESPONSÁVEL POR DUPLICAR O serviço...
     const handleDuplicateProduct = async (service: Service) => {
-        // Transforma o id em um campo opcional para ser deletado...
-        const duplicateProduct: Omit<Service, "id"> & { id?: string } = service;
-
-        delete duplicateProduct["id"];
-        delete duplicateProduct["created_at"];
-        delete duplicateProduct["updated_at"];
-        delete duplicateProduct["plan_management"]
-
         if (!client) {
             console.error("Client id is missing!");
             return;
@@ -47,14 +38,14 @@ export function CardServices({ items }: CardServices) {
 
         // Cria a fonte de dados...
         const response = await createNewService({
-            ...duplicateProduct,
-            service_name: `${duplicateProduct.service_name.split(" ")[0]} (${newService.length + 1})`,
+            ...service,
+            service_name:  `Copiá (${newService.filter(product => product.service_name.includes("Copiá")).length + 1})`,
             plan_management_id: client?.plan_management.id,
-            category: { name: duplicateProduct.category.name },
-            images: duplicateProduct.images.map(infoImage => infoImage.id)
+            category: { name: service.category.name },
+            images: service.images.map(infoImage => infoImage.id)
         });
 
-        response && setNewService(values => values ? [...values, response] : values);
+        response && setNewService(values => values ? [...values, response] : [response]);
     }
 
     // FUNÇÃO RESPONSÁVEL POR DELETAR O serviço
