@@ -23,11 +23,11 @@ export function ButtonCreateNewAI({ plan_management_id, index }: { plan_manageme
                     navigate(`/create-ai/${plan_management_id}`)
                 } else {
                     setModalContent({
-                        componentName: "modal_max_database",
+                        componentName: "modal_max_artificial_inteligencia",
                         components:
                             <PopOver
                                 message="Você atingiu o número maximo de base de dados no seu plano."
-                                componentName="modal_max_database"
+                                componentName="modal_max_artificial_inteligencia"
                             />
                     })
                 }
@@ -60,13 +60,13 @@ export function ButtonCreateNewAI({ plan_management_id, index }: { plan_manageme
             onClick={handleClickNewDatabases}
         >
             <TutoralContainer
-                title="Vamos criar sua primeira fonte de dados"
-                text="Clique em <span class='font-medium text-2xl mx-1'>+</span> para criar sua primeira fonte de dados."
+                title="Vamos criar sua primeira inteligência artificial"
+                text="Clique em <span class='font-medium text-2xl mx-1'>+</span> para criar sua primeira inteligência artificial."
                 positionX={window.innerWidth > 680 ? "RIGHT" : "CENTER" }
                 hidden={index !== 0}
             >
                 <TipContainer
-                    tip="Criar fonte de dados"
+                    tip="Criar inteligência artificial"
                 >
                     <FaPlus className="size-10 py-2 fill-light dark:fill-primary-100" />
                 </TipContainer>

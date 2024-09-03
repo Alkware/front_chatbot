@@ -69,7 +69,7 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
 
                 <div
                     data-hasstep={numberChildren > 0}
-                    className="w-full flex justify-center gap-4 mt-8 data-[hasstep=true]:mt-16"
+                    className="w-full flex justify-center mt-8 gap-4 data-[hasstep=true]:mt-20"
                 >
                     <div
                         data-issimulator={activeSimulator}

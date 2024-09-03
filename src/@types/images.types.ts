@@ -15,5 +15,6 @@ export interface SaveImageInfo {
     services_id?: string | null
 
     url?: string
+    file_name?: string
     description: string
 }

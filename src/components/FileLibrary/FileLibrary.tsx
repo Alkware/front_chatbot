@@ -6,6 +6,7 @@ import { ModalContext } from "../../context/ModalContext";
 import { PopOver } from "../modal/templates/PopOver";
 import { NewUploadFile } from "./components/NewUploadFile/NewUploadFile";
 import { Image } from "../../@types/images.types";
+import { FaImages, FaUpload } from "react-icons/fa";
 
 export type FileAccept = "img" | "csx" | "txt" | "pdf"
 
@@ -107,15 +108,15 @@ export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFile
             {/* TABS  */}
             <div className="flex w-full">
                 <Title
-                    data-active={newUploadIsActive}
-                    className="w-1/2 p-1 cursor-pointer data-[active=true]:bg-primary-200 md:text-lg"
+                    data-active={!!newUploadIsActive}
+                    className="w-1/2 p-1 cursor-pointer data-[active=false]:bg-primary-200 md:text-lg"
                     onClick={() => setNewUploadIsActive(true)}
-                >Novo arquivo</Title>
+                ><FaUpload /> Novo arquivo</Title>
                 <Title
                     data-active={!newUploadIsActive}
-                    className="w-1/2 p-1 cursor-pointer data-[active=true]:bg-primary-200 md:text-lg"
+                    className="w-1/2 p-1 cursor-pointer data-[active=false]:bg-primary-200 md:text-lg"
                     onClick={() => setNewUploadIsActive(false)}
-                >Minha biblioteca</Title>
+                ><FaImages /> Minha biblioteca</Title>
             </div>
 
             <div className="w-full h-full flex flex-col items-center justify-center p-4 gap-4">

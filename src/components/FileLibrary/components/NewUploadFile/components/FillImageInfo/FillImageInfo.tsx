@@ -8,13 +8,13 @@ import { Dispatch, RefObject, SetStateAction, useContext, useRef } from "react";
 import { ModalContext } from "../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../modal/templates/PopOver";
 import { loading } from "../../../../../../functions/loading";
-import { LinkedImage } from "../../../../../../@types/images.types";
+import { Image } from "../../../../../../@types/images.types";
 
 interface FillImageInfo {
     client_id: string;
     src: string | ArrayBuffer | null | undefined;
     file: File;
-    setFiles: Dispatch<SetStateAction<LinkedImage[] | undefined>>
+    setFiles: Dispatch<SetStateAction<Image[] | undefined>>
 }
 
 export function FillImageInfo({ src, file, client_id, setFiles }: FillImageInfo) {
@@ -68,7 +68,7 @@ export function FillImageInfo({ src, file, client_id, setFiles }: FillImageInfo)
             return;
         };
 
-        setFiles(values => values ? [...values, { image: response}] : [{ image: response}]);
+        setFiles(values => values ? [...values, response] : [response ]);
         clearModal(null, { clearLast: true })
     }
 
@@ -86,7 +86,7 @@ export function FillImageInfo({ src, file, client_id, setFiles }: FillImageInfo)
                 onSubmit={form.handleSubmit(handleSaveImage)}
             >
                 <SubTitle className="oapcity-70 text-sm">
-                    Faça uma descrição detalhada dessa imagem para que nossa inteligência artificial possa interpleta-la.
+                    Faça uma descrição detalhada dessa imagem para que a inteligência artificial possa interpleta-la.
                 </SubTitle>
 
                 <TextArea

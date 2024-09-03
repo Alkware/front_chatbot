@@ -63,10 +63,10 @@ export function ModalCreateArtificialIntelligence({ info, plan_management_id }: 
             loading(button, false)
             // Envia uma mensagem que a fonte de dados foi criada com sucesso...
             setModalContent({
-                componentName: "modal_created_database",
+                componentName: "modal_created_artificial_intelligence",
                 components:
                     <PopOver
-                        componentName="modal_created_database"
+                        componentName="modal_created_artificial_intelligence"
                         message="Inteligencia artificial criada com sucesso!"
                         type="INFORMATION"
                         functionAfterComplete={() => window.location.href = "/panel?tab=my_chats"}
@@ -81,10 +81,10 @@ export function ModalCreateArtificialIntelligence({ info, plan_management_id }: 
             ref={containerCreateDatabaseRef}
             className="flex flex-col gap-4 p-4"
         >
-            <h2>De um nome a essa fonte de dados:</h2>
+            <h2>De um nome a essa inteligencia artificial:</h2>
             <input
                 type="text"
-                placeholder="Ex: Minha fonte de dados"
+                placeholder="Ex: Minha primeira IA"
                 className="bg-primary-100/30 dark:bg-zinc-800"
             />
             <Button
