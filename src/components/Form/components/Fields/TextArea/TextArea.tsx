@@ -19,6 +19,7 @@ export function TextArea({ title, maxText, minText, name, size, help, defaultVal
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const spanLimitTextRef: RefObject<HTMLSpanElement> = useRef(null);
 
+
     useEffect(() => {
         if (containerRef.current) {
             const label = containerRef.current.querySelector("label");
@@ -32,7 +33,7 @@ export function TextArea({ title, maxText, minText, name, size, help, defaultVal
                 !!help && (svgHelp?.classList.remove("hidden"))
             }
         }
-    }, [defaultValue])
+    }, [defaultValue]);
 
     const handleClickedInput = ({ currentTarget }: any) => {
         const label: HTMLLabelElement = currentTarget.querySelector("label");
@@ -44,7 +45,6 @@ export function TextArea({ title, maxText, minText, name, size, help, defaultVal
         label.classList.add("top-0", "-translate-y-3/4", "text-light")
         textLabel?.classList.add("bg-primary-100", "shadow");
         !!help && (svgHelp?.classList.remove("hidden"))
-
 
         textarea.focus();
     }
@@ -90,6 +90,8 @@ export function TextArea({ title, maxText, minText, name, size, help, defaultVal
         }
     }
 
+
+
     const onChangeEvent: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
         handleLimitText();
         onChange && onChange(e);
@@ -97,7 +99,8 @@ export function TextArea({ title, maxText, minText, name, size, help, defaultVal
 
     return (
         <div
-            className="w-full flex flex-col gap-2 relative"
+            data-formerror={!!formContext?.formState.errors[name]}
+            className="w-full flex flex-col gap-2 relative border border-primary-100 rounded-md data-[formerror=true]:border-red-500"
             ref={containerRef}
             onClick={handleClickedInput}
             onBlur={handleExitInput}
@@ -114,8 +117,8 @@ export function TextArea({ title, maxText, minText, name, size, help, defaultVal
                         className="hidden fill-primary-100"
                     />
 
-                    <span className="group-hover:block hidden absolute -top-full bg-primary-200 w-[300px] rounded-md p-1 text-center">
-                        {help}</span>
+                    <span className="group-hover:block hidden absolute -top-full bg-primary-200 w-[300px] rounded-md p-1 text-center"
+                    >{help}</span>
                 </div>
             </label>
 
@@ -123,7 +126,7 @@ export function TextArea({ title, maxText, minText, name, size, help, defaultVal
                 form ?
                     <textarea
                         data-isbig={size === "BIG" ? true : false}
-                        className="border border-primary-100 h-[80px] lg:h-[100px] data-[isbig=true]:h-[150px] bg-light dark:bg-gray_light text-dark dark:text-light"
+                        className=" h-[80px] lg:h-[100px] data-[isbig=true]:h-[150px] bg-light dark:bg-gray_light text-dark dark:text-light"
                         defaultValue={defaultValue}
                         {...form.register(name, { onChange: onChangeEvent })}
                     />

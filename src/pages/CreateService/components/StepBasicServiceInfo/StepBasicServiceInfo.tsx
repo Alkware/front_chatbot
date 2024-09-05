@@ -33,7 +33,12 @@ export function StepBasicServiceInfo({ client_id, service }: StepBasicServiceInf
                 <Input
                     name="price"
                     title="Digite o preço do serviço"
-                    type="number"
+                    mask={({ currentTarget }) => {
+                        const value = currentTarget.value;
+                        let num = value.replace(/[^0-9]/g, '');
+                        // Adiciona o separador de milhares e o símbolo da moeda
+                        currentTarget.value = 'R$ ' + num.replace(/(\d)(\d{8})$/, '$1.$2').replace(/(\d)(\d{5})$/, '$1.$2').replace(/(\d)(\d{2})$/, '$1,$2');
+                    }}
                     formContext={formContext}
                 />
             </div>

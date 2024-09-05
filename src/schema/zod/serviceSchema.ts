@@ -5,7 +5,7 @@ export type ServiceSchema = z.infer<typeof serviceSchema>;
 export const serviceSchema = z.object({
     images: z.array(z.string()).min(1, "Informe pelo menos uma imagem para seu serviço"),
     service_name: z.string().min(1, "O nome do serviço não pode estar vazio."),
-    price: z.coerce.number().min(1, "O preço do serviço não pode estar vazio."),
+    price: z.string().min(1, "O preço do serviço não pode estar vazio."),
     promocional_price: z.object({
         price: z.coerce.number().min(1, "O preço promocional do serviço não pode estar vazio."),
         end_date: z.object({

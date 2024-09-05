@@ -177,7 +177,7 @@ export function ModalEditChat({ project, setProjects, ai }: ModalEditChat) {
                 >
                     <StepBasicInfoChat
                         client_id={client.id}
-                        imageDefault={[project.logo]}
+                        imageDefault={project.logo && [project.logo]}
                     />
                 </Root.EditStep>
 

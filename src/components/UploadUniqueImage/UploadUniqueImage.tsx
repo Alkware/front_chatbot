@@ -28,7 +28,7 @@ export function UploadUniqueFile({ client_id, formContext, imageDefault, name }:
         // Caso seja solicitados os arquivos selecionados em um formState (register).
         if (formContext?.register) {
             images?.forEach(() => formContext.unregister(name))
-            images?.forEach((img) => formContext.register(name, { value: img.id }))
+            images?.forEach((img) => img && formContext.register(name, { value: img.id }))
         };
     }, [images])
 

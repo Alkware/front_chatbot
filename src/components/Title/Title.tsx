@@ -6,11 +6,11 @@ interface Title extends HtmlHTMLAttributes<HTMLHeadingElement>{
     className?: string
 }
 
-export function Title({ children, className, ...props }: Title) {
+export function Title({ children, ...props }: Title) {
     return (
         <h2
             {...props}
-            className={twMerge("flex justify-center items-center gap-2 text-lg md:text-xl text-center opacity-90 text-dark dark:text-light", className)}
+            className={twMerge("flex justify-center items-center gap-2 text-lg md:text-xl text-center opacity-90 text-dark dark:text-light", props.className)}
         >{children}</h2>
     )
 };

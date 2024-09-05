@@ -25,6 +25,7 @@ export function StepBasicInfoChat({ client_id, imageDefault }: StepBasicInfoChat
                 name="project_name"
                 title="Escreva o nome do seu chat"
                 widthContainer="w-full"
+                step="1"
             />
             <TextArea
                 name="chat_input_message.0"

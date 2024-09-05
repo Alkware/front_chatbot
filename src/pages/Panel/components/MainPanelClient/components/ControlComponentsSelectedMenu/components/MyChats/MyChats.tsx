@@ -39,21 +39,19 @@ function MyChats() {
                                     key={index}
                                     className="w-[90%] xs:w-1/2 md:w-1/3 lg:w-1/4 md:max-w-[300px] flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-50 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
                                 >
-                                    {
-                                        projects[index]?.id ?
-                                            <CardChat
-                                                key={projects[index].id}
-                                                project={projects[index]}
-                                                setNewProject={setProjects}
-                                                ai={client.plan_management?.artificial_intelligence}
-                                            />
-                                            :
-                                            <ButtonCreateChat
-                                                plan_management_id={client?.plan_management?.id}
-                                                projects={projects}
-                                                index={index}
-                                            />
-                                    }
+                                    {projects[index]?.id ?
+                                        <CardChat
+                                            key={projects[index].id}
+                                            project={projects[index]}
+                                            setNewProject={setProjects}
+                                            ai={client.plan_management?.artificial_intelligence}
+                                        />
+                                        :
+                                        <ButtonCreateChat
+                                            plan_management_id={client?.plan_management?.id}
+                                            projects={projects}
+                                            index={index}
+                                        />}
                                 </div>
                             )
                             :

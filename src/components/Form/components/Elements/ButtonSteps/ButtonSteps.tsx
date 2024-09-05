@@ -10,7 +10,7 @@ import { useFormContext } from "react-hook-form";
 
 interface FormButtonStep {
     numberChildren: number;
-    findErrorMessage: (errors: Object) => string;
+    findErrorMessage: (errors: Object) => any;
     hiddenPreviewButton?: boolean;
     titleButtonSend?: string;
 }
@@ -50,7 +50,7 @@ export function FormButtonStep({ numberChildren, findErrorMessage, hiddenPreview
         const previousStep = currentStep - 1;
 
         if (previousStep < 0) window.location.href = "/panel"
-        
+
 
         if (previousStep >= 0) {
             params.set(STEP_NAME_URL, previousStep.toString())

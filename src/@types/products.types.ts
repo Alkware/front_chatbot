@@ -33,7 +33,7 @@ export type Product = {
     plan_management_id: string
     category: Category;
     product_name: string
-    price: number
+    price: string
     promocional_price?: Promocional_price | null;
     description: string
     payment_methods: string[]

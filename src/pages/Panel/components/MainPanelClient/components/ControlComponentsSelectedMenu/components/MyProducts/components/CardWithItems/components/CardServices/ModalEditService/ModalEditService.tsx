@@ -10,7 +10,7 @@ import { PopOver } from "../../../../../../../../../../../../../components/modal
 import { Root } from "../../../../../../../../../../../../../components/Form/FormRoot";
 import { StepBasicServiceInfo } from "../../../../../../../../../../../../CreateService/components/StepBasicServiceInfo/StepBasicServiceInfo";
 import { StepServicePaymentMethodAndConditions } from "../../../../../../../../../../../../CreateService/components/StepServicePaymentMethodAndConditions/StepServicePaymentMethodAndConditions";
-import { StepAdvancedServiceInfo } from "../../../../../../../../../../../../CreateService/components/StepAdvancedServiceInfo/StepAdvancedProductInfo";
+import { StepAdvancedServiceInfo } from "../../../../../../../../../../../../CreateService/components/StepAdvancedServiceInfo/StepAdvancedServiceInfo";
 
 
 interface ModalEditService {

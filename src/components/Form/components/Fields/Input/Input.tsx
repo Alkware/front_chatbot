@@ -11,9 +11,10 @@ interface Input extends HTMLAttributes<HTMLInputElement> {
     widthContainer?: string;
     joinAtInput?: string;
     disabled?: boolean
+    step?: string
 };
 
-export function Input({ formContext, mask, widthContainer, joinAtInput, title, type, ...props }: Input) {
+export function Input({ formContext, mask, widthContainer, joinAtInput, title, type, step, ...props }: Input) {
     const form = useFormContext() || formContext;
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const sizeLetter = 10;
@@ -60,7 +61,8 @@ export function Input({ formContext, mask, widthContainer, joinAtInput, title, t
 
     return (
         <div
-            className={twMerge("w-full flex flex-col gap-2 relative border border-primary-100 rounded-md bg-primary-100/30 dark:bg-gray_light", widthContainer)}
+            data-formerror={!!formContext?.formState.errors[props.name]}
+            className={twMerge("w-full flex flex-col gap-2 relative border border-primary-100 data-[formerror=true]:border data-[formerror=true]:border-red-500 rounded-md bg-primary-100/30 dark:bg-gray_light", widthContainer)}
             ref={containerRef}
             onClick={handleClickedInput}
             onBlur={handleExitInput}
@@ -70,19 +72,23 @@ export function Input({ formContext, mask, widthContainer, joinAtInput, title, t
                 className="data-[isbigtitle=true]:w-full whitespace-nowrap text-ellipsis text-dark dark:text-light overflow-hidden px-2 py-2 absolute top-0 transition-transform opacity-50 cursor-text rounded-md text-sm md:text-base"
             >{title}</label>
 
-            <div className="h-full flex gap-2 justify-center items-center rounded-md px-2">
+            <div
+
+                className="h-full flex gap-2 justify-center items-center rounded-md "
+            >
                 {
                     !!form ?
                         <input
+                            data-step={step}
                             type={type || "text"}
-                            className=" bg-transparent text-dark dark:text-light"
+                            className=" bg-transparent px-2 text-dark dark:text-light"
                             {...props}
                             {...form.register(props.name, { onChange })}
                         />
                         :
                         <input
                             type={type || "text"}
-                            className=" bg-transparent text-dark dark:text-light"
+                            className=" bg-transparent px-2 text-dark dark:text-light"
                             onChange={onChange}
                             {...props}
                         />

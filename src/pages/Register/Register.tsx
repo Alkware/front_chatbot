@@ -59,6 +59,8 @@ function Register() {
         isOriginMarketing && (data.origin = isOriginMarketing);
         const clientCreated = await registerClient(data);
 
+        console.log(clientCreated)
+
         if (clientCreated && clientCreated.status === 201) {
             const token = clientCreated.data
             localStorage.setItem("token", token)
@@ -69,7 +71,7 @@ function Register() {
                 components: 
                 <PopOver 
                     componentName="modal_failed_create_account"
-                    message="Erro ao tentar criar a conta"
+                    message="E-mail já existe, tente utilizar outro e-mail ou faça login na sua conta."
                     type="WARNING"
                 />
             })

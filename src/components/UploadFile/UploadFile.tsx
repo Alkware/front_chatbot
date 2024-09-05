@@ -54,7 +54,8 @@ export function UploadFile({ acceptFiles, limitSelect, client_id, formContext, i
     return (
         <div
             ref={containerRef}
-            className="w-full mx-auto max-w-[350px] p-4 flex flex-col gap-4 justify-center items-center border border-dashed border-primary-100 bg-zinc-600/40 rounded-md"
+            data-haserror={!!formContext?.formState.errors.images}
+            className="w-full mx-auto max-w-[350px] p-4 flex flex-col gap-4 justify-center items-center border border-dashed data-[haserror=true]:border-solid data-[haserror=true]:border-red-500 border-primary-100 bg-zinc-600/40 rounded-md"
         >
             <PreviewImage
                 images={images}

@@ -6,6 +6,7 @@ import { SimulatorChat } from "../../../Simulators/SimulatorChat/SimulatorChat";
 import { ModalContext } from "../../../../context/ModalContext";
 import { PopOver } from "../../../modal/templates/PopOver";
 import { object } from "zod";
+import { useSearchParams } from "react-router-dom";
 
 interface FormContainerForm {
     children: ReactElement | ReactElement[];
@@ -20,18 +21,26 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
     const childrenToArray = React.Children.toArray(children);
     const numberChildren = childrenToArray.filter((child: any) => !child?.props?.hidden).length
     const { setModalContent } = useContext(ModalContext)
+    const [params, setParams] = useSearchParams();
 
     useEffect(() => {
         const { errors } = form.formState;
-        const message = findMessageError(errors);
-        if (!!message) {
+        const error: any = findMessageError(errors);
+
+        if (!!error) {
             setModalContent({
                 componentName: "modal_error_message",
                 components:
                     <PopOver
-                        message={message}
+                        message={error.message}
                         type="ERROR"
                         componentName="modal_error_message"
+                        functionAfterComplete={() => {
+                            const { step } = error;
+                            if (!step) return;
+                            params.set("form-step", step.toString());
+                            setParams(params);
+                        }}
                     />
             })
         }
@@ -40,17 +49,16 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
 
     const findMessageError = (errors: any) => {
         if (typeof errors === 'object' && object !== null) {
-
             for (let key in errors) {
-
                 if (key === "message") {
-                    return errors[key]
-                }
-                else {
+                    return {
+                        message: errors[key].split(":")[1],
+                        step: errors[key].split(":")[0]
+                    }
+                } else {
                     const errorMessage: any = findMessageError(errors[key]);
                     if (errorMessage !== undefined) return errorMessage;
                 }
-
             }
         }
     }

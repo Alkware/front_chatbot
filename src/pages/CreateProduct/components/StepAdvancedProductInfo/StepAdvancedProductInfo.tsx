@@ -2,7 +2,7 @@ import { useFormContext } from "react-hook-form";
 import { Root } from "../../../../components/Form/FormRoot";
 import { AddVariables } from "./components/AddVariables/AddVariables";
 import { TextArea } from "../../../../components/Form/components/Fields/TextArea/TextArea";
-import { ComomQuestions } from "./components/ComomQuestions/ComomQuestions";
+import { ComomQuestions } from "../../../CreateService/components/StepAdvancedServiceInfo/components/ComomQuestions/ComomQuestions";
 
 export function StepAdvancedProductInfo() {
     const formContext = useFormContext();

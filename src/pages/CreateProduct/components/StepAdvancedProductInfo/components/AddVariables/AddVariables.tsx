@@ -1,109 +1,101 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { MdAdd, MdDelete } from "react-icons/md";
-import { useContext, useEffect } from "react";
+import { MdAdd, MdArrowDropDown, MdDelete } from "react-icons/md";
+import { MouseEvent, useContext } from "react";
 import { ModalContext } from "../../../../../../context/ModalContext";
-import { PopOver } from "../../../../../../components/modal/templates/PopOver";
-import { Root } from "../../../../../../components/Form/FormRoot";
-import { TipContainer } from "../../../../../../components/TipContainer/TipContainer";
-import { Select } from "../../../../../../components/Select/Select";
-import { Input } from "../../../../../../components/Form/components/Fields/Input/Input";
+import { Title } from "../../../../../../components/Title/Title";
+import { PopUp } from "../../../../../../components/modal/templates/PopUp";
+import { Button } from "../../../../../../components/button/Button";
+import { SubTitle } from "../../../../../../components/SubTitle/SubTitle";
+import { FormAddVariable } from "./components/FormAddVariable";
 
-const options = [
-    { text: "COR", value: "COR" },
-    { text: "TAMANHO", value: "TAMANHO" },
-    { text: "MARCA", value: "MARCA" },
-    { text: "PESO", value: "PESO" },
-    { text: "MODELO", value: "MODELO" },
-    { text: "MATERIAL", value: "MATERIAL" },
-    { text: "INGREDIENTES", value: "INGREDIENTES" },
-    { text: "QUANTIDADE EM ESTOQUE", value: "QUANTIDADE EM ESTOQUE" },
-    { text: "DIMENSÕES DE ENVIO", value: "DIMENSÕES DE ENVIO" },
-];
+
 
 export function AddVariables() {
     const { setModalContent } = useContext(ModalContext);
     const formContext = useFormContext();
 
-    const { fields, append, remove, update } = useFieldArray({
-        name: `optional_variable`,
+    const { fields, append, remove } = useFieldArray({
         control: formContext.control,
-    })
+        name: `optional_variable`
+    });
 
-    useEffect(() => {
-        !fields.length && append({ title: "", value: "" })
-    }, [])
+    const handleAddVariable = () => {
+        setModalContent({
+            componentName: "modal_add_variable",
+            components: <PopUp>
+                <FormAddVariable
+                    append={append}
+                />
+            </PopUp>
+        })
+    }
 
-    const handleAddNewVariable = () => {
-        const product = formContext.watch(`optional_variable.${fields.length - 1}`);
-
-        if (product.title && product.value) {
-            append({ title: "", value: "" })
+    const openAskAnswer = (e: MouseEvent<HTMLDivElement>) => {
+        const container = e.currentTarget;
+        const containerAnswer = container.querySelector("div#container-answer");
+        if (containerAnswer?.classList.contains("hidden")) {
+            containerAnswer?.classList.remove("hidden", "-translate-y-10");
+            containerAnswer?.classList.add("visible", "translate-y-0");
         } else {
-            setModalContent({
-                componentName: "modal_error_add_product",
-                components:
-                    <PopOver
-                        componentName="modal_error_add_product"
-                        message="Preencha todos os dados antes de adicionar uma nova variável"
-                        type="WARNING"
-                    />
-            })
+            containerAnswer?.classList.remove("visible", "translate-y-0");
+            containerAnswer?.classList.add("hidden");
         }
+
     }
 
     return (
-        <div className="w-full flex flex-col gap-4">
-            {
-                <Root.MultipleInput
-                    name={`optional_variable`}
-                    update={update}
-                    remove={remove}
+        <div className="w-full flex flex-col">
+            <div className="self-end">
+                <Button
+                    type="button"
+                    onClick={handleAddVariable}
                 >
-                    {
-                        fields.map((field: any, indexVariable: number) => {
-                            return <div
-                                className="flex flex-col md:flex-row items-center justify-between gap-3"
+                    <MdAdd />
+                    Criar variáveis
+                </Button>
+            </div>
+            <div className="flex flex-col p-4">
+                {!fields.length ?
+                    <p className="w-full text-center">Você ainda não cadastrou nenhuma variável.</p>
+                    :
+                    <div className="flex flex-col max-h-[300px] overflow-auto">
+                        {fields.map((field: any, index: number) =>
+                            <div
                                 key={field.id}
+                                className="w-full flex gap-2 items-center"
                             >
-                                <Select
-                                    title="Característica"
-                                    name={`optional_variable.${indexVariable}.title`}
-                                    options={options}
-                                    formContext={formContext}
-                                />
+                                <div
+                                    onClick={openAskAnswer}
+                                    className="w-full"
+                                >
+                                    <div
+                                        id="container-ask"
+                                        className="w-full p-1 flex items-center cursor-pointer relative justify-center bg-primary-100 dark:bg-primary-300 border border-dark rounded-md"
+                                    >
+                                        <Title
+                                            className="md:text-base"
+                                        >{field.title}</Title>
 
-                                <Input
-                                    name={`optional_variable.${indexVariable}.value`}
-                                    title="Digite a variável: (ex: ROSA ou ROSA, AZUL, PRETO)"
-                                    formContext={formContext}
-                                />
-                                <div className="flex gap-4 justify-center items-center">
-                                    {
-                                        indexVariable === (fields.length - 1) &&
-                                        <TipContainer
-                                            tip="Adicionar nova varável"
-                                            positionX="LEFT"
-                                        >
-                                            <MdAdd
-                                                onClick={handleAddNewVariable}
-                                                className="text-3xl bg-primary-100 fill-primary-300 rounded-full cursor-pointer"
-                                            />
-                                        </TipContainer>
-                                    }
-                                    <TipContainer tip="Remove varável" positionX="LEFT">
-                                        <MdDelete
-                                            className="text-3xl bg-red-200 fill-red-700 rounded-full cursor-pointer"
-                                            onClick={() => fields.length > 1 && remove(indexVariable)}
+                                        <MdArrowDropDown
+                                            className="absolute right-2 size-6 fill-primary-200 dark:fill-primary-100"
                                         />
-                                    </TipContainer>
+                                    </div>
+                                    <div
+                                        id="container-answer"
+                                        className="w-full p-2 bg-primary-300/50 hidden relative -translate-y-10 transition-transform duration-500"
+                                    >
+                                        <SubTitle>{field.value}</SubTitle>
+                                    </div>
                                 </div>
+                                <MdDelete
+                                    className="size-6 fill-red-400 cursor-pointer"
+                                    onClick={() => remove(index)}
+                                />
                             </div>
-                        })
-
-                    }
-                </Root.MultipleInput>
-            }
-        </div >
-
+                        )}
+                    </div>
+                }
+            </div>
+        </div>
     )
 };

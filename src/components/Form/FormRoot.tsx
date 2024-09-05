@@ -3,7 +3,6 @@ import { FormStep } from "./components/Containers/FormStep";
 import { FormContainer } from "./components/Containers/FormContainer";
 import { FormEditContainer } from "./components/Containers/FormEditContainer";
 import { FormEditStep } from "./components/Containers/FormEditStep";
-import { FormMultipleInputs } from "./components/Fields/FormMultipleInputs";
 import { FormOptional } from "./components/Containers/FormOptional";
 
 export const Root = {
@@ -13,5 +12,4 @@ export const Root = {
     Step: FormStep,
     Optional: FormOptional,
     Container: FormContainer,
-    MultipleInput: FormMultipleInputs,
 }

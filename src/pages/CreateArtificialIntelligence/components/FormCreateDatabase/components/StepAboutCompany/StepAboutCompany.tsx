@@ -94,7 +94,7 @@ export function StepAboutCompany({ companies }: StepAboutCompany) {
             <Root.Container className="flex gap-4" >
                 <TextArea
                     name="company_description"
-                    title="Faça uma breve descrição do seu modelo de negócio"
+                    title="Faça uma breve descrição do seu negócio"
                     defaultValue={company?.current?.company_description || ""}
                     onChange={handleSaveValuesLocalStorage}
                 />

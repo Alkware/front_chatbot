@@ -17,7 +17,7 @@ function NavigatePanelClient() {
         <div
             data-isresizemenu={isMenuResized}
             data-isopenmobilemenu={isOpenMobileOpen}
-            className="w-full md:w-[250px] fixed z-[999] md:relative md:data-[isresizemenu=true]:w-[70px] bg-primary-100 rounded-b-md md:rounded-none"
+            className="w-full md:w-[250px] fixed z-30 md:relative md:data-[isresizemenu=true]:w-[70px] bg-primary-100 rounded-b-md md:rounded-none"
         >
 
             <div

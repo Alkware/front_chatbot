@@ -5,14 +5,14 @@ import { RESIZE_MENU } from "../../../../../../../../variables/variables";
 import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { PopUp } from "../../../../../../../../components/modal/templates/PopUp";
 import { FileLibrary } from "../../../../../../../../components/FileLibrary/FileLibrary";
-import { LinkedImage } from "../../../../../../../../@types/images.types";
+import { Image } from "../../../../../../../../@types/images.types";
 import { updateClient } from "../../../../../../../../api/client";
 import { Client } from "../../../../../../../../@types/Client.types";
 
 export function UserLogo() {
     const { client } = useContext(ClientContext);
     const { setModalContent } = useContext(ModalContext);
-    const [logo, setLogo] = useState<LinkedImage[] | undefined>(client?.logo ? [{ image: client.logo }] : []);
+    const [logo, setLogo] = useState<Image[] | undefined>(client?.logo ? [ client.logo ] : []);
     const [params] = useSearchParams();
     const isMenuResized = params.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.VALUE;
 
@@ -65,7 +65,7 @@ export function UserLogo() {
     const handleSelectImage = async (logo_id: string[]) => {
         if(!client) return;
         const clientResponse: Client | void = await updateClient(client.id, { logo_id: logo_id[0] });
-        clientResponse && setLogo([{ image: clientResponse.logo }])
+        clientResponse && setLogo([ clientResponse.logo ])
     } 
 
     return (
@@ -74,7 +74,7 @@ export function UserLogo() {
             className="w-[100px] h-[100px] md:w-[40px] md:h-[40px] md:data-[ismenuresized=false]:w-[80px] md:data-[ismenuresized=false]:h-[80px] rounded-full overflow-hidden cursor-pointer border-4 border-primary-100 dark:border-light"
         >
             <img
-                src={logo?.length ? logo[0].image.url : "https://via.placeholder.com/100"}
+                src={logo?.length ? logo[0].url : "https://via.placeholder.com/100"}
                 alt=""
                 className="w-full h-full object-contain"
                 onClick={handleUploadImage}

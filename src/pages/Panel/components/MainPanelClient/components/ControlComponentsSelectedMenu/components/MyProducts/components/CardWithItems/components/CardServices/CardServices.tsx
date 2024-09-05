@@ -102,7 +102,7 @@ export function CardServices({ items }: CardServices) {
             >
                 <Title
                     className="font-bold text-light"
-                >{items[0].category.name}</Title>
+                >{items[0].category.name === "null" ? "Sem categoria" : items[0].category.name}</Title>
             </div>
             <div
                 ref={containerProductsRef}

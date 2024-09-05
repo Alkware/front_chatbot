@@ -29,11 +29,17 @@ export function StepBasicProductInfo({ client_id, product }: StepBasicProductInf
                     name="product_name"
                     title="Digite o nome do produto"
                     formContext={formContext}
+                    step="1"
                 />
                 <Input
                     name="price"
                     title="Digite o preço do produto"
-                    type="number"
+                    mask={({ currentTarget }) => {
+                        const value = currentTarget.value;
+                        let num = value.replace(/[^0-9]/g, '');
+                        // Adiciona o separador de milhares e o símbolo da moeda
+                        currentTarget.value = 'R$ ' + num.replace(/(\d)(\d{8})$/, '$1.$2').replace(/(\d)(\d{5})$/, '$1.$2').replace(/(\d)(\d{2})$/, '$1,$2');
+                    }}
                     formContext={formContext}
                 />
             </div>

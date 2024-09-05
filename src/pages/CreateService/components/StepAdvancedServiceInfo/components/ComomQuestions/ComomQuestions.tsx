@@ -1,78 +1,137 @@
-import { useContext, useEffect } from "react";
+import { FormEvent, MouseEvent, useContext } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { MdAdd, MdDelete } from "react-icons/md";
-import { Root } from "../../../../../../components/Form/FormRoot";
+import { MdAdd, MdArrowDropDown, MdDelete } from "react-icons/md";
 import { ModalContext } from "../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../components/modal/templates/PopOver";
 import { Input } from "../../../../../../components/Form/components/Fields/Input/Input";
 import { TextArea } from "../../../../../../components/Form/components/Fields/TextArea/TextArea";
+import { Button } from "../../../../../../components/button/Button";
+import { Title } from "../../../../../../components/Title/Title";
+import { PopUp } from "../../../../../../components/modal/templates/PopUp";
+import { SubTitle } from "../../../../../../components/SubTitle/SubTitle";
 
 export function ComomQuestions() {
-    const { setModalContent } = useContext(ModalContext);
+    const { setModalContent, clearModal } = useContext(ModalContext);
     const formContext = useFormContext();
 
-    const { fields, append, remove, update } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control: formContext.control,
         name: `questions`
     });
 
-    useEffect(() => {
-        !fields.length && append({ ask: "", answer: "" });
-    }, [])
-
     const handleAddNewAsk = () => {
-        const product = formContext.watch(`questions.${fields.length - 1}`);
 
-        if (product.ask && product.answer) {
-            append({ ask: "", answer: "" })
-        } else {
-            setModalContent({
-                componentName: "modal_error_add_product",
-                components:
-                    <PopOver
-                        componentName="modal_error_add_product"
-                        message="Preencha todos os dados antes de adicionar uma nova pergunta"
+        function addAskCommom(e: FormEvent<HTMLFormElement>) {
+            e.preventDefault();
+            const form = e.target as unknown as HTMLFormElement;
+            const askInput = form.querySelector("input");
+            const answerInput = form.querySelector("textarea");
+            let errorMessage = null;
+
+            if (!askInput?.value) errorMessage = "Digite a pergunta frequente do usuário"
+            if (!answerInput?.value) errorMessage = "Digite a resposta frequente do usuário"
+            if (errorMessage !== null) {
+                setModalContent({
+                    componentName: "modal_error_question",
+                    components: <PopOver
+                        componentName="modal_error_question"
+                        message={errorMessage}
                         type="WARNING"
                     />
-            })
+                });
+                return;
+            }
+
+            append({ ask: askInput?.value, answer: answerInput?.value });
+            clearModal("modal_add_new_ask");
         }
+
+        setModalContent({
+            componentName: "modal_add_new_ask",
+            components: <PopUp>
+                <Title 
+                >Adicione uma nova pergunta frequente</Title>
+                <form 
+                    onSubmit={addAskCommom}
+                    className="p-4 flex flex-col gap-6 items-center"
+                >
+                    <Input
+                        name="ask"
+                        title="Digite a pergunta frequente do usuário"
+                    />
+                    <TextArea
+                        name="answer"
+                        title="Digite a resposta frequente do usuário"
+                    />
+                    <Button><MdAdd /> Adicionar</Button>
+                </form>
+            </PopUp>
+        })
+    }
+
+    const openAskAnswer = (e: MouseEvent<HTMLDivElement>) => {
+        const container = e.currentTarget;
+        const containerAnswer = container.querySelector("div#container-answer");
+        if (containerAnswer?.classList.contains("hidden")) {
+            containerAnswer?.classList.remove("hidden", "-translate-y-10");
+            containerAnswer?.classList.add("visible", "translate-y-0");
+        } else {
+            containerAnswer?.classList.remove("visible", "translate-y-0");
+            containerAnswer?.classList.add("hidden");
+        }
+
     }
 
     return (
-        <Root.MultipleInput
-            name={`questions`}
-            update={update}
-            remove={remove}
-        >
-            {
-                fields.map((field, indexQuestions) =>
-                    <div key={field.id} className="flex flex-col justify-center rounded-md p-4 items-start gap-4">
+        <div className="w-full flex flex-col">
+            <div className="self-end">
+                <Button
+                    type="button"
+                    onClick={handleAddNewAsk}
+                >
+                    <MdAdd />
+                    Criar perguntas frequentes
+                </Button>
+            </div>
+            <div className="flex flex-col p-4">
+                {!fields.length ?
+                    <p className="w-full text-center">Você ainda não cadastrou nenhuma pergunta.</p>
+                    :
+                    <div className="flex flex-col max-h-[300px] overflow-auto">
+                        {fields.map((field: any, index: number) =>
+                            <div className="w-full flex gap-2 items-center">
+                                <div
+                                    onClick={openAskAnswer}
+                                    className="w-full"
+                                >
+                                    <div
+                                        id="container-ask"
+                                        className="w-full p-1 flex items-center cursor-pointer relative justify-center bg-primary-100 dark:bg-primary-300 border border-dark rounded-md"
+                                    >
+                                        <Title
+                                            className="md:text-base"
+                                        >{field.ask}</Title>
 
-                        <Input
-                            name={`questions.${indexQuestions}.ask`}
-                            title="Digite uma pergunta"
-                            formContext={formContext}
-                        />
-
-                        <TextArea
-                            name={`questions.${indexQuestions}.answer`}
-                            title="Digite a resposta"
-                            formContext={formContext}
-                        />
-
-                        <div className="w-full flex gap-4 justify-end items-center">
-                            <MdAdd
-                                onClick={handleAddNewAsk}
-                                className="fill-primary-200 bg-primary-100 text-3xl p-1 cursor-pointer rounded-full"
-                            />
-                            <MdDelete
-                                onClick={() => fields.length > 1 && remove(indexQuestions)}
-                                className="fill-red-700 bg-red-200 text-3xl p-1 cursor-pointer rounded-full"
-                            />
-                        </div>
+                                        <MdArrowDropDown
+                                            className="absolute right-2 size-6 fill-primary-200 dark:fill-primary-100"
+                                        />
+                                    </div>
+                                    <div
+                                        id="container-answer"
+                                        className="w-full p-2 bg-primary-300/50 hidden relative -translate-y-10 transition-transform duration-500"
+                                    >
+                                        <SubTitle>{field.answer}</SubTitle>
+                                    </div>
+                                </div>
+                                <MdDelete
+                                    className="size-6 fill-red-400 cursor-pointer"
+                                    onClick={() => remove(index)}
+                                />
+                            </div>
+                        )}
                     </div>
-                )
-            }
-        </Root.MultipleInput>
+                }
+            </div>
+        </div>
     )
 };
