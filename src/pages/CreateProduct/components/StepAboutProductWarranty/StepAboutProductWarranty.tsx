@@ -13,6 +13,13 @@ export function StepAboutProductWarranty() {
                 className="flex gap-4"
                 title="Qual é o período de garantia do seu produto?"
             >
+                <Input
+                    type="number"
+                    name="warranty_time.time"
+                    title="Tempo de garantia?"
+                    formContext={formContext}
+                />
+
                 <Select
                     name="warranty_time.type"
                     title="Tipo de data"
@@ -23,14 +30,6 @@ export function StepAboutProductWarranty() {
                         { text: "Ano(s)", value: "ano" },
                     ]}
                 />
-
-                <Input
-                    type="number"
-                    name="warranty_time.time"
-                    title="Tempo de garantia?"
-                    formContext={formContext}
-                />
-
             </Root.Container>
 
             <TextArea

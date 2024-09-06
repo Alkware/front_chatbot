@@ -37,7 +37,10 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
                         componentName="modal_error_message"
                         functionAfterComplete={() => {
                             const { step } = error;
-                            if (!step) return;
+                            if (!step) {
+                                console.error("Failed the find the error step");
+                                return;
+                            }
                             params.set("form-step", step.toString());
                             setParams(params);
                         }}

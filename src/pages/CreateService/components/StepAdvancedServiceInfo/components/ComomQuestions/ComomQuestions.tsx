@@ -1,17 +1,15 @@
-import { FormEvent, MouseEvent, useContext } from "react";
+import { MouseEvent, useContext } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { MdAdd, MdArrowDropDown, MdDelete } from "react-icons/md";
 import { ModalContext } from "../../../../../../context/ModalContext";
-import { PopOver } from "../../../../../../components/modal/templates/PopOver";
-import { Input } from "../../../../../../components/Form/components/Fields/Input/Input";
-import { TextArea } from "../../../../../../components/Form/components/Fields/TextArea/TextArea";
 import { Button } from "../../../../../../components/button/Button";
 import { Title } from "../../../../../../components/Title/Title";
 import { PopUp } from "../../../../../../components/modal/templates/PopUp";
 import { SubTitle } from "../../../../../../components/SubTitle/SubTitle";
+import { FormAddQuestion } from "./components/FormAddQuestion/FormAddQuestion";
 
 export function ComomQuestions() {
-    const { setModalContent, clearModal } = useContext(ModalContext);
+    const { setModalContent } = useContext(ModalContext);
     const formContext = useFormContext();
 
     const { fields, append, remove } = useFieldArray({
@@ -19,52 +17,16 @@ export function ComomQuestions() {
         name: `questions`
     });
 
+    /**
+     * Função responsável por exibir o formulário para adicionar novas perguntas...
+     */
     const handleAddNewAsk = () => {
-
-        function addAskCommom(e: FormEvent<HTMLFormElement>) {
-            e.preventDefault();
-            const form = e.target as unknown as HTMLFormElement;
-            const askInput = form.querySelector("input");
-            const answerInput = form.querySelector("textarea");
-            let errorMessage = null;
-
-            if (!askInput?.value) errorMessage = "Digite a pergunta frequente do usuário"
-            if (!answerInput?.value) errorMessage = "Digite a resposta frequente do usuário"
-            if (errorMessage !== null) {
-                setModalContent({
-                    componentName: "modal_error_question",
-                    components: <PopOver
-                        componentName="modal_error_question"
-                        message={errorMessage}
-                        type="WARNING"
-                    />
-                });
-                return;
-            }
-
-            append({ ask: askInput?.value, answer: answerInput?.value });
-            clearModal("modal_add_new_ask");
-        }
-
         setModalContent({
             componentName: "modal_add_new_ask",
             components: <PopUp>
-                <Title 
-                >Adicione uma nova pergunta frequente</Title>
-                <form 
-                    onSubmit={addAskCommom}
-                    className="p-4 flex flex-col gap-6 items-center"
-                >
-                    <Input
-                        name="ask"
-                        title="Digite a pergunta frequente do usuário"
-                    />
-                    <TextArea
-                        name="answer"
-                        title="Digite a resposta frequente do usuário"
-                    />
-                    <Button><MdAdd /> Adicionar</Button>
-                </form>
+                <FormAddQuestion
+                    append={append}
+                />
             </PopUp>
         })
     }
@@ -99,7 +61,10 @@ export function ComomQuestions() {
                     :
                     <div className="flex flex-col max-h-[300px] overflow-auto">
                         {fields.map((field: any, index: number) =>
-                            <div className="w-full flex gap-2 items-center">
+                            <div 
+                                key={field.id}
+                                className="w-full flex gap-2 items-center"
+                            >
                                 <div
                                     onClick={openAskAnswer}
                                     className="w-full"

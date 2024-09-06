@@ -5,7 +5,7 @@ export type ChatSchema = z.infer<typeof chatSchema>
 export const chatSchema = z.object({
     project_name: z.string().min(1, "Você precisa definir um nome para seu chat"),
     logo_id: z.coerce.string().min(1, "Faça o upload da logo do chat"),
-    chat_input_message: z.array(z.string().min(1, "Informe a primeira mensagem que será enviada ao seu cliente").max(100, "Sua primeira mensagem pode conter no máximo 100 caracteres.")),
+    chat_input_message: z.array(z.string().min(1, "Informe a primeira mensagem que será enviada ao seu cliente")).nonempty(),
     artificial_intelligence_id: z.coerce.string().min(1, "Informe uma inteligência artificial"),
     bio: z.string().optional(),
     links: z.optional(z.array(z.object({

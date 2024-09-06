@@ -24,11 +24,15 @@ export async function updateDatabaseName(prompt_name: string, prompt_id: string)
 
 
 export async function daleteArtificialIntelligence(intelligence_id: string) {
-    const project = await axios.delete(`${API_URL}/delete/ai/${intelligence_id}`).catch(error => {
-        const statusError = error.response.status
-        if (statusError === 500) return { status: 500, data: null }
-        console.error(error)
-    })
+    const artificialInteligence = await axios.delete(`${API_URL}/delete/ai/${intelligence_id}`).catch(error => {
+        const statusError = error.response.status;
+        if (statusError === 401) {
+            return { status: 401, data: null };
+        };
+        console.error(error);
+    });
 
-    return project
+    if(!artificialInteligence) throw new Error("Unable to delete the artificial intelligence")
+
+    return artificialInteligence;
 }

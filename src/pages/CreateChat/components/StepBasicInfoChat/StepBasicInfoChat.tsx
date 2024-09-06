@@ -30,7 +30,6 @@ export function StepBasicInfoChat({ client_id, imageDefault }: StepBasicInfoChat
             <TextArea
                 name="chat_input_message.0"
                 title="Digite a primeira mensagem do seu chat"
-                maxText={100}
             />
             <div
                 data-display={isCreateChat}

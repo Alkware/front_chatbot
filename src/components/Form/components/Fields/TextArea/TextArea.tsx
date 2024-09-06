@@ -99,7 +99,7 @@ export function TextArea({ title, maxText, minText, name, size, help, defaultVal
 
     return (
         <div
-            data-formerror={!!formContext?.formState.errors[name]}
+            data-formerror={!!formContext?.formState.errors[name.includes(".") ? name.split(".")[0] : name]}
             className="w-full flex flex-col gap-2 relative border border-primary-100 rounded-md data-[formerror=true]:border-red-500"
             ref={containerRef}
             onClick={handleClickedInput}

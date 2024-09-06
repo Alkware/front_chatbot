@@ -132,7 +132,8 @@ export function Select({ options, name, title, multipleSelect, optionsDefault, f
     return (
         <div
             ref={contentOptionsRef}
-            className={twMerge("w-full flex flex-col relative", className)}
+            data-formerror={!!formContext?.formState.errors[name.includes(".") ? name.split(".")[0] : name]}
+            className={twMerge("w-full flex flex-col relative group", className)}
             data-id="container-select"
         >
             <ContainerHeaderSelect

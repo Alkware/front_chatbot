@@ -61,7 +61,7 @@ export function Input({ formContext, mask, widthContainer, joinAtInput, title, t
 
     return (
         <div
-            data-formerror={!!formContext?.formState.errors[props.name]}
+            data-formerror={!!formContext?.formState.errors[props.name.includes(".") ? props.name.split(".")[0] : props.name]}
             className={twMerge("w-full flex flex-col gap-2 relative border border-primary-100 data-[formerror=true]:border data-[formerror=true]:border-red-500 rounded-md bg-primary-100/30 dark:bg-gray_light", widthContainer)}
             ref={containerRef}
             onClick={handleClickedInput}

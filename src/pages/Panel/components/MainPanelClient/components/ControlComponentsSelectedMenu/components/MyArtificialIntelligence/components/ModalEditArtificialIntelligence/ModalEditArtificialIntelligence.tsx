@@ -97,7 +97,7 @@ export function ModalEditArtificialIntelligence({ plan_management_id, intelligen
                             functionAfterComplete={() => clearModal(null, { clearAll: true })}
                         />
                 })
-            } else if (deleted?.status === 500) {
+            } else if (deleted?.status === 401) {
                 setModalContent({
                     componentName: "modal_failed_delete_ai",
                     components:

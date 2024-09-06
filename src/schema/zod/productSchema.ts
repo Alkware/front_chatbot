@@ -2,6 +2,15 @@ import z from "zod";
 
 export type ProductSchema = z.infer<typeof productSchema>;
 
+/**
+ *  Schema responsável por validar a criação e edição do produto
+ * @description Todas as mensagens de texto precisa seguir o formato `{number}:{string}`, os : são um separador,
+ * o número informado antes é usado para segmentar em qual step do formulário está gerando o erro, e a string após os :
+ * são para informar o tipo de erro...
+ * @example {0:Informe um nome} => 
+ * '0': é a step onde está localizado o input
+ * 'Informe um nome': é a mensagem descrevendo o erro.
+ */
 export const productSchema = z.object({
     images: z.preprocess((data) => data ?? [], z.array(z.string()).nonempty("0:Informe pelo menos uma imagem para seu produto")),
     product_name: z.string().min(1, "0:Informe o nome do produto"),

@@ -47,6 +47,7 @@ export function StepPersonalityIA() {
             <TextArea
                 name="client_describe"
                 title="Faça uma breve descrição de quem é seu público (cliente)"
+                help="Aqui você deve descrever como é seu cliente, quais seus gostos, quais suas necessidades no dia à dia, quais motivos ele precisa comprar com você e etc. "
                 formContext={form}
             />
         </>

@@ -18,7 +18,6 @@ export function FormCreateDatabase({ plan_management_id, planManagement }: FormC
     const { setModalContent } = useContext(ModalContext);
     const localStorageDatabase = JSON.parse(localStorage.getItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
     const hasProducts = !!planManagement.products.length || !!planManagement.services.length;
-
     const createDatabaseForm = useForm<ArtificialIntelligenceSchema>({
         resolver: zodResolver(artificialIntelligenceSchema),
         defaultValues: {
@@ -39,6 +38,7 @@ export function FormCreateDatabase({ plan_management_id, planManagement }: FormC
                     <ModalCreateArtificialIntelligence
                         info={data}
                         plan_management_id={plan_management_id}
+                        form={createDatabaseForm}
                     />
                 </PopUp>
         })
