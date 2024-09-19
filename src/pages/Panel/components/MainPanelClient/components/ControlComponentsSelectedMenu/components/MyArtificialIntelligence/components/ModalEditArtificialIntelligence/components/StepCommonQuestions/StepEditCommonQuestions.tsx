@@ -1,7 +1,7 @@
-import { Root } from "../../../../../../../../../../../../components/Form/FormRoot";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { Button } from "../../../../../../../../../../../../components/button/Button";
 import { MdAdd, MdDelete } from "react-icons/md";
+import { Input } from "../../../../../../../../../../../../components/Form/components/Fields/Input/Input";
 
 export function StepEditCommonQuestions() {
     const { control } = useFormContext();
@@ -34,12 +34,12 @@ export function StepEditCommonQuestions() {
                             key={field.id}
                         >
                             <div className="w-full flex gap-4">
-                                <Root.Input
+                                <Input
                                     name={`step_6.questions.${index}.ask`}
                                     title="Digite uma pergunta"
                                 />
 
-                                <Root.Input
+                                <Input
                                     name={`step_6.questions.${index}.answer`}
                                     title="Digite a resposta"
                                 />

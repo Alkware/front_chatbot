@@ -9,7 +9,7 @@ import { ModalContext } from "../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../components/modal/templates/PopOver";
 
 interface FormAddVariable { 
-    append: UseFieldArrayAppend<any>
+    append: UseFieldArrayAppend<FieldValues, "optional_variable">
 }
 
 const options = [

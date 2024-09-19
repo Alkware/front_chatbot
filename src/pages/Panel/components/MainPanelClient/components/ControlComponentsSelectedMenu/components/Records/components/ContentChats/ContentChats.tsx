@@ -36,7 +36,7 @@ export function ContentChats({ chats, selectedChatById }: ContentChats) {
                     <div className="flex gap-2 items-center">
                         <div className="w-[50px] h-[50px] overflow-hidden rounded-full">
                             <img
-                                src={project?.logo}
+                                src={"https://via.placeholder.com/100"}
                                 alt="logo do cliente"
                                 className="w-full h-full object-cover"
                             />

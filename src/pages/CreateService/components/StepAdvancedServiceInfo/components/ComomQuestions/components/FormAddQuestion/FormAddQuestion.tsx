@@ -2,14 +2,14 @@ import { FormEvent, useContext } from "react";
 import { Title } from "../../../../../../../../components/Title/Title";
 import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver";
-import { UseFieldArrayAppend } from "react-hook-form";
+import { FieldValues, UseFieldArrayAppend } from "react-hook-form";
 import { Input } from "../../../../../../../../components/Form/components/Fields/Input/Input";
 import { TextArea } from "../../../../../../../../components/Form/components/Fields/TextArea/TextArea";
 import { Button } from "../../../../../../../../components/button/Button";
 import { MdAdd } from "react-icons/md";
 
 interface FormAddQuestion { 
-    append: UseFieldArrayAppend<any>
+    append: UseFieldArrayAppend<FieldValues, "questions">
 }
 
 export function FormAddQuestion({ append }: FormAddQuestion) {

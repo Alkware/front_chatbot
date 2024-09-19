@@ -15,7 +15,7 @@ import { Header } from "../Home/components/Header/Header";
 interface ForgotPassword { }
 
 export function ForgotPassword({ }: ForgotPassword) {
-    const { register, handleSubmit } = useForm();
+    const form = useForm();
     const { setModalContent, clearModal } = useContext(ModalContext);
     const navigate = useNavigate();
 
@@ -132,22 +132,22 @@ export function ForgotPassword({ }: ForgotPassword) {
                 <p className="text-center">Não se preocupe, vamos ajudar recuperar sua senha</p>
                 <form
                     className="w-full flex flex-col gap-4"
-                    onSubmit={handleSubmit(handleRecoverPassword)}
+                    onSubmit={form.handleSubmit(handleRecoverPassword)}
                 >
                     <Input
                         name="fullname"
                         title="Digite seu nome completo"
-                        register={register}
+                        formContext={form}
                     />
                     <Input
                         name="email"
                         title="Digite o e-mail da sua conta"
-                        register={register}
+                        formContext={form}
                     />
                     <Input
                         name="cpf_cnpj"
                         title="Digite o seu cpf ou cnpj"
-                        register={register}
+                        formContext={form}
 
                     />
                     <Button

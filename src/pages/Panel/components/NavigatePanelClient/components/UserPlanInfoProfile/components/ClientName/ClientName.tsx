@@ -35,7 +35,7 @@ export function ClientName() {
             const [firstName, secondName] = fullname ? fullname : []
 
             if (firstName && secondName) {
-                await updateClient({ client_id: client?.id, fullname: input?.value })
+                await updateClient(client?.id, { fullname: input?.value })
 
                 if (input && div && iconSave) {
                     div.classList.remove("border")
