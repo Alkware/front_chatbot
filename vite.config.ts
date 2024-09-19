@@ -11,6 +11,6 @@ export default defineConfig({
     environment: "jsdom"
   },
   build:{
-    outDir: "hom_interface_build"
+    outDir: "interface_build"
   }
 })
