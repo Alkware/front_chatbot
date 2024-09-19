@@ -1,6 +1,6 @@
 import { TextareaHTMLAttributes } from "react";
 import { useFormContext } from "react-hook-form";
-import { TextArea } from "../../../TextArea/TextArea";
+import { TextArea } from "./TextArea/TextArea";
 
 interface FormTextArea extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     title: string;

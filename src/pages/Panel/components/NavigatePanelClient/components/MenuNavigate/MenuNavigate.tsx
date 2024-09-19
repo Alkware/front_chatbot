@@ -1,10 +1,11 @@
 import { ElementType, MouseEvent, RefObject, useRef } from "react";
-import { IoIosChatbubbles, IoIosCloud, IoIosPricetags, IoIosStats, IoLogoBuffer, IoMdArrowDropdown, IoMdCash } from "react-icons/io";
+import { IoIosChatbubbles, IoIosPricetags, IoIosStats, IoLogoBuffer, IoMdArrowDropdown, IoMdCash } from "react-icons/io";
 import { useSearchParams } from "react-router-dom";
 import { PARAM_MENU_MOBILE, RESIZE_MENU, TAB_NAME_URL } from "../../../../../../variables/variables";
 import { IoArchiveSharp, IoDiamond } from "react-icons/io5";
+import { GiCircuitry } from "react-icons/gi";
 
-export type Tab = "my_chats" | "metrics" | "database" | "products" |"records" | "leads" | "conversations" | "payment" | "help_center" | "config";
+export type Tab = "my_chats" | "metrics" | "artificial_intelligence" | "products" | "records" | "leads" | "conversations" | "payment" | "help_center" | "config";
 
 interface Menu {
     tab: Tab;
@@ -23,19 +24,19 @@ const navMenu: NavMenu[] = [
         Icon: IoLogoBuffer,
     },
     {
-        tab: "metrics",
-        name: "Métricas",
-        Icon: IoIosStats,
-    },
-    {
-        tab: "database",
-        name: "Fonte de dados",
-        Icon: IoIosCloud,
+        tab: "artificial_intelligence",
+        name: "Inteligência artificial",
+        Icon: GiCircuitry,
     },
     {
         tab: "products",
-        name: "Produtos",
+        name: "Meus produtos",
         Icon: IoIosPricetags,
+    },
+    {
+        tab: "metrics",
+        name: "Métricas",
+        Icon: IoIosStats,
     },
     {
         tab: "records",
@@ -132,7 +133,10 @@ function MenuNavigate() {
                         >
                             <div className="flex gap-2 items-center">
                                 <menu.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-xl transition-colors duration-100" />
-                                <h2 className="md:group-data-[ismenuresize=false]:hidden group-hover:text-primary-100">{menu.name}</h2>
+                                <h2
+                                    data-textisbig={menu.name.length > 20}
+                                    className="md:group-data-[ismenuresize=false]:hidden group-hover:text-primary-100 data-[textisbig=true]:text-lg whitespace-nowrap"
+                                >{menu.name}</h2>
                             </div>
                             <IoMdArrowDropdown
                                 data-hastopic={!!menu?.topics?.length}

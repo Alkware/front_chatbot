@@ -1,12 +1,12 @@
 import { RefObject, useContext, useRef } from "react";
 import { Button } from "../../../../components/button/Button";
 import { ModalContext } from "../../../../context/ModalContext";
-import { Input } from "../../../../components/Input/Input";
+import { Input } from "../../../../components/Form/components/Fields/Input/Input";
 import { addMaskCpfOrCnpjToInput } from "../../../../functions/addMaskToInput";
 import { updateClient } from "../../../../api/client";
 import { ClientContext } from "../../../../context/ClientContext";
 import { AxiosResponse } from "axios";
-import { Client } from "../../../../@types/Client";
+import { Client } from "../../../../@types/Client.types";
 import { PopOver } from "../../../../components/modal/templates/PopOver";
 import { loading } from "../../../../functions/loading";
 

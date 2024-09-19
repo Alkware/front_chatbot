@@ -1,20 +1,16 @@
-import { useEffect, useState } from "react"
-import { useFormContext } from "react-hook-form";
+import { Image } from "../../../../../../../@types/images.types";
 
-export function ProfileAvatar() {
-    const [logo, setLogo] = useState<any>();
-    const { watch } = useFormContext();
+interface ProfileAvatar {
+    logo: Image | undefined,
+}
 
-    useEffect(() => {
-        const logo_url = watch("step_0.logo")
-        if (logo_url) setLogo(logo_url)
-    }, [watch()])
+export function ProfileAvatar({ logo }: ProfileAvatar) {
 
     return (
         <div className="w-1/5 h-full flex justify-center items-center">
             <img
                 data-islogo={!!logo}
-                src={logo || ""}
+                src={logo?.url || "https://via.placeholder.com/100"}
                 alt=""
                 className="w-[40px] h-[40px] object-cover rounded-full data-[islogo='true']:block hidden"
             />

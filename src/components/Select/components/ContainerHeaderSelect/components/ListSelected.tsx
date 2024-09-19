@@ -11,7 +11,9 @@ export function ListSelected({ option, onClick }: ListSelected) {
         <div
             className="flex gap-2 justify-center items-center bg-light dark:bg-primary-300 text-primary-100 rounded-md px-1"
         >
-            <p className="whitespace-nowrap text-ellipsis">{ option.text }</p>
+            <p 
+                className="whitespace-nowrap text-ellipsis"
+            >{ option.text }</p>
 
             <MdDelete
                 onClick={onClick}

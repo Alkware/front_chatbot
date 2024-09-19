@@ -56,7 +56,7 @@ export function FormFile({ name, sizeContainer, formContext }: FormFile) {
                 img && (img.src = e.target?.result as string)
             }
 
-            const response = await uploadImage(files[0]);
+            const response = await uploadImage(files[0], "a");
 
             if (response && response?.status === 200) {
                 unregister(name);

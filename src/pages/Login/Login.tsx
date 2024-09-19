@@ -10,6 +10,7 @@ import { ModalContext } from "../../context/ModalContext";
 import { PopOver } from "../../components/modal/templates/PopOver";
 import { loading } from "../../functions/loading";
 import { saveGuest } from "../../api/guest.api";
+import { Input } from "../../components/Form/components/Fields/Input/Input";
 
 const createClientFormSchema = z.object({
     email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
@@ -93,11 +94,11 @@ function Login() {
                                 titleButtonSend="Entrar"
                             >
                                 <Root.Step index={0}>
-                                    <Root.Input
+                                    <Input
                                         name="email"
                                         title="Digite seu e-mail de acesso"
                                     />
-                                    <Root.Input
+                                    <Input
                                         name="password"
                                         title="Digite sua senha"
                                         type="password"

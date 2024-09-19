@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { Button } from "../../components/button/Button";
-import { Input } from "../../components/Input/Input";
+import { Input } from "../../components/Form/components/Fields/Input/Input";
 import { useForm } from "react-hook-form";
 import { changePasswordClient, recoverPassword } from "../../api/client";
 import { ModalContext } from "../../context/ModalContext";
@@ -9,7 +9,7 @@ import { PopUp } from "../../components/modal/templates/PopUp";
 import { ModalChangePassword } from "./ModalChangePassword/ModalChangePassword";
 import { useNavigate } from "react-router-dom";
 import { AxiosResponse } from "axios";
-import { Client } from "../../@types/Client";
+import { Client } from "../../@types/Client.types";
 import { Header } from "../Home/components/Header/Header";
 
 interface ForgotPassword { }

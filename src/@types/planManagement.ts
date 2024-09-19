@@ -1,7 +1,10 @@
 import { Plan } from "./Plan";
 import { Project } from "./Project"
-import { Database } from "./Database.types"
 import { MessageManager } from "./messageManager.types";
+import { Product } from "./products.types";
+import { Service } from "./services.types";
+import { Artificial_Intelligence } from "./artificialInteligence.types";
+import { Client_Company } from "./clientCompany.types";
 
 export interface PlanManagement {
     id: string,
@@ -14,8 +17,11 @@ export interface PlanManagement {
     metric_analysis: Array<{}>;
     project: Project[],
     plan: Plan,
-    prompt: Database[]
     message_manager: MessageManager
+    products: Product[];
+    services: Service[];
+    artificial_intelligence: Artificial_Intelligence[]
+    client_company: Client_Company[]
     trasaction: Array<{
         payment_method: string,
         amount_paid: number,

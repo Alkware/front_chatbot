@@ -8,8 +8,8 @@ interface Title {
 
 export function SubTitle({ children, className }: Title) {
     return (
-        <h2
-        className={twMerge("text-lg text-center md:text-xl opacity-70 text-dark dark:text-light ", className)}
-        >{children}</h2>
+        <h3
+            className={twMerge("text-base text-center text-dark dark:text-light ", className)}
+        >{children}</h3>
     )
 };

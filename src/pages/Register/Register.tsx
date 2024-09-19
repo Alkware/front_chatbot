@@ -9,6 +9,8 @@ import { Root } from "../../components/Form/FormRoot";
 import { saveGuest } from "../../api/guest.api";
 import { ModalContext } from "../../context/ModalContext";
 import { PopOver } from "../../components/modal/templates/PopOver";
+import { Input } from "../../components/Form/components/Fields/Input/Input";
+import { FormCheckBox } from "../../components/Form/components/Fields/FormCheckBox";
 
 const createClientFormSchema = z.object({
     email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
@@ -57,6 +59,8 @@ function Register() {
         isOriginMarketing && (data.origin = isOriginMarketing);
         const clientCreated = await registerClient(data);
 
+        console.log(clientCreated)
+
         if (clientCreated && clientCreated.status === 201) {
             const token = clientCreated.data
             localStorage.setItem("token", token)
@@ -67,7 +71,7 @@ function Register() {
                 components: 
                 <PopOver 
                     componentName="modal_failed_create_account"
-                    message="Erro ao tentar criar a conta"
+                    message="E-mail já existe, tente utilizar outro e-mail ou faça login na sua conta."
                     type="WARNING"
                 />
             })
@@ -104,11 +108,11 @@ function Register() {
                                 titleButtonSend="Criar conta"
                             >
                                 <Root.Step index={0}>
-                                    <Root.Input
+                                    <Input
                                         name="fullname"
                                         title="Digite seu nome completo"
                                     />
-                                    <Root.Input
+                                    <Input
                                         name="email"
                                         title="Digite um e-mail válido"
                                     />
@@ -116,19 +120,19 @@ function Register() {
                                 </Root.Step>
 
                                 <Root.Step index={1}>
-                                    <Root.Input
+                                    <Input
                                         name="password"
                                         title="Crie uma nova senha de acesso"
                                         type="password"
                                     />
 
-                                    <Root.Input
+                                    <Input
                                         name="confirm_password"
                                         title="Confirme sua senha de acesso"
                                         type="password"
                                     />
 
-                                    <Root.Checkbox
+                                    <FormCheckBox
                                         name="confirm_policies"
                                         title={`Confirme que você leu as <a class="underline text-blue-300" href="/polices" target="blank">Politicas de privacidade</a>, <a class="underline text-blue-300" href="/cookies" target="blank">Politicas de cookies</a>, <a class="underline text-blue-300" href="/terms" target="blank">termos de uso</a>. com o entendimento das politicas, você estará autorizado a criar uma conta em nossa plataforma. `}
                                     />

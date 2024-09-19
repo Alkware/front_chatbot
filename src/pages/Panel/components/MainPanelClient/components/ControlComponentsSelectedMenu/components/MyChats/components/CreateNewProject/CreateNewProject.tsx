@@ -25,7 +25,7 @@ export function ButtonCreateChat({ plan_management_id, projects, index }: Button
 
     const handleClickNewProject = () => {
         if (client?.plan_management) {
-            if (!!client?.plan_management.prompt.length) {
+            if (!!client?.plan_management.artificial_intelligence.length) {
                 const maxPlans = Number(client.plan_management.plan.max_projects.default);
                 const currentNumberOfProjects = client.plan_management.project.length
                 if (client.plan_management.status !== "DISABLED") {
@@ -58,14 +58,14 @@ export function ButtonCreateChat({ plan_management_id, projects, index }: Button
                     components:
                         <PopUp>
                             <div className="flex flex-col items-center justify-center gap-4 p-4">
-                                <h2 className="text-xl text-center">Para criar um novo chat, antes é necessário <br />  criar uma fonte de dados.</h2>
-                                <h2 className="text-lg text-center opacity-80">Nossa inteligência artifical vai analisar seus dados e <br /> responder as dúvidas do usuário <br />conforme as informações passadas na fonte de dados.</h2>
+                                <h2 className="text-xl text-center">Para criar um novo chat, antes é necessário <br />  criar uma inteligência artificial.</h2>
+                                <h2 className="text-lg text-center opacity-80">Ela será capaz de aprender sobre seu negócio e <br />dar informações precisas ao usuário sem que você precise realizar <br />esse atendimento.</h2>
                                 <Button
                                     customClass="my-4"
-                                    onClick={() => { navigate("/panel?tab=database"); clearModal("modal_create_database") }}
+                                    onClick={() => { navigate("/panel?tab=artificial_intelligence"); clearModal("modal_create_database") }}
                                 >
                                     <MdAdd />
-                                    Criar fonte de dados
+                                    Criar Inteligência artificial
                                 </Button>
                             </div>
                         </PopUp>
