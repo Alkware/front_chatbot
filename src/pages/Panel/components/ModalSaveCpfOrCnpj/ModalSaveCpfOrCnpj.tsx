@@ -34,7 +34,7 @@ export function ModalSaveCpfOrCnpj({ modalName }: ModalSaveCpfOrCnpj) {
 
         if (cpf_cnpj && (cpf_cnpj.length === 11 || cpf_cnpj.length === 14 || cpf_cnpj.length === 18)) {
             const newCpfOrCnpj = cpf_cnpj.replaceAll(".", "").replaceAll("/", "").replaceAll("-", "");
-            const response: void | AxiosResponse<Client> = await updateClient({ client_id: client.id, cpf_cnpj: newCpfOrCnpj });
+            const response: void | AxiosResponse<Client> = await updateClient(client.id, { cpf_cnpj: newCpfOrCnpj });
             if (response) {
                 setModalContent({
                     componentName: "modal_success_save_cpf_cnpj",

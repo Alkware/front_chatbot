@@ -26,7 +26,7 @@ export const productSchema = z.object({
     description: z.string().min(1, "0:A descrição do produto não pode estar vazia."),
     payment_methods: z.preprocess(data => data ?? [], z.array(z.string()).nonempty("1:Informe pelo menos um método de pagamento")),
     credit_card_installments: z.string().nullable(),
-    delivery_fee: z.string().optional(),
+    delivery_fee: z.string().nullable().optional(),
     how_product_will_be_delivered: z.string().min(1, "1:Descreva como seu produto vai ser entregue."),
     tracking_link: z.string().url().nullable().optional(),
     warranty_time: z.object({

@@ -6,7 +6,6 @@ import { Root } from "../../../../../../../../../../components/Form/FormRoot";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import { artificialIntelligenceSchema, ArtificialIntelligenceSchema } from "../../../../../../../../../../schema/zod/artificialIntelligenceSchema";
-// import { transformSchemaInText } from "../../../../../../../../../../schema/PromptIA/transformSchemaInText";
 import { FaCircleInfo } from "react-icons/fa6";
 import { FaBrain, FaBuilding } from "react-icons/fa";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";

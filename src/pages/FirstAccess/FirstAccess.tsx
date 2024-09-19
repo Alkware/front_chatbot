@@ -12,6 +12,7 @@ import { Button } from "../../components/button/Button";
 import { PopOver } from "../../components/modal/templates/PopOver";
 import { loading } from "../../functions/loading";
 import { InputPassword } from "../Panel/components/MainPanelClient/components/ControlComponentsSelectedMenu/components/ConfigProfile/components/ChangePassword/components/InputPassword/InputPassword";
+import { Input } from "../../components/Form/components/Fields/Input/Input";
 
 
 const createClientFormSchema = z.object({
@@ -188,11 +189,11 @@ export function FirstAccess() {
                         <Root.Step
                             index={0}
                         >
-                            <Root.Input
+                            <Input
                                 name="email"
                                 title="Digite seu e-mail:"
                             />
-                            <Root.Input
+                            <Input
                                 name="cpf_cnpj"
                                 title="Digite seu cpf ou cnpj:"
                             />
