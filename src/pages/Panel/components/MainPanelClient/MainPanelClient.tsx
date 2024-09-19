@@ -1,6 +1,5 @@
 import PanelHeader from "./components/PanelHeader/PanelHeader";
 import { ControlComponentsSelectedMenu } from "./components/ControlComponentsSelectedMenu/ControlComponentsSelectedMenu";
-// import { HelperChat } from "./components/HelperChat/HelperChat";
 
 export default function MainPanelClient() {
 
