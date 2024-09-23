@@ -10,7 +10,7 @@ export async function getClientById(id: string) {
 
 export async function registerClient({ email, password, fullname, origin }: clientRegisterTypes) {
     const client = await axios.post(`${API_URL}/client/create`, { email, password, fullname, origin })
-        .catch(error => console.warn(error))
+        .catch(error => console.error(error))
     return client
 }
 
