@@ -62,6 +62,17 @@ export function StepBasicProductInfo({ client_id, product }: StepBasicProductInf
                 />
             </Root.Optional>
 
+            <Root.Optional
+                name="link_buy"
+                text="Deseja adicionar link para a compra?"
+            >
+                <Input
+                    name="link_buy"
+                    title="Digite o link para compra do produto"
+                    formContext={formContext}
+                />
+            </Root.Optional>
+
             <TextArea
                 name="description"
                 title="Faça uma descrição detalhada do seu produto"

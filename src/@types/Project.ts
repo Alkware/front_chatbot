@@ -59,6 +59,7 @@ export type Update_project = Omit<Project,
 };
 
 export type Link = {
+    title: string;
     url: string;
     description: string;
 }

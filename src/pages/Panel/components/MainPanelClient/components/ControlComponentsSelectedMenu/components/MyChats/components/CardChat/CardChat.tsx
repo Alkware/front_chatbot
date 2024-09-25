@@ -26,6 +26,7 @@ interface CardChat {
 export function CardChat({ project, setNewProject, ai }: CardChat) {
     const { client, setClient } = useContext(ClientContext);
     const { setModalContent } = useContext(ModalContext);
+    const chatUrl = import.meta.env.CHAT_HOST;
     const navigate = useNavigate();
     const [params, setParams] = useSearchParams();
 
@@ -173,7 +174,7 @@ export function CardChat({ project, setNewProject, ai }: CardChat) {
                     src={project.logo?.url || "https://via.placeholder.com/100"}
                     alt="imagem do projeto"
                     className="w-full h-full object-cover"
-                    onClick={()=> window.open(`https://chat.wipzee.com/${project.slug}`)}
+                    onClick={()=> window.open(`${chatUrl}/${project.slug}`)}
                 />
             </div>
             <h2

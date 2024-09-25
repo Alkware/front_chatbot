@@ -23,6 +23,7 @@ export const productSchema = z.object({
             year: z.string().min(1, "Informe até que ano vai a promoção."),
         }, { required_error: "Informe até quando vai a promoção" })
     }).nullable().optional(),
+    link_buy: z.string().url().optional().nullable(),
     description: z.string().min(1, "0:A descrição do produto não pode estar vazia."),
     payment_methods: z.preprocess(data => data ?? [], z.array(z.string()).nonempty("1:Informe pelo menos um método de pagamento")),
     credit_card_installments: z.string().nullable(),
