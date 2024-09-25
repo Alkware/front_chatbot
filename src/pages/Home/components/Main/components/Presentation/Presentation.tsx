@@ -10,7 +10,7 @@ export function Presentation() {
     return (
         <section
             id="home"
-            className="w-full h-auto md:min-h-screen flex flex-col items-center justify-center relative bg-[url(https://i.ibb.co/2vrnfCz/Untitled-design-8.png)] dark:bg-[url(https://i.ibb.co/vxGTSd0/Untitled-design-4.png)] bg-no-repeat bg-cover"
+            className="w-full h-auto md:min-h-screen flex flex-col items-center justify-center relative bg-[url(https://wipzee-files.online/images/Untitled-design-8.png)] dark:bg-[url(https://wipzee-files.online/images/Untitled-design-4.png)] bg-no-repeat bg-cover"
         >
             <div className="w-full h-full max-w-[1300px] flex flex-col justify-start items-center md:flex-row gap-4">
 

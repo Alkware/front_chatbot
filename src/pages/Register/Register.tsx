@@ -91,7 +91,7 @@ function Register() {
                         className="w-1/2"
                     >
                         <img
-                            src="https://i.ibb.co/sq5xWh0/Mobile-login-pana.png"
+                            src="https://wipzee-files.online/images/Mobile-login-pana.png"
                             alt=""
                             className="w-full h-full object-cover"
                         />
