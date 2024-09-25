@@ -26,7 +26,8 @@ interface CardChat {
 export function CardChat({ project, setNewProject, ai }: CardChat) {
     const { client, setClient } = useContext(ClientContext);
     const { setModalContent } = useContext(ModalContext);
-    const chatUrl = import.meta.env.CHAT_HOST;
+    const chatUrl = import.meta.env.VITE_CHAT_HOST;
+    console.log(import.meta.env)
     const navigate = useNavigate();
     const [params, setParams] = useSearchParams();
 

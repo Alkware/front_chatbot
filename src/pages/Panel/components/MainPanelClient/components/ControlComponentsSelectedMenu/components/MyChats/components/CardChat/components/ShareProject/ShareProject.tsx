@@ -15,7 +15,7 @@ export function ShareProject({ slug }: ShareProject) {
     const { setModalContent, clearModal } = useContext(ModalContext)
     const linkRef: RefObject<HTMLInputElement> = useRef(null)
     const widgetRef: RefObject<HTMLInputElement> = useRef(null)
-    const chatUrl = import.meta.env.CHAT_HOST;
+    const chatUrl = import.meta.env.VITE_CHAT_HOST;
 
     const handleFollowLink = () => {
         clearModal(null, { clearAll: true })
