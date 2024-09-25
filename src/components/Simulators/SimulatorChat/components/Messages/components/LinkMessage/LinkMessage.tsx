@@ -16,8 +16,8 @@ export function LinkMessage({ links }: LinkMessage) {
                 <a
                     href={links[links.length - 1].url}
                     target="_blank"
-                    className="mx-1 underline text-blue-500"
-                >{links[links.length - 1].url}</a> 
+                    className="mx-1 underline text-blue-500 font-bold"
+                >{links[links.length - 1].title}</a> 
                 é usado para representar como será usado em uma conversa.
             </span>
 

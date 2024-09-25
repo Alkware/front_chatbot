@@ -28,11 +28,9 @@ export async function authenticateClient(token: string) {
 
 
 export async function loginClient({ email, password }: clientLoginTypes) {
-
     const client = await axios.post(`${API_URL}/client/login`, { email, password }).catch(err => console.warn(err))
 
     return client
-
 }
 
 export async function loginClientFirstAccess({ email, cpf_cnpj }: { email: string, cpf_cnpj: string }) {

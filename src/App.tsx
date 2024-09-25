@@ -16,6 +16,7 @@ import { ForgotPassword } from "./pages/ForgotPassword/ForgotPassword"
 import { CreateProduct } from "./pages/CreateProduct/CreateProduct"
 import { CreateService } from "./pages/CreateService/CreateService"
 import { CreateArtificialIntelligence } from "./pages/CreateArtificialIntelligence/CreateArtificialIntelligence"
+import { PageNotFound } from "./pages/PageNotFound/PageNotFound"
 
 const Panel = lazy(() => import("./pages/Panel/Panel"));
 
@@ -39,7 +40,7 @@ function App() {
         <Route path="/cookies" element={<Cookies />} />
         <Route path="/confirm-email" element={<ConfirmEmail />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/*" element={<h1>Page not found</h1>} />
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
 
       <Modal />

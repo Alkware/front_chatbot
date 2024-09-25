@@ -15,10 +15,11 @@ export function ShareProject({ slug }: ShareProject) {
     const { setModalContent, clearModal } = useContext(ModalContext)
     const linkRef: RefObject<HTMLInputElement> = useRef(null)
     const widgetRef: RefObject<HTMLInputElement> = useRef(null)
+    const chatUrl = import.meta.env.CHAT_HOST;
 
     const handleFollowLink = () => {
         clearModal(null, { clearAll: true })
-        window.open(`https://chat.wipzee.com/${slug}`)
+        window.open(`${chatUrl}/${slug}`)
     }
 
     const handleCopyLink = () => {
@@ -94,7 +95,7 @@ export function ShareProject({ slug }: ShareProject) {
                         ref={linkRef}
                         className="w-4/5 border border-light/20 p-2 rounded-xl disabled"
                         disabled={true}
-                        defaultValue={`https://chat.wipzee.com/${slug}`}
+                        defaultValue={`${chatUrl}/${slug}`}
                     />
                     <div className="flex justify-center items-center gap-4">
                         <TipContainer
@@ -142,7 +143,7 @@ export function ShareProject({ slug }: ShareProject) {
 
                 <QrCode
                     width={200}
-                    text={`https://chat.wipzee.com/${slug}`}
+                    text={`${chatUrl}/${slug}`}
                 />
                 
                 <span className="w-4/5 text-center opacity-60">

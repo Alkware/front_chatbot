@@ -9,8 +9,9 @@ export const chatSchema = z.object({
     artificial_intelligence_id: z.coerce.string().min(1, "Informe uma inteligência artificial"),
     bio: z.string().optional(),
     links: z.optional(z.array(z.object({
-        url: z.string().url("Digite uma url valída para seu link!"),
-        description: z.string().min(1, "Vocẽ precisa deixar uma descrição do seu link.")
+        title: z.string().min(1, "Informe o titulo do seu link"),
+        url: z.string().url("Informe uma url valída para seu link!"),
+        description: z.string().min(1, "Informe uma descrição do seu link.")
     }))),
     facebook_pixel: z.coerce.string().optional().nullable(),
     chat_appearance: z.object({

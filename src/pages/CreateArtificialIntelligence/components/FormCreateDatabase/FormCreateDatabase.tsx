@@ -12,9 +12,9 @@ import { StepAddProducts } from "./components/StepAddProducts/StepAddProducts";
 import { PlanManagement } from "../../../../@types/planManagement";
 import { ModalCreateArtificialIntelligence } from "./components/ModalCreateArtificialIntelligence/ModalCreateArtificialIntelligence";
 
-interface FormCreateDatabase { plan_management_id: string, planManagement: PlanManagement }
+interface FormCreateArtificialIntelligence { plan_management_id: string, planManagement: PlanManagement }
 
-export function FormCreateDatabase({ plan_management_id, planManagement }: FormCreateDatabase) {
+export function FormCreateArtificialIntelligence({ plan_management_id, planManagement }: FormCreateArtificialIntelligence) {
     const { setModalContent } = useContext(ModalContext);
     const localStorageDatabase = JSON.parse(localStorage.getItem(DATABASE_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
     const hasProducts = !!planManagement.products.length || !!planManagement.services.length;
