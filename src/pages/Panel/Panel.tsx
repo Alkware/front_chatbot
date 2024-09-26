@@ -33,7 +33,7 @@ function Panel() {
 
             if (clientIsLogged) {
                 // Verifica se o cliente já possui um CPF OU CNPJ cadastrado, caso não possu-a será enviado um aviso para que ele inserira seus dados
-                if(!clientIsLogged.client.cpf_cnpj && convertDateInHour(clientIsLogged.client.created_at) > 24){
+                if(!clientIsLogged.client?.cpf_cnpj && convertDateInHour(clientIsLogged.client?.created_at) > 24){
                     setModalContent({
                         componentName: "modal_save_cpf_cnpj",
                         components: 
