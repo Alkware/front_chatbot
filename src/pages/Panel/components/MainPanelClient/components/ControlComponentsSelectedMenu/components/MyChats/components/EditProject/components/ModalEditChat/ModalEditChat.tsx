@@ -66,7 +66,7 @@ export function ModalEditChat({ project, setProjects, ai }: ModalEditChat) {
                         message="A slug escolhida não está disponível!"
                         type="WARNING"
                     />
-            })
+            });
             return;
         };
 
