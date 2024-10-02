@@ -1,5 +1,4 @@
 import { useContext } from "react";
-
 import { useNavigate } from "react-router-dom";
 import { IoAddOutline } from "react-icons/io5";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
@@ -9,7 +8,6 @@ import { TipContainer } from "../../../../../../../../../../components/TipContai
 import { PopUp } from "../../../../../../../../../../components/modal/templates/PopUp";
 import { Button } from "../../../../../../../../../../components/button/Button";
 import { MdAdd } from "react-icons/md";
-import { TutoralContainer } from "../../../../../../../../../../components/TutoralContainer/TutoralContainer";
 import { Project } from "../../../../../../../../../../@types/Project";
 
 interface ButtonCreateChat {
@@ -18,7 +16,7 @@ interface ButtonCreateChat {
     index: number
 }
 
-export function ButtonCreateChat({ plan_management_id, projects, index }: ButtonCreateChat) {
+export function ButtonCreateChat({ plan_management_id }: ButtonCreateChat) {
     const { client } = useContext(ClientContext)
     const { setModalContent, clearModal } = useContext(ModalContext)
     const navigate = useNavigate();
@@ -88,19 +86,11 @@ export function ButtonCreateChat({ plan_management_id, projects, index }: Button
     return (
         <div
             onClick={handleClickNewProject}
-            className="w-4/5 xs:w-1/2 md:w-1/4 min-w-[200px] min-h-[200px] cursor-pointer flex justify-center items-center"
+            className="w-full h-full min-w-[200px] min-h-[200px] cursor-pointer  rounded-xl flex justify-center items-center border border-primary-100 bg-primary-50 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl"
         >
-            <TutoralContainer
-                title="Vamos criar seu primeiro chat"
-                text={`Clique em <span class="text-3xl font-medium mx-1">+</span> para criar seu primeiro chat de forma simples e fácil`}
-                positionX={window.innerWidth >= 800 ? "RIGHT" : "CENTER"}
-                hidden={index !== 0 || projects.length !== 0}
-            >
-                <TipContainer tip="Crie um novo chat">
-                    <IoAddOutline className="text-6xl text-light dark:text-primary-100" />
-                </TipContainer>
-            </TutoralContainer>
-
+            <TipContainer tip="Crie um novo chat">
+                <IoAddOutline className="text-6xl text-light dark:text-primary-100" />
+            </TipContainer>
         </div >
     )
 

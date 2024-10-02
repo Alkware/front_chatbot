@@ -21,7 +21,6 @@ export const ModalContext = createContext<ModalContextTypes>({
 });
 
 export function ModalProvider({ children }: { children: ReactElement | ReactElement[] }) {
-
     const [modalContent, setModal] = useState<ProviderTypes[]>([]);
 
     const setModalContent = ({ components, componentName }: ProviderTypes) => {

@@ -136,7 +136,6 @@ export function MyArtificialIntelligence() {
                                             :
                                             <ButtonCreateNewAI
                                                 plan_management_id={client.plan_management.id}
-                                                index={index}
                                             />
                                     }
                                 </div>

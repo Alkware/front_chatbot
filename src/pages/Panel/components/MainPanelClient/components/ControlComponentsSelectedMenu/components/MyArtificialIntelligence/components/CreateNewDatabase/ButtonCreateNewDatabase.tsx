@@ -5,9 +5,8 @@ import { ClientContext } from "../../../../../../../../../../context/ClientConte
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../../../components/modal/templates/PopOver";
 import { TipContainer } from "../../../../../../../../../../components/TipContainer/TipContainer";
-import { TutoralContainer } from "../../../../../../../../../../components/TutoralContainer/TutoralContainer";
 
-export function ButtonCreateNewAI({ plan_management_id, index }: { plan_management_id: string, index: number }) {
+export function ButtonCreateNewAI({ plan_management_id }: { plan_management_id: string }) {
     const { client } = useContext(ClientContext)
     const { setModalContent } = useContext(ModalContext)
     const navigate = useNavigate();
@@ -59,18 +58,11 @@ export function ButtonCreateNewAI({ plan_management_id, index }: { plan_manageme
             className="w-full rounded-md border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-white dark:text-primary-100 data-[prompt=false]:bg-primary-200/20 flex justify-center"
             onClick={handleClickNewDatabases}
         >
-            <TutoralContainer
-                title="Vamos criar sua primeira inteligência artificial"
-                text="Clique em <span class='font-medium text-2xl mx-1'>+</span> para criar sua primeira inteligência artificial."
-                positionX={window.innerWidth > 680 ? "RIGHT" : "CENTER" }
-                hidden={index !== 0}
+            <TipContainer
+                tip="Criar inteligência artificial"
             >
-                <TipContainer
-                    tip="Criar inteligência artificial"
-                >
-                    <FaPlus className="size-10 py-2 fill-light dark:fill-primary-100" />
-                </TipContainer>
-            </TutoralContainer>
+                <FaPlus className="size-10 py-2 fill-light dark:fill-primary-100" />
+            </TipContainer>
         </div>
     )
 

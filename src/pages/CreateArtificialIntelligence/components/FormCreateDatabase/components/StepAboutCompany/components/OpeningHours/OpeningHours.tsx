@@ -22,7 +22,7 @@ export function OpeningHours({ name, company }: OpeningHours) {
 
     useEffect(() => {
         if (!company) return;
-        setHours(company.current?.support_hours)
+        setHours(company?.current?.support_hours);
     }, [company])
 
     /**

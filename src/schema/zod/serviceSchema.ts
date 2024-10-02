@@ -16,12 +16,12 @@ export const serviceSchema = z.object({
     service_name: z.string().min(1, "0:O nome do serviço não pode estar vazio."),
     price: z.string().min(1, "0:O preço do serviço não pode estar vazio."),
     promocional_price: z.object({
-        price: z.coerce.number().min(1, "0:O preço promocional do serviço não pode estar vazio."),
+        price: z.coerce.number().optional().nullable(),
         end_date: z.object({
-            day: z.string().min(1, "0: Informe até que dia vai a promoção."),
-            month: z.string().min(1, "0: Informe até que mês vai a promoção."),
-            year: z.string().min(1, "0:Informe até que ano vai a promoção."),
-        }, { required_error: "0:Informe até quando vai a promoção" })
+            day: z.string().optional().nullable(),
+            month: z.string().optional().nullable(),
+            year: z.string().optional().nullable(),
+        })
     }).nullable().optional(),
     link_buy: z.string().url().optional().nullable(),
     description: z.string().min(1, "0:A descrição do serviço não pode estar vazia."),

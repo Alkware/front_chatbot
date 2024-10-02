@@ -28,7 +28,6 @@ export function FormEditContainer({ children, form, activeSimulator, onDelete, o
     useEffect(() => {
         const errors = form.formState.errors;
         const error: any = findMessageError(errors);
-        console.log(error)
         if (!!error) {
             setModalContent({
                 componentName: "modal_error_message",

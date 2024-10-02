@@ -21,6 +21,7 @@ export function ButtonCreateCategory({ }: ButtonCreateCategory) {
         <Button
             effectNeon={true}
             onClick={handleCreateCategory}
+            customClass=""
         ><FaPlus /> Adicionar categoria</Button>
     )
 };

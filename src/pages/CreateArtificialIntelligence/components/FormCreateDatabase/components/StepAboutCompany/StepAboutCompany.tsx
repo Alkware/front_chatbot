@@ -23,13 +23,22 @@ export function StepAboutCompany({ companies }: StepAboutCompany) {
     const [company, setCompany] = useState<{ current?: Client_Company, companies: Client_Company[] | undefined }>();
     const { setModalContent } = useContext(ModalContext);
 
+    /**
+     * useEffect responsável por buscar a atual informação sobre a empresa, setar ela dentro do localStorage.
+     * Também será setado dentro do state junto com todas as informações das outras empresas.
+     */
     useEffect(() => {
         (async () => {
             if (!companies) return;
+            // Busca a atual empresa baseado no id que está salvo dentro do zod...
             const company = companies.find(company => company.id === company_id);
-            const companyInfo = company || companies[0];
+            // Adiciona as informações encontrada em companyInfo,
+            // caso não seja encontrado nenhuma informação será buscado o primeiro index do array...
+            const companyInfo = company || JSON.parse(localStorage.getItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE) || "{}") || companies[0];
             if(companyInfo){
+                // Define dentro do state a atual informação da empresa, junto com todas as outras informações...
                 setCompany({ current: companyInfo, companies })
+                // Salva dentro do localStorage a informação atual da empresa...
                 localStorage.setItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE, JSON.stringify(companyInfo))
             }
         })();

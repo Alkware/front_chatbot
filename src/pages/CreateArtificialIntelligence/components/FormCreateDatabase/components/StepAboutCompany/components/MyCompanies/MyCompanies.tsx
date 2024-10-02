@@ -27,12 +27,19 @@ export function MyCompanies({ companies, setCompany }: MyCompanies) {
     }
 
     /**
-     * Função responsável por deletar uma empresa...
+     * Função responsável por chamar a modal para confirmar se o usuário realmente deseja excluir a empresa...
      */
     const handleDeleteComapany = (id: string) => {
 
+        /**
+         * Função responsável por deletar uma empresa...
+         * @returns 
+         */
         async function deleteCompany() {
             const response = await deleteClientCompany(id);
+            const currentCompanyLocalStorage = JSON.parse(localStorage.getItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE) || "{}");
+
+            // Modal informando que houve uma falaha ao tentar deletar a empresa..
             if (!response) {
                 setModalContent({
                     componentName: "modal_failed_delete_company",
@@ -45,6 +52,12 @@ export function MyCompanies({ companies, setCompany }: MyCompanies) {
                 return;
             }
 
+            // Verifica se a empresa a ser deletada é a mesma que está salva no localStorage...
+            if(currentCompanyLocalStorage.id === response.id){
+                localStorage.removeItem(COMPANY_NAME_TO_SAVE_LOCALSTORAGE);
+            }
+
+            // Modal informando que foi deletado com sucesso a empresa...
             setModalContent({
                 componentName: "modal_success_delete_company",
                 components: <PopOver
@@ -52,11 +65,15 @@ export function MyCompanies({ companies, setCompany }: MyCompanies) {
                     message="Informações da empresa deletadas com sucesso!"
                 />
             });
+
+            // Remove a empresa do state de empresas...
             setCompany({ companies: companies?.filter(company => company.id !== id) });
+            // Remove as modal da tela...
             clearModal("modal_confirm_delete")
             clearModal("modal_show_companies")
         }
 
+        // Modal para confirmar se o usuário realmente deseja excluir a empresa...
         setModalContent({
             componentName: "modal_confirm_delete",
             components:
@@ -98,7 +115,10 @@ export function MyCompanies({ companies, setCompany }: MyCompanies) {
                     </div>
                     :
                     companies?.map(company =>
-                        <div className="flex items-center border border-white/50 ">
+                        <div 
+                            key={company.id}
+                            className="flex items-center border border-white/50"
+                        >
                             <div
                                 className="flex items-center gap-4 cursor-pointer p-2 hover:bg-primary-200"
                                 onClick={() => handleSelectCompany(company)}

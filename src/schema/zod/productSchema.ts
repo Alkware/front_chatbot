@@ -16,12 +16,12 @@ export const productSchema = z.object({
     product_name: z.string().min(1, "0:Informe o nome do produto"),
     price: z.string().min(1, "0:O preço do produto não pode estar vazio."),
     promocional_price: z.object({
-        price: z.coerce.number().min(1, "O preço promocional do produto não pode estar vazio."),
+        price: z.coerce.number().optional().nullable(),
         end_date: z.object({
-            day: z.string().min(1, "Informe até que dia vai a promoção."),
-            month: z.string().min(1, "Informe até que mês vai a promoção."),
-            year: z.string().min(1, "Informe até que ano vai a promoção."),
-        }, { required_error: "Informe até quando vai a promoção" })
+            day: z.string().optional().nullable(),
+            month: z.string().optional().nullable(),
+            year: z.string().optional().nullable(),
+        })
     }).nullable().optional(),
     link_buy: z.string().url().optional().nullable(),
     description: z.string().min(1, "0:A descrição do produto não pode estar vazia."),

@@ -3,7 +3,6 @@ import { FaArrowUpRightFromSquare, FaCopy } from "react-icons/fa6";
 import { ModalContext } from "../../../../../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../../../../../components/modal/templates/PopOver";
 import { TipContainer } from "../../../../../../../../../../../../components/TipContainer/TipContainer";
-import { TutoralContainer } from "../../../../../../../../../../../../components/TutoralContainer/TutoralContainer";
 import { QrCode } from "./components/QrCode/QrCode";
 import { MdLogout } from "react-icons/md";
 
@@ -82,9 +81,9 @@ export function ShareProject({ slug }: ShareProject) {
 
     return (
         <div className="w-full h-screen md:h-auto flex flex-col gap-8 relative md:static p-4">
-            <MdLogout 
+            <MdLogout
                 className="text-4xl rotate-180 md:hidden absolute"
-                onClick={()=> clearModal(null, { clearLast: true})}
+                onClick={() => clearModal(null, { clearLast: true })}
             />
 
             <div className="w-full flex flex-col gap-2 mt-12 md:mt-0">
@@ -103,17 +102,13 @@ export function ShareProject({ slug }: ShareProject) {
                         >
                             <FaCopy onClick={handleCopyLink} className=" text-2xl cursor-pointer" />
                         </TipContainer>
-                        <TutoralContainer
-                            title="Vamos abrir seu chat"
-                            text="Clique no icone acima para abrir seu chat em uma nova guia para testa-lo"
-                            positionX="LEFT"
-                        >
+                        <div>
                             <TipContainer
                                 tip="Abra seu chat"
                             >
                                 <FaArrowUpRightFromSquare onClick={handleFollowLink} className=" text-xl cursor-pointer" />
                             </TipContainer>
-                        </TutoralContainer>
+                        </div>
                     </div>
                 </div>
                 <span className="w-4/5 text-center opacity-60">Esse será o link que você enviará aos usuários que irão acessar seu chat.</span>
@@ -145,7 +140,7 @@ export function ShareProject({ slug }: ShareProject) {
                     width={200}
                     text={`${chatUrl}/${slug}`}
                 />
-                
+
                 <span className="w-4/5 text-center opacity-60">
                     Use esse QR CODE para acessar seu site facilmente
                 </span>

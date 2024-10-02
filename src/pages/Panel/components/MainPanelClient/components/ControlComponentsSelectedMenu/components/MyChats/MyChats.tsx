@@ -37,7 +37,7 @@ function MyChats() {
                             (
                                 <div
                                     key={index}
-                                    className="w-[90%] xs:w-1/2 md:w-1/3 lg:w-1/4 md:max-w-[300px] flex justify-center items-center rounded-xl cursor-pointer border border-primary-100 bg-primary-50 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
+                                    className="w-[90%] xs:w-1/2 md:w-1/3 lg:w-1/4 md:max-w-[300px]"
                                 >
                                     {projects[index]?.id ?
                                         <CardChat
@@ -51,18 +51,19 @@ function MyChats() {
                                             plan_management_id={client?.plan_management?.id}
                                             projects={projects}
                                             index={index}
-                                        />}
+                                        />
+                                    }
                                 </div>
                             )
                             :
                             (
                                 <div
                                     key={index}
-                                    className="w-[90%] xs:w-1/2 md:w-1/3 lg:w-1/4 min-h-[200px] md:max-w-[300px]  flex opacity-30 cursor-not-allowed justify-center items-center rounded-xl border border-primary-100 bg-primary-300 hover:bg-primary-200 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
+                                    className="w-[90%] xs:w-1/2 md:w-1/3 lg:w-1/4 min-h-[200px] md:max-w-[300px] flex opacity-30 cursor-not-allowed justify-center items-center rounded-xl border border-primary-100 bg-primary-300 hover:bg-primary-200 text-xl"
                                     onClick={handleLockChat}
                                 >
                                     <FaLock
-                                        className="py-3 text-5xl"
+                                        className="py-3 text-5xl teste"
                                     />
                                 </div>
                             )

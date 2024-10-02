@@ -4,7 +4,6 @@ import Login from "./pages/Login/Login"
 import { Thanks } from "./pages/Thanks/Thanks"
 import { Home } from "./pages/Home/Home"
 import { CreateChat } from "./pages/CreateChat/CreateChat"
-import { Modal } from "./components/modal/Modal"
 import { PlansPage } from "./pages/Plans/Plans"
 import { lazy } from "react"
 import { Police } from "./pages/Police/Police"
@@ -17,6 +16,7 @@ import { CreateProduct } from "./pages/CreateProduct/CreateProduct"
 import { CreateService } from "./pages/CreateService/CreateService"
 import { CreateArtificialIntelligence } from "./pages/CreateArtificialIntelligence/CreateArtificialIntelligence"
 import { PageNotFound } from "./pages/PageNotFound/PageNotFound"
+import { Modal } from './components/modal/Modal.tsx'
 
 const Panel = lazy(() => import("./pages/Panel/Panel"));
 
@@ -44,7 +44,6 @@ function App() {
       </Routes>
 
       <Modal />
-
     </BrowserRouter>
   )
 }

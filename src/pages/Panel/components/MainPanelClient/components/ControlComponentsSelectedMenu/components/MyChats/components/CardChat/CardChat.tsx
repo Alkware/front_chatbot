@@ -9,7 +9,6 @@ import { TipContainer } from "../../../../../../../../../../components/TipContai
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ShareProject } from "./components/ShareProject/ShareProject";
 import { ModalEditChat } from "../EditProject/components/ModalEditChat/ModalEditChat";
-import { TutoralContainer } from "../../../../../../../../../../components/TutoralContainer/TutoralContainer";
 import { updateTutorialClient } from "../../../../../../../../../../api/client";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
 import { Client } from "../../../../../../../../../../@types/Client.types";
@@ -121,39 +120,29 @@ export function CardChat({ project, setNewProject, ai }: CardChat) {
         project &&
         <div
             key={project.slug}
-            className="w-full text-light relative flex flex-col items-center gap-2 cursor-pointer rounded-xl"
+            className="w-full text-light relative flex flex-col items-center gap-2 cursor-pointer rounded-xl  border border-primary-100 bg-primary-50 dark:bg-primary-300 hover:bg-primary-200 text-xl"
         >
             <div
                 className="w-full flex justify-between items-center gap-2 p-2"
             >
                 <div className="flex justify-center gap-2">
-                    <TutoralContainer
-                        title="Vamos acessar seu chat"
-                        text="Clique aqui em cima para obter seu link ou para pegar o código do widget"
-                        positionX="RIGHT"
-                        hidden={params.get("tour") === "2" || params.get("tour") === "0"}
-                    >
+
+                    <div>
                         <TipContainer tip="Veja todos os seus links">
                             <FaLink
                                 className="text-xl"
                                 onClick={handleGetLinks}
                             />
                         </TipContainer>
-                    </TutoralContainer>
+                    </div>
 
-                    <TutoralContainer
-                        title="Vamos personalizar seu chat"
-                        text="Agora que já viu como funciona, vamos conhecer como podemos deixar ele de acordo com a sua marca!"
-                        positionX={window.innerWidth >= 768 ? "RIGHT" : window.innerWidth <= 480 ? "RIGHT" : "CENTER"}
-                        hidden={params.get("tour") !== "2"}
-                    >
-                        <TipContainer tip="Edite seu chat">
-                            <FaGear
-                                className="text-xl"
-                                onClick={handleEditProject}
-                            />
-                        </TipContainer>
-                    </TutoralContainer>
+
+                    <TipContainer tip="Edite seu chat">
+                        <FaGear
+                            className="text-xl"
+                            onClick={handleEditProject}
+                        />
+                    </TipContainer>
 
                 </div>
                 <div className="flex justify-center">
@@ -173,13 +162,13 @@ export function CardChat({ project, setNewProject, ai }: CardChat) {
                 <img
                     src={project.logo?.url || "https://via.placeholder.com/100"}
                     alt="imagem do projeto"
-                    className="w-full h-full object-cover"
-                    onClick={()=> window.open(`${chatUrl}/${project.slug}`)}
+                    className="w-full h-full object-contain"
+                    onClick={() => window.open(`${chatUrl}/${project.slug}`)}
                 />
             </div>
             <h2
                 className="text-center py-4 font-bold text-xl flex gap-2 items-center "
-                onClick={()=> navigate("/panel?tab=metrics")}
+                onClick={() => navigate("/panel?tab=metrics")}
             >
                 <FaChartColumn />
                 {project.project_name}

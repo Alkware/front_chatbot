@@ -17,9 +17,8 @@ function NavigatePanelClient() {
         <div
             data-isresizemenu={isMenuResized}
             data-isopenmobilemenu={isOpenMobileOpen}
-            className="w-full md:w-[250px] fixed z-30 md:relative md:data-[isresizemenu=true]:w-[70px] bg-primary-100 rounded-b-md md:rounded-none"
+            className="w-full md:w-[250px] fixed z-0 md:relative md:data-[isresizemenu=true]:w-[70px] bg-primary-100 rounded-b-md md:rounded-none"
         >
-
             <div
                 data-isopenmobilemenu={isOpenMobileOpen}
                 className="flex flex-col min-h-screen py-4 md:py-0 data-[isopenmobilemenu='false']:hidden md:data-[isopenmobilemenu='false']:flex bg-gradient-to-b from-primary-100 via-light to-light dark:to-primary-300 dark:via-primary-300"

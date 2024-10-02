@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { FaMoon, FaSun } from "react-icons/fa"
 import { TipContainer } from "../../../../../../../../components/TipContainer/TipContainer";
 import { Notification } from "./components/Notification/Notification";
+import { AiChat } from "../../../../../AiChat/AiChat";
 
 export function MenuIconsHeaderPanel() {
 
@@ -23,8 +24,7 @@ export function MenuIconsHeaderPanel() {
     }
 
     return (
-
-        <div className="flex gap-3 px-8">
+        <div className="flex gap-3">
             <TipContainer
                 tip="Notificações"
                 positionY="BOTTOM"
@@ -42,14 +42,15 @@ export function MenuIconsHeaderPanel() {
                     onClick={handleThemeColor}
                 >
                     <FaSun
-                        className="text-2xl fill-light cursor-pointer hidden dark:block"
+                        className="size-6 fill-light cursor-pointer hidden dark:block"
                     />
                     <FaMoon
-                        className="text-2xl fill-light cursor-pointer block dark:hidden"
+                        className="size-6 fill-light cursor-pointer block dark:hidden"
                     />
                 </div>
             </TipContainer>
 
+            <AiChat />
         </div>
     )
 };
