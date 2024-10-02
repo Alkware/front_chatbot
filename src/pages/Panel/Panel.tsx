@@ -8,7 +8,6 @@ import { ModalContext } from "../../context/ModalContext";
 import { PopUp } from "../../components/modal/templates/PopUp";
 import { ModalSaveCpfOrCnpj } from "./components/ModalSaveCpfOrCnpj/ModalSaveCpfOrCnpj";
 import { convertDateInHour } from "../../functions/convertDateInHour";
-import { AiChat } from "./components/AiChat/AiChat";
 
 const MainPanelClient = lazy(() => import("./components/MainPanelClient/MainPanelClient"));
 const NavigatePanelClient = lazy(() => import("./components/NavigatePanelClient/NavigatePanelClient"));

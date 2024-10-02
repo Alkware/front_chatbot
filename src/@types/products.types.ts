@@ -2,12 +2,12 @@ import { Image } from "./images.types";
 import { PlanManagement } from "./planManagement";
 
 export type Promocional_price = {
-    price: number;
-    end_date: {
-        day: string,
-        month: string,
-        year: string,
-    }
+    price?: number | null;
+    end_date?: {
+        day?: string | null,
+        month?: string | null, 
+        year?: string | null, 
+    } | null;
 }
 
 export type Category = {

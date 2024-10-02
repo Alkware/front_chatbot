@@ -21,7 +21,7 @@ export const serviceSchema = z.object({
             day: z.string().optional().nullable(),
             month: z.string().optional().nullable(),
             year: z.string().optional().nullable(),
-        })
+        }).optional().nullable()
     }).nullable().optional(),
     link_buy: z.string().url().optional().nullable(),
     description: z.string().min(1, "0:A descrição do serviço não pode estar vazia."),
