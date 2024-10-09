@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IoAddOutline } from "react-icons/io5";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
