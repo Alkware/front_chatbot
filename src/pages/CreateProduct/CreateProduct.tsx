@@ -80,7 +80,7 @@ export function CreateProduct() {
         // Desativa o loading...
         loading(button, false)
 
-        const redirectTo = origin ? `/create-database/${response.plan_management_id}`: "/panel?tab=products"
+        const redirectTo = origin ? `/create-database/${response.plan_management_id}`: `/panel?tab=products`
 
         // Envia uma mensagem que a fonte de dados foi criada com sucesso...
         setModalContent({

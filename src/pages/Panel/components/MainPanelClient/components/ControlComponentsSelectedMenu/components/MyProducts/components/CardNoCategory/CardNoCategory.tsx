@@ -15,7 +15,6 @@ export function CardNoItems({ }: CardNoItems) {
                 É muito simples e fácil, basta criar um categoria e logo em seguida adicionar seus produtos
             </SubTitle>
             <ButtonCreateCategory />
-
         </div>
     )
 };

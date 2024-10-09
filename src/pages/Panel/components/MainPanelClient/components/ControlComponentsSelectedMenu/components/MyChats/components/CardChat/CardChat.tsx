@@ -126,16 +126,12 @@ export function CardChat({ project, setNewProject, ai }: CardChat) {
                 className="w-full flex justify-between items-center gap-2 p-2"
             >
                 <div className="flex justify-center gap-2">
-
-                    <div>
-                        <TipContainer tip="Veja todos os seus links">
-                            <FaLink
-                                className="text-xl"
-                                onClick={handleGetLinks}
-                            />
-                        </TipContainer>
-                    </div>
-
+                    <TipContainer tip="Veja todos os seus links">
+                        <FaLink
+                            className="text-xl"
+                            onClick={handleGetLinks}
+                        />
+                    </TipContainer>
 
                     <TipContainer tip="Edite seu chat">
                         <FaGear
@@ -143,7 +139,6 @@ export function CardChat({ project, setNewProject, ai }: CardChat) {
                             onClick={handleEditProject}
                         />
                     </TipContainer>
-
                 </div>
                 <div className="flex justify-center">
                     <TipContainer tip="Ative ou desative seu chat">
@@ -173,6 +168,6 @@ export function CardChat({ project, setNewProject, ai }: CardChat) {
                 <FaChartColumn />
                 {project.project_name}
             </h2>
-        </div>
+        </div >
     )
 };

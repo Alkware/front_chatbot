@@ -118,52 +118,50 @@ function MenuNavigate() {
             ref={ulRef}
             className="w-full"
         >
-            {
-                navMenu.map((menu, index) =>
-                    <li
-                        key={menu.name}
-                        data-tab={Number(searchParams.get("tab")) == index ? true : false}
-                        className="w-full flex flex-col justify-center items-end cursor-pointer text-xl"
+            {navMenu.map((menu, index) =>
+                <li
+                    key={menu.name}
+                    data-tab={Number(searchParams.get("tab")) == index ? true : false}
+                    className={`w-full flex flex-col justify-center items-end cursor-pointer text-xl data-[tab=true]:bg-primary-100`}
+                >
+                    <div
+                        data-tab={menu.tab}
+                        data-ismenuresize={isMenuResized}
+                        className="w-full p-2 pl-2 flex gap-2 items-center justify-between md:data-[ismenuresize=false]:justify-center group"
+                        onClick={handleSelectedTabNavigation}
                     >
-                        <div
-                            data-tab={menu.tab}
-                            data-ismenuresize={isMenuResized}
-                            className="w-full p-2 pl-2 flex gap-2 items-center justify-between md:data-[ismenuresize=false]:justify-center group"
-                            onClick={handleSelectedTabNavigation}
-                        >
-                            <div className="flex gap-2 items-center">
-                                <menu.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-xl transition-colors duration-100" />
-                                <h2
-                                    data-textisbig={menu.name.length > 20}
-                                    className="md:group-data-[ismenuresize=false]:hidden group-hover:text-primary-100 data-[textisbig=true]:text-lg whitespace-nowrap"
-                                >{menu.name}</h2>
-                            </div>
-                            <IoMdArrowDropdown
-                                data-hastopic={!!menu?.topics?.length}
-                                className="md:group-data-[ismenuresize=false]:hidden data-[hastopic=false]:hidden self-center"
-                            />
+                        <div className="flex gap-2 items-center">
+                            <menu.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-xl transition-colors duration-100" />
+                            <h2
+                                data-textisbig={menu.name.length > 20}
+                                className="md:group-data-[ismenuresize=false]:hidden group-hover:text-primary-100 data-[textisbig=true]:text-lg whitespace-nowrap"
+                            >{menu.name}</h2>
                         </div>
-                        <div
-                            data-container="topic"
-                            data-tab={menu.tab}
-                            className="w-[90%] flex-col hidden"
-                        >
-                            {menu.topics && menu.topics.map(topic =>
-                                <div
-                                    key={topic.tab}
-                                    data-container="sub_topic"
-                                    data-tab={topic.tab}
-                                    data-ismenuresize={isMenuResized}
-                                    className="w-full flex items-center gap-2 group md:data-[ismenuresize=false]:hidden"
-                                    onClick={handleSelectedTabNavigation}
-                                >
-                                    <topic.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-base transition-colors duration-100" />
-                                    <h2 className="text-base group-hover:text-primary-100">{topic.name}</h2>
-                                </div>)}
-                        </div>
-                    </li>
-                )
-            }
+                        <IoMdArrowDropdown
+                            data-hastopic={!!menu?.topics?.length}
+                            className="md:group-data-[ismenuresize=false]:hidden data-[hastopic=false]:hidden self-center"
+                        />
+                    </div>
+                    <div
+                        data-container="topic"
+                        data-tab={menu.tab}
+                        className="w-[90%] flex-col hidden"
+                    >
+                        {menu.topics && menu.topics.map(topic =>
+                            <div
+                                key={topic.tab}
+                                data-container="sub_topic"
+                                data-tab={topic.tab}
+                                data-ismenuresize={isMenuResized}
+                                className="w-full flex items-center gap-2 group md:data-[ismenuresize=false]:hidden"
+                                onClick={handleSelectedTabNavigation}
+                            >
+                                <topic.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-base transition-colors duration-100" />
+                                <h2 className="text-base group-hover:text-primary-100">{topic.name}</h2>
+                            </div>)}
+                    </div>
+                </li>
+            )}
         </ul>
     )
 }

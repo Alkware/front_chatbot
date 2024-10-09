@@ -24,7 +24,7 @@ export function FormCreateCategory({ }: FormCreateCategory) {
     return (
         <form
             onSubmit={formContext.handleSubmit(handleDisplaySelectTypeOffer)}
-            className="flex flex-col justify-center items-center gap-2 p-4"
+            className="max-w-[90vw] flex flex-col justify-center items-center gap-2 p-4"
         >
             <Title>Crie sua categoria</Title>
             <SubTitle className="max-w-[400px] opacity-70 md:text-base">Cadastre a categoria do seu produto, antes de adicionar produtos nela</SubTitle>

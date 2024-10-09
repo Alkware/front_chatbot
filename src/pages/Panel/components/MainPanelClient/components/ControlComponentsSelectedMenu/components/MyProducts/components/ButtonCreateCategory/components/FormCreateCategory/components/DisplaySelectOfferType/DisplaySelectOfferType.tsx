@@ -15,7 +15,7 @@ export function DisplaySelectOfferType({ category_name }: DisplaySelectOfferType
     const navigate = useNavigate();
 
     const handleSelectOffer = ({ currentTarget }: MouseEvent<HTMLDivElement>) => {
-        if(!client) { console.error("Unable to select offer because the client is missing"); return;}
+        if (!client) { console.error("Unable to select offer because the client is missing"); return; }
         clearModal(null, { clearAll: true })
         navigate(`/${currentTarget.dataset.source}/${client.plan_management.id}/${category_name || null}`)
     }
@@ -25,10 +25,10 @@ export function DisplaySelectOfferType({ category_name }: DisplaySelectOfferType
             <Title>Escolha o tipo de oferta</Title>
             <SubTitle className="opacity-70">Aqui você deve escolher qual o tipo de oferta você está cadastrando</SubTitle>
 
-            <div className="flex w-4/5 justify-between gap-4 my-6">
-                <div 
+            <div className="w-full md:w-4/5 flex flex-col md:flex-row items-center justify-between gap-4 my-6">
+                <div
                     data-source={"create-product"}
-                    className="flex flex-col justify-center items-center gap-2 max-w-[250px] border border-primary-100 rounded-md cursor-pointer hover:scale-105 transition-transform" 
+                    className="flex flex-col justify-center items-center gap-2 max-w-[250px] border border-primary-100 rounded-md cursor-pointer hover:scale-105 transition-transform"
                     onClick={handleSelectOffer}
                 >
                     <img
@@ -43,9 +43,9 @@ export function DisplaySelectOfferType({ category_name }: DisplaySelectOfferType
                         Um produto físico é um objeto tangível que é fabricado e posteriormente entregue ao cliente final para que o possua fisicamente.
                     </SubTitle>
                 </div>
-                <div 
+                <div
                     data-source={"create-service"}
-                    className="flex flex-col justify-center items-center gap-2 max-w-[250px] border border-primary-100 rounded-md cursor-pointer hover:scale-105 transition-transform" 
+                    className="flex flex-col justify-center items-center gap-2 max-w-[250px] border border-primary-100 rounded-md cursor-pointer hover:scale-105 transition-transform"
                     onClick={handleSelectOffer}
                 >
                     <img src="https://i.ibb.co/TLv6Pzx/Screenshot-from-2024-08-01-17-31-33-removebg-preview-1.png"

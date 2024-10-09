@@ -30,7 +30,7 @@ export function StepAddProducts({ plan_management_id, ai_products_services }: St
     useEffect(() => {
         const products = ai_products_services?.map(ai => ai.product).filter(product => !!product) || [];
         const services = ai_products_services?.map(ai => ai.service).filter(service => !!service) || [];
-        setItems(values => values ? [...values, ...products, ...services] :[...products, ...services]);
+        setItems(values => values ? [...values, ...products, ...services] : [...products, ...services]);
     }, [])
 
     // UseEffect para registrar os valores dos produtos ou serviços selecionados...

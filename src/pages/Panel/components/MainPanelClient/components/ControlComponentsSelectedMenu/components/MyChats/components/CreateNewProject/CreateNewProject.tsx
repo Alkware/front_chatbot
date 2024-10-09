@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { IoAddOutline } from "react-icons/io5";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
@@ -19,6 +19,7 @@ interface ButtonCreateChat {
 export function ButtonCreateChat({ plan_management_id }: ButtonCreateChat) {
     const { client } = useContext(ClientContext)
     const { setModalContent, clearModal } = useContext(ModalContext)
+    const [params, setParams] = useSearchParams();
     const navigate = useNavigate();
 
     const handleClickNewProject = () => {
@@ -60,7 +61,10 @@ export function ButtonCreateChat({ plan_management_id }: ButtonCreateChat) {
                                 <h2 className="text-lg text-center opacity-80">Ela será capaz de aprender sobre seu negócio e <br />dar informações precisas ao usuário sem que você precise realizar <br />esse atendimento.</h2>
                                 <Button
                                     customClass="my-4"
-                                    onClick={() => { navigate("/panel?tab=artificial_intelligence"); clearModal("modal_create_database") }}
+                                    onClick={() => {
+                                        navigate(`/panel?tab=artificial_intelligence`)
+                                        clearModal("modal_create_database")
+                                    }}
                                 >
                                     <MdAdd />
                                     Criar Inteligência artificial

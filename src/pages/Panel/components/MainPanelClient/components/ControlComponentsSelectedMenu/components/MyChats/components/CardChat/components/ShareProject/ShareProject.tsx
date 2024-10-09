@@ -102,13 +102,12 @@ export function ShareProject({ slug }: ShareProject) {
                         >
                             <FaCopy onClick={handleCopyLink} className=" text-2xl cursor-pointer" />
                         </TipContainer>
-                        <div>
-                            <TipContainer
-                                tip="Abra seu chat"
-                            >
-                                <FaArrowUpRightFromSquare onClick={handleFollowLink} className=" text-xl cursor-pointer" />
-                            </TipContainer>
-                        </div>
+
+                        <TipContainer
+                            tip="Abra seu chat"
+                        >
+                            <FaArrowUpRightFromSquare onClick={handleFollowLink} className=" text-xl cursor-pointer" />
+                        </TipContainer>
                     </div>
                 </div>
                 <span className="w-4/5 text-center opacity-60">Esse será o link que você enviará aos usuários que irão acessar seu chat.</span>

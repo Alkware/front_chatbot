@@ -7,8 +7,8 @@ import { ModalProvider } from './context/ModalContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ClientProvider>
-    <ModalProvider>
-          <App />
-    </ModalProvider>
+      <ModalProvider>
+        <App />
+      </ModalProvider>
   </ClientProvider>,
 );
