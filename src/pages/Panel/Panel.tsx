@@ -8,6 +8,7 @@ import { ModalContext } from "../../context/ModalContext";
 import { PopUp } from "../../components/modal/templates/PopUp";
 import { ModalSaveCpfOrCnpj } from "./components/ModalSaveCpfOrCnpj/ModalSaveCpfOrCnpj";
 import { convertDateInHour } from "../../functions/convertDateInHour";
+import { Tour } from "../../components/Tour/Tour";
 
 const MainPanelClient = lazy(() => import("./components/MainPanelClient/MainPanelClient"));
 const NavigatePanelClient = lazy(() => import("./components/NavigatePanelClient/NavigatePanelClient"));
@@ -50,6 +51,8 @@ function Panel() {
         })();
     }, []);
 
+    
+
     return (
         <div
             ref={panelContainerRef}
@@ -59,10 +62,11 @@ function Panel() {
                 <Loading />
                 :
                 <div
-                    className="w-full h-full flex justify-start md:justify-center items-start"
+                    className="w-full h-full flex justify-start md:justify-center items-start teste"
                 >
                     <NavigatePanelClient />
                     <MainPanelClient />
+                    <Tour />
                 </div>
             }
         </div>

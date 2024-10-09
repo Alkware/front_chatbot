@@ -54,16 +54,17 @@ export function ButtonCreateNewAI({ plan_management_id }: { plan_management_id: 
     }
 
     return (
-        <div
-            className="w-full rounded-md border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-white dark:text-primary-100 data-[prompt=false]:bg-primary-200/20 flex justify-center"
-            onClick={handleClickNewDatabases}
-        >
-            <TipContainer
-                tip="Criar inteligência artificial"
+
+            <div
+                className="w-full min-w-[250px] rounded-md border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-white dark:text-primary-100 data-[prompt=false]:bg-primary-200/20 flex justify-center"
+                onClick={handleClickNewDatabases}
             >
-                <FaPlus className="size-10 py-2 fill-light dark:fill-primary-100" />
-            </TipContainer>
-        </div>
+                <TipContainer
+                    tip="Criar inteligência artificial"
+                >
+                    <FaPlus className="size-10 py-2 fill-light dark:fill-primary-100" />
+                </TipContainer>
+            </div>
     )
 
 }

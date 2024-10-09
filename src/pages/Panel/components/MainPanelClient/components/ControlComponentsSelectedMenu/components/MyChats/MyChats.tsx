@@ -47,6 +47,7 @@ function MyChats() {
                                             ai={client.plan_management?.artificial_intelligence}
                                         />
                                         :
+
                                         <ButtonCreateChat
                                             plan_management_id={client?.plan_management?.id}
                                             projects={projects}

@@ -48,7 +48,7 @@ export function TipContainer({ children, tip, display = true, positionY = "TOP",
                     }
                 />
             </div>
-            <div className="">
+            <div className="w-full ">
                 {children}
             </div>
         </div>

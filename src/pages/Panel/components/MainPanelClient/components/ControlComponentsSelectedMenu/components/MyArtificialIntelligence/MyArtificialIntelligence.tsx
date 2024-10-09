@@ -107,32 +107,32 @@ export function MyArtificialIntelligence() {
                                 >
                                     {
                                         intelligence[index]?.identification ?
-                                            <div
-                                                className="w-full relative flex gap-2 items-center justify-between rounded-md border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-white dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
-                                            >
-                                                <GiCircuitry className="size-10" />
-                                                <h2
-                                                    className="text-center flex justify-center items-center gap-2 whitespace-nowrap text-ellipsis overflow-x-hidden"
+                                                <div
+                                                    className="w-full min-w-[250px] relative flex gap-2 items-center justify-between rounded-md border border-primary-100 bg-primary-100 dark:bg-primary-300 hover:bg-primary-200 text-white dark:text-primary-100 text-xl data-[prompt=false]:text-2xl data-[prompt=false]:bg-primary-200/20"
                                                     onClick={() => handleEditArtificialIntelligence(index)}
                                                 >
-                                                    {intelligence[index]?.identification}
-                                                </h2>
+                                                    <GiCircuitry className="size-10" />
+                                                    <h2
+                                                        className="text-center flex justify-center items-center gap-2 whitespace-nowrap text-ellipsis overflow-x-hidden"
+                                                    >
+                                                        {intelligence[index]?.identification}
+                                                    </h2>
 
-                                                <MdEdit
-                                                    className="cursor-text size-6 mx-2"
-                                                    onClick={() => handleEditIdentificationArtificialName(index)}
-                                                />
+                                                    <MdEdit
+                                                        className="cursor-text size-6 mx-2"
+                                                        onClick={() => handleEditIdentificationArtificialName(index)}
+                                                    />
 
-                                                <div
-                                                    data-hasproduct={!!client.plan_management.artificial_intelligence[index].ai_products_Services.length}
-                                                    className="data-[hasproduct=true]:hidden absolute top-0 right-1"
-                                                >
-                                                    <TipContainer
-                                                        tip="Inteligência artificial não tem conhecimento sobre seus produtos!"
-                                                        positionX="LEFT"
-                                                    ><MdWarning className="fill-orange-500" /></TipContainer>
+                                                    <div
+                                                        data-hasproduct={!!client.plan_management.artificial_intelligence[index].ai_products_Services.length}
+                                                        className="data-[hasproduct=true]:hidden absolute top-0 right-1"
+                                                    >
+                                                        <TipContainer
+                                                            tip="Inteligência artificial não tem conhecimento sobre seus produtos!"
+                                                            positionX="LEFT"
+                                                        ><MdWarning className="fill-orange-500" /></TipContainer>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             :
                                             <ButtonCreateNewAI
                                                 plan_management_id={client.plan_management.id}

@@ -42,7 +42,6 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
-
       <Modal />
     </BrowserRouter>
   )

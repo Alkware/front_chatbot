@@ -19,7 +19,7 @@ const clientSchema = z.object({
         const splitText = text.split(" ");
         if(splitText.length >= 2 && !!splitText[1]) return true;
         return false;
-    }, "Vocẽ precisa informar seu nome completo"),
+    }, "você precisa informar seu nome completo"),
     user: z.string().min(1, "Digite um nome de usuário!").max(25, "Nome de usuário muito longe, informe um menor."),
     email: z.string().email(),
     password: z.string().min(8, "Sua senha precisa ter no minimo 8 caracteres!"),

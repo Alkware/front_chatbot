@@ -114,7 +114,7 @@ export function CardServices({ items }: CardServices) {
                             key={service.id}
                             className="group w-20 h-20 flex items-center gap-4 relative hover:scale-105 cursor-pointer transition-transform"
                         >
-                            <div className="hidden group-hover:flex gap-1 absolute right-0 top-0 bg-dark/80 p-1 ">
+                            <div className="flex gap-1 absolute right-0 top-0 bg-dark/80 p-1 ">
                                 <MdCopyAll
                                     className="hover:scale-110 transition-transform fill-white"
                                     onClick={() => handleDuplicateProduct(service)}

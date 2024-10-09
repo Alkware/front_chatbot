@@ -11,6 +11,7 @@ import { PopOver } from "../../../../../../../../../../../../components/modal/te
 import { PopUp } from "../../../../../../../../../../../../components/modal/templates/PopUp"
 import { ModalEditProduct } from "./components/ModalEditProduct/ModalEditProduct"
 import { Confirm } from "../../../../../../../../../../../../components/modal/templates/Confirm"
+import { TipContainer } from "../../../../../../../../../../../../components/TipContainer/TipContainer"
 
 interface CardProducts {
     items: Product[]
@@ -49,14 +50,14 @@ export function CardProducts({ items }: CardProducts) {
 
 
     // FUNÇÃO RESPONSÁVEL POR DELETAR O PRODUTO
-    const handleDisplayConfirmDeleteProduct= async (product: Product) => {
+    const handleDisplayConfirmDeleteProduct = async (product: Product) => {
         setModalContent({
             componentName: "modal_confirm_delete_product",
             components: <PopUp>
                 <Confirm
                     title="Deseja realmente excluir esse produto?"
-                    confirmFunction={()=> handleDeleteProduct()}
-                    cancelFuntion={()=> clearModal("modal_confirm_delete_product")}
+                    confirmFunction={() => handleDeleteProduct()}
+                    cancelFuntion={() => clearModal("modal_confirm_delete_product")}
                 />
             </PopUp>
         })
@@ -128,7 +129,7 @@ export function CardProducts({ items }: CardProducts) {
                             key={product.id}
                             className="group w-20 h-20 flex items-center gap-4 relative hover:scale-105 cursor-pointer transition-transform"
                         >
-                            <div className="hidden group-hover:flex gap-1 absolute right-0 top-0 bg-dark/80 p-1 ">
+                            <div className="flex gap-1 absolute right-0 top-0 bg-dark/80 p-1 ">
                                 <MdCopyAll
                                     className="hover:scale-110 transition-transform fill-white"
                                     onClick={() => handleDuplicateProduct(product)}
@@ -145,9 +146,14 @@ export function CardProducts({ items }: CardProducts) {
                             />
 
                             <div className="w-full absolute bottom-0">
-                                <SubTitle
-                                    className="w-full bg-dark/80 text-light text-sm overflow-hidden whitespace-nowrap text-ellipsis px-1"
-                                >{product.product_name}</SubTitle>
+                                <TipContainer
+                                    tip={product.product_name.substring(0, 39)}
+                                    positionY="BOTTOM"
+                                >
+                                    <SubTitle
+                                        className="w-full bg-dark/80 text-light text-sm overflow-hidden whitespace-nowrap text-ellipsis px-1"
+                                    >{product.product_name}</SubTitle>
+                                </TipContainer>
                             </div>
                         </div>
                     )

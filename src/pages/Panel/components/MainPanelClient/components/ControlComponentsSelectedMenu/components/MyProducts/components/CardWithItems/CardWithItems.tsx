@@ -2,10 +2,10 @@ import { MouseEvent, useState } from "react";
 import { Product } from "../../../../../../../../../../@types/products.types";
 import { ProductsAndServices } from "../../../../../../../../../../api/productAndServices";
 import { Title } from "../../../../../../../../../../components/Title/Title";
-import { CardProducts } from "./components/CardProducts/CardProducts";
 import { ButtonCreateCategory } from "../ButtonCreateCategory/ButtonCreateCategory";
 import { Service } from "../../../../../../../../../../@types/services.types";
 import { CardServices } from "./components/CardServices/CardServices";
+import { CardProducts } from "./components/CardProduct/CardProduct";
 
 interface CardWithItems {
     offers: ProductsAndServices
