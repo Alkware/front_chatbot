@@ -19,7 +19,6 @@ interface ButtonCreateChat {
 export function ButtonCreateChat({ plan_management_id }: ButtonCreateChat) {
     const { client } = useContext(ClientContext)
     const { setModalContent, clearModal } = useContext(ModalContext)
-    const [params, setParams] = useSearchParams();
     const navigate = useNavigate();
 
     const handleClickNewProject = () => {

@@ -1,7 +1,6 @@
 import { RefObject, useContext, useEffect, useRef, useState } from "react"
 import { ClientContext } from "../../context/ClientContext"
 import { Title } from "../Title/Title";
-import { Client } from "../../@types/Client.types";
 import { CompleteTutorial } from "./components/CompleteTutorial/CompleteTutorial";
 import { BackgroundTour } from "./components/BackgroundTour/BackgroundTour";
 import { ContainerTour } from "./components/ContainerTour/ContainerTour";
