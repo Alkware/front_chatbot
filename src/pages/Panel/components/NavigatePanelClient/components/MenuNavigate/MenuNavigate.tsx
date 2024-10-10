@@ -118,11 +118,11 @@ function MenuNavigate() {
             ref={ulRef}
             className="w-full"
         >
-            {navMenu.map((menu, index) =>
+            {navMenu.map((menu) =>
                 <li
                     key={menu.name}
-                    data-tab={Number(searchParams.get("tab")) == index ? true : false}
-                    className={`w-full flex flex-col justify-center items-end cursor-pointer text-xl data-[tab=true]:bg-primary-100`}
+                    data-tab={searchParams.get("tab") === menu.tab}
+                    className={`group w-full flex flex-col justify-center items-end cursor-pointer text-xl data-[tab=true]:text-light data-[tab=true]:bg-primary-100 dark:data-[tab=true]:bg-dark`}
                 >
                     <div
                         data-tab={menu.tab}
@@ -131,10 +131,10 @@ function MenuNavigate() {
                         onClick={handleSelectedTabNavigation}
                     >
                         <div className="flex gap-2 items-center">
-                            <menu.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-xl transition-colors duration-100" />
+                            <menu.Icon className="text-primary-100 dark:text-light group-data-[tab=true]:text-light text-xl transition-colors duration-100" />
                             <h2
                                 data-textisbig={menu.name.length > 20}
-                                className="md:group-data-[ismenuresize=false]:hidden group-hover:text-primary-100 data-[textisbig=true]:text-lg whitespace-nowrap"
+                                className="md:group-data-[ismenuresize=false]:hidden data-[textisbig=true]:text-lg whitespace-nowrap"
                             >{menu.name}</h2>
                         </div>
                         <IoMdArrowDropdown
@@ -156,8 +156,8 @@ function MenuNavigate() {
                                 className="w-full flex items-center gap-2 group md:data-[ismenuresize=false]:hidden"
                                 onClick={handleSelectedTabNavigation}
                             >
-                                <topic.Icon className="group-hover:fill-primary-100 text-primary-100 dark:text-light text-base transition-colors duration-100" />
-                                <h2 className="text-base group-hover:text-primary-100">{topic.name}</h2>
+                                <topic.Icon className=" text-primary-100 dark:text-light text-base transition-colors duration-100" />
+                                <h2 className="text-base">{topic.name}</h2>
                             </div>)}
                     </div>
                 </li>

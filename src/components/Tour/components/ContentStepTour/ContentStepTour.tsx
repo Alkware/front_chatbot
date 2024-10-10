@@ -1,9 +1,11 @@
 import { FaCheckCircle } from "react-icons/fa"
-import { FaCircleXmark } from "react-icons/fa6"
+import { FaCircleXmark, FaX } from "react-icons/fa6"
 import { SubTitle } from "../../../SubTitle/SubTitle";
-import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
-import { MouseEvent } from "react";
+import { MdArrowBackIos, MdArrowForwardIos, MdLink } from "react-icons/md";
+import { MouseEvent, useContext } from "react";
 import { Model } from "../../Tour";
+import { ModalContext } from "../../../../context/ModalContext";
+import { PopUp } from "../../../modal/templates/PopUp";
 
 interface ContentStepTour {
     tour: Model;
@@ -12,6 +14,7 @@ interface ContentStepTour {
 }
 
 export function ContentStepTour({ tour, index, modelSize }: ContentStepTour) {
+    const { setModalContent, clearModal } = useContext(ModalContext);
 
     /**
     * Função responsável por dar o scroll nos container de estágios...
@@ -46,13 +49,11 @@ export function ContentStepTour({ tour, index, modelSize }: ContentStepTour) {
             <div
                 className="w-[90%] flex flex-col group-data-[completed=false]:opacity-50 group-data-[display=true]:opacity-100"
             >
-                <SubTitle className="w-full font-bold text-lg text-left">{tour.title}</SubTitle>
+                <SubTitle className="w-full font-bold text-lg text-left text-light">{tour.title}</SubTitle>
                 <div
                     className="w-full group-data-[display=false]:hidden overflow-hidden"
                 >
-                    <div className="bg-primary-100/30">
-                        <SubTitle className="p-1 font-bold">Fazer manualmente</SubTitle>
-                    </div>
+                    <SubTitle className="p-1 italic text-light ">Fazer manualmente</SubTitle>
                     <div
                         className="w-full relative"
                     >
@@ -77,7 +78,24 @@ export function ContentStepTour({ tour, index, modelSize }: ContentStepTour) {
                                     <img
                                         src={stage.image}
                                         alt={stage.title}
-                                        className="max-w-[200px] object-contain hover:scale-150 cursor-pointer z-40 transition-transform"
+                                        className="max-w-[200px] object-contain cursor-pointer z-40 transition-transform"
+                                        onClick={() => {
+                                            setModalContent({
+                                                componentName: "modal_show_image",
+                                                components: <PopUp>
+                                                    <FaX 
+                                                        onClick={()=> clearModal("modal_show_image")}
+                                                        className="absolute top-2 right-2 size-6 cursor-pointer"
+                                                    />
+                                                    <img
+                                                        src={stage.image}
+                                                        alt={stage.title}
+                                                        className="max-w-[500px] object-contain rounded-md"
+                                                    />
+
+                                                </PopUp>
+                                            })
+                                        }}
                                     />
                                 </div>
                             )}
@@ -88,9 +106,7 @@ export function ContentStepTour({ tour, index, modelSize }: ContentStepTour) {
                             onClick={handleScrollingTour}
                         />
                     </div>
-                    <div className="bg-primary-100/30">
-                        <SubTitle className="p-1 font-bold">Utilize o link rapído</SubTitle>
-                    </div>
+                    <SubTitle className="p-1 italic ">ou</SubTitle>
                     <div className="flex justify-evenly">
                         {tour.buttons.map(button =>
                             <a
@@ -98,8 +114,8 @@ export function ContentStepTour({ tour, index, modelSize }: ContentStepTour) {
                                 href={button.url}
                                 target={button.target}
                                 onClick={() => button.target === "_blank" && window.location.reload()}
-                                className="my-4 p-2 bg-primary-100 rounded-md cursor-pointer"
-                            >{button.text || "Link rapído"}</a>
+                                className="my-4 p-2 px-4 bg-primary-100 rounded-md cursor-pointer flex gap-2 items-center"
+                            ><MdLink /> {button.text || "Link rapído"}</a>
                         )}
                     </div>
                 </div>

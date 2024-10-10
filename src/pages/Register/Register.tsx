@@ -13,19 +13,19 @@ import { Input } from "../../components/Form/components/Fields/Input/Input";
 import { FormCheckBox } from "../../components/Form/components/Fields/FormCheckBox";
 
 const createClientFormSchema = z.object({
-    email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
-    password: z.string().min(6, "Crie uma senha forte com no minimo 6 caracteres"),
-    confirm_policies: z.boolean().refine((value) => value === true, { message: "Você precisa concordar com nossos termos de uso, politicas de privacidade e politicas de cookies." }),
-    fullname: z.string().min(1, "Seu nome não pode estar vazio.").refine((input) => {
+    fullname: z.string().min(1, "0:Seu nome não pode estar vazio.").refine((input) => {
         const words = input.trim().split(" ");
         return words.length >= 2
-    }, { message: "Digite seu nome completo" }).transform(name =>
+    }, { message: "0:Digite seu nome completo" }).transform(name =>
         name.trim().split(" ")
             .map(word => word[0]
                 .toLocaleUpperCase()
                 .concat(word.substring(1))
             ).join(" ")
     ),
+    email: z.string().min(1, "0:E-mail não pode estar vazio.").email("0:O e-mail é obrigatório.").toLowerCase(),
+    password: z.string().min(6, "1:Crie uma senha forte com no minimo 6 caracteres"),
+    confirm_policies: z.boolean().refine((value) => value === true, { message: "1:Você precisa concordar com nossos termos de uso, politicas de privacidade e politicas de cookies." }),
 });
 
 type CreateUserFormData = z.infer<typeof createClientFormSchema>;
@@ -58,8 +58,6 @@ function Register() {
         const isOriginMarketing = localStorage?.origin;
         isOriginMarketing && (data.origin = isOriginMarketing);
         const clientCreated = await registerClient(data);
-
-        console.log(clientCreated)
 
         if (clientCreated && clientCreated.status === 201) {
             const token = clientCreated.data

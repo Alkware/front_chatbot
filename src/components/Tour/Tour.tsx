@@ -79,7 +79,7 @@ export function Tour({ }: Tour) {
                     onClick={handleDisplayTour}
                 />
                 <ContentTour>
-                    <Title className="text-xl font-bold">Vamos criar seu primeiro chat passo a passo:</Title>
+                    <Title className="md:text-2xl font-bold text-light">Vamos criar seu primeiro chat passo a passo:</Title>
 
                     <div className="w-full h-full flex flex-col my-8">
                         {!model ?

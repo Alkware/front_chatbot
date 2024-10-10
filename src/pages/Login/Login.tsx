@@ -13,8 +13,8 @@ import { saveGuest } from "../../api/guest.api";
 import { Input } from "../../components/Form/components/Fields/Input/Input";
 
 const createClientFormSchema = z.object({
-    email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
-    password: z.string().min(1, "Sua senha não pode estar vazia."),
+    email: z.string().min(1, "0:E-mail não pode estar vazio.").email("0:O e-mail é obrigatório.").toLowerCase(),
+    password: z.string().min(1, "0:Sua senha não pode estar vazia."),
 })
 
 type createClientFormTypes = z.infer<typeof createClientFormSchema>
