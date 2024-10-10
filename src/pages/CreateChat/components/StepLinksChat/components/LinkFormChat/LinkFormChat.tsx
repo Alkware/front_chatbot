@@ -138,7 +138,7 @@ export function LinkFormChat() {
                 hiddenContainer={!fields.length}
             >
                 <Title className="font-bold my-2 text-left">Seus links:</Title>
-                <div className="max-h-[120px] overflow-auto flex justify-center gap-4">
+                <div className="max-h-[120px] overflow-auto flex flex-wrap justify-center gap-4">
                     {fields.map((field: Field, index: number) =>
                         <div
                             key={field.id}

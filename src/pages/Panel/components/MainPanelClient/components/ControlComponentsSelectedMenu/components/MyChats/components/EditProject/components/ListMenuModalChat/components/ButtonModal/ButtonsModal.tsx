@@ -22,28 +22,28 @@ export function ButtonsModal({ eventDelete }: ButtonsModalTypes) {
 
     return (
         <div className="w-3/4 md:w-full flex justify-evenly md:mb-4">
-            <div className="group flex justify-center items-center w-[45px] h-[50px] border border-primary-100 dark:border-light hover:border-primary-100 rounded-full cursor-pointer">
+            <button type="submit">
                 <TipContainer tip="Salvar">
-                    <button type="submit">
+                    <div className="group flex justify-center items-center w-[45px] h-[50px] border border-primary-100 dark:border-light hover:border-primary-100 rounded-full cursor-pointer">
                         <FaUpload
                             className="size-4 group-hover:fill-primary-100"
                         />
-                    </button>
+                    </div>
                 </TipContainer>
-            </div>
+            </button>
 
-            <div
-                onClick={handleDiscardProject}
-                className="group flex justify-center items-center w-[45px] h-[50px] border border-primary-100 dark:border-light hover:border-primary-100 rounded-full cursor-pointer"
-            >
-                <TipContainer tip="Descartar">
-                    <button type="button" >
+            <button type="button">
+                <div
+                    onClick={handleDiscardProject}
+                    className="group flex justify-center items-center w-[45px] h-[50px] border border-primary-100 dark:border-light hover:border-primary-100 rounded-full cursor-pointer"
+                >
+                    <TipContainer tip="Descartar">
                         <FaEdit
                             className="size-4 group-hover:fill-primary-100"
                         />
-                    </button>
-                </TipContainer>
-            </div>
+                    </TipContainer>
+                </div>
+            </button>
 
 
             <div

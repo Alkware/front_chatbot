@@ -62,7 +62,7 @@ export function OpeningHours({ name, company }: OpeningHours) {
 
     return (
         <div>
-            <h2 className="my-4 text-xl font-bold text-primary-100 dark:text-light">Qual seu horário para suporte humano?</h2>
+            <h2 className="my-4 text-xl font-bold text-primary-100 dark:text-light">Qual seu horário de funcionamento?</h2>
             <div
                 className="w-full flex flex-col items-start gap-2 md:gap-4"
             >
