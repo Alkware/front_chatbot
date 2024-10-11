@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
 import { Select } from "../../../../../../../../../../components/Select/Select";
-import { Title } from "../../../../../../../../../../components/Title/Title";
+import { Heading } from "../../../../../../../../../../components/Heading/Heading";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -102,7 +102,7 @@ export function FormAddHour({ name, setHours }: FormAddHour) {
 
     return (
         <div className="flex flex-col p-4">
-            <Title>Adicione novo horário:</Title>
+            <Heading.h2>Adicione novo horário:</Heading.h2>
             <form
                 className="flex flex-col gap-2 p-4 items-center"
                 onSubmit={form.handleSubmit(handleAddHour)}

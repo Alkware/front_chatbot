@@ -2,7 +2,7 @@ import { Root } from "../../../../components/Form/FormRoot";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
 import { ModalContext } from "../../../../context/ModalContext";
-import { artificialIntelligenceSchema, ArtificialIntelligenceSchema } from "../../../../schema/zod/artificialIntelligenceSchema";
+import { artificialIntelligenceSchema, ArtificialIntelligenceSchema } from "../../../../schema/artificialIntelligenceSchema";
 import { StepAboutCompany } from "./components/StepAboutCompany/StepAboutCompany";
 import { StepPersonalityIA } from "./components/StepPersonalityIA/StepPersonalityIA";
 import { useForm } from "react-hook-form";

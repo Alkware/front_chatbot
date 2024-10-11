@@ -7,8 +7,8 @@ import { Confirm } from "../../../modal/templates/Confirm";
 import { PopUp } from "../../../modal/templates/PopUp";
 import { Loading } from "../../../Loading/Loading";
 import { Image } from "../../../../@types/images.types";
-import { SubTitle } from "../../../SubTitle/SubTitle";
 import { FaRegSadTear } from "react-icons/fa";
+import { Heading } from "../../../Heading/Heading";
 
 interface MyLibrary {
     client_id: string;
@@ -99,7 +99,7 @@ export function MyLibrary({ client_id, imagesSelected, setImagesSelected }: MyLi
                     {
                         !images.length ?
                             <div className="w-full flex gap-2 justify-center items-center">
-                                <SubTitle>Biblioteca vazia</SubTitle>
+                                <Heading.h3>Biblioteca vazia</Heading.h3>
                                 <FaRegSadTear />
                             </div>
                             :

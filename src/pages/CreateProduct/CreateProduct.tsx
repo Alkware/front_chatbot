@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { Root } from "../../components/Form/FormRoot";
 import { StepBasicProductInfo } from "./components/StepBasicProductInfo/StepBasicProductInfo"
 import { setThemePage } from "../../functions/setThemePage";
-import { productSchema, ProductSchema } from "../../schema/zod/productSchema";
+import { productSchema, ProductSchema } from "../../schema/productSchema";
 import { StepProductPaymentMethodAndConditions } from "./components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";
 import { StepAdvancedProductInfo } from "./components/StepAdvancedProductInfo/StepAdvancedProductInfo";
 import { StepAboutProductWarranty } from "./components/StepAboutProductWarranty/StepAboutProductWarranty";

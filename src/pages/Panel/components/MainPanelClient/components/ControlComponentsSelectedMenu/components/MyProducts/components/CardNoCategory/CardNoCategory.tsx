@@ -1,19 +1,14 @@
-import { SubTitle } from "../../../../../../../../../../components/SubTitle/SubTitle";
-import { Title } from "../../../../../../../../../../components/Title/Title";
+import { Heading } from "../../../../../../../../../../components/Heading/Heading";
 import { ButtonCreateCategory } from "../ButtonCreateCategory/ButtonCreateCategory";
 
-
-interface CardNoItems {
-}
-
-export function CardNoItems({ }: CardNoItems) {
+export function CardNoItems() {
     return (
         <div className="w-3/4 flex flex-col items-center gap-4 terceiro-teste">
-            <Title>Cadastre seus produtos aqui</Title>
-            <SubTitle
+            <Heading.h2>Cadastre seus produtos aqui</Heading.h2>
+            <Heading.h3
             >
                 É muito simples e fácil, basta criar um categoria e logo em seguida adicionar seus produtos
-            </SubTitle>
+            </Heading.h3>
             <ButtonCreateCategory />
         </div>
     )

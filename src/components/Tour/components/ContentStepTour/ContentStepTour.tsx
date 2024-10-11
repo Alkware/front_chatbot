@@ -1,11 +1,11 @@
 import { FaCheckCircle } from "react-icons/fa"
 import { FaCircleXmark, FaX } from "react-icons/fa6"
-import { SubTitle } from "../../../SubTitle/SubTitle";
 import { MdArrowBackIos, MdArrowForwardIos, MdLink } from "react-icons/md";
 import { MouseEvent, useContext } from "react";
 import { Model } from "../../Tour";
 import { ModalContext } from "../../../../context/ModalContext";
 import { PopUp } from "../../../modal/templates/PopUp";
+import { Heading } from "../../../Heading/Heading";
 
 interface ContentStepTour {
     tour: Model;
@@ -49,11 +49,11 @@ export function ContentStepTour({ tour, index, modelSize }: ContentStepTour) {
             <div
                 className="w-[90%] flex flex-col group-data-[completed=false]:opacity-50 group-data-[display=true]:opacity-100"
             >
-                <SubTitle className="w-full font-bold text-lg text-left text-light">{tour.title}</SubTitle>
+                <Heading.h3 className="w-full font-bold text-lg text-left text-light">{tour.title}</Heading.h3>
                 <div
                     className="w-full group-data-[display=false]:hidden overflow-hidden"
                 >
-                    <SubTitle className="p-1 italic text-light ">Fazer manualmente</SubTitle>
+                    <Heading.h3 className="p-1 italic text-light ">Fazer manualmente</Heading.h3>
                     <div
                         className="w-full relative"
                     >
@@ -73,7 +73,7 @@ export function ContentStepTour({ tour, index, modelSize }: ContentStepTour) {
                                 >
                                     <div className="w-full flex items-start justify-center gap-1 ">
                                         <span className="w-10 bg-primary-100 rounded-full flex justify-center font-bold">{index + 1}</span>
-                                        <SubTitle className="text-left">{stage.title}</SubTitle>
+                                        <Heading.h3 className="text-left">{stage.title}</Heading.h3>
                                     </div>
                                     <img
                                         src={stage.image}
@@ -106,7 +106,7 @@ export function ContentStepTour({ tour, index, modelSize }: ContentStepTour) {
                             onClick={handleScrollingTour}
                         />
                     </div>
-                    <SubTitle className="p-1 italic ">ou</SubTitle>
+                    <Heading.h3 className="p-1 italic ">ou</Heading.h3>
                     <div className="flex justify-evenly">
                         {tour.buttons.map(button =>
                             <a

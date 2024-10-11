@@ -1,5 +1,4 @@
-import { Title } from "../../../../../../../../../../../../components/Title/Title"
-import { SubTitle } from "../../../../../../../../../../../../components/SubTitle/SubTitle"
+import { Heading } from "../../../../../../../../../../../../components/Heading/Heading"
 import { MdAdd, MdCopyAll, MdDelete } from "react-icons/md"
 import { RefObject, useContext, useRef, useState } from "react"
 import { ClientContext } from "../../../../../../../../../../../../context/ClientContext"
@@ -100,9 +99,9 @@ export function CardServices({ items }: CardServices) {
                 data-display={!!items[0].category?.name}
                 className="w-full flex justify-between items-center bg-primary-100 dark:bg-primary-200 px-4"
             >
-                <Title
+                <Heading.h2
                     className="font-bold text-light"
-                >{items[0].category.name === "null" ? "Sem categoria" : items[0].category.name}</Title>
+                >{items[0].category.name === "null" ? "Sem categoria" : items[0].category.name}</Heading.h2>
             </div>
             <div
                 ref={containerProductsRef}
@@ -135,9 +134,9 @@ export function CardServices({ items }: CardServices) {
                                     tip={service.service_name.substring(0, 39)}
                                     positionY="BOTTOM"
                                 >
-                                    <SubTitle
+                                    <Heading.h3
                                         className="w-full bg-dark/80 text-light text-sm overflow-hidden whitespace-nowrap text-ellipsis px-1"
-                                    >{service.service_name}</SubTitle>
+                                    >{service.service_name}</Heading.h3>
                                 </TipContainer>
                             </div>
                         </div>

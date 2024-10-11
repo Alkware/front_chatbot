@@ -1,6 +1,6 @@
 import { RefObject, useContext, useEffect, useRef, useState } from "react"
 import { ClientContext } from "../../context/ClientContext"
-import { Title } from "../Title/Title";
+import { Heading } from "../Heading/Heading";
 import { CompleteTutorial } from "./components/CompleteTutorial/CompleteTutorial";
 import { BackgroundTour } from "./components/BackgroundTour/BackgroundTour";
 import { ContainerTour } from "./components/ContainerTour/ContainerTour";
@@ -79,11 +79,11 @@ export function Tour({ }: Tour) {
                     onClick={handleDisplayTour}
                 />
                 <ContentTour>
-                    <Title className="md:text-2xl font-bold text-light">Vamos criar seu primeiro chat passo a passo:</Title>
+                    <Heading.h2 className="md:text-2xl font-bold text-light">Vamos criar seu primeiro chat passo a passo:</Heading.h2>
 
                     <div className="w-full h-full flex flex-col my-8">
                         {!model ?
-                            <Title>Não há nada para mostrar aqui</Title>
+                            <Heading.h2>Não há nada para mostrar aqui</Heading.h2>
                             :
                             model?.map((tour, index) =>
                                 <ContentStepTour

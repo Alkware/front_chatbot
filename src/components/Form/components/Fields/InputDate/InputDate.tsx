@@ -1,6 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 import { Select } from "../../../../Select/Select";
-import { Title } from "../../../../Title/Title";
+import { Heading } from "../../../../Heading/Heading";
 
 interface InputDate {
     name: string;
@@ -33,10 +33,10 @@ export function InputDate({ name, title, formContext }: InputDate) {
     
     return (
         <div className="flex flex-col">
-            <Title
+            <Heading.h2
                 data-display={!!title}
                 className="data-[display=false]:hidden text-base md:text-lg"
-            >{title || ""}</Title>
+            >{title || ""}</Heading.h2>
             <div className="flex gap-2">
                 <Select
                     name={`${name}.day`}

@@ -6,7 +6,7 @@ import { ModalContext } from "../../../../../../../../../../../../context/ModalC
 import { useForm } from "react-hook-form";
 import { Root } from "../../../../../../../../../../../../components/Form/FormRoot";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
-import { ChatSchema, chatSchema } from "../../../../../../../../../../../../schema/zod/chatSchema";
+import { ChatSchema, chatSchema } from "../../../../../../../../../../../../schema/chatSchema";
 import { ClientContext } from "../../../../../../../../../../../../context/ClientContext";
 import { PopUp } from "../../../../../../../../../../../../components/modal/templates/PopUp";
 import { Confirm } from "../../../../../../../../../../../../components/modal/templates/Confirm";

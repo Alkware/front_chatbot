@@ -2,7 +2,7 @@ import { useFieldArray, UseFormReturn } from "react-hook-form";
 import { Artificial_Intelligence } from "../../../../@types/artificialInteligence.types";
 import { Root } from "../../../../components/Form/FormRoot";
 import { Select } from "../../../../components/Select/Select";
-import { ChatSchema } from "../../../../schema/zod/chatSchema";
+import { ChatSchema } from "../../../../schema/chatSchema";
 import { LinkFormChat } from "./components/LinkFormChat/LinkFormChat";
 
 interface StepLinksChat {

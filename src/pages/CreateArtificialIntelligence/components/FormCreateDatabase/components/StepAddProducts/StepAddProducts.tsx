@@ -6,12 +6,11 @@ import { PopUp } from "../../../../../../components/modal/templates/PopUp";
 import { Product } from "../../../../../../@types/products.types";
 import { getPlanManagementById } from "../../../../../../api/planManagement";
 import { Service } from "../../../../../../@types/services.types";
-import { Title } from "../../../../../../components/Title/Title";
 import { ItemsList } from "./components/ItemsList/ItemsList";
 import { Button } from "../../../../../../components/button/Button";
-import { SubTitle } from "../../../../../../components/SubTitle/SubTitle";
 import { useFormContext } from "react-hook-form";
 import { Ai_products_Services } from "../../../../../../@types/artificialInteligence.types";
+import { Heading } from "../../../../../../components/Heading/Heading";
 
 export type Item = Product | Service;
 
@@ -94,8 +93,8 @@ export function StepAddProducts({ plan_management_id, ai_products_services }: St
 
     return (
         <Root.Container>
-            <Title className="text-left font-medium">Produtos/Serviços</Title>
-            <SubTitle className="text-left">Vincule seus produtos e serviços a sua inteligencia artificial para que ela obtenha conhecimento sobre eles.</SubTitle>
+            <Heading.h2 className="text-left font-medium">Produtos/Serviços</Heading.h2>
+            <Heading.h3 className="text-left">Vincule seus produtos e serviços a sua inteligencia artificial para que ela obtenha conhecimento sobre eles.</Heading.h3>
             <div className="flex gap-2 flex-wrap my-8">
                 {items?.map((item: Omit<Item, "product_name"> & { product_name?: string }) =>
                     <div

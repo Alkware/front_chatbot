@@ -3,7 +3,7 @@ import { Service } from "../../../../../../../../../../../../../@types/services.
 import { ClientContext } from "../../../../../../../../../../../../../context/ClientContext";
 import { ModalContext } from "../../../../../../../../../../../../../context/ModalContext";
 import { useForm } from "react-hook-form";
-import { serviceSchema, ServiceSchema } from "../../../../../../../../../../../../../schema/zod/serviceSchema";
+import { serviceSchema, ServiceSchema } from "../../../../../../../../../../../../../schema/serviceSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { deleteService, updateService } from "../../../../../../../../../../../../../api/service.api";
 import { PopOver } from "../../../../../../../../../../../../../components/modal/templates/PopOver";

@@ -9,7 +9,7 @@ import { PopUp } from "../../components/modal/templates/PopUp";
 import { ModalSaveCpfOrCnpj } from "./components/ModalSaveCpfOrCnpj/ModalSaveCpfOrCnpj";
 import { convertDateInHour } from "../../functions/convertDateInHour";
 import { Tour } from "../../components/Tour/Tour";
-import axios from "axios";
+import { setThemePage } from "../../functions/setThemePage";
 
 const MainPanelClient = lazy(() => import("./components/MainPanelClient/MainPanelClient"));
 const NavigatePanelClient = lazy(() => import("./components/NavigatePanelClient/NavigatePanelClient"));
@@ -24,35 +24,36 @@ function Panel() {
 
         (async () => {
             // define o thema da página de login
-            const isDark = localStorage.theme === "dark"
-            document.documentElement.classList.toggle("dark", !!isDark)
+            setThemePage();
 
-            // Busca os dados do cliente;
+            // Obtem o token do cliente...
             const token = localStorage.getItem("token");
-
             if (!token) return;
 
+            // Obtem as informações do cliente baseado no token;
             const clientIsLogged: { client: Client, message: string } | void = await authenticateClient(token);
 
-            if (clientIsLogged) {
-                // Verifica se o cliente já possui um CPF OU CNPJ cadastrado, caso não possu-a será enviado um aviso para que ele inserira seus dados
-                if (!clientIsLogged.client?.cpf_cnpj && convertDateInHour(clientIsLogged.client.created_at) > 24) {
-                    setModalContent({
-                        componentName: "modal_save_cpf_cnpj",
-                        components:
-                            <PopUp>
-                                <ModalSaveCpfOrCnpj modalName="modal_save_cpf_cnpj" />
-                            </PopUp>
-                    })
-                };
-
-                setClient(clientIsLogged.client);
+            // Caso não existe um usuário com essas informações de token, o usuário será redirecionado para tela de login
+            if (!clientIsLogged) {
+                navigate("/login");
+                return;
             }
-            else navigate("/login")
+
+            // Verifica se o cliente já possui um CPF OU CNPJ cadastrado, caso não possu-a será enviado um aviso para que ele inserira seus dados
+            if (!clientIsLogged.client?.cpf_cnpj && convertDateInHour(clientIsLogged.client.created_at) > 24) {
+                setModalContent({
+                    componentName: "modal_save_cpf_cnpj",
+                    components:
+                        <PopUp>
+                            <ModalSaveCpfOrCnpj modalName="modal_save_cpf_cnpj" />
+                        </PopUp>
+                })
+            };
+
+            setClient(clientIsLogged.client);
         })();
     }, []);
 
-    
 
     return (
         <div

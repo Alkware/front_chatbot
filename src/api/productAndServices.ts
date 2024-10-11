@@ -16,8 +16,8 @@ export interface ProductsAndServices {
  */
 export async function getAllProductsAndServices(plan_management_id: string): Promise<ProductsAndServices | void> {
 
-    const responseProducts = await axios.get(`${API_URL}/products/${plan_management_id}`).catch(error => console.log(error))
-    const responseServices = await axios.get(`${API_URL}/services/${plan_management_id}`).catch(error => console.log(error))
+    const responseProducts = await axios.get(`${API_URL}/products/${plan_management_id}`).catch(error => console.error(error))
+    const responseServices = await axios.get(`${API_URL}/services/${plan_management_id}`).catch(error => console.error(error))
 
     if (!responseProducts?.data || !responseServices?.data) {
         console.error("Unable to find the products and services.");

@@ -4,9 +4,9 @@ import { Client_Company, Support_hours } from "../../../../../../../../@types/cl
 import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { PopUp } from "../../../../../../../../components/modal/templates/PopUp";
 import { Button } from "../../../../../../../../components/button/Button";
-import { SubTitle } from "../../../../../../../../components/SubTitle/SubTitle";
 import { COMPANY_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../../../variables/variables";
 import { FormAddHour } from "./components/FormAddHour/FormAddHour";
+import { Heading } from "../../../../../../../../components/Heading/Heading";
 
 interface OpeningHours {
     name: string;
@@ -78,15 +78,15 @@ export function OpeningHours({ name, company }: OpeningHours) {
                             className="w-full flex gap-4 items-center bg-primary-300 data-[color=true]:bg-primary-200 px-4"
                         >
                             <div className="w-full flex flex-col items-center p-1">
-                                <SubTitle className="whitespace-nowrap text-xs">Dia(s) da semana</SubTitle>
+                                <Heading.h3 className="whitespace-nowrap text-xs">Dia(s) da semana</Heading.h3>
                                 <span className="font-bold whitespace-nowrap">{hour.day}</span>
                             </div>
                             <div className="w-full flex flex-col items-center p-1">
-                                <SubTitle className="whitespace-nowrap text-xs">Ínicio</SubTitle>
+                                <Heading.h3 className="whitespace-nowrap text-xs">Ínicio</Heading.h3>
                                 <span className="font-bold whitespace-nowrap">{hour.start}</span>
                             </div>
                             <div className="w-full flex flex-col items-center p-1">
-                                <SubTitle className="whitespace-nowrap text-xs">Fim</SubTitle>
+                                <Heading.h3 className="whitespace-nowrap text-xs">Fim</Heading.h3>
                                 <span className="font-bold whitespace-nowrap">{hour.end}</span>
                             </div>
                             <MdDelete

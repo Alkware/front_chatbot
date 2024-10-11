@@ -11,7 +11,7 @@ import { getPlanManagementById } from "../../api/planManagement";
 import { StepBasicServiceInfo } from "./components/StepBasicServiceInfo/StepBasicServiceInfo";
 import { StepServicePaymentMethodAndConditions } from "./components/StepServicePaymentMethodAndConditions/StepServicePaymentMethodAndConditions";
 import { StepAdvancedServiceInfo } from "./components/StepAdvancedServiceInfo/StepAdvancedServiceInfo";
-import { serviceSchema, ServiceSchema } from "../../schema/zod/serviceSchema";
+import { serviceSchema, ServiceSchema } from "../../schema/serviceSchema";
 import { createNewService } from "../../api/service.api";
 
 export function CreateService() {

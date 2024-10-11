@@ -6,7 +6,7 @@ import { ModalContext } from "../../context/ModalContext";
 import { createNewProject } from "../../api/project";
 import { Root } from "../../components/Form/FormRoot";
 import { useForm } from "react-hook-form";
-import { chatSchema, ChatSchema } from "../../schema/zod/chatSchema";
+import { chatSchema, ChatSchema } from "../../schema/chatSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CHAT_NAME_TO_SAVE_LOCALSTORAGE } from "../../variables/variables";
 import { loading } from "../../functions/loading";

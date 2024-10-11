@@ -1,4 +1,4 @@
-import { Title } from "../Title/Title";
+import { Heading } from "../Heading/Heading";
 import { MyLibrary } from "./components/MyLibrary/MyLibrary";
 import { Button } from "../button/Button";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
@@ -107,16 +107,16 @@ export function FileLibrary({ name, client_id, acceptFiles, limitSelect, setFile
         <div className="w-[60vw] h-[50vh] min-w-[400px] max-w-[600px] max-h-[500px] flex flex-col items-center bg-dark overflow-hidden rounded-md">
             {/* TABS  */}
             <div className="flex w-full">
-                <Title
+                <Heading.h2
                     data-active={!!newUploadIsActive}
                     className="w-1/2 p-1 cursor-pointer data-[active=false]:bg-primary-200 md:text-lg"
                     onClick={() => setNewUploadIsActive(true)}
-                ><FaUpload /> Novo arquivo</Title>
-                <Title
+                ><FaUpload /> Novo arquivo</Heading.h2>
+                <Heading.h2
                     data-active={!newUploadIsActive}
                     className="w-1/2 p-1 cursor-pointer data-[active=false]:bg-primary-200 md:text-lg"
                     onClick={() => setNewUploadIsActive(false)}
-                ><FaImages /> Minha biblioteca</Title>
+                ><FaImages /> Minha biblioteca</Heading.h2>
             </div>
 
             <div className="w-full h-full flex flex-col items-center justify-center p-4 gap-4">

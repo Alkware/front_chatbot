@@ -3,9 +3,8 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { MdAdd, MdArrowDropDown, MdDelete } from "react-icons/md";
 import { ModalContext } from "../../../../../../context/ModalContext";
 import { Button } from "../../../../../../components/button/Button";
-import { Title } from "../../../../../../components/Title/Title";
+import { Heading } from "../../../../../../components/Heading/Heading";
 import { PopUp } from "../../../../../../components/modal/templates/PopUp";
-import { SubTitle } from "../../../../../../components/SubTitle/SubTitle";
 import { FormAddQuestion } from "./components/FormAddQuestion/FormAddQuestion";
 
 export function ComomQuestions() {
@@ -73,9 +72,9 @@ export function ComomQuestions() {
                                         id="container-ask"
                                         className="w-full p-1 flex items-center cursor-pointer relative justify-center bg-primary-100 dark:bg-primary-300 border border-dark rounded-md"
                                     >
-                                        <Title
+                                        <Heading.h2
                                             className="md:text-base"
-                                        >{field.ask}</Title>
+                                        >{field.ask}</Heading.h2>
 
                                         <MdArrowDropDown
                                             className="absolute right-2 size-6 fill-primary-200 dark:fill-primary-100"
@@ -85,7 +84,7 @@ export function ComomQuestions() {
                                         id="container-answer"
                                         className="w-full p-2 bg-primary-300/50 hidden relative -translate-y-10 transition-transform duration-500"
                                     >
-                                        <SubTitle>{field.answer}</SubTitle>
+                                        <Heading.h3>{field.answer}</Heading.h3>
                                     </div>
                                 </div>
                                 <MdDelete

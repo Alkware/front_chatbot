@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authenticateClient, loginClient } from "../../api/client";
 import { RefObject, useContext, useEffect, useRef, useState } from "react";
@@ -11,36 +10,33 @@ import { PopOver } from "../../components/modal/templates/PopOver";
 import { loading } from "../../functions/loading";
 import { saveGuest } from "../../api/guest.api";
 import { Input } from "../../components/Form/components/Fields/Input/Input";
-
-const createClientFormSchema = z.object({
-    email: z.string().min(1, "0:E-mail não pode estar vazio.").email("0:O e-mail é obrigatório.").toLowerCase(),
-    password: z.string().min(1, "0:Sua senha não pode estar vazia."),
-})
-
-type createClientFormTypes = z.infer<typeof createClientFormSchema>
+import { loginFormSchema, LoginFormTypes } from "../../schema/loginSchema";
+import { setThemePage } from "../../functions/setThemePage";
 
 
 function Login() {
-    const { setModalContent } = useContext(ModalContext)
+    const { setModalContent } = useContext(ModalContext);
     const navigate = useNavigate();
     const [access, setAccess] = useState<boolean>();
     const containerFormRef: RefObject<HTMLDivElement> = useRef(null);
-    const formLogin = useForm<createClientFormTypes>({
-        resolver: zodResolver(createClientFormSchema)
+    const formLogin = useForm<LoginFormTypes>({
+        resolver: zodResolver(loginFormSchema)
     });
 
     useEffect(() => {
         (async () => {
             // define o thema da página de login
-            const isDark = localStorage.theme === "dark"
-            document.documentElement.classList.toggle("dark", !!isDark)
-
+            setThemePage();
             //verifica se o usuário já está authenticado, se estiver ele já vai direto para o painel
             const token = localStorage.getItem("token");
-            const clientIsLogged = token && await authenticateClient(token)
+            if(!token) {
+                setAccess(true);
+                return;
+            }
+            
+            const clientIsLogged = await authenticateClient(token)
             if (clientIsLogged) window.location.href = "/panel"
-            else setAccess(true)
-
+            
             // Salva o convidado no banco de dados...
             saveGuest();
         })();

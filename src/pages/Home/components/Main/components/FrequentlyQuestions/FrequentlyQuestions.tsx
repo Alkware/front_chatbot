@@ -36,7 +36,6 @@ export function FrequentlyQuestions() {
             const response = await getMessageManagerByProjectId(PROJECT_ID_WIPZEE);
             if(response){
                 const { available } = response?.data.response;
-                console.log(available)
                 if (available) setDisplayChat(available);
                 else setDisplayChat(false);
             }

@@ -5,7 +5,7 @@ import { StepBasicProductInfo } from "../../../../../../../../../../../../../Cre
 import { Dispatch, SetStateAction, useContext } from "react";
 import { ClientContext } from "../../../../../../../../../../../../../../context/ClientContext";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ProductSchema, productSchema } from "../../../../../../../../../../../../../../schema/zod/productSchema";
+import { ProductSchema, productSchema } from "../../../../../../../../../../../../../../schema/productSchema";
 import { StepAdvancedProductInfo } from "../../../../../../../../../../../../../CreateProduct/components/StepAdvancedProductInfo/StepAdvancedProductInfo";
 import { StepAboutProductWarranty } from "../../../../../../../../../../../../../CreateProduct/components/StepAboutProductWarranty/StepAboutProductWarranty";
 import { StepProductPaymentMethodAndConditions } from "../../../../../../../../../../../../../CreateProduct/components/StepPaymentMethodAndConditions/StepPaymentMethodAndConditions";

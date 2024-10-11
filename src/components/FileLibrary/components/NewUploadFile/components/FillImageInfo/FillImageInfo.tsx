@@ -1,6 +1,5 @@
 import { MdSave } from "react-icons/md";
 import { Button } from "../../../../../button/Button";
-import { SubTitle } from "../../../../../SubTitle/SubTitle";
 import { TextArea } from "../../../../../Form/components/Fields/TextArea/TextArea";
 import { uploadImage } from "../../../../../../api/images";
 import { FieldValues, useForm } from "react-hook-form";
@@ -9,6 +8,7 @@ import { ModalContext } from "../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../modal/templates/PopOver";
 import { loading } from "../../../../../../functions/loading";
 import { Image } from "../../../../../../@types/images.types";
+import { Heading } from "../../../../../Heading/Heading";
 
 interface FillImageInfo {
     client_id: string;
@@ -85,9 +85,9 @@ export function FillImageInfo({ src, file, client_id, setFiles }: FillImageInfo)
                 className="space-y-6"
                 onSubmit={form.handleSubmit(handleSaveImage)}
             >
-                <SubTitle className="oapcity-70 text-sm">
+                <Heading.h3 className="oapcity-70 text-sm">
                     Faça uma descrição detalhada dessa imagem para que a inteligência artificial possa interpleta-la.
-                </SubTitle>
+                </Heading.h3>
 
                 <TextArea
                     name="description"

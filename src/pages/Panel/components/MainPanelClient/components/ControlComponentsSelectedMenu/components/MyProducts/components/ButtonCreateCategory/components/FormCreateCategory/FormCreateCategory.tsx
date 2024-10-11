@@ -1,8 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Button } from "../../../../../../../../../../../../components/button/Button";
 import { Input } from "../../../../../../../../../../../../components/Form/components/Fields/Input/Input";
-import { SubTitle } from "../../../../../../../../../../../../components/SubTitle/SubTitle";
-import { Title } from "../../../../../../../../../../../../components/Title/Title";
+import { Heading } from "../../../../../../../../../../../../components/Heading/Heading";
 import { useContext } from "react";
 import { ModalContext } from "../../../../../../../../../../../../context/ModalContext";
 import { PopUp } from "../../../../../../../../../../../../components/modal/templates/PopUp";
@@ -26,8 +25,8 @@ export function FormCreateCategory({ }: FormCreateCategory) {
             onSubmit={formContext.handleSubmit(handleDisplaySelectTypeOffer)}
             className="max-w-[90vw] flex flex-col justify-center items-center gap-2 p-4"
         >
-            <Title>Crie sua categoria</Title>
-            <SubTitle className="max-w-[400px] opacity-70 md:text-base">Cadastre a categoria do seu produto, antes de adicionar produtos nela</SubTitle>
+            <Heading.h2>Crie sua categoria</Heading.h2>
+            <Heading.h3 className="max-w-[400px] opacity-70 md:text-base">Cadastre a categoria do seu produto, antes de adicionar produtos nela</Heading.h3>
             <div className="my-4 w-full">
                 <Input
                     name="category_name"

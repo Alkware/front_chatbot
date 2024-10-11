@@ -2,13 +2,13 @@ import { MdAdd } from "react-icons/md";
 import { Button } from "../../../../../../../components/button/Button";
 import { TextArea } from "../../../../../../../components/Form/components/Fields/TextArea/TextArea";
 import { Select } from "../../../../../../../components/Select/Select";
-import { Title } from "../../../../../../../components/Title/Title";
+import { Heading } from "../../../../../../../components/Heading/Heading";
 import { FieldValues, UseFieldArrayAppend, useForm } from "react-hook-form";
 import { useContext } from "react";
 import { ModalContext } from "../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../components/modal/templates/PopOver";
 
-interface FormAddVariable { 
+interface FormAddVariable {
     append: UseFieldArrayAppend<FieldValues, "optional_variable">
 }
 
@@ -27,10 +27,10 @@ const options = [
 
 export function FormAddVariable({ append }: FormAddVariable) {
     const { setModalContent, clearModal } = useContext(ModalContext);
-    const formContext= useForm();
+    const formContext = useForm();
 
 
-    function addVariable({ title, value}: FieldValues) {
+    function addVariable({ title, value }: FieldValues) {
         let errorMessage = null;
 
         if (!title) errorMessage = "Selecione uma característica";
@@ -53,9 +53,9 @@ export function FormAddVariable({ append }: FormAddVariable) {
 
     return (
         <div>
-            <Title
+            <Heading.h2
                 className="p-4"
-            >Adicione uma nova variável</Title>
+            >Adicione uma nova variável</Heading.h2>
             <form
                 onSubmit={formContext.handleSubmit(addVariable)}
                 className="p-4 flex flex-col gap-6 items-center"
