@@ -9,6 +9,7 @@ import { PopUp } from "../../components/modal/templates/PopUp";
 import { ModalSaveCpfOrCnpj } from "./components/ModalSaveCpfOrCnpj/ModalSaveCpfOrCnpj";
 import { convertDateInHour } from "../../functions/convertDateInHour";
 import { Tour } from "../../components/Tour/Tour";
+import axios from "axios";
 
 const MainPanelClient = lazy(() => import("./components/MainPanelClient/MainPanelClient"));
 const NavigatePanelClient = lazy(() => import("./components/NavigatePanelClient/NavigatePanelClient"));

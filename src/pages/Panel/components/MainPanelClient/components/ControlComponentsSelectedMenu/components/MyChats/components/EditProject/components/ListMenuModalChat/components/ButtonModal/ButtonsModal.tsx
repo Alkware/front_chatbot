@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { ModalContext } from "../../../../../../../../../../../../../../context/ModalContext";
 import { useSearchParams } from "react-router-dom";
-import { CTA_NAME_URL } from "../../../../../../../../../../../../../../variables/variables";
 import { TipContainer } from "../../../../../../../../../../../../../../components/TipContainer/TipContainer";
 import { FaUpload } from "react-icons/fa6";
 import { FaEdit, FaTrash } from "react-icons/fa";
@@ -15,8 +14,7 @@ export function ButtonsModal({ eventDelete }: ButtonsModalTypes) {
     const [params, setParams] = useSearchParams();
 
     const handleDiscardProject = () => {
-        params.delete(CTA_NAME_URL);
-        setParams(params)
+        setParams(params);
         clearModal(null, { clearLast: true })
     }
 

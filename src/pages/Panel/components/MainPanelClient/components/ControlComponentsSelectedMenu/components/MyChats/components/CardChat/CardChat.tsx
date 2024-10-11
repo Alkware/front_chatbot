@@ -92,10 +92,6 @@ export function CardChat({ project, setNewProject, ai }: CardChat) {
     }
 
     const handleGetLinks = () => {
-        // adiciona 'tour' parametro a url indicando que o usuário foi para o 2° parte do tutorial;
-        params.set("tour", "2");
-        setParams(params);
-
         // Verifica se existe uma slug, caso não exista, avisa o cliente da falha.
         if (!project.slug) {
             setModalContent({
