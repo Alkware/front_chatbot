@@ -38,8 +38,10 @@ export function Tour({ }: Tour) {
     useEffect(() => {
         // Verifica se o usuário completou o tour e lança uma mensagem parabenizando pela finalização do tour.
         const model = generateModelToTour(client);
-
-        if (true) {
+        const finishTour = !model.find(tour => !tour.completed);
+        // Caso o usuário tenha finalizado o tutorial, será exibido essa modal informando que ele concluiu o tutorial e
+        // exibindo um feedback para ele avaliar o tutorial
+        if (finishTour) {
             setModalContent({
                 componentName: "modal_complete_tour",
                 components:
