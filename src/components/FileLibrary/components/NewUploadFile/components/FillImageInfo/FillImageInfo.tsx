@@ -8,7 +8,7 @@ import { ModalContext } from "../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../modal/templates/PopOver";
 import { loading } from "../../../../../../functions/loading";
 import { Image } from "../../../../../../@types/images.types";
-import { Heading } from "../../../../../Heading/Heading";
+import { Text } from "../../../../../Text/Text";
 
 interface FillImageInfo {
     client_id: string;
@@ -85,9 +85,9 @@ export function FillImageInfo({ src, file, client_id, setFiles }: FillImageInfo)
                 className="space-y-6"
                 onSubmit={form.handleSubmit(handleSaveImage)}
             >
-                <Heading.h3 className="oapcity-70 text-sm">
+                <Text.h3 className="oapcity-70 text-sm">
                     Faça uma descrição detalhada dessa imagem para que a inteligência artificial possa interpleta-la.
-                </Heading.h3>
+                </Text.h3>
 
                 <TextArea
                     name="description"

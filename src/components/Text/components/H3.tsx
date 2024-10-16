@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge"
-import { Heading } from "../Heading"
+import { Text } from "../Text"
 
 export function H3({ children, className, ...props }: Heading) {
     return (

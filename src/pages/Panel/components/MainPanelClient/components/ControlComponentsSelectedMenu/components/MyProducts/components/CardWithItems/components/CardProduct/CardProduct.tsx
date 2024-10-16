@@ -1,4 +1,4 @@
-import { Heading } from "../../../../../../../../../../../../components/Heading/Heading"
+import { Text } from "../../../../../../../../../../../../components/Text/Text"
 import { Product } from "../../../../../../../../../../../../@types/products.types"
 import { MdAdd, MdCopyAll, MdDelete } from "react-icons/md"
 import { RefObject, useContext, useRef, useState } from "react"
@@ -114,9 +114,9 @@ export function CardProducts({ items }: CardProducts) {
                 data-display={!!items[0].category?.name}
                 className="w-full flex justify-between items-center bg-primary-100 dark:bg-primary-200 px-4"
             >
-                <Heading.h2
+                <Text.h2
                     className="font-bold text-light"
-                >{items[0].category.name === "null" ? "Sem categoria" : items[0].category.name}</Heading.h2>
+                >{items[0].category.name === "null" ? "Sem categoria" : items[0].category.name}</Text.h2>
             </div>
             <div
                 ref={containerProductsRef}
@@ -149,9 +149,9 @@ export function CardProducts({ items }: CardProducts) {
                                     tip={product.product_name.substring(0, 39)}
                                     positionY="BOTTOM"
                                 >
-                                    <Heading.h3
+                                    <Text.h3
                                         className="w-full bg-dark/80 text-light text-sm overflow-hidden whitespace-nowrap text-ellipsis px-1"
-                                    >{product.product_name}</Heading.h3>
+                                    >{product.product_name}</Text.h3>
                                 </TipContainer>
                             </div>
                         </div>

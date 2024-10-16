@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Heading } from "../../../../../../../../../../../../../../components/Heading/Heading";
+import { Text } from "../../../../../../../../../../../../../../components/Text/Text";
 import { MouseEvent, useContext } from "react";
 import { ModalContext } from "../../../../../../../../../../../../../../context/ModalContext";
 import { ClientContext } from "../../../../../../../../../../../../../../context/ClientContext";
@@ -21,8 +21,8 @@ export function DisplaySelectOfferType({ category_name }: DisplaySelectOfferType
 
     return (
         <div className="flex flex-col items-center p-4">
-            <Heading.h2>Escolha o tipo de oferta</Heading.h2>
-            <Heading.h3 className="opacity-70">Aqui você deve escolher qual o tipo de oferta você está cadastrando</Heading.h3>
+            <Text.h2>Escolha o tipo de oferta</Text.h2>
+            <Text.h3 className="opacity-70">Aqui você deve escolher qual o tipo de oferta você está cadastrando</Text.h3>
 
             <div className="w-full md:w-4/5 flex flex-col md:flex-row items-center justify-between gap-4 my-6">
                 <div
@@ -35,12 +35,12 @@ export function DisplaySelectOfferType({ category_name }: DisplaySelectOfferType
                         alt="Imagem representando um porduto fisico"
                         className="w-20 h-20 object-contain"
                     />
-                    <Heading.h2 className="md:text-base font-bold">Físico</Heading.h2>
-                    <Heading.h3
+                    <Text.h2 className="md:text-base font-bold">Físico</Text.h2>
+                    <Text.h3
                         className="md:text-sm opacity-50"
                     >
                         Um produto físico é um objeto tangível que é fabricado e posteriormente entregue ao cliente final para que o possua fisicamente.
-                    </Heading.h3>
+                    </Text.h3>
                 </div>
                 <div
                     data-source={"create-service"}
@@ -51,12 +51,12 @@ export function DisplaySelectOfferType({ category_name }: DisplaySelectOfferType
                         alt="Imagem representando um serviço online ou presencial"
                         className="w-20 h-20 object-contain"
                     />
-                    <Heading.h2 className="md:text-base font-bold">Serviço</Heading.h2>
-                    <Heading.h3
+                    <Text.h2 className="md:text-base font-bold">Serviço</Text.h2>
+                    <Text.h3
                         className="md:text-sm opacity-50"
                     >
                         Um serviço é uma atividade realizada para atender a uma necessidade específica do cliente, sendo consumido no momento da sua prestação.
-                    </Heading.h3>
+                    </Text.h3>
                 </div>
             </div>
         </div>

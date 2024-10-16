@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { updateTutorialClient } from "../../../../api/client";
 import { Button } from "../../../button/Button";
 import { PopUp } from "../../../modal/templates/PopUp";
-import { Heading } from "../../../Heading/Heading";
+import { Text } from "../../../Text/Text";
 import { ClientContext } from "../../../../context/ClientContext";
 import { ModalContext } from "../../../../context/ModalContext";
 
@@ -30,10 +30,10 @@ export function CompleteTutorial({ }: CompleteTutorial) {
                             alt="Mulher feliz por que vocẽ completou o tutorial"
                             className="max-w-[200px] object-contain"
                         />
-                        <Heading.h2>PARABENS!!!</Heading.h2>
-                        <Heading.h3>Acabamos de criar seu primeiro chat.</Heading.h3>
-                        <Heading.h3>Já podemos enviar seu link aos seus amigos e clientes, podemos também integra-lo em seu site. </Heading.h3>
-                        <Heading.h3>Boa sorte em seus negocios e qualquer dúvida não exite em nos contatar!</Heading.h3>
+                        <Text.h2>PARABENS!!!</Text.h2>
+                        <Text.h3>Acabamos de criar seu primeiro chat.</Text.h3>
+                        <Text.h3>Já podemos enviar seu link aos seus amigos e clientes, podemos também integra-lo em seu site. </Text.h3>
+                        <Text.h3>Boa sorte em seus negocios e qualquer dúvida não exite em nos contatar!</Text.h3>
 
                         <Button
                             customClass="my-8"
@@ -42,7 +42,7 @@ export function CompleteTutorial({ }: CompleteTutorial) {
                     </div>
                 </PopUp>
         });
-    }, [])
+    }, []);
 
     return <></>
 };

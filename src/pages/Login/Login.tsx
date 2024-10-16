@@ -29,13 +29,16 @@ function Login() {
             setThemePage();
             //verifica se o usuário já está authenticado, se estiver ele já vai direto para o painel
             const token = localStorage.getItem("token");
-            if(!token) {
-                setAccess(true);
-                return;
-            }
+            
+            if(!token) return;
             
             const clientIsLogged = await authenticateClient(token)
-            if (clientIsLogged) window.location.href = "/panel"
+            if (!clientIsLogged) {
+                setAccess(true);
+                return;
+            };
+            
+            window.location.href = "/panel"
             
             // Salva o convidado no banco de dados...
             saveGuest();

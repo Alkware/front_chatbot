@@ -6,7 +6,7 @@ import { PopUp } from "../../../../../../../../components/modal/templates/PopUp"
 import { Button } from "../../../../../../../../components/button/Button";
 import { COMPANY_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../../../variables/variables";
 import { FormAddHour } from "./components/FormAddHour/FormAddHour";
-import { Heading } from "../../../../../../../../components/Heading/Heading";
+import { Text } from "../../../../../../../../components/Text/Text";
 
 interface OpeningHours {
     name: string;
@@ -78,15 +78,15 @@ export function OpeningHours({ name, company }: OpeningHours) {
                             className="w-full flex gap-4 items-center bg-primary-300 data-[color=true]:bg-primary-200 px-4"
                         >
                             <div className="w-full flex flex-col items-center p-1">
-                                <Heading.h3 className="whitespace-nowrap text-xs">Dia(s) da semana</Heading.h3>
+                                <Text.h3 className="whitespace-nowrap text-xs">Dia(s) da semana</Text.h3>
                                 <span className="font-bold whitespace-nowrap">{hour.day}</span>
                             </div>
                             <div className="w-full flex flex-col items-center p-1">
-                                <Heading.h3 className="whitespace-nowrap text-xs">Ínicio</Heading.h3>
+                                <Text.h3 className="whitespace-nowrap text-xs">Ínicio</Text.h3>
                                 <span className="font-bold whitespace-nowrap">{hour.start}</span>
                             </div>
                             <div className="w-full flex flex-col items-center p-1">
-                                <Heading.h3 className="whitespace-nowrap text-xs">Fim</Heading.h3>
+                                <Text.h3 className="whitespace-nowrap text-xs">Fim</Text.h3>
                                 <span className="font-bold whitespace-nowrap">{hour.end}</span>
                             </div>
                             <MdDelete

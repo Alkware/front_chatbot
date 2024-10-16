@@ -1,7 +1,7 @@
 import { MouseEvent, useState } from "react";
 import { Product } from "../../../../../../../../../../@types/products.types";
 import { ProductsAndServices } from "../../../../../../../../../../api/productAndServices";
-import { Heading } from "../../../../../../../../../../components/Heading/Heading";
+import { Text } from "../../../../../../../../../../components/Text/Text";
 import { ButtonCreateCategory } from "../ButtonCreateCategory/ButtonCreateCategory";
 import { Service } from "../../../../../../../../../../@types/services.types";
 import { CardServices } from "./components/CardServices/CardServices";
@@ -57,18 +57,18 @@ export function CardWithItems({ offers }: CardWithItems) {
                     data-display={!!(products.length && services.length)}
                     className="w-full flex justify-start data-[display=false]:hidden"
                 >
-                    <Heading.h2
+                    <Text.h2
                         id="product"
                         data-active={productContainerIsActive}
                         className="w-1/2 text-left data-[active=true]:bg-primary-100 dark:data-[active=true]:bg-primary-200 bg-primary-50 dark:bg-primary-300 text-light border border-primary-100 dark:border-primary-200 cursor-pointer p-2"
                         onClick={handleChangeTab}
-                    >Produto(s)</Heading.h2>
-                    <Heading.h2
+                    >Produto(s)</Text.h2>
+                    <Text.h2
                         id="service"
                         data-active={!productContainerIsActive}
                         className="w-1/2 text-left data-[active=true]:bg-primary-100 dark:data-[active=true]:bg-primary-200 bg-primary-50 dark:bg-primary-300 text-light border border-primary-100 dark:border-primary-200 cursor-pointer p-2"
                         onClick={handleChangeTab}
-                    >Serviço(s)</Heading.h2>
+                    >Serviço(s)</Text.h2>
                 </div>
 
                 <div

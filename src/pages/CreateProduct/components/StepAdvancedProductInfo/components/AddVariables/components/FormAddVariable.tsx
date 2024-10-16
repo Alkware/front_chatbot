@@ -2,7 +2,7 @@ import { MdAdd } from "react-icons/md";
 import { Button } from "../../../../../../../components/button/Button";
 import { TextArea } from "../../../../../../../components/Form/components/Fields/TextArea/TextArea";
 import { Select } from "../../../../../../../components/Select/Select";
-import { Heading } from "../../../../../../../components/Heading/Heading";
+import { Text } from "../../../../../../../components/Text/Text";
 import { FieldValues, UseFieldArrayAppend, useForm } from "react-hook-form";
 import { useContext } from "react";
 import { ModalContext } from "../../../../../../../context/ModalContext";
@@ -53,9 +53,9 @@ export function FormAddVariable({ append }: FormAddVariable) {
 
     return (
         <div>
-            <Heading.h2
+            <Text.h2
                 className="p-4"
-            >Adicione uma nova variável</Heading.h2>
+            >Adicione uma nova variável</Text.h2>
             <form
                 onSubmit={formContext.handleSubmit(addVariable)}
                 className="p-4 flex flex-col gap-6 items-center"

@@ -10,7 +10,7 @@ import { ItemsList } from "./components/ItemsList/ItemsList";
 import { Button } from "../../../../../../components/button/Button";
 import { useFormContext } from "react-hook-form";
 import { Ai_products_Services } from "../../../../../../@types/artificialInteligence.types";
-import { Heading } from "../../../../../../components/Heading/Heading";
+import { Text } from "../../../../../../components/Text/Text";
 
 export type Item = Product | Service;
 
@@ -93,8 +93,8 @@ export function StepAddProducts({ plan_management_id, ai_products_services }: St
 
     return (
         <Root.Container>
-            <Heading.h2 className="text-left font-medium">Produtos/Serviços</Heading.h2>
-            <Heading.h3 className="text-left">Vincule seus produtos e serviços a sua inteligencia artificial para que ela obtenha conhecimento sobre eles.</Heading.h3>
+            <Text.h2 className="text-left font-medium">Produtos/Serviços</Text.h2>
+            <Text.h3 className="text-left">Vincule seus produtos e serviços a sua inteligencia artificial para que ela obtenha conhecimento sobre eles.</Text.h3>
             <div className="flex gap-2 flex-wrap my-8">
                 {items?.map((item: Omit<Item, "product_name"> & { product_name?: string }) =>
                     <div

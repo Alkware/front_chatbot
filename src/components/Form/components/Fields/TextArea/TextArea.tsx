@@ -1,6 +1,7 @@
 import { ChangeEventHandler, RefObject, useEffect, useRef } from "react";
 import { useFormContext, UseFormReturn } from "react-hook-form";
 import { MdHelpOutline } from "react-icons/md";
+import { twMerge } from "tailwind-merge";
 
 interface TextArea {
     title: string;
@@ -12,9 +13,10 @@ interface TextArea {
     formContext?: UseFormReturn;
     onChange?: ChangeEventHandler<HTMLTextAreaElement>;
     defaultValue?: string;
+    classListContainer?: string;
 }
 
-export function TextArea({ title, maxText, minText, name, size, help, defaultValue, formContext, onChange }: TextArea) {
+export function TextArea({ title, maxText, minText, name, size, help, defaultValue, formContext, classListContainer, onChange }: TextArea) {
     const form = useFormContext() || formContext;
     const containerRef: RefObject<HTMLDivElement> = useRef(null);
     const spanLimitTextRef: RefObject<HTMLSpanElement> = useRef(null);
@@ -100,10 +102,11 @@ export function TextArea({ title, maxText, minText, name, size, help, defaultVal
     return (
         <div
             data-formerror={!!formContext?.formState.errors[name.includes(".") ? name.split(".")[0] : name]}
-            className="w-full flex flex-col gap-2 relative border border-primary-100 rounded-md data-[formerror=true]:border-red-500"
+            className={twMerge("w-full flex flex-col gap-2 relative border border-primary-100 rounded-md data-[formerror=true]:border-red-500", classListContainer)}
             ref={containerRef}
             onClick={handleClickedInput}
             onBlur={handleExitInput}
+            data-id="container-textarea"
         >
             <label
                 className={`${title ? "block" : "hidden"} py-2 absolute top-0 transition-transform opacity-50 cursor-text flex gap-2 items-center text-sm md:text-base text-dark dark:text-light`}

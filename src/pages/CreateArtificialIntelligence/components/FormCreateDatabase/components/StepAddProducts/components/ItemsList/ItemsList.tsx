@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useContext, useState } from "react"
 import { Button } from "../../../../../../../../components/button/Button"
-import { Heading } from "../../../../../../../../components/Heading/Heading"
+import { Text } from "../../../../../../../../components/Text/Text"
 import { Item } from "../../StepAddProducts"
 import { MdAdd } from "react-icons/md";
 import { TipContainer } from "../../../../../../../../components/TipContainer/TipContainer";
@@ -66,7 +66,7 @@ export function ItemsList({ title, type, list, items, plan_management_id, setIte
     return (
         <div className="w-full min-w-[50vw] flex flex-col gap-4 py-4">
             <div className="flex w-full justify-between">
-                <Heading.h2>{title}</Heading.h2>
+                <Text.h2>{title}</Text.h2>
                 <Button onClick={handleSelectAll} customClass="px-1 py-0">Selecionar todos {!!isSelected?.length ? `(${isSelected.length})` : ""}</Button>
             </div>
             <div className="flex gap-2">

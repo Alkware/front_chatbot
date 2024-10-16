@@ -1,5 +1,5 @@
 import { FormEvent, useContext } from "react";
-import { Heading } from "../../../../../../../../components/Heading/Heading";
+import { Text } from "../../../../../../../../components/Text/Text";
 import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../../../components/modal/templates/PopOver";
 import { FieldValues, UseFieldArrayAppend } from "react-hook-form";
@@ -42,8 +42,8 @@ export function FormAddQuestion({ append }: FormAddQuestion) {
 
     return (
         <div className="p-4">
-            <Heading.h2
-            >Adicione uma nova pergunta frequente</Heading.h2>
+            <Text.h2
+            >Adicione uma nova pergunta frequente</Text.h2>
             <form
                 onSubmit={addAskCommom}
                 className="p-4 flex flex-col gap-6 items-center"

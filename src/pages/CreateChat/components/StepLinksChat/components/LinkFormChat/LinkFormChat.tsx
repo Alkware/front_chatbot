@@ -6,7 +6,7 @@ import { ChatSchema } from "../../../../../../schema/chatSchema";
 import { ModalContext } from "../../../../../../context/ModalContext";
 import { PopOver } from "../../../../../../components/modal/templates/PopOver";
 import { Input } from "../../../../../../components/Form/components/Fields/Input/Input";
-import { Heading } from "../../../../../../components/Heading/Heading";
+import { Text } from "../../../../../../components/Text/Text";
 import { Link } from "../../../../../../@types/Project";
 import { TextArea } from "../../../../../../components/Form/components/Fields/TextArea/TextArea";
 import { PopUp } from "../../../../../../components/modal/templates/PopUp";
@@ -70,7 +70,7 @@ export function LinkFormChat() {
                         ref={formLinkRef}
                         className="w-full flex flex-col gap-6 p-4"
                     >
-                        <Heading.h2>Adicione um novo link</Heading.h2>
+                        <Text.h2>Adicione um novo link</Text.h2>
 
                         <Input
                             name={`title`}
@@ -108,7 +108,7 @@ export function LinkFormChat() {
         <div className="w-full md:w-autoflex flex-col border-2 md:border-none border-primary-100 rounded-md md:rounded-none p-2 md:p-0">
             <div className="flex justify-between items-center">
                 <div className="flex flex-col">
-                    <Heading.h2 className="text-left md:text-base">Adicione links que podem ser relevantes para seu chat</Heading.h2>
+                    <Text.h2 className="text-left md:text-base">Adicione links que podem ser relevantes para seu chat</Text.h2>
                     <span className="text-sm opacity-80 md:opacity-70">(Esses links podem ser usados no contexto da conversa)</span>
                 </div>
             </div>
@@ -118,9 +118,9 @@ export function LinkFormChat() {
                 className="group flex gap-6 my-4 justify-end data-[linkisempty=true]:items-center data-[linkisempty=true]:flex-col"
             >
 
-                <Heading.h3
+                <Text.h3
                     className="group-data-[linkisempty=false]:hidden text-xl opacity-70"
-                >Você ainda não adicionou nenhum link</Heading.h3>
+                >Você ainda não adicionou nenhum link</Text.h3>
                 <Button
                     type="button"
                     className="p-1 size-10 fill-primary-100 bg-primary-200 rounded-full cursor-pointer"
@@ -136,7 +136,7 @@ export function LinkFormChat() {
                 className="flex flex-col my-4"
                 hiddenContainer={!fields.length}
             >
-                <Heading.h2 className="font-bold my-2 text-left">Seus links:</Heading.h2>
+                <Text.h2 className="font-bold my-2 text-left">Seus links:</Text.h2>
                 <div className="max-h-[120px] overflow-auto flex flex-wrap justify-center gap-4">
                     {fields.map((field: Field, index: number) =>
                         <div

@@ -3,7 +3,7 @@ import { MdAdd, MdBusiness, MdClose, MdDelete } from "react-icons/md"
 import { ModalContext } from "../../../../../../../../context/ModalContext";
 import { Client_Company } from "../../../../../../../../@types/clientCompany.types";
 import { COMPANY_NAME_TO_SAVE_LOCALSTORAGE } from "../../../../../../../../variables/variables";
-import { Heading } from "../../../../../../../../components/Heading/Heading";
+import { Text } from "../../../../../../../../components/Text/Text";
 import { PopUp } from "../../../../../../../../components/modal/templates/PopUp";
 import { Confirm } from "../../../../../../../../components/modal/templates/Confirm";
 import { deleteClientCompany } from "../../../../../../../../api/client_company.api";
@@ -106,7 +106,7 @@ export function MyCompanies({ companies, setCompany }: MyCompanies) {
                 className="absolute top-1 right-1 text-lg cursor-pointer bg-primary-100 rounded-full fill-white"
                 onClick={() => clearModal("modal_show_companies")}
             />
-            <Heading.h2 className="font-bold">Minhas empresas:</Heading.h2>
+            <Text.h2 className="font-bold">Minhas empresas:</Text.h2>
             <div className="flex flex-col items-center justify-center gap-4 p-4">
                 {!companies?.length ?
                     <div className="flex gap-4 items-center">
