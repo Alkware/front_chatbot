@@ -5,7 +5,7 @@ import { H3 } from "./components/H3";
 import { Link } from "./components/Link";
 
 
-export interface Text extends HTMLAttributes<HTMLHeadingElement> {};
+export interface TextType extends HTMLAttributes<HTMLHeadingElement> {};
 
 export const Text = {
     h1: H1,

@@ -129,7 +129,7 @@ export function Feedback({ title, description, imageDecoration }: Feedback) {
                                 key={index}
                                 id={(index + 1).toString()}
                                 className="size-9 hover:fill-primary-100 hover:opacity-100 cursor-pointer opacity-70 group-data-[active=true]:fill-primary-100 group-data-[active=true]:opacity-100"
-                                onClick={(e) => handleAddUserFeedbackToState({ rating: e.currentTarget.id })}
+                                onClick={(e: MouseEvent) => handleAddUserFeedbackToState({ rating: e.currentTarget.id })}
                             />
                             <span className="invisible group-hover:visible group-data-[active=true]:visible">{name}</span>
                         </FeedbackComponents.Container>
