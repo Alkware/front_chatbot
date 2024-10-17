@@ -187,7 +187,6 @@ export function ModalEditChat({ project, setProjects, ai }: ModalEditChat) {
                 >
                     <StepLinksChat
                         artificialInteligence={ai}
-                        createChatForm={editChatForm}
                     />
                 </Root.EditStep>
                 <Root.EditStep
