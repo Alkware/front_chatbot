@@ -23,7 +23,7 @@ export const productSchema = z.object({
             year: z.string().optional().nullable(),
         }).optional().nullable()
     }).nullable().optional(),
-    link_buy: z.string().url().optional().nullable(),
+    link_buy: z.string().url("0: Link de compra invalído, tente novamente.").optional().nullable(),
     description: z.string().min(1, "0:A descrição do produto não pode estar vazia."),
     payment_methods: z.preprocess(data => data ?? [], z.array(z.string()).nonempty("1:Informe pelo menos um método de pagamento")),
     credit_card_installments: z.string().nullable(),
@@ -31,7 +31,7 @@ export const productSchema = z.object({
     how_product_will_be_delivered: z.string().min(1, "1:Descreva como seu produto vai ser entregue."),
     tracking_link: z.string().url().nullable().optional(),
     warranty_time: z.object({
-        type: z.string().min(1, "2:O tipo de data parta garantia do produto, não pode estar vazia."),
+        type: z.string({ invalid_type_error: "2: Defina um tipo de data para garantia do produto" }).min(1, "2:O tipo de data para garantia do produto, não pode estar vazia."),
         time: z.coerce.number().min(1, "2:O tempo de garantia do produto não pode estar vazio.")
     }),
     how_guarantee_work: z.string().min(1, "2:Informe como funciona a garantia do seu produto."),

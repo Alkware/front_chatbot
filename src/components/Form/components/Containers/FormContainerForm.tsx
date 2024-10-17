@@ -32,16 +32,15 @@ export function FormContainerForm({ children, onSubmit, form, activeSimulator = 
                 componentName: "modal_error_message",
                 components:
                     <PopOver
-                        message={error.message}
+                        message={error?.message || error.step}
                         type="ERROR"
                         componentName="modal_error_message"
                         functionAfterComplete={() => {
                             const { step } = error;
-                            if (!step) {
+                            if (isNaN(step)) {
                                 console.error("Failed the find the error step");
-                                return;
-                            }
-                            params.set("form-step", step.toString());
+                                params.set("form-step", "0");
+                            }else params.set("form-step", step.toString());
                             setParams(params);
                         }}
                     />

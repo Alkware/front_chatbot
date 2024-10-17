@@ -9,6 +9,7 @@ import { PopOver } from "../modal/templates/PopOver";
 import { useSystemFail } from "../../hooks/useSystemFail";
 import { FeedbackComponents } from "./components/FeedbackContainer/FeedbackContainer";
 import { TextArea } from "../Form/components/Fields/TextArea/TextArea";
+import { updateStatusTour } from "../../api/client";
 
 interface Feedback {
     title: string;
@@ -54,19 +55,26 @@ export function Feedback({ title, description, imageDecoration }: Feedback) {
             return;
         }
 
-        const response = await createFeedback({
+        await createFeedback({
             topic: "tutorial",
             rating: userFeedBack?.rating,
             message: userFeedBack?.message,
             client_id: client.id
-        });
-
-        if (!response) {
+        }).catch(() => {
             dispatchSystemError({
+                displayModalContent: true,
                 message: "Falha ao tentar enviar o feedback, não se preocupe, nossa equipe já está reparando, e tudo voltará ao normal em breve",
                 path: "src/components/Feedback/Feedback.tsx"
             });
-            return;
+        });
+
+        const responseUpdateTour = await updateStatusTour(client.id, false);
+
+        if(!responseUpdateTour) {
+            dispatchSystemError({
+                message: "Falha ao tentar atualizar o tutorial do usuário.",
+                path: "src/components/Feedback/Feedback.tsx"
+            });
         }
 
         setModalContent({

@@ -6,12 +6,9 @@ import { PopOver } from "../../../../../../../../../../components/modal/template
 import { updateIsOnlineProject } from "../../../../../../../../../../api/project";
 import { PopUp } from "../../../../../../../../../../components/modal/templates/PopUp";
 import { TipContainer } from "../../../../../../../../../../components/TipContainer/TipContainer";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ShareProject } from "./components/ShareProject/ShareProject";
 import { ModalEditChat } from "../EditProject/components/ModalEditChat/ModalEditChat";
-import { updateTutorialClient } from "../../../../../../../../../../api/client";
-import { ClientContext } from "../../../../../../../../../../context/ClientContext";
-import { Client } from "../../../../../../../../../../@types/Client.types";
 import { FaChartColumn, FaGear, FaLink } from "react-icons/fa6";
 import { Artificial_Intelligence } from "../../../../../../../../../../@types/artificialInteligence.types";
 
@@ -23,22 +20,11 @@ interface CardChat {
 }
 
 export function CardChat({ project, setNewProject, ai }: CardChat) {
-    const { client, setClient } = useContext(ClientContext);
     const { setModalContent } = useContext(ModalContext);
     const chatUrl = import.meta.env.VITE_CHAT_HOST;
     const navigate = useNavigate();
-    const [params, setParams] = useSearchParams();
 
     const handleEditProject = async () => {
-        if (params.get("tour") === "2") {
-            params.set("tour", "0")
-            setParams(params)
-            if (client) {
-                const clientResponse: Client = await updateTutorialClient(client.id, false);
-                setClient(clientResponse)
-            }
-        }
-
         setModalContent({
             componentName: "modal_edit_project",
             components:

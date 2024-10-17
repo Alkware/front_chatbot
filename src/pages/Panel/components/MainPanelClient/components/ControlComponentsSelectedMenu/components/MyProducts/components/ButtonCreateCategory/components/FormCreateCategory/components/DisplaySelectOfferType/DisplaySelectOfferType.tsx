@@ -37,7 +37,7 @@ export function DisplaySelectOfferType({ category_name }: DisplaySelectOfferType
                     />
                     <Text.h2 className="md:text-base font-bold">Físico</Text.h2>
                     <Text.h3
-                        className="md:text-sm opacity-50"
+                        className="md:text-sm opacity-50 p-2"
                     >
                         Um produto físico é um objeto tangível que é fabricado e posteriormente entregue ao cliente final para que o possua fisicamente.
                     </Text.h3>
@@ -53,7 +53,7 @@ export function DisplaySelectOfferType({ category_name }: DisplaySelectOfferType
                     />
                     <Text.h2 className="md:text-base font-bold">Serviço</Text.h2>
                     <Text.h3
-                        className="md:text-sm opacity-50"
+                        className="md:text-sm opacity-50 p-2"
                     >
                         Um serviço é uma atividade realizada para atender a uma necessidade específica do cliente, sendo consumido no momento da sua prestação.
                     </Text.h3>

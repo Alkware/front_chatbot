@@ -83,7 +83,7 @@ export async function checkUserIsAvailable(user: string) {
 }
 
 
-export async function updateTutorialClient(client_id: string, tutorial: boolean) {
+export async function updateStatusTour(client_id: string, tutorial: boolean) {
 
     const response = await axios.put(`${API_URL}/client/update_tutorial`, { client_id, tutorial })
         .catch(err => {

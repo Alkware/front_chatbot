@@ -70,6 +70,10 @@ export function StepBasicProductInfo({ client_id, product }: StepBasicProductInf
                     name="link_buy"
                     title="Digite o link para compra do produto"
                     formContext={formContext}
+                    onChange={({ currentTarget }) => {
+                        if (!currentTarget.value.toLowerCase().includes("http"))
+                            currentTarget.value = `https://${currentTarget.value.replace("http", "")}`
+                    }}
                 />
             </Root.Optional>
 
