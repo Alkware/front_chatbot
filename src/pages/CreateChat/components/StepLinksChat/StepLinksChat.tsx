@@ -1,19 +1,18 @@
-import { useFieldArray, UseFormReturn } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import { Artificial_Intelligence } from "../../../../@types/artificialInteligence.types";
 import { Root } from "../../../../components/Form/FormRoot";
 import { Select } from "../../../../components/Select/Select";
-import { ChatSchema } from "../../../../schema/chatSchema";
 import { LinkFormChat } from "./components/LinkFormChat/LinkFormChat";
 
 interface StepLinksChat {
-    createChatForm: UseFormReturn<ChatSchema>
     artificialInteligence: Artificial_Intelligence[]
 }
 
-export function StepLinksChat({ artificialInteligence, createChatForm }: StepLinksChat) {
+export function StepLinksChat({ artificialInteligence }: StepLinksChat) {
+    const form = useFormContext();
 
     const { remove, fields } = useFieldArray({
-        control: createChatForm.control,
+        control: form.control,
         name: "links"
     })
 
@@ -23,6 +22,7 @@ export function StepLinksChat({ artificialInteligence, createChatForm }: StepLin
                 title="Selecione uma inteligência artificial"
                 name="artificial_intelligence_id"
                 options={artificialInteligence.map(p => ({ value: p.id, text: p.identification }))}
+                formContext={form}
             />
             <Root.Optional
                 name="links"

@@ -6,7 +6,7 @@ export const chatSchema = z.object({
     project_name: z.string().min(1, "0:Você precisa definir um nome para seu chat"),
     logo_id: z.coerce.string().min(1, "0:Faça o upload da logo do chat"),
     chat_input_message: z.array(z.string().min(1, "0:Informe a primeira mensagem que será enviada ao seu cliente")).nonempty(),
-    artificial_intelligence_id: z.coerce.string().min(1, "1:Informe uma inteligência artificial"),
+    artificial_intelligence_id: z.string({ invalid_type_error:  "1:Informe uma inteligência artificial" }).min(1,  "1:Informe uma inteligência artificial"),
     bio: z.string().optional(),
     links: z.optional(z.array(z.object({
         title: z.string().min(1, "1:Informe o titulo do seu link"),

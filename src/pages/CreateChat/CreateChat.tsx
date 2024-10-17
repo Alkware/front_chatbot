@@ -128,7 +128,6 @@ export function CreateChat() {
                     <Root.Step index={1}>
                         <StepLinksChat
                             artificialInteligence={artificialInteligence}
-                            createChatForm={createChatForm}
                         />
                     </Root.Step>
                 </Root.Form>
