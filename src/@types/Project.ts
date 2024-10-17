@@ -1,66 +1,65 @@
 import { Metric } from "./metric.types";
 import { MessageManager } from "./messageManager.types";
-import { Database } from "./Database.types";
-
+import { Artificial_Intelligence } from "./artificialInteligence.types";
+import { Chat_appearance } from "./chatAppearence.types";
+import { PlanManagement } from "./planManagement";
+import { Image } from "./images.types";
 
 export interface Project {
-    id?: string,
-    slug?: string
-    project_name: string,
-    logo: string,
-    plan_management_id: string,
-    prompt_id: string,
-    bio: string,
-    describe_client: string;
-    chat_input_message: string[],
-    chat_type?: string
-    pixel_facebook?: string,
-    is_online?: boolean,
-    metric: Metric,
-    created_at: string | Date,
-    prompt: Database,
-    call_to_action: Call_to_action[],
-    social_proof: Social_proof[];
-    message_manager: MessageManager[];
-    chat_appearance: {
-        id: string,
-        can_update: boolean,
-        chat_icon: number,
-        icon_text: string,
-        primary_color: string,
-        second_color: string,
-        background: string,
-    };
+    id: string
+    plan_management_id: string
+    prompt_id?: string | null
+    artificial_intelligence_id: string | null;
+    logo_id: string | null;
+    project_name: string
+    slug: string
+    bio?: string
+    pixel_facebook?: string | null
+    is_online: boolean
+    chat_input_message: string[]
+    call_to_action?: any
+    links?: Link[]
+    chat_appearance?: Chat_appearance
+    message_manager: MessageManager[]
+    metric: Metric
+    plan_management: PlanManagement
+    artificial_intelligence: Artificial_Intelligence
+    logo: Image
+    created_at: Date
+    updated_at: Date
 }
 
-export type Call_to_action = {   
-    button_text: string;
-    button_link: string;
-    button_describe: string;
+export type Create_project = Omit<Project,
+    "id" |
+    "slug" |
+    "bio" |
+    "is_online" |
+    "message_manager" |
+    "metric" |
+    "logo" |
+    "plan_management" |
+    "artificial_intelligence" |
+    "created_at" |
+    "updated_at" 
+>;
+
+export type Update_project = Omit<Project,
+    "id" |
+    "is_online" |
+    "slug" |
+    "message_manager" |
+    "metric" |
+    "logo" |
+    "plan_management" |
+    "artificial_intelligence" |
+    "created_at" |
+    "updated_at" 
+> & {
+    slug?: string;
+};
+
+export type Link = {
+    title: string;
+    url: string;
+    description: string;
 }
-
-export type Social_proof = {   
-    person_name: string,
-    avatar: string,
-    images: string[],
-    text: string,
-    rating: number
-}
-
-
-export interface ProjectCreateTypes {
-    id?: string,
-    slug?: string
-    project_name: string,
-    logo: string,
-    prompt_id: string,
-    plan_management_id: string,
-    chat_input_message: string[],
-    chat_type?: string
-    pixel_facebook?: string,
-    is_online?: boolean,
-    call_to_action: Call_to_action[],
-}
-
-
-

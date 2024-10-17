@@ -24,8 +24,8 @@ export function Metric() {
     }, [])
 
     const handleRequestDataProject = async (id: string) => {
-        const response = await getClientById(id);
-        if (response?.status === 200) setPlanManagement(response.data.plan_management)
+        const client = await getClientById(id);
+        if (client) setPlanManagement(client.plan_management)
         else setModalContent({
             componentName: "modal_failed_load_metric",
             components:

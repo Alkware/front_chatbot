@@ -1,4 +1,4 @@
-import { Client } from "../../../../../../../../../../../@types/Client"
+import { Client } from "../../../../../../../../../../../@types/Client.types"
 import { Button } from "../../../../../../../../../../../components/button/Button"
 import { useNavigate } from "react-router-dom"
 

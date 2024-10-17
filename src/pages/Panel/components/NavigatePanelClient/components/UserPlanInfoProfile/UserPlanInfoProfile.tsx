@@ -16,7 +16,7 @@ interface UserPlanTypes {
 
 const UserPlanInfoProfile = ({ }: UserPlanTypes) => {
     const { setModalContent, clearModal } = useContext(ModalContext)
-    const { client } = useContext(ClientContext)
+    const { client, setClient } = useContext(ClientContext)
     const navigate = useNavigate();
     const [params] = useSearchParams();
     const isMenuResized = params.get(RESIZE_MENU.URL_NAME) === RESIZE_MENU.VALUE;
@@ -25,6 +25,7 @@ const UserPlanInfoProfile = ({ }: UserPlanTypes) => {
     const handleExitThePanel = () => {
 
         function handleConfirmExitThePanel() {
+            setClient(undefined);
             localStorage.removeItem("token")
             clearModal("modal_confirm_exit_panel")
             navigate("/login")

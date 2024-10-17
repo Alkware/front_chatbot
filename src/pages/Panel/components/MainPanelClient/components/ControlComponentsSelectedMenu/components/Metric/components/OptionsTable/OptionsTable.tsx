@@ -3,7 +3,7 @@ import { ModalColumnOrganization } from "../ModalColumnOrganization/ModalColumnO
 import { Dispatch, SetStateAction, useContext } from "react";
 import { BsStars } from "react-icons/bs";
 import { FaBorderAll } from "react-icons/fa";
-import { Client } from "../../../../../../../../../../@types/Client";
+import { Client } from "../../../../../../../../../../@types/Client.types";
 import { Columns } from "../../../../../../../../../../@types/Column.types";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { SelectTime } from "../../../../../../../../../../components/SelectTime/SelectTime";

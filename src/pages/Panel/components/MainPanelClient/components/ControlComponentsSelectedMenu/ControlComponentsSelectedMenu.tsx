@@ -1,13 +1,14 @@
 import { useSearchParams } from "react-router-dom";
 import MyChats from "./components/MyChats/MyChats";
 import { Metric } from "./components/Metric/Metric";
-import { MyDatabases } from "./components/MyDatabase/MyDatabase";
+import { MyArtificialIntelligence } from "./components/MyArtificialIntelligence/MyArtificialIntelligence";
 import { ConversationHistoric } from "./components/Records/ConversationHistoric";
 import { Payments } from "./components/Payments/Payments";
 import { ConfigProfile } from "./components/ConfigProfile/ConfigProfile";
 import { Tab } from "../../../NavigatePanelClient/components/MenuNavigate/MenuNavigate";
 import { ReactElement } from "react";
 import { Leads } from "./components/Records/Leads";
+import { MyProducts } from "./components/MyProducts/MyProducts";
 
 interface Container {
     tab: Tab;
@@ -17,7 +18,8 @@ interface Container {
 const containers: Container[] = [
     { tab: "my_chats", element: <MyChats /> },
     { tab: "metrics", element: <Metric /> },
-    { tab: "database", element: <MyDatabases /> },
+    { tab: "artificial_intelligence", element: <MyArtificialIntelligence /> },
+    { tab: "products", element: <MyProducts /> },
     { tab: "records", element: <ConversationHistoric /> },
     { tab: "conversations", element: <ConversationHistoric /> },
     { tab: "leads", element: <Leads /> },

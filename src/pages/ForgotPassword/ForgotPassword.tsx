@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { Button } from "../../components/button/Button";
-import { Input } from "../../components/Input/Input";
+import { Input } from "../../components/Form/components/Fields/Input/Input";
 import { useForm } from "react-hook-form";
 import { changePasswordClient, recoverPassword } from "../../api/client";
 import { ModalContext } from "../../context/ModalContext";
@@ -9,13 +9,13 @@ import { PopUp } from "../../components/modal/templates/PopUp";
 import { ModalChangePassword } from "./ModalChangePassword/ModalChangePassword";
 import { useNavigate } from "react-router-dom";
 import { AxiosResponse } from "axios";
-import { Client } from "../../@types/Client";
+import { Client } from "../../@types/Client.types";
 import { Header } from "../Home/components/Header/Header";
 
 interface ForgotPassword { }
 
 export function ForgotPassword({ }: ForgotPassword) {
-    const { register, handleSubmit } = useForm();
+    const form = useForm();
     const { setModalContent, clearModal } = useContext(ModalContext);
     const navigate = useNavigate();
 
@@ -132,22 +132,22 @@ export function ForgotPassword({ }: ForgotPassword) {
                 <p className="text-center">Não se preocupe, vamos ajudar recuperar sua senha</p>
                 <form
                     className="w-full flex flex-col gap-4"
-                    onSubmit={handleSubmit(handleRecoverPassword)}
+                    onSubmit={form.handleSubmit(handleRecoverPassword)}
                 >
                     <Input
                         name="fullname"
                         title="Digite seu nome completo"
-                        register={register}
+                        formContext={form}
                     />
                     <Input
                         name="email"
                         title="Digite o e-mail da sua conta"
-                        register={register}
+                        formContext={form}
                     />
                     <Input
                         name="cpf_cnpj"
                         title="Digite o seu cpf ou cnpj"
-                        register={register}
+                        formContext={form}
 
                     />
                     <Button

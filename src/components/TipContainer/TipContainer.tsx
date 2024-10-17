@@ -6,30 +6,31 @@ interface TipContainer {
     tip: string;
     positionY?: "BOTTOM" | "TOP";
     positionX?: "LEFT" | "RIGHT";
+    display?: boolean
 }
 
-export function TipContainer({ children, tip, positionY = "TOP", positionX = "RIGHT" }: TipContainer) {
+export function TipContainer({ children, tip, display = true, positionY = "TOP", positionX = "RIGHT" }: TipContainer) {
     const ballonTipRef: RefObject<HTMLDivElement> = useRef(null);
-    const CARACTERES_MAX = 40;
-
-    if (tip.length > CARACTERES_MAX) console.error(`A tip não pode conter um nome maior que ${CARACTERES_MAX} caracteres.`, children);
 
     useEffect(() => {
         if (ballonTipRef.current?.style) {
             const tipSize = tip.length
             const ballonSize = tipSize < 15 ? "120px" : tipSize < 20 ? "160px" : tipSize < 25 ? "200px" : "250px";
-            ballonTipRef.current.setAttribute("style", `width: ${ballonSize}; font-size: ${tipSize > 30 ? ".8rem" : ".9rem"};`);
+            ballonTipRef.current.setAttribute("style", `width: ${ballonSize}; font-size: ${tipSize > 30 ? ".8rem" : ".9rem"}; line-height: 1rem`);
         }
     }, []);
 
     return (
-        <div className="min-h-[30px] flex items-center relative group">
+        <div
+            className="min-h-[30px] flex items-center relative group "
+        >
             <div
                 ref={ballonTipRef}
+                data-display={display}
                 data-positiony={positionY}
                 data-positionx={positionX}
                 className={
-                    `hidden md:block border border-light/40 bg-primary-100 p-1 rounded-xl absolute z-40 
+                    `hidden md:block data-[display=false]:hidden border border-light/40 bg-primary-100 p-1 rounded-xl absolute z-40
                     data-[positiony=TOP]:-top-full data-[positiony=TOP]:-translate-y-3 data-[positiony=BOTTOM]:-bottom-full data-[positiony=BOTTOM]:translate-y-2
                     data-[positionx=RIGHT]:left-4/5 data-[positionx=LEFT]:right-0
                     text-center invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity`
@@ -47,7 +48,9 @@ export function TipContainer({ children, tip, positionY = "TOP", positionX = "RI
                     }
                 />
             </div>
-            {children}
+            <div className="w-full ">
+                {children}
+            </div>
         </div>
     )
 };

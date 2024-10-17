@@ -9,21 +9,23 @@ import { Root } from "../../components/Form/FormRoot";
 import { saveGuest } from "../../api/guest.api";
 import { ModalContext } from "../../context/ModalContext";
 import { PopOver } from "../../components/modal/templates/PopOver";
+import { Input } from "../../components/Form/components/Fields/Input/Input";
+import { FormCheckBox } from "../../components/Form/components/Fields/FormCheckBox";
 
 const createClientFormSchema = z.object({
-    email: z.string().min(1, "E-mail não pode estar vazio.").email("O e-mail é obrigatório.").toLowerCase(),
-    password: z.string().min(6, "Crie uma senha forte com no minimo 6 caracteres"),
-    confirm_policies: z.boolean().refine((value) => value === true, { message: "Você precisa concordar com nossos termos de uso, politicas de privacidade e politicas de cookies." }),
-    fullname: z.string().min(1, "Seu nome não pode estar vazio.").refine((input) => {
+    fullname: z.string().min(1, "0:Seu nome não pode estar vazio.").refine((input) => {
         const words = input.trim().split(" ");
         return words.length >= 2
-    }, { message: "Digite seu nome completo" }).transform(name =>
+    }, { message: "0:Digite seu nome completo" }).transform(name =>
         name.trim().split(" ")
             .map(word => word[0]
                 .toLocaleUpperCase()
                 .concat(word.substring(1))
             ).join(" ")
     ),
+    email: z.string().min(1, "0:E-mail não pode estar vazio.").email("0:O e-mail é obrigatório.").toLowerCase(),
+    password: z.string().min(6, "1:Crie uma senha forte com no minimo 6 caracteres"),
+    confirm_policies: z.boolean().refine((value) => value === true, { message: "1:Você precisa concordar com nossos termos de uso, politicas de privacidade e politicas de cookies." }),
 });
 
 type CreateUserFormData = z.infer<typeof createClientFormSchema>;
@@ -67,7 +69,7 @@ function Register() {
                 components: 
                 <PopOver 
                     componentName="modal_failed_create_account"
-                    message="Erro ao tentar criar a conta"
+                    message="E-mail já existe, tente utilizar outro e-mail ou faça login na sua conta."
                     type="WARNING"
                 />
             })
@@ -87,7 +89,7 @@ function Register() {
                         className="w-1/2"
                     >
                         <img
-                            src="https://i.ibb.co/sq5xWh0/Mobile-login-pana.png"
+                            src="https://wipzee-files.online/images/Mobile-login-pana.png"
                             alt=""
                             className="w-full h-full object-cover"
                         />
@@ -104,11 +106,11 @@ function Register() {
                                 titleButtonSend="Criar conta"
                             >
                                 <Root.Step index={0}>
-                                    <Root.Input
+                                    <Input
                                         name="fullname"
                                         title="Digite seu nome completo"
                                     />
-                                    <Root.Input
+                                    <Input
                                         name="email"
                                         title="Digite um e-mail válido"
                                     />
@@ -116,19 +118,19 @@ function Register() {
                                 </Root.Step>
 
                                 <Root.Step index={1}>
-                                    <Root.Input
+                                    <Input
                                         name="password"
                                         title="Crie uma nova senha de acesso"
                                         type="password"
                                     />
 
-                                    <Root.Input
+                                    <Input
                                         name="confirm_password"
                                         title="Confirme sua senha de acesso"
                                         type="password"
                                     />
 
-                                    <Root.Checkbox
+                                    <FormCheckBox
                                         name="confirm_policies"
                                         title={`Confirme que você leu as <a class="underline text-blue-300" href="/polices" target="blank">Politicas de privacidade</a>, <a class="underline text-blue-300" href="/cookies" target="blank">Politicas de cookies</a>, <a class="underline text-blue-300" href="/terms" target="blank">termos de uso</a>. com o entendimento das politicas, você estará autorizado a criar uma conta em nossa plataforma. `}
                                     />

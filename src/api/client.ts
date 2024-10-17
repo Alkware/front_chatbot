@@ -1,16 +1,18 @@
 import axios from "axios"
-import { clientLoginTypes, clientRegisterTypes } from "../@types/Client"
+import { Client, clientLoginTypes, clientRegisterTypes } from "../@types/Client.types"
 import { API_URL } from "./url-api"
 
 export async function getClientById(id: string) {
     const client = await axios.get(`${API_URL}/client/${id}`).catch(err => console.warn(err))
 
-    return client
+    if (!client) return;
+
+    return client.data
 }
 
 export async function registerClient({ email, password, fullname, origin }: clientRegisterTypes) {
     const client = await axios.post(`${API_URL}/client/create`, { email, password, fullname, origin })
-        .catch(error => console.warn(error))
+        .catch(error => console.error(error))
     return client
 }
 
@@ -21,30 +23,31 @@ export async function authenticateClient(token: string) {
         }
     }).catch(error => console.warn(error));
 
-    return client
+    if (!client) return;
+
+    return client.data
 }
 
 
 export async function loginClient({ email, password }: clientLoginTypes) {
-
     const client = await axios.post(`${API_URL}/client/login`, { email, password }).catch(err => console.warn(err))
 
     return client
-
 }
 
 export async function loginClientFirstAccess({ email, cpf_cnpj }: { email: string, cpf_cnpj: string }) {
 
-    const client = await axios.post(`${API_URL}/client/first_access`, { email, cpf_cnpj}).catch(err => console.warn(err))
+    const client = await axios.post(`${API_URL}/client/first_access`, { email, cpf_cnpj }).catch(err => console.warn(err))
 
     return client
 
 }
 
-export async function updateClient(data: { client_id: string, fullname?: string, logo?: string, cpf_cnpj?: string, user?: string }) {
-    const client = await axios.put(`${API_URL}/client/update`, data).catch(err => console.warn(err))
+export async function updateClient(client_id: string, data: Partial<Client>) {
+    const response = await axios.put(`${API_URL}/client/update/${client_id}`, data).catch(err => console.warn(err))
+    if (!response) return;
 
-    return client
+    return response.data
 }
 
 
@@ -80,7 +83,7 @@ export async function checkUserIsAvailable(user: string) {
 }
 
 
-export async function updateTutorialClient(client_id: string, tutorial: boolean) {
+export async function updateStatusTour(client_id: string, tutorial: boolean) {
 
     const response = await axios.put(`${API_URL}/client/update_tutorial`, { client_id, tutorial })
         .catch(err => {

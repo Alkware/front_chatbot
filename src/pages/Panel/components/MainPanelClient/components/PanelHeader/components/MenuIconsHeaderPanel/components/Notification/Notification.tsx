@@ -132,9 +132,9 @@ export function Notification() {
                                 <div className="min-w-1/3">
                                     {
                                         !!notification.read ?
-                                            <MdNotifications className="text-2xl fill-zinc-300" />
+                                            <MdNotifications className="size-6 fill-zinc-300" />
                                             :
-                                            <MdNotificationImportant className="text-2xl fill-orange-400" />
+                                            <MdNotificationImportant className="size-6 fill-orange-400" />
                                     }
                                 </div>
 

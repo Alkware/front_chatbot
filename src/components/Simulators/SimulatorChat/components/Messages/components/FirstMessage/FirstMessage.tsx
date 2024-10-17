@@ -6,7 +6,7 @@ export function FirstMessage() {
     const { watch } = useFormContext();
 
     useEffect(()=>{
-        let firstMessage = watch("step_0.chat_input_message")
+        let firstMessage = watch("chat_input_message.0")
         setFirstMessage(firstMessage)
     }, [watch()])
 

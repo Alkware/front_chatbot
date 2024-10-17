@@ -6,7 +6,7 @@ export function ContactName() {
     const { watch } = useFormContext();
 
     useEffect(()=>{
-        let name = watch("step_0.project_name");
+        let name = watch("project_name");
         setContactName(name)
     }, [watch()])
 

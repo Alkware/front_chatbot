@@ -1,5 +1,4 @@
 import { useContext } from "react";
-
 import { useNavigate } from "react-router-dom";
 import { IoAddOutline } from "react-icons/io5";
 import { ClientContext } from "../../../../../../../../../../context/ClientContext";
@@ -9,7 +8,6 @@ import { TipContainer } from "../../../../../../../../../../components/TipContai
 import { PopUp } from "../../../../../../../../../../components/modal/templates/PopUp";
 import { Button } from "../../../../../../../../../../components/button/Button";
 import { MdAdd } from "react-icons/md";
-import { TutoralContainer } from "../../../../../../../../../../components/TutoralContainer/TutoralContainer";
 import { Project } from "../../../../../../../../../../@types/Project";
 
 interface ButtonCreateChat {
@@ -18,14 +16,14 @@ interface ButtonCreateChat {
     index: number
 }
 
-export function ButtonCreateChat({ plan_management_id, projects, index }: ButtonCreateChat) {
+export function ButtonCreateChat({ plan_management_id }: ButtonCreateChat) {
     const { client } = useContext(ClientContext)
     const { setModalContent, clearModal } = useContext(ModalContext)
     const navigate = useNavigate();
 
     const handleClickNewProject = () => {
         if (client?.plan_management) {
-            if (!!client?.plan_management.prompt.length) {
+            if (!!client?.plan_management.artificial_intelligence.length) {
                 const maxPlans = Number(client.plan_management.plan.max_projects.default);
                 const currentNumberOfProjects = client.plan_management.project.length
                 if (client.plan_management.status !== "DISABLED") {
@@ -58,14 +56,17 @@ export function ButtonCreateChat({ plan_management_id, projects, index }: Button
                     components:
                         <PopUp>
                             <div className="flex flex-col items-center justify-center gap-4 p-4">
-                                <h2 className="text-xl text-center">Para criar um novo chat, antes é necessário <br />  criar uma fonte de dados.</h2>
-                                <h2 className="text-lg text-center opacity-80">Nossa inteligência artifical vai analisar seus dados e <br /> responder as dúvidas do usuário <br />conforme as informações passadas na fonte de dados.</h2>
+                                <h2 className="text-xl text-center">Para criar um novo chat, antes é necessário <br />  criar uma inteligência artificial.</h2>
+                                <h2 className="text-lg text-center opacity-80">Ela será capaz de aprender sobre seu negócio e <br />dar informações precisas ao usuário sem que você precise realizar <br />esse atendimento.</h2>
                                 <Button
                                     customClass="my-4"
-                                    onClick={() => { navigate("/panel?tab=database"); clearModal("modal_create_database") }}
+                                    onClick={() => {
+                                        navigate(`/panel?tab=artificial_intelligence`)
+                                        clearModal("modal_create_database")
+                                    }}
                                 >
                                     <MdAdd />
-                                    Criar fonte de dados
+                                    Criar Inteligência artificial
                                 </Button>
                             </div>
                         </PopUp>
@@ -88,19 +89,11 @@ export function ButtonCreateChat({ plan_management_id, projects, index }: Button
     return (
         <div
             onClick={handleClickNewProject}
-            className="w-4/5 xs:w-1/2 md:w-1/4 min-w-[200px] min-h-[200px] cursor-pointer flex justify-center items-center"
+            className="w-full h-full min-w-[200px] min-h-[200px] cursor-pointer  rounded-xl flex justify-center items-center border border-primary-100 bg-primary-50 dark:bg-primary-300 hover:bg-primary-200 text-light dark:text-primary-100 text-xl"
         >
-            <TutoralContainer
-                title="Vamos criar seu primeiro chat"
-                text={`Clique em <span class="text-3xl font-medium mx-1">+</span> para criar seu primeiro chat de forma simples e fácil`}
-                positionX={window.innerWidth >= 800 ? "RIGHT" : "CENTER"}
-                hidden={index !== 0 || projects.length !== 0}
-            >
-                <TipContainer tip="Crie um novo chat">
-                    <IoAddOutline className="text-6xl text-light dark:text-primary-100" />
-                </TipContainer>
-            </TutoralContainer>
-
+            <TipContainer tip="Crie um novo chat">
+                <IoAddOutline className="text-6xl text-light dark:text-primary-100" />
+            </TipContainer>
         </div >
     )
 

@@ -6,7 +6,7 @@ export function BioDescribe() {
     const { watch } = useFormContext();
 
     useEffect(()=>{
-        const describeData = watch("step_0.bio");
+        const describeData = watch("bio");
         describeData && setDescribe(describeData)
     }, [watch()])
 

@@ -12,7 +12,7 @@ export function DisplayNotification({ notification, setDisplayNotification }: Di
     const { clearModal } = useContext(ModalContext);
 
     const handleClickAction = () => {
-        eval(notification.notification.code)
+        // eval(notification.notification.code)
         setDisplayNotification(false)
     }
 

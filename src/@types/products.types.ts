@@ -1,0 +1,58 @@
+import { Image } from "./images.types";
+import { PlanManagement } from "./planManagement";
+
+export type Promocional_price = {
+    price?: number | null;
+    end_date?: {
+        day?: string | null,
+        month?: string | null, 
+        year?: string | null, 
+    } | null;
+}
+
+export type Category = {
+    name: string;
+}
+
+export type Warranty_time = {
+    type: string;
+    time: number
+}
+export type Optional_variable = {
+    title: string;
+    value: string
+}
+
+export type Questions = {
+    ask: string;
+    answer: string
+}
+
+export type Product = {
+    id: string
+    plan_management_id: string
+    category: Category;
+    product_name: string
+    price: string
+    promocional_price?: Promocional_price | null;
+    description: string
+    payment_methods: string[]
+    credit_card_installments?: string | null
+    how_guarantee_work: string
+    how_product_will_be_delivered: string
+    tracking_link?: string | null;
+    delivery_fee?: string | null;
+    warranty_time: Warranty_time
+    optional_variable?: Optional_variable[] | null;
+    questions?: Questions[] | null;
+    extra_information?: string | null
+    how_exchanges_work_and_returns: string
+    plan_management?: PlanManagement;
+    images: Image[];
+    image_main: Image;
+    created_at?: Date
+    updated_at?: Date
+}
+
+
+export type Create_Product = Omit<Partial<Product>, "images"> & { images: string[] }

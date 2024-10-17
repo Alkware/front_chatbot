@@ -1,12 +1,12 @@
 import { RefObject, useContext, useRef } from "react";
 import { Button } from "../../../../components/button/Button";
 import { ModalContext } from "../../../../context/ModalContext";
-import { Input } from "../../../../components/Input/Input";
+import { Input } from "../../../../components/Form/components/Fields/Input/Input";
 import { addMaskCpfOrCnpjToInput } from "../../../../functions/addMaskToInput";
 import { updateClient } from "../../../../api/client";
 import { ClientContext } from "../../../../context/ClientContext";
 import { AxiosResponse } from "axios";
-import { Client } from "../../../../@types/Client";
+import { Client } from "../../../../@types/Client.types";
 import { PopOver } from "../../../../components/modal/templates/PopOver";
 import { loading } from "../../../../functions/loading";
 
@@ -34,7 +34,7 @@ export function ModalSaveCpfOrCnpj({ modalName }: ModalSaveCpfOrCnpj) {
 
         if (cpf_cnpj && (cpf_cnpj.length === 11 || cpf_cnpj.length === 14 || cpf_cnpj.length === 18)) {
             const newCpfOrCnpj = cpf_cnpj.replaceAll(".", "").replaceAll("/", "").replaceAll("-", "");
-            const response: void | AxiosResponse<Client> = await updateClient({ client_id: client.id, cpf_cnpj: newCpfOrCnpj });
+            const response: void | AxiosResponse<Client> = await updateClient(client.id, { cpf_cnpj: newCpfOrCnpj });
             if (response) {
                 setModalContent({
                     componentName: "modal_success_save_cpf_cnpj",

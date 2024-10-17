@@ -1,23 +1,20 @@
 import { useFormContext } from "react-hook-form";
 import { FirstMessage } from "./components/FirstMessage/FirstMessage";
 import { useEffect, useState } from "react";
-import { Call_to_action } from "../../../../../@types/Project";
-import { useSearchParams } from "react-router-dom";
-import { CTA_NAME_URL } from "../../../../../variables/variables";
+import { Link } from "../../../../../@types/Project";
+import { LinkMessage } from "./components/LinkMessage/LinkMessage";
 
 export function Messages() {
     const { watch } = useFormContext();
-    const [buttons, setButtons] = useState<Call_to_action[]>();
-    const [params] = useSearchParams();
-    const currentCTA = Number(params.get(CTA_NAME_URL)) || 0;
+    const [links, setLinks] = useState<Link[]>();
     const [secundaryColor, setSecundaryColor] = useState();
     const [background, setBackground] = useState();
 
     useEffect(() => {
-        const secondColorData = watch("step_3.chat_appearance.second_color")
-        const backgroundData = watch("step_3.chat_appearance.background")
-        const buttons = watch("step_1.call_to_action");
-        setButtons(buttons)
+        const secondColorData = watch("chat_appearance.second_color")
+        const backgroundData = watch("chat_appearance.background")
+        const links = watch("links");
+        setLinks(links)
         setSecundaryColor(secondColorData)
         setBackground(backgroundData)
     }, [watch()])
@@ -31,24 +28,11 @@ export function Messages() {
                 Array.from({ length: 5 }).map((_, index, self) => {
 
                     return index % 2 == 0 ?
-                        (!!buttons?.length && !!buttons[currentCTA]?.button_text && index === 4) ?
-                            <div
+                        (!!links?.length && index === 4) ?
+                            <LinkMessage 
                                 key={index}
-                                data-isbutton={!!buttons?.length}
-                                className="w-3/4 h-auto bg-white text-dark rounded-lg self-start my-3 flex flex-col justify-center"
-                            >
-                                <span
-                                    className="p-1 px-2"
-                                >
-                                    Aqui está o link, basta clicar sobre ele.</span>
-                                <a
-                                    href={buttons[currentCTA].button_link}
-                                    target="_blank"
-                                    className="w-full p-1 text-center underline text-blue-500 border-t border-blue-500/40"
-                                >
-                                    {buttons[currentCTA].button_text}
-                                </a>
-                            </div >
+                                links={links}
+                            />
                             :
                             <div
                                 key={index}

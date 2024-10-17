@@ -2,16 +2,16 @@ import { Dispatch, SetStateAction, useContext } from "react";
 import { FcSettings } from "react-icons/fc";
 import { ModalContext } from "../../../../../../../../../../context/ModalContext";
 import { Project } from "../../../../../../../../../../@types/Project";
-import { Database } from "../../../../../../../../../../@types/Database.types";
 import { ModalEditChat } from "./components/ModalEditChat/ModalEditChat";
+import { Artificial_Intelligence } from "../../../../../../../../../../@types/artificialInteligence.types";
 
 interface EditProject {
     project: Project,
     setNewProject: Dispatch<SetStateAction<Project[]>>
-    prompts: Database[]
+    ai: Artificial_Intelligence[]
 }
 
-export function EditProject({ project, setNewProject, prompts }: EditProject) {
+export function EditProject({ project, setNewProject, ai }: EditProject) {
     const { setModalContent } = useContext(ModalContext);
 
     const handleEditProject = () => {
@@ -21,7 +21,7 @@ export function EditProject({ project, setNewProject, prompts }: EditProject) {
             <ModalEditChat
                 setProjects={setNewProject}
                 project={project}
-                prompts={prompts}
+                ai={ai}
             />
         })
     }

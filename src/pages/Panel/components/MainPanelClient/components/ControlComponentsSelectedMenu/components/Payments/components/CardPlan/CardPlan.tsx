@@ -2,7 +2,7 @@ import { PlanName } from "./components/PlanName"
 import { PlanInformation } from "./components/PlanInformation"
 import { ButtonChangeAndAddPlan } from "./components/ButtonChangeAndAddPlan"
 import { ButtonRequestRefund } from "./components/ButtonRequestRefund"
-import { Client } from "../../../../../../../../../../@types/Client"
+import { Client } from "../../../../../../../../../../@types/Client.types"
 
 export function CardPlan({ client }: { client?: Client }) {
     return (

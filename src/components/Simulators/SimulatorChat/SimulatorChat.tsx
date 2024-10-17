@@ -15,9 +15,9 @@ export function SimulatorChat({ active }: SimulatorChat) {
     const [primaryColor, setPrimaryColor] = useState();
 
     useEffect(() => {
-        const iconIndex = watch("step_3.chat_appearance.chat_icon")
-        const primaryColor = watch("step_3.chat_appearance.primary_color")
-        const text = watch("step_3.chat_appearance.icon_text")
+        const iconIndex = watch("chat_appearance.chat_icon")
+        const primaryColor = watch("chat_appearance.primary_color")
+        const text = watch("chat_appearance.icon_text")
 
         setChatIconIndex(iconIndex)
         setIconText(text)

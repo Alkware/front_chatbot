@@ -53,11 +53,6 @@ export const PARAM_MENU_MOBILE = {
     }
 }
 /**
- * Nome da atual cta que ficará na url do navegador.
- * Esse nome da query serve para definir qual é o atual button CTA exibido nos formulários.
- */
-export const CTA_NAME_URL = "current-cta"
-/**
  * Nome que ficará na url do navegador.
  * Esse nome da query serve para definir qual é o atual icone a ser exibido nos formulários.
  */
