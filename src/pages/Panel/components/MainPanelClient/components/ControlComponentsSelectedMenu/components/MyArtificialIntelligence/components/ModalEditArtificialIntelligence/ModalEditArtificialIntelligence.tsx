@@ -13,6 +13,8 @@ import { Artificial_Intelligence, Info_Artificial_Intelligence } from "../../../
 import { StepAddProducts } from "../../../../../../../../../CreateArtificialIntelligence/components/FormCreateDatabase/components/StepAddProducts/StepAddProducts";
 import { StepAboutCompany } from "../../../../../../../../../CreateArtificialIntelligence/components/FormCreateDatabase/components/StepAboutCompany/StepAboutCompany";
 import { StepPersonalityIA } from "../../../../../../../../../CreateArtificialIntelligence/components/FormCreateDatabase/components/StepPersonalityIA/StepPersonalityIA";
+import { updateClientCompany } from "../../../../../../../../../../api/client_company.api";
+import { Client_Company } from "../../../../../../../../../../@types/clientCompany.types";
 
 interface ModalEditArtificialIntelligence {
     plan_management_id: string;
@@ -39,6 +41,7 @@ export function ModalEditArtificialIntelligence({ plan_management_id, intelligen
      * @param {Info_Artificial_Intelligence} data Objeto com as informações que serão atualizadas...
      */
     const handleUpdateArtificialIntelligence = async (data: Info_Artificial_Intelligence) => {
+        const companyStorage: Client_Company = JSON.parse(localStorage?.company_info);
 
         const ai: Info_Artificial_Intelligence = {
             products_id: data.products_id,
@@ -48,10 +51,11 @@ export function ModalEditArtificialIntelligence({ plan_management_id, intelligen
             restrictions: data.restrictions,
             client_describe: data.client_describe,
             plan_management_id: intelligence.plan_management_id,
-            client_company_id: data.client_company_id
+            client_company_id: companyStorage.id,
         };
 
         const aiUpdated = await updateArtificialIntelligence(ai, intelligence.id);
+        updateClientCompany(companyStorage)
 
         if (aiUpdated && client && aiUpdated.status === 200) {
             setIntelligence(intelli => [...intelli.filter(i => i.id !== aiUpdated.data.id), aiUpdated.data])

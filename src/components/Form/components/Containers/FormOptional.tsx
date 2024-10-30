@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactElement, useState } from "react"
+import { HTMLAttributes, ReactElement, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import { STEP_NAME_URL } from "../../../../variables/variables";
 import { ToggleComponent } from "../../../Toggle/Toggle";
@@ -10,6 +10,7 @@ interface FormOptional extends HTMLAttributes<HTMLDivElement> {
     children?: ReactElement | ReactElement[];
     text: string;
     name: string,
+    defaultValue?: string;
     functionOffToggle?: () => void;
     functionOnToggle?: () => void;
 }
@@ -23,11 +24,15 @@ interface FormOptional extends HTMLAttributes<HTMLDivElement> {
  * @param active Define se o toggle vai iniciar ativado ou desativado.
  * @returns 
  */
-export function FormOptional({ children, text, functionOffToggle, functionOnToggle, name, ...props }: FormOptional) {
+export function FormOptional({ children, text, functionOffToggle, functionOnToggle, name, defaultValue, ...props }: FormOptional) {
     const { watch } = useFormContext();
-    const active = watch(name);
-    const [display, setDisplay] = useState(!!active?.length ? true : false);
+    const active: string = watch(name) || defaultValue;
+    const [display, setDisplay] = useState<boolean>();
     const [params, setParams] = useSearchParams();
+
+    useEffect(()=>{
+        if(!!active) setDisplay(true)
+    }, []);
 
     const handleActiveCTA = async (prop: any) => {
         // busca a atual step do formulario
@@ -74,7 +79,7 @@ export function FormOptional({ children, text, functionOffToggle, functionOnTogg
                     template="yesNo"
                 />
             </h2>
-            {(display && children) &&
+            {(display && !!children) &&
                 <div
                     className={twMerge("flex flex-col justify-between items-center gap-8", props.className)}
                 >

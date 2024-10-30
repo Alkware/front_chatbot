@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL } from "./url-api";
 import { Client_Company, Info_Client_Company } from "../@types/clientCompany.types";
+import { createLog } from "./log";
 
 /**
  * Função responsável por buscar as informações da empresa do cliente baseado no id.
@@ -31,6 +32,30 @@ export async function createClientCompany(company: Info_Client_Company): Promise
     const response = await axios.post(`${API_URL}/company/create`, company).catch(err => console.error(err));
 
     if (!response) return;
+
+    return response.data;
+}
+
+
+
+/**
+ * Função responsável por atualizar uma empresa para o cliente.
+ * @param {Info_Client_Company} company Informações da empresa a serem atualizadas.
+ * @returns {Client_Company} Retorna um objeto com todas as informações atualizadas
+ */
+export async function updateClientCompany(company: Info_Client_Company): Promise<Client_Company | void> {
+
+    const response = await axios.put(`${API_URL}/company/update`, company).catch(err => console.error(err));
+
+    if (!response) {
+        createLog({
+            level: "warning",
+            log: "Não foi possivel atualizar os dados da empresa do usuário ao atualizar a IA",
+            path: "src/api/client_company.api.ts",
+            sector: "Plataforma"
+        });
+        return;
+    };
 
     return response.data;
 }
